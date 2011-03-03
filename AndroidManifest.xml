@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="org.fusioninventory"
+	android:versionCode="1"
+	android:versionName="1.0"
+>
+	<uses-sdk
+		android:minSdkVersion="8" />
+
+	<!-- Permissions -->
+	<uses-permission
+		android:name="android.permission.RECEIVE_BOOT_COMPLETED"
+	></uses-permission>
+	<uses-permission
+		android:name="android.permission.ACCESS_NETWORK_STATE"
+	></uses-permission>
+	<uses-permission
+		android:name="android.permission.ACCESS_MOCK_LOCATION"
+	></uses-permission>
+	<uses-permission
+		android:name="android.permission.ACCESS_WIFI_STATE"
+	></uses-permission>
+	<uses-permission
+		android:name='android.permission.ACCESS_COARSE_LOCATION'
+	></uses-permission>
+	<uses-permission
+		android:name='android.permission.ACCESS_FINE_LOCATION'
+	></uses-permission>
+	<uses-permission
+		android:name='android.permission.ACCESS_LOCATION_EXTRA_COMMANDS'
+	></uses-permission>
+
+	<application
+		android:icon="@drawable/icon"
+		android:label="@string/app_name"
+	>
+		<activity
+			android:name=".FusionInventory"
+			android:label="@string/app_name"
+		>
+			<intent-filter>
+				<action
+					android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<service
+			android:enabled="true"
+			android:name="Agent"
+			android:label="FusionInventory Agent"
+			android:description="@string/agent_description"
+			android:icon="@drawable/fusioninventory"
+			android:process=":agent">
+			<intent-filter>
+				<action
+					android:name="org.fusioninventory.Agent" />
+			</intent-filter>
+		</service>
+		<receiver
+			android:name="BootStartAgent"
+		>
+			<intent-filter>
+				<action
+					android:name="android.intent.action.BOOT_COMPLETED" />
+				<category
+					android:name="android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
+	</application>
+
+
+</manifest>

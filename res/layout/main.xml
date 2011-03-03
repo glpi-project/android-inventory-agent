@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/xbgtile"
+>
+	<Button
+		android:id="@+id/button1"
+		android:text="@string/button_start_inventory"
+		android:height="20sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="fill"
+	></Button>
+	<Button
+		android:id="@+id/button_connect"
+		android:text="@string/button_connect_agent"
+		android:height="20sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="fill"
+		android:visibility="invisible"
+	></Button>
+	<Button
+		android:id="@+id/button_disconnect"
+		android:text="@string/button_disconnect_agent"
+		android:height="20sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="fill"
+		android:visibility="invisible"
+	></Button>
+	<TextView
+		android:text=""
+		android:id="@+id/text_result"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@color/result_background"
+	></TextView>
+</LinearLayout>

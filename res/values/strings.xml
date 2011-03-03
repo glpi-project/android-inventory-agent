@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FusionInventory</string>
+    <string name="agent_started">FusionInventory Agent is started</string>
+    <string name="agent_stopped">FusionInventory Agent is stopped</string>
+    <string name="agent_description">The inventory agent running in background</string>
+    <string name="button_start_inventory">Start Inventory</string>
+    <string name="menu_settings">Settings</string>
+    <string name="all_permissions">Grant all possible permissions</string>
+    <string name="agent_connected">Connected to Agent Service</string>
+    <string name="agent_disconnected">Disconnected from Agent Service</string>
+    <string name="inventory_started">Starting inventory...</string>
+    <string name="inventory_ended">End of inventory.</string>
+    <string name="button_connect_agent">Connect Agent</string>
+    <string name="button_disconnect_agent">Disconnect Agent</string>
+</resources>
