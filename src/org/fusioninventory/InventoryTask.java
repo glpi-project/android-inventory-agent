@@ -1,11 +1,6 @@
 package org.fusioninventory;
 
 import java.io.StringWriter;
-import java.io.Writer;
-
-import android.os.AsyncTask;
-import android.text.format.DateFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,9 +9,11 @@ import org.fusioninventory.categories.Telephony;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.util.Xml;
 
-public class InventoryTask extends AsyncTask<Void, Integer, String>{
+public class InventoryTask extends Thread {
 	
 	/*
 	 * TODO: Implémenter l'inventaire sous forme de Hashmap/Hashtable
@@ -29,6 +26,9 @@ public class InventoryTask extends AsyncTask<Void, Integer, String>{
 	static final int OK = 0;
 	static final int NOK = 1;
 
+	public Boolean running = false;
+	public int progress = 0;
+	
 	public InventoryTask(Context context) {
 		ctx = context;
 	}
@@ -36,16 +36,35 @@ public class InventoryTask extends AsyncTask<Void, Integer, String>{
 	public String toXML() {
 
 		if (content != null) {
-			XmlSerializer serializer = Xml.newSerializer();
 
+//			KXmlSerializer serializer = new KXmlSerializer();
+			XmlSerializer serializer = Xml.newSerializer();
 			StringWriter writer = new StringWriter();
+						
 			
+			
+//			serializer.setProperty(
+//			   "http://xmlpull.org/v1/doc/properties.html#serializer-indentation", "   ");
+//			// also set the line separator
+//			serializer.setProperty(
+//			   "http://xmlpull.org/v1/doc/properties.html#serializer-line-separator", "\n");
 			try {
 				serializer.setOutput(writer);
-				serializer.startDocument("utf-8", null);
+				serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
+				// indentation as 3 spaces
+
+				serializer.startDocument("utf-8", true);
 				// Start REQUEST
 				serializer.startTag(null, "REQUEST");
 				// Start CONTENT
+				serializer.startTag(null,"QUERY");
+				serializer.text("INVENTORY");
+				serializer.endTag(null,"QUERY");
+				
+				serializer.startTag(null,"DEVICE-ID");
+				serializer.text("android");
+				serializer.endTag(null,"DEVICE-ID");
+				
 				serializer.startTag(null, "CONTENT");
 				// Start ACCESSLOG
 				serializer.startTag(null, "ACCESSLOG");
@@ -82,21 +101,33 @@ public class InventoryTask extends AsyncTask<Void, Integer, String>{
 	}
 
 	@Override
-	protected String doInBackground(Void... params) {
-		// TODO Auto-generated method stub
+	public synchronized void run() {
+		running = true;
 		start = new Date();
-
+		
+		FusionInventory.log(this, "adding telephony", Log.INFO);
 		content = new ArrayList<Category>();
 		content.add(new Telephony(ctx));
-
+//		FusionInventory.log(this, "waiting 5 secs", Log.INFO);
+//		SystemClock.sleep(5000);
+		FusionInventory.log(this, "end of inventory", Log.INFO);
 		end = new Date();
-		return this.toXML();
+		running = false;
 	}
+	
+//	@Override
+//	protected  run () {
+//		// TODO Auto-generated method stub
+//		start = new Date();
+//
+//		content = new ArrayList<Category>();
+//		content.add(new Telephony(ctx));
+//		SystemClock.sleep(5000);
+//
+//		end = new Date();
+//		return this.toXML();
+//	}
 
-	@Override
-	protected void onProgressUpdate(Integer... values) {
-		// TODO Auto-generated method stub
-		super.onProgressUpdate(values);
-		
-	}
+
+	
 }

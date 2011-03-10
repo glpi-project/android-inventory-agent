@@ -15,9 +15,11 @@ public class Telephony extends Category {
 		 * Starting Telephony Informations pull
 		 */
 
-		this.content.put("SIM_COUNTRY", mTM.getSimCountryIso());
-		this.content.put("SIM_OPERATOR_CODE", mTM.getSimOperator());
-		this.content.put("SIM_OPERATOR_NAME", mTM.getSimOperatorName());
+		this.content.put("DEVICEID",mTM.getDeviceId());
+		this.content.put("SOFTWAREVERSION",mTM.getDeviceSoftwareVersion());
+		this.content.put("SIMCOUNTRY", mTM.getSimCountryIso());
+		this.content.put("SIMOPERATORCODE", mTM.getSimOperator());
+		this.content.put("SIMOPERATORNAME", mTM.getSimOperatorName());
 
 	}
 }

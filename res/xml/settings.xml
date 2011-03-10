@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+>
+	<PreferenceCategory
+		android:title="Agent Settings"
+	>
+		<CheckBoxPreference
+			android:title="Phone Boot"
+			android:key="boot"
+			android:summaryOn="Agent is automatically launched at phone boot" 
+			android:summaryOff="Agent must be launched manually"
+			android:persistent="true"
+			android:defaultValue="false"
+			/>
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="Server Settings"
+
+	>
+		<org.fusioninventory.UrlPreference
+			android:title="Inventory Server"
+			android:key="url"
+			android:defaultValue="http://"
+			android:persistent="true"
+			/>
+
+	</PreferenceCategory>
+</PreferenceScreen>

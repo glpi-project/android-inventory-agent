@@ -17,6 +17,8 @@ public class Category {
 		this.content = new Hashtable<String, Object>();
 	}
 
+	
+	
 	public void toXML(XmlSerializer serializer) {
 		try {
 			serializer.startTag(null, this.type);
