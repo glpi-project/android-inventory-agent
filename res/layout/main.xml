@@ -7,13 +7,13 @@
 	android:background="@drawable/xbgtile"
 	android:orientation="vertical"
 >
-	<!-- <Button android:id="@+id/start_button" android:layout_width="match_parent" 
-		android:layout_height="wrap_content" android:text="Start Inventory" android:layout_marginLeft="5dip" 
-		android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_marginBottom="5dip" 
-		android:padding="5dip" 
+	<!-- <Button android:id="@+id/start_button" android:layout_width="match_parent"
+		android:layout_height="wrap_content" android:text="Start Inventory" android:layout_marginLeft="5dip"
+		android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_marginBottom="5dip"
+		android:padding="5dip"
 		></Button> -->
-		
-		
+
+
 	<ScrollView
 		android:scrollbarStyle="insideOverlay"
 		android:scrollbars="vertical|horizontal"

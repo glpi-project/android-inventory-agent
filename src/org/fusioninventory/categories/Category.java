@@ -1,39 +1,41 @@
 package org.fusioninventory.categories;
 
-import java.util.Hashtable;
+import java.io.IOException;
+import java.util.LinkedHashMap;
 
+import org.fusioninventory.FusionInventoryApp;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 
-public class Category {
+public class Category extends LinkedHashMap<String, String>{
 
-	public Hashtable<String, Object> content;
-	public Context ctx;
-	public String type;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6443019125036309325L;
+    public FusionInventoryApp mApp;
+    public Context mCtx;
+    public String mType;
 
-	public Category(Context ctx) {
-		this.ctx = ctx;
-		this.content = new Hashtable<String, Object>();
-	}
+    public Category(Context xCtx, String xType) {
+        mCtx = xCtx;
+        mType = xType;
+    }
 
-	
-	
-	public void toXML(XmlSerializer serializer) {
-		try {
-			serializer.startTag(null, this.type);
+    public void toXML(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
+        
+            serializer.startTag(null, mType);
 
-			for (String prop : this.content.keySet()) {
+            for (String prop : this.keySet()) {
 
-				serializer.startTag(null, prop);
-				serializer.text(this.content.get(prop).toString());
-				serializer.endTag(null, prop);
-			}
-			
-			serializer.endTag(null,this.type);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+                serializer.startTag(null, prop);
+                serializer.text(String.valueOf(this.get(prop)));
+                serializer.endTag(null, prop);
+            }
 
-	}
+            serializer.endTag(null, mType);
+        
+
+    }
 }

@@ -1,5 +1,36 @@
 package org.fusioninventory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.fusionInventory.utils.EasySSLSocketFactory;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,206 +43,313 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-public class Agent extends Service {
+public class Agent
+        extends Service {
 
-	static Integer singleton = null;
+    private NotificationManager mNM;
 
-	private NotificationManager mNM;
+    private Notification notification;
 
-	private Notification notification;
+    private PendingIntent contentIntent;
 
-	private PendingIntent contentIntent;
+    private Messenger client = null;
+    public InventoryTask inventory = null;
 
-	private Messenger client = null;
-	public InventoryTask inventory = null;
+    static final int MSG_CLIENT_REGISTER = 0;
+    static final int MSG_AGENT_STATUS = 1;
+    static final int MSG_INVENTORY_START = 2;
+    static final int MSG_INVENTORY_PROGRESS = 3;
+    static final int MSG_INVENTORY_FINISHED = 4;
+    static final int MSG_REQUEST_INVENTORY = 5;
+    static final int MSG_INVENTORY_RESULT = 6;
+    static final int MSG_INVENTORY_SEND = 7;
 
-	static final int MSG_CLIENT_REGISTER = 0;
-	static final int MSG_AGENT_STATUS = 1;
-	static final int MSG_INVENTORY_START = 2;
-	static final int MSG_INVENTORY_PROGRESS = 3;
-	static final int MSG_INVENTORY_FINISHED = 4;
-	static final int MSG_REQUEST_INVENTORY = 5;
-	static final int MSG_INVENTORY_RESULT = 6;
-	static final int MSG_INVENTORY_SEND = 7;
-	
-	static final int STATUS_AGENT_IDLE = 0;
-	static final int STATUS_AGENT_WORKING = 1;
+    static final int STATUS_AGENT_IDLE = 0;
+    static final int STATUS_AGENT_WORKING = 1;
 
-	
+    private int status_agent = 0;
 
-	private int status_agent = 0;
+    private String lastXMLResult = null;
 
-	private String lastXMLResult = null;
+    private ClientConnectionManager clientConnectionManager;
+    private HttpContext context;
+    private HttpParams params;
+    private SchemeRegistry mSchemeRegistry = new SchemeRegistry();
 
-	class IncomingHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
-			
-			Message reply = Message.obtain();
-			
-			FusionInventory.log(this, "message received " + msg.toString(),
-					Log.INFO);
+    private FusionInventoryApp mFusionApp = null;
 
-			switch (msg.what) {
+    class IncomingHandler
+            extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
 
-			case Agent.MSG_CLIENT_REGISTER:
-				client = msg.replyTo;
-				break;
+            Message reply = Message.obtain();
 
-			case Agent.MSG_AGENT_STATUS:
+            FusionInventory.log(this, "message received " + msg.toString(), Log.INFO);
 
-				status_agent = inventory.isAlive() ? 1 : 0;
-				reply.what = MSG_AGENT_STATUS;
-				reply.arg1 = status_agent;
+            switch (msg.what) {
 
-				try {
-					FusionInventory.log(this,
-							"message sent " + msg.toString(), Log.INFO);
-					if (client != null) {
-						client.send(reply);
-					} else {
-						FusionInventory.log(this,
-								"No client registered", Log.ERROR);
-					}
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				break;
+            case Agent.MSG_CLIENT_REGISTER:
+                client = msg.replyTo;
+                break;
 
-			case Agent.MSG_INVENTORY_START:
+            case Agent.MSG_AGENT_STATUS:
 
-				FusionInventory.log(this, " received starting inventory task",
-						Log.INFO);
+                status_agent = inventory.running ? 1 : 0;
+                reply.what = MSG_AGENT_STATUS;
+                reply.arg1 = status_agent;
+                FusionInventory.log(this, "URL server = " + mFusionApp.getUrl(), Log.VERBOSE);
+                FusionInventory.log(this, "shouldAutostart = " + mFusionApp.getShouldAutoStart(), Log.VERBOSE);
+                FusionInventory.log(this, "mFusionApp = " + mFusionApp.toString(), Log.VERBOSE);
 
-				if (inventory != null) {
+                try {
+                    FusionInventory.log(this, "message sent " + msg.toString(), Log.INFO);
+                    if (client != null) {
+                        client.send(reply);
+                    } else {
+                        FusionInventory.log(this, "No client registered", Log.ERROR);
+                    }
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                break;
 
-					if (inventory.isAlive()) {
+            case Agent.MSG_INVENTORY_START:
 
-						FusionInventory.log(this,
-								" inventory task is already running ...",
-								Log.WARN);
-					} else {
-						FusionInventory.log(this,
-								" inventory task not running ...", Log.INFO);
-						start_inventory();
-					}
-				}
+                FusionInventory.log(this, " received starting inventory task", Log.INFO);
 
-				break;
-			case Agent.MSG_INVENTORY_RESULT:
-				if (client != null) {
-					reply.what = Agent.MSG_INVENTORY_RESULT;
-					
-					Bundle bXML = new Bundle();
-					bXML.putString("result", lastXMLResult);
-					reply.setData(bXML);
-					try {
-						
-						client.send(reply);
-						
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				break;
-			default:
-				super.handleMessage(msg);
-			}
-		}
-	}
+                if (inventory != null) {
 
-	final Messenger mMessenger = new Messenger(new IncomingHandler());
+                    if (inventory.running) {
 
-	private int NOTIFICATION = R.string.agent_started;
+                        FusionInventory.log(this, " inventory task is already running ...", Log.WARN);
+                    } else {
+                        FusionInventory.log(this, " inventory task not running ...", Log.INFO);
+                        start_inventory();
+                    }
+                }
 
-	public class AgentBinder extends Binder {
-		Agent getService() {
-			return Agent.this;
-		}
-	}
+                break;
+            case Agent.MSG_INVENTORY_RESULT:
+                if (client != null) {
+                    reply.what = Agent.MSG_INVENTORY_RESULT;
 
-	@Override
-	public void onCreate() {
+                    Bundle bXML = new Bundle();
+                    bXML.putString("result", lastXMLResult);
+                    reply.setData(bXML);
+                    try {
 
-		FusionInventory.log(this, "creating inventory task", Log.INFO);
-		inventory = new InventoryTask(this.getApplicationContext());
+                        client.send(reply);
 
-		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    } catch (RemoteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                break;
 
-		contentIntent = PendingIntent.getActivity(this, 0, new Intent(this,
-				FusionInventory.class), 0);
+            case Agent.MSG_INVENTORY_SEND:
+                send_inventory();
+                break;
+            default:
+                super.handleMessage(msg);
+            }
+        }
+    }
 
-		notification = new Notification();
-		notification.icon = R.drawable.fusioninventory;
+    final Messenger mMessenger = new Messenger(new IncomingHandler());
 
-		// mNM.cancel(NOTIFICATION);
-		this.updateNotification(getText(R.string.agent_started).toString());
-		// startForeground(NOTIFICATION, notification);
+    private int NOTIFICATION = R.string.agent_started;
 
-	}
+    public class AgentBinder
+            extends Binder {
+        Agent getService() {
+            return Agent.this;
+        }
+    }
 
-	public void updateNotification(String text) {
-		notification.setLatestEventInfo(this, getText(R.string.app_name), text,
-				contentIntent);
-	}
+    @Override
+    public void onCreate() {
 
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		FusionInventory.log(this, "Received start id " + startId + ": "
-				+ intent, Log.INFO);
-		// We want this service to continue running until it is explicitly
-		// stopped, so return sticky.
+        FusionInventory.log(this, "creating inventory task", Log.INFO);
 
-		// mNM.cancel(NOTIFICATION);
+        mFusionApp = (FusionInventoryApp) getApplication();
+        FusionInventory.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
 
-		return START_STICKY;
-	}
+        inventory = new InventoryTask(this);
 
-	public void start_inventory() {
-		inventory.run();
-		try {
-			inventory.join();
-			SystemClock.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-		lastXMLResult = inventory.toXML();
-		
-		if(client!=null) {
-			try {
-				client.send(Message.obtain(null,Agent.MSG_INVENTORY_FINISHED));
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		
-	}
+        contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, FusionInventory.class), 0);
 
-	@Override
-	public void onDestroy() {
-		// Cancel the persistent notification.
+        notification = new Notification();
+        notification.icon = R.drawable.fusioninventory;
 
-		mNM.cancel(NOTIFICATION);
+        notification.tickerText = getText(R.string.agent_started).toString();
+        updateNotification(getText(R.string.agent_started).toString());
 
-		// Tell the user we stopped.
-		Toast.makeText(this, R.string.agent_stopped, Toast.LENGTH_SHORT).show();
-	}
+        mNM.notify(NOTIFICATION, notification);
 
-	@Override
-	public IBinder onBind(Intent intent) {
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
 
-		return mMessenger.getBinder();
-	}
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                mNM.cancel(NOTIFICATION);
+            }
+        }, 1000);
 
-	// private final IBinder mBinder = new AgentBinder();
+    }
+
+    public void updateNotification(String text) {
+        notification.setLatestEventInfo(this, getText(R.string.app_name), text, contentIntent);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        FusionInventory.log(this, "Received start id " + startId + ": " + intent, Log.INFO);
+
+        // We want this service to continue running until it is explicitly
+        // stopped, so return sticky.
+
+        // mNM.cancel(NOTIFICATION);
+
+        return START_STICKY;
+    }
+
+    public void start_inventory() {
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+
+                inventory.run();
+
+                //DefaultHttpClient post = new HttpPost("https://nana.rulezlan.org/ocsinventory");
+                lastXMLResult = inventory.toXML();
+
+                if (client != null) {
+                    try {
+                        client.send(Message.obtain(null, Agent.MSG_INVENTORY_FINISHED));
+                    } catch (RemoteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.start();
+    }
+
+    public void send_inventory() {
+
+        if (lastXMLResult == null) {
+            FusionInventory.log(this, "No XML Inventory ", Log.ERROR);
+            return;
+        }
+        URL url = null;
+
+        try {
+            url = new URL(mFusionApp.getUrl());
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            FusionInventory.log(this, "inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
+        }
+
+        if (url == null) {
+            FusionInventory.log(this, "No URL found ", Log.ERROR);
+            return;
+        }
+
+        mSchemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+        // https scheme
+        mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
+
+        params = new BasicHttpParams();
+
+        HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+        HttpProtocolParams.setContentCharset(params, "UTF-8");
+        HttpProtocolParams.setUseExpectContinue(params, true);
+        //HttpProtocolParams.setUserAgent(params, "Android App");
+
+        // ignore that the ssl cert is self signed
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
+                new UsernamePasswordCredentials("admin", "supercastor"));
+        clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
+
+        context = new BasicHttpContext();
+        context.setAttribute("http.auth.credentials-provider", credentialsProvider);
+
+        DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
+
+        HttpPost post = new HttpPost(url.toExternalForm());
+        try {
+            post.setEntity(new StringEntity(lastXMLResult));
+        } catch (UnsupportedEncodingException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        HttpResponse response = null;
+        try {
+            response = httpclient.execute(post, context);
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            FusionInventory.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            FusionInventory.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
+            FusionInventory.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
+            e.printStackTrace();
+        }
+        if (response == null) {
+            FusionInventory.log(this, "No HTTP response ", Log.ERROR);
+            return;
+        }
+        Header[] headers = response.getAllHeaders();
+        for (Header header : headers) {
+            FusionInventory.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
+        }
+        try {
+            InputStream mIS = response.getEntity().getContent();
+            //StringBuilder content = new StringBuilder();
+            BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
+            String line;
+
+            while ((line = r.readLine()) != null) {
+                //content.append(line);
+                FusionInventory.log(this, line, Log.VERBOSE);
+            }
+
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        // Cancel the persistent notification.
+
+        mNM.cancel(NOTIFICATION);
+
+        // Tell the user we stopped.
+        Toast.makeText(this, R.string.agent_stopped, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+
+        return mMessenger.getBinder();
+    }
+
+    // private final IBinder mBinder = new AgentBinder();
 }

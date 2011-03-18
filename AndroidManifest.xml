@@ -10,33 +10,37 @@
 
 	<!-- Permissions -->
 	<uses-permission
-		android:name="android.permission.RECEIVE_BOOT_COMPLETED"
-	></uses-permission>
+		android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission
-		android:name="android.permission.ACCESS_NETWORK_STATE"
-	></uses-permission>
+		android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission
-		android:name="android.permission.ACCESS_MOCK_LOCATION"
-	></uses-permission>
+		android:name="android.permission.ACCESS_MOCK_LOCATION" />
 	<uses-permission
-		android:name="android.permission.ACCESS_WIFI_STATE"
-	></uses-permission>
+		android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission
-		android:name='android.permission.ACCESS_COARSE_LOCATION'
-	></uses-permission>
+		android:name='android.permission.ACCESS_COARSE_LOCATION' />
 	<uses-permission
-		android:name='android.permission.ACCESS_FINE_LOCATION'
-	></uses-permission>
+		android:name='android.permission.ACCESS_FINE_LOCATION' />
 	<uses-permission
-		android:name='android.permission.ACCESS_LOCATION_EXTRA_COMMANDS'
-	></uses-permission>
+		android:name='android.permission.ACCESS_LOCATION_EXTRA_COMMANDS' />
 	<uses-permission
-		android:name="android.permission.READ_PHONE_STATE"
-	></uses-permission>
+		android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission
+		android:name="android.permission.INTERNET" />
+	<uses-permission
+		android:name="android.permission.CAMERA" />
+	<uses-permission
+		android:name="android.permission.BLUETOOTH" />
+	<uses-permission
+		android:name="android.permission.INSTALL_PACKAGES" />
+
+	<uses-permission
+		android:name="android.permission.GET_PACKAGE_SIZE" />
 
 	<application
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
+		android:name="FusionInventoryApp"
 	>
 		<activity
 			android:name=".FusionInventory"
@@ -55,16 +59,17 @@
 			android:label="FusionInventory Agent"
 			android:description="@string/agent_description"
 			android:icon="@drawable/fusioninventory"
-			android:process=":agent"
-			android:name="Agent"
+
+			android:name=".Agent"
 		>
+			<!-- android:process=":agent" -->
 			<intent-filter>
 				<action
 					android:name="org.fusioninventory.Agent" />
 			</intent-filter>
 		</service>
 		<receiver
-			android:name="BootStartAgent"
+			android:name=".BootStartAgent"
 		>
 			<intent-filter>
 				<action
