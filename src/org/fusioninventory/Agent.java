@@ -9,6 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.http.Header;
+import org.apache.http.HttpException;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.auth.AuthScope;
@@ -288,6 +291,21 @@ public class Agent
         DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
 
         HttpPost post = new HttpPost(url.toExternalForm());
+        httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
+            
+            @Override
+            public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                // TODO Auto-generated method stub
+                
+                
+                for( Header h : request.getAllHeaders()) {
+                    
+                    FusionInventory.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
+                }
+                
+            }
+        });
+        
         try {
             post.setEntity(new StringEntity(lastXMLResult));
         } catch (UnsupportedEncodingException e1) {
