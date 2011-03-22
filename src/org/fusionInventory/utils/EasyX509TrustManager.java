@@ -80,8 +80,8 @@ public class EasyX509TrustManager implements X509TrustManager {
             FusionInventory.log(this, "certs(" + certificates.length
                     + ") authtype(" + authType + ")", Log.WARN);
             if (certificates.length == 1) {
-                certificates[0].checkValidity();
-
+                //TODO check preferences
+                //certificates[0].checkValidity();
             } else {
                 standardTrustManager.checkServerTrusted(certificates, authType);
             }
