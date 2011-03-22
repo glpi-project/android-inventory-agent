@@ -30,6 +30,9 @@ public class Softwares
 
         for (ApplicationInfo p : packages) {
             FusionInventory.log(this, "SOFTWARES " + p.packageName, Log.VERBOSE);
+            FusionInventory.log(this, "   " + p.name, Log.VERBOSE);
+            FusionInventory.log(this, "   " + p.className, Log.VERBOSE);
+            
 
             Category c = new Category(mCtx, "SOFTWARES");
             try {
@@ -41,6 +44,7 @@ public class Softwares
                 e.printStackTrace();
             }
             PackageStats stats = new PackageStats(p.packageName);
+            FusionInventory.log(this, "   " + stats.packageName, Log.VERBOSE);
             //c.put("NAME", p.packageName);
             if (p.name != null) {
                 c.put("NAME", p.name);
@@ -51,8 +55,10 @@ public class Softwares
             }
             
             Bundle b = p.metaData;
+            if (b != null) {
             for (String bname : b.keySet()) {
                 FusionInventory.log(this, bname + " " + String.valueOf(b.get(bname)),Log.WARN);
+            }
             }
             //            c.put("VERSION", p.);
             //            //c.put("INSTALLDATE", stats.)
