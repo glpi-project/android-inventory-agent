@@ -16,8 +16,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class FusionInventory
         extends Activity {
@@ -25,9 +29,11 @@ public class FusionInventory
     private Messenger mAgentService = null;
 
     private TextView log_text = null;
+    private WebView web_text = null;
     // private Button start_button = null;
     private String[] STATUS_AGENT = null;
     private boolean isAgentOk = false;
+    private String barcode = null;
 
     public static void log(Object obj, String msg, int level) {
         String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
@@ -64,6 +70,7 @@ public class FusionInventory
                 Bundle bXML = msg.peekData();
                 if (bXML != null) {
                     log_text.setText(bXML.getString("result"));
+                    web_text.loadData(bXML.getString("html"), "text/html", "utf-8");
                     try {
                         mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
                     } catch (RemoteException e) {
@@ -165,6 +172,8 @@ public class FusionInventory
         log_text = (TextView) findViewById(R.id.log_text);
         log_text.setMovementMethod(new ScrollingMovementMethod());
 
+        web_text = (WebView) findViewById(R.id.web_text);
+
     }
 
     @Override
@@ -249,7 +258,14 @@ public class FusionInventory
 
                     msg = Message.obtain(null, Agent.MSG_INVENTORY_START);
                     msg.replyTo = mMessenger;
+                    if (barcode != null) {
+                        Bundle b = new Bundle();
+                        b.putString("BARCODE", barcode);
+                        msg.setData(b);
+                    }
                     mAgentService.send(msg);
+                    
+                    
                 } catch (RemoteException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -261,4 +277,6 @@ public class FusionInventory
         }
 
     }
+
+
 }

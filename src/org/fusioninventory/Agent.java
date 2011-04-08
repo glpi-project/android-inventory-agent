@@ -76,6 +76,7 @@ public class Agent
     private int status_agent = 0;
 
     private String lastXMLResult = null;
+    private String lastSendResult = null;
 
     private ClientConnectionManager clientConnectionManager;
     private HttpContext context;
@@ -126,6 +127,7 @@ public class Agent
                 FusionInventory.log(this, " received starting inventory task", Log.INFO);
 
                 if (inventory != null) {
+                    Bundle data = msg.peekData();
 
                     if (inventory.running) {
 
@@ -157,6 +159,21 @@ public class Agent
 
             case Agent.MSG_INVENTORY_SEND:
                 send_inventory();
+                if (client != null) {
+                    reply.what = Agent.MSG_INVENTORY_RESULT;
+
+                    Bundle bXML = new Bundle();
+                    bXML.putString("html", lastSendResult);
+                    reply.setData(bXML);
+                    try {
+
+                        client.send(reply);
+
+                    } catch (RemoteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
                 break;
             default:
                 super.handleMessage(msg);
@@ -338,11 +355,14 @@ public class Agent
             //StringBuilder content = new StringBuilder();
             BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
             String line;
-
+            StringBuilder sb = new StringBuilder();
+            
             while ((line = r.readLine()) != null) {
                 //content.append(line);
                 FusionInventory.log(this, line, Log.VERBOSE);
+                sb.append(line + "\n");
             }
+            this.lastSendResult = sb.toString();
 
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
