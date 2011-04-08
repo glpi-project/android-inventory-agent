@@ -11,29 +11,34 @@ public class StringUtils {
     }
 
     public static String join(Collection<String> collection, String delimiter, boolean reversed) {
-        StringBuffer buffer = new StringBuffer();
-        Iterator<String> iter = collection.iterator();
-        while (iter.hasNext()) {
-            if (!reversed) {
-                buffer.append(iter.next());
-                if (iter.hasNext()) {
-                    buffer.append(delimiter);
+        if (collection != null) {
+            StringBuffer buffer = new StringBuffer();
+            Iterator<String> iter = collection.iterator();
+            while (iter.hasNext()) {
+                if (!reversed) {
+                    buffer.append(iter.next());
+                    if (iter.hasNext()) {
+                        buffer.append(delimiter);
 
-                }
-            } else {
-                buffer.insert(0,iter.next());
-                if (iter.hasNext()) {
-                    buffer.insert(0,delimiter);
+                    }
+                } else {
+                    buffer.insert(0, iter.next());
+                    if (iter.hasNext()) {
+                        buffer.insert(0, delimiter);
 
+                    }
                 }
             }
+            return buffer.toString();
+        } else {
+            return null;
         }
-        return buffer.toString();
     }
 
     public static String join(Collection<String> collection, String delimiter) {
-        
-        return StringUtils.join(collection,delimiter,false);
+
+        return StringUtils.join(collection, delimiter, false);
+
     }
 
     public static byte[] int_to_byte(int value) {
@@ -48,6 +53,6 @@ public class StringUtils {
             stack.push(String.valueOf(0xFF & c));
         }
 
-        return (StringUtils.join(stack, ".",true));
+        return (StringUtils.join(stack, ".", true));
     }
 }
