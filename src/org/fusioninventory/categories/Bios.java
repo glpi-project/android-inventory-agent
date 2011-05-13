@@ -36,20 +36,20 @@ public class Bios extends Categories {
         // Mother Board Manufacturer
         c.put("MMANUFACTURER", Build.MANUFACTURER);
         // Mother Board Model 
-        c.put("MMODEL", Build.BOARD);
-        
+        //c.put("MMODEL", Build.BOARD);
+        c.put("MMODEL", Build.MODEL);
         
         // Mother Board Serial Number
         // TODO Coming soon in 2.3.3 a.k.a gingerbread
         //c.put("MSN", Build.SERIAL);
 
         
-//        // System Manufacturer
-//        c.put("SMANUFACTURER", Build.BRAND);
-//        // System Model
-//        c.put("SMODEL", Build.MODEL);
-//        // System Serial Number
-//        c.put("SSN", Build.ID);
+        // System Manufacturer
+        //c.put("SMANUFACTURER", Build.BRAND);
+        //System Model
+        //c.put("SMODEL", Build.MODEL);
+        // System Serial Number
+        //c.put("SSN", Build.ID);
   
         File f = new File("/proc/cpuinfo");
             try {

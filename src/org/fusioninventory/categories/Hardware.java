@@ -53,18 +53,19 @@ public class Hardware
 //        this.content.put("IPADDR","");
         c.put("LASTLOGGEDUSER",Build.USER);
         c.put("MEMORY", String.valueOf(info.availMem) );
-        c.put("NAME", Build.MANUFACTURER + " " + Build.BOARD);
-//        this.content.put("OSCOMMENTS","");
+        //c.put("NAME", Build.MANUFACTURER + " " + Build.BOARD);
+        c.put("NAME", Build.MODEL);
+        c.put("OSCOMMENTS","");
         c.put("OSNAME","Android " + Build.DISPLAY);
         c.put("OSVERSION",Build.VERSION.RELEASE);
-        //this.content.put("PROCESSOR",Build.CPU_ABI + "," + Build.CPU_ABI2);
-//        this.content.put("PROCESSORS","");
-//        this.content.put("PROCESSORT","");
-//        this.content.put("USERDOMAIN","");
-//        this.content.put("USERID","");
-//        this.content.put("UUID","");
-//        this.content.put("VMSYSTEM","");
-//        this.content.put("WORKGROUP","");
+        //c.put("PROCESSOR",Build.CPU_ABI + "," + Build.CPU_ABI2);
+        //c.put("PROCESSORS","");
+        //c.put("PROCESSORT","");
+        //c.put("USERDOMAIN","");
+        //c.put("USERID","");
+        //c.put("UUID","");
+        //c.put("VMSYSTEM","");
+        //c.put("WORKGROUP","");
 
         this.add(c);
 
