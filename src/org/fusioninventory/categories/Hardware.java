@@ -58,6 +58,7 @@ public class Hardware
         c.put("OSCOMMENTS","");
         c.put("OSNAME","Android " + Build.DISPLAY);
         c.put("OSVERSION",Build.VERSION.RELEASE);
+        c.put("PROCESSORT",Build.CPU_ABI);
         //c.put("PROCESSOR",Build.CPU_ABI + "," + Build.CPU_ABI2);
         //c.put("PROCESSORS","");
         //c.put("PROCESSORT","");
