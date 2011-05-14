@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="app_name"
+	>FusionInventory</string>
+	<string
+		name="agent_started"
+	>L\'agent FusionInventory est démarré</string>
+	<string
+		name="agent_stopped"
+	>L\'agent FusionInventory est arrêté</string>
+	<string
+		name="agent_description"
+	>L\'agent FusionInventory tourne en tâche de fond</string>
+	<string
+		name="button_start_inventory"
+	>Faire un inventaire</string>
+	<string
+		name="menu_settings"
+	>Options</string>
+	<string
+		name="menu_clearlog"
+	>Effacer les messages</string>
+	<string
+		name="menu_send"
+	>Envoyer au serveur</string>
+	<string
+		name="menu_getinv"
+	>Faire un inventaire</string>
+	<string
+		name="all_permissions"
+	>Grant all possible permissions</string>
+	<string
+		name="agent_connected"
+	>Connecté au service</string>
+	<string
+		name="agent_disconnected"
+	>Disconnected</string>
+	<string
+		name="inventory_started"
+	>Inventaire démarré...</string>
+	<string
+		name="inventory_ended"
+	>Inventaire terminé.</string>
+	<string
+		name="button_connect_agent"
+	>Connect Agent</string>
+	<string
+		name="button_disconnect_agent"
+	>Disconnect Agent</string>
+	<string
+		name="service_notif_id"
+	>Agent FusionInventory</string>
+	<string-array
+		name="agent_status"
+	>
+		<item>L\'agent attend des ordres...</item>
+		<item>L\'agent effectue un inventaire...</item>
+	</string-array>
+<string name="agent_settings">Options de l\'agent</string>
+<string name="phone_boot">L\'agent doit être lancé au démarrage</string>
+<string name="manual_launch">L\'agent doit être démarré manuellement</string>
+<string name="boot_options">Options de démarrage</string>
+<string name="inventory_server">Serveur d\'inventaire</string>
+</resources>

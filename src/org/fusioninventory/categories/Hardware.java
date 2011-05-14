@@ -1,7 +1,12 @@
 package org.fusioninventory.categories;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.fusioninventory.FusionInventory;
 
@@ -42,34 +47,64 @@ public class Hardware
         
         Category c = new Category(mCtx,"HARDWARE");
         
-        
-        //c.put("ARCHNAME" , Build.DISPLAY);
         c.put("CHECKSUM" , String.valueOf(0xFFFF));
         c.put("DATELASTLOGGEDUSER",String.valueOf(DateFormat.format("MM/dd/yy", Build.TIME)) );
-//        this.content.put("DEFAULTGATEWAY","");
-//        this.content.put("DESCRIPTION","");
-//        this.content.put("DNS","");
-//        this.content.put("ETIME","");
-//        this.content.put("IPADDR","");
-        c.put("LASTLOGGEDUSER",Build.USER);
+        if (!Build.USER.equals(Build.UNKNOWN)) {
+            c.put("LASTLOGGEDUSER",Build.USER);
+        }
         c.put("MEMORY", String.valueOf(info.availMem) );
-        //c.put("NAME", Build.MANUFACTURER + " " + Build.BOARD);
         c.put("NAME", Build.MODEL);
-        c.put("OSCOMMENTS","");
-        c.put("OSNAME","Android " + Build.DISPLAY);
-        
-        c.put("OSVERSION",Build.VERSION.RELEASE);
-        c.put("PROCESSORT",Build.CPU_ABI);
-        //c.put("PROCESSOR",Build.CPU_ABI + "," + Build.CPU_ABI2);
-        //c.put("PROCESSORS","");
-        //c.put("PROCESSORT","");
-        //c.put("USERDOMAIN","");
-        //c.put("USERID","");
-        //c.put("UUID","");
-        //c.put("VMSYSTEM","");
-        //c.put("WORKGROUP","");
+        c.put("OSCOMMENTS" ,getFormattedKernelVersion());
+        c.put("OSNAME", "Android " + Build.DISPLAY);
+        c.put("OSVERSION", Build.VERSION.RELEASE);
 
+        
         this.add(c);
 
     }
+    
+    //Copy past from the Settings app
+    private String getFormattedKernelVersion() {
+        String procVersionStr;
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("/proc/version"), 256);
+            try {
+                procVersionStr = reader.readLine();
+            } finally {
+                reader.close();
+            }
+
+            final String PROC_VERSION_REGEX =
+                "\\w+\\s+" + /* ignore: Linux */
+                "\\w+\\s+" + /* ignore: version */
+                "([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
+                "\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
+                "\\((?:[^(]*\\([^)]*\\))?[^)]*\\)\\s+" + /* ignore: (gcc ..) */
+                "([^\\s]+)\\s+" + /* group 3: #26 */
+                "(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
+                "(.+)"; /* group 4: date */
+
+            Pattern p = Pattern.compile(PROC_VERSION_REGEX);
+            Matcher m = p.matcher(procVersionStr);
+
+            if (!m.matches()) {
+                //Log.e(TAG, "Regex did not match on /proc/version: " + procVersionStr);
+                return "";
+            } else if (m.groupCount() < 4) {
+                //Log.e(TAG, "Regex match on /proc/version only returned " + m.groupCount()
+                //        + " groups");
+                return "";
+            } else {
+                return (new StringBuilder(m.group(1)).append(" ")).toString();
+            }
+        } catch (IOException e) {  
+            //Log.e(TAG,
+            //    "IO Exception when getting kernel version for Device Info screen",
+            //    e);
+
+            return "";
+        }
+    }
+    
 }

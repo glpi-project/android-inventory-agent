@@ -14,16 +14,11 @@
        android:enabled="true"
       />
   </PreferenceCategory>
-	<PreferenceCategory
-		android:title="Agent Settings"
-	>
+	<PreferenceCategory android:title="@string/agent_settings">
 		<CheckBoxPreference
-			android:title="Phone Boot"
 			android:key="boot"
-			android:summaryOn="Agent is automatically launched at phone boot"
-			android:summaryOff="Agent must be launched manually"
 			android:persistent="true"
-			android:defaultValue="false" />
+			android:defaultValue="false" android:summaryOn="@string/phone_boot" android:summaryOff="@string/manual_launch" android:title="@string/boot_options"/>
 			
 			
 	</PreferenceCategory>
@@ -32,10 +27,7 @@
 
 	>
 		<org.fusioninventory.UrlPreference
-			android:title="Inventory Server"
-			android:key="url"
-			android:defaultValue="http://"
-			android:persistent="true" />
+			android:persistent="true" android:key="url" android:title="Inventory Server" android:defaultValue="http://"/>
 
 	</PreferenceCategory>
 </PreferenceScreen>

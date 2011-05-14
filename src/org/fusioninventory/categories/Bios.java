@@ -41,29 +41,6 @@ public class Bios extends Categories {
         //c.put("SMODEL", Build.MODEL);
         // System Serial Number
         //c.put("SSN", Build.ID);
-  
-        /*
-        File f = new File("/proc/cpuinfo");
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(f));
-                c.put("PROCESSORT", br.readLine());
-                c.put("PROCESSORN", "1");
-                String line = "";
-                String res = "";
-                while ((line = br.readLine()) != null) {
-                    res += line;
-                    c.put("res", res);
-                    FusionInventory.log(this, line, Log.VERBOSE);
-                    //sb.append(line + "\n");
-                }
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-*/
             
         this.add(c);
     }

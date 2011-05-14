@@ -57,4 +57,9 @@
 		<item>Agent is waiting an order ...</item>
 		<item>Agent is performing an inventory ...</item>
 	</string-array>
+<string name="agent_settings">Agent settings</string>
+<string name="phone_boot">Agent must be launched at phone boot</string>
+<string name="manual_launch">Agent must be launched manually</string>
+<string name="boot_options">Boot options</string>
+<string name="inventory_server">Inventory server</string>
 </resources>
