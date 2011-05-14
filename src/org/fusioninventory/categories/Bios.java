@@ -1,17 +1,8 @@
 package org.fusioninventory.categories;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-import org.fusioninventory.FusionInventory;
-
 import android.content.Context;
 import android.os.Build;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 public class Bios extends Categories {
 
@@ -51,12 +42,17 @@ public class Bios extends Categories {
         // System Serial Number
         //c.put("SSN", Build.ID);
   
+        /*
         File f = new File("/proc/cpuinfo");
             try {
                 BufferedReader br = new BufferedReader(new FileReader(f));
+                c.put("PROCESSORT", br.readLine());
+                c.put("PROCESSORN", "1");
                 String line = "";
+                String res = "";
                 while ((line = br.readLine()) != null) {
-                    //content.append(line);
+                    res += line;
+                    c.put("res", res);
                     FusionInventory.log(this, line, Log.VERBOSE);
                     //sb.append(line + "\n");
                 }
@@ -67,6 +63,8 @@ public class Bios extends Categories {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+*/
+            
         this.add(c);
     }
 

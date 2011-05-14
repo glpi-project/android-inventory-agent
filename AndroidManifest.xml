@@ -42,7 +42,7 @@
 		android:name="android.permission.CHANGE_WIFI_STATE" />
 	<application
 		android:label="@string/app_name"
-		android:name="FusionInventoryApp" android:icon="@drawable/fusioninventory">
+		android:name="FusionInventoryApp" android:icon="@drawable/fusioninventory" android:debuggable="false">
 		<activity
 			android:name=".FusionInventory"
 			android:label="@string/app_name" android:launchMode="standard">

@@ -123,12 +123,13 @@ public class InventoryTask {
                 "Bios",
                 "Hardware",
                 "Simcards",
+                "Cpus",
                 "LocationProviders",
                 "Videos",
                 "Cameras",
                 "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
                 "Networks",
-                "Softwares",
+                "Softwares"
         };
         
         Class<Categories> cat_class;
