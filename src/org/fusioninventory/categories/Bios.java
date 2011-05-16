@@ -31,21 +31,15 @@ public class Bios extends Categories {
         //c.put("MMODEL", Build.BOARD);
         c.put("MMODEL", Build.MODEL);
         
-        // Mother Board Serial Number
-        // TODO Coming soon in 2.3.3 a.k.a gingerbread
-        //c.put("MSN", Build.SERIAL);
-        
-        //Get IMEI serial number
-        TelephonyManager telephonyManager = (TelephonyManager)xCtx.getSystemService(Context.TELEPHONY_SERVICE);
-        c.put("SSN", telephonyManager.getDeviceId());
-
-        
-        // System Manufacturer
-        //c.put("SMANUFACTURER", Build.BRAND);
-        //System Model
-        //c.put("SMODEL", Build.MODEL);
-        // System Serial Number
-        //c.put("SSN", Build.ID);
+        if (Build.VERSION.SDK_INT > 9) {
+            // Mother Board Serial Number
+            // TODO Coming soon in 2.3.3 a.k.a gingerbread
+            c.put("SSN", Build.SERIAL);
+        } else {
+            //Get IMEI serial number
+            TelephonyManager telephonyManager = (TelephonyManager)xCtx.getSystemService(Context.TELEPHONY_SERVICE);
+            c.put("SSN", telephonyManager.getDeviceId());
+        }
             
         this.add(c);
     }
