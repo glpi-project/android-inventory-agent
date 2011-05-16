@@ -62,4 +62,5 @@
 <string name="manual_launch">Agent must be launched manually</string>
 <string name="boot_options">Boot options</string>
 <string name="inventory_server">Inventory server</string>
+<string name="log_text">Server response</string>
 </resources>

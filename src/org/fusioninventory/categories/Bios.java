@@ -2,6 +2,7 @@ package org.fusioninventory.categories;
 
 import android.content.Context;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 
 public class Bios extends Categories {
@@ -33,6 +34,10 @@ public class Bios extends Categories {
         // Mother Board Serial Number
         // TODO Coming soon in 2.3.3 a.k.a gingerbread
         //c.put("MSN", Build.SERIAL);
+        
+        //Get IMEI serial number
+        TelephonyManager telephonyManager = (TelephonyManager)xCtx.getSystemService(Context.TELEPHONY_SERVICE);
+        c.put("SSN", telephonyManager.getDeviceId());
 
         
         // System Manufacturer

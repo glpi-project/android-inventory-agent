@@ -33,7 +33,8 @@
 		android:name="android.permission.BLUETOOTH" />
 	<uses-permission
 		android:name="android.permission.INSTALL_PACKAGES" />
-
+   <uses-permission 
+      android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission
 		android:name="android.permission.GET_PACKAGE_SIZE" />
 	<uses-permission
