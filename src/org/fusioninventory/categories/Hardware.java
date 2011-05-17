@@ -55,7 +55,7 @@ public class Hardware
         c.put("MEMORY", String.valueOf(info.availMem) );
         c.put("NAME", Build.MODEL);
         c.put("OSCOMMENTS" ,getFormattedKernelVersion());
-        c.put("OSNAME", "Android " + Build.DISPLAY);
+        c.put("OSNAME", "Android");
         c.put("OSVERSION", Build.VERSION.RELEASE);
                 
         this.add(c);
