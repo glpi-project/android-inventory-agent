@@ -28,8 +28,8 @@ public class Bios extends Categories {
         // Mother Board Manufacturer
         c.put("MMANUFACTURER", Build.MANUFACTURER);
         // Mother Board Model 
-        //c.put("MMODEL", Build.BOARD);
-        c.put("MMODEL", Build.MODEL);
+        //c.put("MMODEL", "Smartphone");
+        c.put("SMODEL", Build.MODEL);
         
         if (Build.VERSION.SDK_INT > 9) {
             // Mother Board Serial Number
