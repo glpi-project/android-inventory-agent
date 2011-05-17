@@ -27,7 +27,11 @@
 
 	>
 		<org.fusioninventory.UrlPreference
-			android:persistent="true" android:key="url" android:title="Inventory Server" android:defaultValue="http://"/>
+			android:key="url" android:title="Inventory Server" android:persistent="true" android:defaultValue="http://"/>
 
-	</PreferenceCategory>
+	
+<EditTextPreference android:dialogMessage="@string/tag" android:persistent="true" android:enabled="true" android:selectable="true" android:dialogTitle="@string/tag" android:title="@string/tag" android:key="tag"></EditTextPreference>
+</PreferenceCategory><PreferenceCategory android:title="@string/authentication_credentials"><EditTextPreference android:dialogMessage="@string/login" android:enabled="true" android:persistent="true" android:title="@string/login" android:key="login"></EditTextPreference>
+<EditTextPreference android:dialogMessage="@string/password" android:persistent="true" android:title="@string/password" android:key="password" android:enabled="true"></EditTextPreference>
+</PreferenceCategory>
 </PreferenceScreen>

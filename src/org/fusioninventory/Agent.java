@@ -249,7 +249,6 @@ public class Agent
 
                 inventory.run();
 
-                //DefaultHttpClient post = new HttpPost("https://nana.rulezlan.org/ocsinventory");
                 lastXMLResult = inventory.toXML();
 
                 if (client != null) {
@@ -294,17 +293,22 @@ public class Agent
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
         HttpProtocolParams.setContentCharset(params, "UTF-8");
         HttpProtocolParams.setUseExpectContinue(params, true);
+        
         //Send FusionInventory specific user agent
         HttpProtocolParams.setUserAgent(params, "FusionInventory-Agent_Android");
 
-        // ignore that the ssl cert is self signed
-        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
-                new UsernamePasswordCredentials("admin", "supercastor"));
         clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
-
         context = new BasicHttpContext();
-        context.setAttribute("http.auth.credentials-provider", credentialsProvider);
+
+        // ignore that the ssl cert is self signed
+        String login = mFusionApp.getCredentialsLogin();
+        if (!login.equals("")) {
+            CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+            credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
+                    new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(), 
+                                                    mFusionApp.getCredentialsPassword()));
+            context.setAttribute("http.auth.credentials-provider", credentialsProvider);
+        }
 
         DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
 

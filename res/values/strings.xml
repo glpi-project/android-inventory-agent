@@ -63,4 +63,8 @@
 <string name="boot_options">Boot options</string>
 <string name="inventory_server">Inventory server</string>
 <string name="log_text">Server response</string>
+<string name="authentication_credentials">HTTP authentication credentials</string>
+<string name="login">Login</string>
+<string name="password">Password</string>
+<string name="tag">Tag</string>
 </resources>

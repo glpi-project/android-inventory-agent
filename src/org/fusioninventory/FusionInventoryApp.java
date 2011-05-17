@@ -16,6 +16,9 @@ public class FusionInventoryApp
     private SharedPreferences prefs;
     public Boolean mShouldAutoStart = null;
     public String mUrl = null;
+    public String mTag = null;
+    public String mLogin = null;
+    public String mPassword = null;
     public String mDeviceID = null;
 
     @Override
@@ -77,6 +80,27 @@ public class FusionInventoryApp
         mUrl = null;
         mShouldAutoStart = null;
         FusionInventory.log(this, "FusionInventoryApp = " + this.toString(), Log.VERBOSE);
+    }
+
+    public String getCredentialsLogin() {
+        if (mLogin == null) {
+        	mLogin = prefs.getString("login", "");
+        }
+        return mLogin;
+    }
+
+    public String getCredentialsPassword() {
+        if (mPassword == null) {
+        	mPassword = prefs.getString("password", "");
+        }
+        return mPassword;
+    }
+
+    public String getTag() {
+        if (mTag == null) {
+        	mTag = prefs.getString("tag", "");
+        }
+        return mTag;
     }
 
 }

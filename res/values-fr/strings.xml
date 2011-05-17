@@ -62,4 +62,8 @@
 <string name="manual_launch">L\'agent doit être démarré manuellement</string>
 <string name="boot_options">Options de démarrage</string>
 <string name="inventory_server">Serveur d\'inventaire</string>
+<string name="authentication_credentials">Compte pour l\'authentification HTTP</string>
+<string name="login">Identifiant</string>
+<string name="password">Mot de passe</string>
+<string name="tag">Tag</string>
 </resources>

@@ -92,6 +92,18 @@ public class InventoryTask {
                 serializer.endTag(null, "ACCESSLOG");
                 // End ACCESSLOG
 
+                //Manage accountinfos :: TAG
+                if (!mFusionApp.getTag().equals("")) {
+                	serializer.startTag(null, "ACCOUNTINFO");
+                	serializer.startTag(null, "KEYNAME");
+                    serializer.text("TAG");
+                    serializer.endTag(null, "KEYNAME");
+                	serializer.startTag(null, "KEYVALUE");
+                    serializer.text(mFusionApp.getTag());
+                    serializer.endTag(null, "KEYVALUE");
+                    serializer.endTag(null, "ACCOUNTINFO");
+                }
+
                 for (Categories cat : mContent) {
 
                     cat.toXML(serializer);
@@ -169,35 +181,13 @@ public class InventoryTask {
             }
         }
         
-//        this.addBios();
-//        this.addHardware();
-//        this.addSimcards();
-        
-        //TODO this must goes into a monitoring task
-        //this.addPhoneStatus();
-        
-        // FusionInventory.log(this, "waiting 5 secs", Log.INFO);
-        //SystemClock.sleep(1000);
+
         FusionInventory.log(this, "end of inventory", Log.INFO);
         mEnd = new Date();
         running = false;
     }
 
-//    public void addBios() {
-//
-//        content.add(new Bios(mFusionApp));
-//    }
-//
-//    public void addSimcards() {
-//        // TODO Reorganize informations from TelephonyManager
-//        content.add(new Simcards(mFusionApp));
-//    }
-//
-//    
-//    public void addHardware() {
-//        content.add(new Hardware(mFusionApp));
-//    }
-//    
+
 //    public void addProcesses() {
 //        ActivityManager  activityManager = (ActivityManager) mFusionApp.getSystemService(Service.ACTIVITY_SERVICE);
 //        
@@ -206,22 +196,5 @@ public class InventoryTask {
 ////            content.add(new Processes(mFusionApp,process));
 ////        }
 //        
-//    }
-//    
-//    public void addPhoneStatus() {
-//        content.add(new PhoneStatus(mFusionApp));
-//    }
-//    // @Override
-//    // protected run () {
-//    // // TODO Auto-generated method stub
-//    // start = new Date();
-//    //
-//    // content = new ArrayList<Category>();
-//    // content.add(new Telephony(ctx));
-//    // SystemClock.sleep(5000);
-//    //
-//    // end = new Date();
-//    // return this.toXML();
-//    // }
 
 }

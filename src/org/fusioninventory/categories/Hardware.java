@@ -15,10 +15,8 @@ import android.app.ActivityManager.MemoryInfo;
 import android.app.Service;
 import android.content.Context;
 import android.os.Build;
-import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.content.Context;
 
 public class Hardware
         extends Categories {
