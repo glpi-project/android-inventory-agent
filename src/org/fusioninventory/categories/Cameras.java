@@ -17,9 +17,6 @@ public class Cameras
         super(xCtx);
         // TODO Auto-generated constructor stub
         
-        
-        
-        
         Category c = new Category(mCtx , "CAMERAS");
         
         Camera cam = Camera.open();

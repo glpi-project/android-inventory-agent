@@ -23,9 +23,7 @@ public class BluetoothAdapterCategory
         c.put("NAME" , adapter.getName());
       
         this.add(c);
-        
-        
-        
+
     }
 
 }

@@ -23,8 +23,6 @@ public class Simcards extends Categories {
          */
 
         Category c = new Category(mCtx , "SIMCARDS");
-        //this.content.put("DEVICEID", mTM.getDeviceId());
-        //this.content.put("SOFTWAREVERSION", mTM.getDeviceSoftwareVersion());
         c.put("COUNTRY", mTM.getSimCountryIso());
         c.put("OPERATOR_CODE", mTM.getSimOperator());
         c.put("OPERATOR_NAME", mTM.getSimOperatorName());
@@ -52,16 +50,17 @@ public class Simcards extends Categories {
         
         };
 
-        
-        c.put("LINE_NUMBER", mTM.getLine1Number());
-        c.put("SUBSCRIBER_ID", mTM.getSubscriberId());
+        if (mTM.getLine1Number() == null) {
+            c.put("LINE_NUMBER", "");
+        } else {
+            c.put("LINE_NUMBER", mTM.getLine1Number());
+        }
+        if (mTM.getSubscriberId() == null) {
+            c.put("SUBSCRIBER_ID", "");
+        }  else {
+            c.put("SUBSCRIBER_ID", mTM.getSubscriberId());
+        }
         
         this.add(c);
     }
-
-
-
-    
-        
-
 }

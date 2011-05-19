@@ -26,11 +26,11 @@ public class Cpus extends Categories {
 
         File f = new File("/proc/cpuinfo");
         try {
-            BufferedReader br = new BufferedReader(new FileReader(f));
+            BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
             String infos = br.readLine();
             c.put("NAME", infos.replaceAll("(.*):\\ (.*)", "$2"));
-            c.put("CORE", "1");
-            c.put("MANUFACTURER", "ARM");
+            c.put("CORE", "");
+            c.put("MANUFACTURER", "");
             c.put("SPEED", "");
             c.put("THREAD", "");
             br.close();
@@ -41,8 +41,5 @@ public class Cpus extends Categories {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-         this.add(c);
     }
-
 }

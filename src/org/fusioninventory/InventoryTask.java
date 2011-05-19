@@ -133,14 +133,16 @@ public class InventoryTask {
         
         String [] categories = { 
                 "Bios",
+                "Cpus",
                 "Hardware",
                 "Simcards",
-                "Cpus",
-                "LocationProviders",
                 "Videos",
                 "Cameras",
-                "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
+//                "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
                 "Networks",
+                "LocationProviders",
+                "Envs",
+                "Jvm",
                 "Softwares"
         };
         
@@ -186,15 +188,4 @@ public class InventoryTask {
         mEnd = new Date();
         running = false;
     }
-
-
-//    public void addProcesses() {
-//        ActivityManager  activityManager = (ActivityManager) mFusionApp.getSystemService(Service.ACTIVITY_SERVICE);
-//        
-//        List<RunningAppProcessInfo> ps = activityManager.getRunningAppProcesses();
-////        for(RunningAppProcessInfo process : ps) {
-////            content.add(new Processes(mFusionApp,process));
-////        }
-//        
-
 }
