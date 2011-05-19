@@ -303,6 +303,7 @@ public class Agent
         // ignore that the ssl cert is self signed
         String login = mFusionApp.getCredentialsLogin();
         if (!login.equals("")) {
+            FusionInventory.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
             CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
                     new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(), 

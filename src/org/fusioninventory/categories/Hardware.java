@@ -33,6 +33,11 @@ public class Hardware
         c.put("DATELASTLOGGEDUSER",String.valueOf(DateFormat.format("MM/dd/yy", Build.TIME)) );
         if (!Build.USER.equals(Build.UNKNOWN)) {
             c.put("LASTLOGGEDUSER",Build.USER);
+        } else { 
+            String user = (String)props.getProperty("user.name");
+            if (!user.equals("")) {
+                c.put("LASTLOGGEDUSER", (String)props.getProperty("user.name"));
+            }
         }
         c.put("MEMORY", String.valueOf(info.availMem) );
         c.put("NAME", Build.MODEL);
