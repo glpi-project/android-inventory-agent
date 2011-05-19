@@ -44,17 +44,9 @@ public class InventoryTask {
 
         if (mContent != null) {
 
-            // KXmlSerializer serializer = new KXmlSerializer();
             XmlSerializer serializer = Xml.newSerializer();
             StringWriter writer = new StringWriter();
 
-            // serializer.setProperty(
-            // "http://xmlpull.org/v1/doc/properties.html#serializer-indentation",
-            // "   ");
-            // // also set the line separator
-            // serializer.setProperty(
-            // "http://xmlpull.org/v1/doc/properties.html#serializer-line-separator",
-            // "\n");
             try {
                 serializer.setOutput(writer);
                 serializer

@@ -41,5 +41,23 @@ public class Cpus extends Categories {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        f = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
+            String line = br.readLine();
+            Integer speed = new Integer(line);
+            speed = speed / 1000;
+            c.put("SPEED", speed.toString());
+            br.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        this.add(c);
     }
 }

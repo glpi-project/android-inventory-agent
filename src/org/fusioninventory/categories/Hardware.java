@@ -23,10 +23,6 @@ public class Hardware
         
         Properties props = System.getProperties();
         
-        //for(Object prop: props.keySet() ) {
-        //    FusionInventory.log(this, String.format("PROP %s = %s" , (String)prop, props.get(prop) ) , Log.VERBOSE);
-        //}
-        
         ActivityManager activityManager = (ActivityManager) mCtx.getSystemService(Service.ACTIVITY_SERVICE);
         MemoryInfo info = new ActivityManager.MemoryInfo();
         activityManager.getMemoryInfo(info);
