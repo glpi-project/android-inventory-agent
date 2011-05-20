@@ -23,6 +23,13 @@ public class Category extends LinkedHashMap<String, String>{
         mType = xType;
     }
 
+    public String put(String key, String value) {
+       if (value != null && !value.equals("")) {
+    	   return super.put(key, value);
+       } else {
+    	   return "";
+       }
+    }
     public void toXML(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
         
             serializer.startTag(null, mType);
