@@ -37,12 +37,18 @@ public class Networks
         WifiInfo wifi = pWM.getConnectionInfo();
         
         FusionInventory.log(this, "<===WIFI INFO===>", Log.VERBOSE);
-        FusionInventory.log(this, "Mac Adress=" + wifi.getMacAddress(), Log.VERBOSE);
-        c.put("MACADDR" , wifi.getMacAddress());
+        if (wifi.getMacAddress() != null) {
+            FusionInventory.log(this, "Mac Adress=" + wifi.getMacAddress(), Log.VERBOSE);
+            c.put("MACADDR" , wifi.getMacAddress());
+        }
         FusionInventory.log(this, "Link Speed=" + wifi.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, Log.VERBOSE);
         c.put("SPEED" , String.valueOf(wifi.getLinkSpeed()));
-        c.put("BSSID", String.valueOf(wifi.getBSSID()));
-        c.put("SSID", String.valueOf(wifi.getSSID()));
+        if (wifi.getBSSID() != null) {
+            c.put("BSSID", String.valueOf(wifi.getBSSID()));
+        }
+        if (wifi.getSSID() != null) {
+            c.put("SSID", String.valueOf(wifi.getBSSID()));
+        }
         
         FusionInventory.log(this, "<===WIFI DHCP===>", Log.VERBOSE);
         FusionInventory.log(this, "dns1=" +  StringUtils.int_to_ip(dhcp.dns1), Log.VERBOSE);

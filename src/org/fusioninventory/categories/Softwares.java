@@ -2,11 +2,16 @@ package org.fusioninventory.categories;
 
 import java.util.List;
 
+import org.fusioninventory.FusionInventory;
+
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageStats;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
+import android.util.Log;
 
 public class Softwares
         extends Categories {
@@ -30,7 +35,7 @@ public class Softwares
             
 
             Category c = new Category(mCtx, "SOFTWARES");
-            //PackageStats stats = new PackageStats(p.packageName);
+            PackageStats stats = new PackageStats(p.packageName);
             //FusionInventory.log(this, "   " + stats.packageName, Log.VERBOSE);
             //c.put("NAME", p.packageName);
             if (p.name != null) {
@@ -50,7 +55,7 @@ public class Softwares
                 e.printStackTrace();
             }
 
-            /*
+            
             Bundle b = p.metaData;
             if (b != null) {
             for (String bname : b.keySet()) {
@@ -58,7 +63,7 @@ public class Softwares
             }
             }
             //FusionInventory.log(this, "   " + stats.cacheSize + " " + stats.codeSize + " " + stats.dataSize, Log.VERBOSE);
-            c.put("FILESIZE", String.valueOf(stats.cacheSize + stats.codeSize + stats.dataSize));*/
+            c.put("FILESIZE", String.valueOf(stats.cacheSize + stats.codeSize + stats.dataSize));
             c.put("FROM", "apk");
             this.add(c);
         }

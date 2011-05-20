@@ -50,14 +50,10 @@ public class Simcards extends Categories {
         
         };
 
-        if (mTM.getLine1Number() == null) {
-            c.put("LINE_NUMBER", "");
-        } else {
+        if (mTM.getLine1Number() != null) {
             c.put("LINE_NUMBER", mTM.getLine1Number());
         }
-        if (mTM.getSubscriberId() == null) {
-            c.put("SUBSCRIBER_ID", "");
-        }  else {
+        if (mTM.getSubscriberId() != null) {
             c.put("SUBSCRIBER_ID", mTM.getSubscriberId());
         }
         

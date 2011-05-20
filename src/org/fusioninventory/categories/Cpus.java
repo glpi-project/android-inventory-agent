@@ -33,10 +33,6 @@ public class Cpus extends Categories {
             BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
             String infos = br.readLine();
             c.put("NAME", infos.replaceAll("(.*):\\ (.*)", "$2"));
-            c.put("CORE", "");
-            c.put("MANUFACTURER", "");
-            c.put("SPEED", "");
-            c.put("THREAD", "");
             br.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
