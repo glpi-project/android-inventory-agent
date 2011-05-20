@@ -44,10 +44,10 @@
 	>Inventaire terminé.</string>
 	<string
 		name="button_connect_agent"
-	>Connect Agent</string>
+	>Agent connecté</string>
 	<string
 		name="button_disconnect_agent"
-	>Disconnect Agent</string>
+	>Agent déconnecté</string>
 	<string
 		name="service_notif_id"
 	>Agent FusionInventory</string>

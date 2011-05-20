@@ -22,9 +22,9 @@ public class Jvm
         Category c = new Category(mCtx,"JVMS");
         Properties props = System.getProperties();
         
-        for(Object prop: props.keySet() ) {
-            FusionInventory.log(this, String.format("PROP %s = %s" , (String)prop, props.get(prop) ) , Log.VERBOSE);
-        }
+        //for(Object prop: props.keySet() ) {
+        //    FusionInventory.log(this, String.format("PROP %s = %s" , (String)prop, props.get(prop) ) , Log.VERBOSE);
+        //}
 
         c.put("NAME", (String)props.getProperty("java.vm.name"));
         c.put("VENDOR", (String)props.getProperty("java.vm.vendor"));

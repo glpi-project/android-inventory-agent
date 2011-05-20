@@ -2,9 +2,12 @@ package org.fusioninventory.categories;
 
 import java.io.File;
 
+import org.fusioninventory.FusionInventory;
+
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 public class Drives extends Categories {
     /**
@@ -24,8 +27,10 @@ public class Drives extends Categories {
     private void addStorage(Context xCtx, File f) {
         Category c = new Category(xCtx, "DRIVES");
         c.put("VOLUME", f.toString());
-        
-        if(Build.VERSION.SDK_INT > 9) {
+
+        FusionInventory.log(this, "SDK number :"+Build.VERSION.SDK_INT, Log.VERBOSE);
+        if(Build.VERSION.SDK_INT > 8) {
+            FusionInventory.log(this, "SDK > 8, use SDK to get total and free disk space", Log.VERBOSE);
             Long total = f.getTotalSpace();
             total = total / 10000;
         	c.put("TOTAL", total.toString());
@@ -33,6 +38,7 @@ public class Drives extends Categories {
             free = free / 10000;
         	c.put("FREE", free.toString());
         } else {
+            FusionInventory.log(this, "SDK < 9, use df total and free disk space", Log.VERBOSE);
         	c.put("TOTAL","0");
         	c.put("FREE","0");
         }

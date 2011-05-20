@@ -6,8 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.fusioninventory.FusionInventory;
+
 
 import android.content.Context;
+import android.util.Log;
 
 
 public class Cpus extends Categories {
@@ -24,6 +27,7 @@ public class Cpus extends Categories {
 
         Category c = new Category(mCtx, "CPUS");
 
+        FusionInventory.log(this, "Parse /proc/cpuinfo", Log.VERBOSE);
         File f = new File("/proc/cpuinfo");
         try {
             BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
@@ -42,6 +46,7 @@ public class Cpus extends Categories {
             e.printStackTrace();
         }
         
+        FusionInventory.log(this, "Parse /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", Log.VERBOSE);
         f = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
         try {
             BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
