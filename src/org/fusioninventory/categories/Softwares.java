@@ -56,12 +56,12 @@ public class Softwares
             }
 
             
-            Bundle b = p.metaData;
-            if (b != null) {
-            for (String bname : b.keySet()) {
-                FusionInventory.log(this, bname + " " + String.valueOf(b.get(bname)),Log.WARN);
-            }
-            }
+            //Bundle b = p.metaData;
+            //if (b != null) {
+            //for (String bname : b.keySet()) {
+            //    FusionInventory.log(this, bname + " " + String.valueOf(b.get(bname)),Log.WARN);
+            //}
+            //}
             //FusionInventory.log(this, "   " + stats.cacheSize + " " + stats.codeSize + " " + stats.dataSize, Log.VERBOSE);
             c.put("FILESIZE", String.valueOf(stats.cacheSize + stats.codeSize + stats.dataSize));
             c.put("FROM", "apk");
