@@ -30,7 +30,7 @@ public class Cpus extends Categories {
         FusionInventory.log(this, "Parse /proc/cpuinfo", Log.VERBOSE);
         File f = new File("/proc/cpuinfo");
         try {
-            BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
+            BufferedReader br = new BufferedReader(new FileReader(f), 8 * 1024);
             String infos = br.readLine();
             c.put("NAME", infos.replaceAll("(.*):\\ (.*)", "$2"));
             br.close();

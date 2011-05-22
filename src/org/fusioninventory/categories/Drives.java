@@ -65,7 +65,6 @@ public class Drives extends Categories {
 		        Long availablelong = new Long(available.trim());
 		        availablelong = availablelong / 1000;
 		      	c.put("FREE", availablelong.toString());
-				this.add(c);
 			}
 			br.close();
 			
