@@ -125,6 +125,7 @@ public class InventoryTask {
         
         String [] categories = { 
                 "Bios",
+                "Inputs",
                 "Sensors",
 //                "Usbs",
 //                "Battery",

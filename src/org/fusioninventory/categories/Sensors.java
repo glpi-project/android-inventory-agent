@@ -2,6 +2,7 @@ package org.fusioninventory.categories;
 
 import java.util.List;
 
+import org.fusionInventory.utils.StringUtils;
 import org.fusioninventory.FusionInventory;
 
 import android.content.Context;
@@ -26,7 +27,7 @@ public class Sensors extends Categories {
 		FusionInventory.log(this, "Get sensors ", Log.VERBOSE);
 
 		for (Sensor s : sensors) {
-			Category c = new Category(mCtx, "CONTROLLERS");
+			Category c = new Category(mCtx, "SENSORS");
 			c.put("NAME", s.getName());
 			c.put("MANUFACTURER", s.getVendor());
 			int type = s.getType();
@@ -67,6 +68,10 @@ public class Sensors extends Categories {
 					break;
 			}
 			c.put("TYPE", strtype);
+			Float f = s.getPower();
+			c.put("POWER", f.toString());
+			Integer version = s.getVersion();
+			c.put("VERSION", version.toString());
 			this.add(c);
 		}
 	}
