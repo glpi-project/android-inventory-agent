@@ -29,7 +29,7 @@ public class Drives extends Categories {
     
     private void addStorage(Context xCtx, File f) {
         Category c = new Category(xCtx, "DRIVES");
-        c.put("VOLUME", f.toString());
+        c.put("VOLUMN", f.toString());
 
         FusionInventory.log(this, "SDK number :"+Build.VERSION.SDK_INT, Log.VERBOSE);
         if(Build.VERSION.SDK_INT > 8) {
