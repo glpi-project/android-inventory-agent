@@ -51,7 +51,6 @@ public class Battery extends Categories {
 
 				int intstatus = arg1.getIntExtra("status",
 						BatteryManager.BATTERY_STATUS_UNKNOWN);
-				String strStatus;
 				if (intstatus == BatteryManager.BATTERY_STATUS_CHARGING) {
 					status = "Charging";
 				} else if (intstatus == BatteryManager.BATTERY_STATUS_DISCHARGING) {

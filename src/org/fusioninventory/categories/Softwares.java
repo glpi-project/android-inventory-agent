@@ -2,16 +2,12 @@ package org.fusioninventory.categories;
 
 import java.util.List;
 
-import org.fusioninventory.FusionInventory;
-
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Bundle;
-import android.util.Log;
 
 public class Softwares
         extends Categories {

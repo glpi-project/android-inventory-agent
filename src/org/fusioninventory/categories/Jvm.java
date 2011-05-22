@@ -2,10 +2,7 @@ package org.fusioninventory.categories;
 
 import java.util.Properties;
 
-import org.fusioninventory.FusionInventory;
-
 import android.content.Context;
-import android.util.Log;
 
 public class Jvm
         extends Categories {

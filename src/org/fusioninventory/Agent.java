@@ -127,7 +127,6 @@ public class Agent
                 FusionInventory.log(this, " received starting inventory task", Log.INFO);
 
                 if (inventory != null) {
-                    Bundle data = msg.peekData();
 
                     if (inventory.running) {
 
