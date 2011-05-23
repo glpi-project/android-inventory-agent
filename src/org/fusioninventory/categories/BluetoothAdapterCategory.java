@@ -1,6 +1,7 @@
 package org.fusioninventory.categories;
 
 import android.content.Context;
+
 import android.bluetooth.*;
 public class BluetoothAdapterCategory
         extends Categories {
@@ -16,12 +17,10 @@ public class BluetoothAdapterCategory
         
         Category c = new Category(mCtx, "BLUETOOTH_ADAPTER");
         
-        BluetoothAdapter adapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();
-        
-        
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         c.put("HMAC" , adapter.getAddress());
         c.put("NAME" , adapter.getName());
-      
+
         this.add(c);
 
     }

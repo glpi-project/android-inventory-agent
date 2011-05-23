@@ -27,6 +27,11 @@ public class Drives extends Categories {
 	    this.addStorage(xCtx, Environment.getDownloadCacheDirectory());
     }
     
+    /**
+     * Add a storage to inventory
+     * @param xCtx the Context
+     * @param f the partition to inventory
+     */
     private void addStorage(Context xCtx, File f) {
         Category c = new Category(xCtx, "DRIVES");
         c.put("VOLUMN", f.toString());
@@ -35,10 +40,10 @@ public class Drives extends Categories {
         if(Build.VERSION.SDK_INT > 8) {
         	FusionInventory.log(this, "SDK > 8, use SDK to get total and free disk space", Log.VERBOSE);
         	Long total = f.getTotalSpace();
-	        total = total / 100000;
+	        total = total / 1048576;
 	      	c.put("TOTAL", total.toString());
 	        Long free = f.getFreeSpace();
-	        free = free / 100000;
+	        free = free / 1048576;
 	      	c.put("FREE", free.toString());
         } else {
         	c = this.getDrivesFromDF(c, f.toString());
@@ -46,6 +51,9 @@ public class Drives extends Categories {
         this.add(c);
     }
     
+    /**
+     * Get inventory for Android < 2.3.3
+     */
 	private Category getDrivesFromDF(Category c, String volume) {
 		
 		try {
@@ -59,11 +67,11 @@ public class Drives extends Categories {
 
 		        String total = sizes[0].replaceAll("([0-9].*)K(.*)", "$1");
 		        Long totallong = new Long(total.trim());
-		        totallong = totallong / 1000;
+		        totallong = totallong / 1024;
 		      	c.put("TOTAL", totallong.toString());
 		        String available = sizes[2].replaceAll("([0-9].*)K(.*)", "$1");
 		        Long availablelong = new Long(available.trim());
-		        availablelong = availablelong / 1000;
+		        availablelong = availablelong / 1024;
 		      	c.put("FREE", availablelong.toString());
 			}
 			br.close();
