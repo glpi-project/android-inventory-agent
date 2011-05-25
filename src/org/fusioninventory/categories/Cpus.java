@@ -60,5 +60,6 @@ public class Cpus extends Categories {
         }
 
         this.add(c);
+        
     }
 }

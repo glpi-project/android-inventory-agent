@@ -124,23 +124,23 @@ public class InventoryTask {
         mContent = new ArrayList<Categories>();
         
         String [] categories = { 
+                "Hardware",
                 "Bios",
                 "Inputs",
                 "Sensors",
-//                "Usbs",
-//                "Battery",
                 "Drives",
                 "Cpus",
-                "Hardware",
                 "Simcards",
                 "Videos",
                 "Cameras",
-//                "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
                 "Networks",
                 "LocationProviders",
                 "Envs",
                 "Jvm",
                 "Softwares"
+//              "Usbs",
+//              "Battery",
+//              "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
         };
         
         Class<Categories> cat_class;

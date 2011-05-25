@@ -2,7 +2,6 @@ package org.fusioninventory.categories;
 
 import java.util.List;
 
-import org.fusionInventory.utils.StringUtils;
 import org.fusioninventory.FusionInventory;
 
 import android.content.Context;
