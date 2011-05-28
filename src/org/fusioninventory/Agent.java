@@ -295,7 +295,7 @@ public class Agent
         
         //Send FusionInventory specific user agent
         //TODO get App version from manifest or somewhere else
-        HttpProtocolParams.setUserAgent(params, "FusionInventory-Agent_Android 1.0");
+        HttpProtocolParams.setUserAgent(params, "FusionInventory-Agent-Android_v1.0");
 
         clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
         context = new BasicHttpContext();

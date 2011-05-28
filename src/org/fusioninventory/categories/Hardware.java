@@ -39,7 +39,7 @@ public class Hardware
                 c.put("LASTLOGGEDUSER", (String)props.getProperty("user.name"));
             }
         }
-        c.put("MEMORY", String.valueOf(info.availMem) );
+        //c.put("MEMORY", String.valueOf(info.availMem) );
         c.put("NAME", Build.MODEL);
         c.put("OSCOMMENTS" ,(String)props.get("os.version"));
         c.put("OSNAME", "Android");
