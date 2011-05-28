@@ -1,15 +1,12 @@
 package org.fusioninventory.categories;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import org.fusioninventory.FusionInventory;
 
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.util.Log;
 
 public class Drives extends Categories {
@@ -37,6 +34,8 @@ public class Drives extends Categories {
         c.put("VOLUMN", f.toString());
 
         FusionInventory.log(this, "SDK number :"+Build.VERSION.SDK_INT, Log.VERBOSE);
+        
+        //Android 2.3.3 or higher
         if(Build.VERSION.SDK_INT > 8) {
         	FusionInventory.log(this, "SDK > 8, use SDK to get total and free disk space", Log.VERBOSE);
         	Long total = f.getTotalSpace();
@@ -45,41 +44,16 @@ public class Drives extends Categories {
 	        Long free = f.getFreeSpace();
 	        free = free / 1048576;
 	      	c.put("FREE", free.toString());
+        //Android < 2.3.3
         } else {
-        	c = this.getDrivesFromDF(c, f.toString());
+        	StatFs stat = new StatFs(f.toString());
+        	Integer total = (stat.getBlockCount() * stat.getBlockSize()) / 1048576;
+        	c.put("TOTAL", total.toString());
+        	Integer free = (stat.getFreeBlocks() * stat.getBlockSize()) / 1048576;
+        	c.put("FREE", free.toString());
+        	
         }
         this.add(c);
     }
-    
-    /**
-     * Get inventory for Android < 2.3.3
-     */
-	private Category getDrivesFromDF(Category c, String volume) {
-		
-		try {
-			Process process = Runtime.getRuntime().exec("df " + volume);
-			BufferedReader br = new BufferedReader(
-		            new InputStreamReader(process.getInputStream()), 8 * 1024);
-			String line;
-			while ((line = br.readLine()) != null) {
-		        String[] data = line.split(":");
-		        String[] sizes = data[1].split(",");
 
-		        String total = sizes[0].replaceAll("([0-9].*)K(.*)", "$1");
-		        Long totallong = new Long(total.trim());
-		        totallong = totallong / 1024;
-		      	c.put("TOTAL", totallong.toString());
-		        String available = sizes[2].replaceAll("([0-9].*)K(.*)", "$1");
-		        Long availablelong = new Long(available.trim());
-		        availablelong = availablelong / 1024;
-		      	c.put("FREE", availablelong.toString());
-			}
-			br.close();
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return c;
-	}
 }
