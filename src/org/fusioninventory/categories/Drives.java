@@ -30,28 +30,29 @@ public class Drives extends Categories {
      * @param f the partition to inventory
      */
     private void addStorage(Context xCtx, File f) {
-        Category c = new Category(xCtx, "DRIVES");
+        int toMega = 1048576;
+    	Category c = new Category(xCtx, "DRIVES");
         c.put("VOLUMN", f.toString());
 
-        FusionInventory.log(this, "SDK number :"+Build.VERSION.SDK_INT, Log.VERBOSE);
+        FusionInventory.log(this, "Inventory volum "+f.toString() , Log.VERBOSE);
         
         //Android 2.3.3 or higher
         if(Build.VERSION.SDK_INT > 8) {
         	FusionInventory.log(this, "SDK > 8, use SDK to get total and free disk space", Log.VERBOSE);
         	Long total = f.getTotalSpace();
-	        total = total / 1048576;
+	        total = total / toMega;
 	      	c.put("TOTAL", total.toString());
 	        Long free = f.getFreeSpace();
-	        free = free / 1048576;
+	        free = free / toMega;
 	      	c.put("FREE", free.toString());
         //Android < 2.3.3
         } else {
+            FusionInventory.log(this, "SDK < 8 use StatFS", Log.VERBOSE);
         	StatFs stat = new StatFs(f.toString());
-        	Integer total = (stat.getBlockCount() * stat.getBlockSize()) / 1048576;
-        	c.put("TOTAL", total.toString());
-        	Integer free = (stat.getFreeBlocks() * stat.getBlockSize()) / 1048576;
-        	c.put("FREE", free.toString());
-        	
+        	long total = (stat.getBlockSize() * stat.getBlockSize()) / toMega;
+        	c.put("TOTAL", String.valueOf(total));
+        	long free = (stat.getFreeBlocks() * stat.getBlockSize()) / toMega;
+        	c.put("FREE", String.valueOf(free));
         }
         this.add(c);
     }

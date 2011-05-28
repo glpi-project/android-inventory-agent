@@ -20,10 +20,16 @@ public class Memory extends Categories {
 		super(xCtx);
 		// TODO Auto-generated constructor stub
 		Category c = new Category(xCtx, "MEMORIES");
+        c.put("DESCRIPTION", "Memory");
+        c.put("CAPACITY", getCapacity());
 
+        this.add(c);
+	}
+	
+	public String getCapacity() {
         File f = new File("/proc/meminfo");
+        String capacity = "";
         try {
-            c.put("DESCRIPTION", "Memory");
 
         	BufferedReader br = new BufferedReader(new FileReader(f), 8 * 1024);
         	String line;
@@ -33,7 +39,7 @@ public class Memory extends Categories {
                     String part1 = parts[1].trim();
                     Long memory = new Long(part1.replaceAll("(.*)\\ kB", "$1"));
                     memory = memory / 1024;
-                    c.put("CAPACITY", String.valueOf(memory));
+                    capacity =  String.valueOf(memory);
         		}
         	}
 
@@ -45,7 +51,6 @@ public class Memory extends Categories {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        this.add(c);
+		return capacity;
 	}
 }
