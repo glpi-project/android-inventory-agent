@@ -48,7 +48,9 @@ public class Hardware
         c.put("OSVERSION", Build.VERSION.RELEASE);
         c.put("ARCHNAME", (String)props.getProperty("os.arch"));
         c.put("SDK", new Integer(Build.VERSION.SDK_INT).toString());
-
+        Cpus cpu = new Cpus(xCtx);
+        c.put("PROCESSORT", cpu.getCpuName());
+        c.put("PROCESSORS", cpu.getCpuFrequency());
         this.add(c);
 
     }

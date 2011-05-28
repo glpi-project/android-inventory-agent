@@ -26,13 +26,23 @@ public class Cpus extends Categories {
         // TODO Auto-generated constructor stub
 
         Category c = new Category(mCtx, "CPUS");
+        c.put("NAME", getCpuName());
+        c.put("SPEED", getCpuFrequency());
 
+        
+
+        this.add(c);
+        
+    }
+    
+    public String getCpuName() {
         FusionInventory.log(this, "Parse /proc/cpuinfo", Log.VERBOSE);
+        String cpuname = "";
         File f = new File("/proc/cpuinfo");
         try {
             BufferedReader br = new BufferedReader(new FileReader(f), 8 * 1024);
             String infos = br.readLine();
-            c.put("NAME", infos.replaceAll("(.*):\\ (.*)", "$2"));
+            cpuname = infos.replaceAll("(.*):\\ (.*)", "$2");
             br.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -41,15 +51,19 @@ public class Cpus extends Categories {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        FusionInventory.log(this, "Parse /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", Log.VERBOSE);
-        f = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+    	return cpuname;
+    }
+    
+    public String getCpuFrequency() {
+        String cpuFrequency = "";
+    	FusionInventory.log(this, "Parse /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", Log.VERBOSE);
+        File f = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
         try {
             BufferedReader br = new BufferedReader(new FileReader(f),8 * 1024);
             String line = br.readLine();
             Integer speed = new Integer(line);
             speed = speed / 1000;
-            c.put("SPEED", speed.toString());
+            cpuFrequency = speed.toString();
             br.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -58,8 +72,6 @@ public class Cpus extends Categories {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        this.add(c);
-        
+    	return cpuFrequency;
     }
 }
