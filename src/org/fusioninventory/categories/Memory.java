@@ -11,10 +11,12 @@ import android.content.Context;
 
 public class Memory extends Categories {
 
+
+
 	/**
-     * 
-     */
-	private static final long serialVersionUID = -559572118090134691L;
+	 * 
+	 */
+	private static final long serialVersionUID = -494336872000892273L;
 
 	public Memory(Context xCtx) {
 		super(xCtx);

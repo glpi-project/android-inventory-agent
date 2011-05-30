@@ -8,8 +8,11 @@ import android.os.BatteryManager;
 
 public class Battery extends Categories {
 
-	private static final long serialVersionUID = -559572118090134691L;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4096347994131285426L;
 	private String level, voltage, temperature, status, health,
 			technology;
 

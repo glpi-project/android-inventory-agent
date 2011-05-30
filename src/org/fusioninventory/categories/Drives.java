@@ -10,12 +10,14 @@ import android.os.StatFs;
 import android.util.Log;
 
 public class Drives extends Categories {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -559572118090134691L;
 
-    public Drives(Context xCtx) {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6073387379988815108L;
+
+	public Drives(Context xCtx) {
         super(xCtx);
         
         this.addStorage(xCtx, Environment.getRootDirectory());
@@ -48,10 +50,16 @@ public class Drives extends Categories {
         //Android < 2.3.3
         } else {
             FusionInventory.log(this, "SDK < 8 use StatFS", Log.VERBOSE);
-        	StatFs stat = new StatFs(f.toString());
-        	long total = (stat.getBlockSize() * stat.getBlockSize()) / toMega;
+
+            StatFs stat = new StatFs(f.toString());
+            long blockSize = stat.getBlockSize();
+            long totalBlocks = stat.getBlockCount();
+            double total = totalBlocks * blockSize /toMega;
+        	//double total = (stat.getBlockSize() * stat.getBlockSize()) / toMega;
+        	
         	c.put("TOTAL", String.valueOf(total));
-        	long free = (stat.getFreeBlocks() * stat.getBlockSize()) / toMega;
+            long freeBlocks = stat.getFreeBlocks();
+        	double free = freeBlocks * blockSize / toMega;
         	c.put("FREE", String.valueOf(free));
         }
         this.add(c);

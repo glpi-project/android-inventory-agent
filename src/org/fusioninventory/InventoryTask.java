@@ -124,6 +124,7 @@ public class InventoryTask {
         mContent = new ArrayList<Categories>();
         
         String [] categories = { 
+//                "PhoneStatus",
                 "Hardware",
                 "Bios",
                 "Memory",

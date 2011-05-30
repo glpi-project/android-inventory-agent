@@ -8,12 +8,13 @@ import android.hardware.Camera;
 public class Cameras
         extends Categories {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 6791259866128400637L;
 
-    public Cameras(Context xCtx) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6791259866128400637L;
+
+	public Cameras(Context xCtx) {
         super(xCtx);
         // TODO Auto-generated constructor stub
         

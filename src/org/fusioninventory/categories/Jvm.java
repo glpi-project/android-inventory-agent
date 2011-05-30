@@ -7,12 +7,13 @@ import android.content.Context;
 public class Jvm
         extends Categories {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3528873342443549732L;
 
-    public Jvm(Context xCtx) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3291981487537599599L;
+
+	public Jvm(Context xCtx) {
         super(xCtx);
         // TODO Auto-generated constructor stub
 
