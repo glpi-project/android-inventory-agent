@@ -7,6 +7,7 @@ import android.app.ActivityManager.MemoryInfo;
 import android.app.Service;
 import android.content.Context;
 import android.os.Build;
+import android.provider.Settings.Secure;
 import android.text.format.DateFormat;
 
 public class Hardware
@@ -45,6 +46,8 @@ public class Hardware
         c.put("OSVERSION", (String)props.get("os.version"));
         c.put("ARCHNAME", (String)props.getProperty("os.arch"));
         c.put("SDK", new Integer(Build.VERSION.SDK_INT).toString());
+        String deviceId = Secure.getString(xCtx.getContentResolver(), Secure.ANDROID_ID);
+        c.put("UNIQUEID", deviceId);
         
         //For OCS compatibility
         Memory memory = new Memory(xCtx);

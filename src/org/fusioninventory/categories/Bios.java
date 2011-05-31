@@ -11,7 +11,6 @@ import org.fusioninventory.FusionInventory;
 
 import android.content.Context;
 import android.os.Build;
-import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
