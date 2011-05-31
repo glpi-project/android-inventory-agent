@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import org.fusioninventory.FusionInventory;
 
@@ -45,20 +46,32 @@ public class Bios extends Categories {
 			// Since in 2.3.3 a.k.a gingerbread
 			c.put("SSN", Build.SERIAL);
 		} else {
+			//Try to get the serial by reading /proc/cpuinfo
 			String serial = this.getSerialNumberFromCpuinfo();
 			if (!serial.equals("") && !serial.equals("0000000000000000")) {
 				c.put("SSN", serial);
 			} else {
-				// Get IMEI serial number
-				TelephonyManager telephonyManager = (TelephonyManager) xCtx
-						.getSystemService(Context.TELEPHONY_SERVICE);
-				c.put("SSN", telephonyManager.getDeviceId());
+				//Last try, use the hidden API !
+				serial = getSerialFromPrivateAPI();
+				if (!serial.equals("")) {
+					c.put("SSN", serial);
+				}
 			}
 		}
 
 		this.add(c);
 	}
 
+	private String getSerialFromPrivateAPI() {
+		String serial = "";
+		try {
+	        Class<?> c = Class.forName("android.os.SystemProperties");
+	        Method get = c.getMethod("get", String.class);
+	        serial = (String) get.invoke(c, "ro.serialno");
+	    } catch (Exception ignored) {
+	    }
+	    return serial;
+	}
 	private String getSerialNumberFromCpuinfo() {
 		String serial = "";
 		File f = new File("/proc/cpuinfo");
