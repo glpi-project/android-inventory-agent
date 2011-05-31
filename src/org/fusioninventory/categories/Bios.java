@@ -31,8 +31,9 @@ public class Bios extends Categories {
 		c.put("BDATE", (String) DateFormat.format("MM/dd/yy", Build.TIME));
 		// Bios Manufacturer
 		c.put("BMANUFACTURER", Build.MANUFACTURER);
-		// Bios Revision
-		c.put("BVERSION", Build.BOOTLOADER);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR_MR1) {
+			c.put("BVERSION", Build.BOOTLOADER);
+		}
 
 		// Mother Board Manufacturer
 		c.put("MMANUFACTURER", Build.MANUFACTURER);
