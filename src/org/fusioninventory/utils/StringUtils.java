@@ -46,7 +46,6 @@ public class StringUtils {
     }
 
     public static String int_to_ip(int value) {
-        StringBuilder s = new StringBuilder();
         byte[] b = int_to_byte(value);
         Stack<String> stack = new Stack<String>();
         for (byte c : b) {
