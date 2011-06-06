@@ -40,9 +40,11 @@ public class Bios extends Categories {
 		// c.put("MMODEL", "Smartphone");
 		c.put("SMODEL", Build.MODEL);
 
-		if (Build.VERSION.SDK_INT > 9) {
+		
+		if (Build.VERSION.SDK_INT > 9 && !Build.SERIAL.equals(Build.UNKNOWN)) {
 			// Mother Board Serial Number
 			// Since in 2.3.3 a.k.a gingerbread
+		    FusionInventory.log(this, "Serial:" + Build.SERIAL, Log.INFO);
 			c.put("SSN", Build.SERIAL);
 		} else {
 			String serial = this.getSerialNumberFromCpuinfo();
