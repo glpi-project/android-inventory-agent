@@ -32,7 +32,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.fusionInventory.utils.EasySSLSocketFactory;
+import org.fusioninventory.utils.EasySSLSocketFactory;
 
 import android.app.Notification;
 import android.app.NotificationManager;

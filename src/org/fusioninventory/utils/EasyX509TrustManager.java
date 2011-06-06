@@ -1,4 +1,4 @@
-package org.fusionInventory.utils;
+package org.fusioninventory.utils;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

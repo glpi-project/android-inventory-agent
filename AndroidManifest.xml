@@ -59,7 +59,7 @@
 			android:description="@string/agent_description"
 			android:icon="@drawable/fusioninventory"
 
-			android:name=".Agent"
+			android:name="Agent"
 		>
 			<!-- android:process=":agent" -->
 			<intent-filter>
@@ -68,7 +68,7 @@
 			</intent-filter>
 		</service>
 		<receiver
-			android:name=".BootStartAgent"
+			android:name="BootStartAgent"
 		>
 			<intent-filter>
 				<action

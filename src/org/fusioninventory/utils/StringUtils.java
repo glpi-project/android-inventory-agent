@@ -1,4 +1,4 @@
-package org.fusionInventory.utils;
+package org.fusioninventory.utils;
 
 import java.util.Collection;
 import java.util.Iterator;
