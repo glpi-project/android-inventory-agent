@@ -5,8 +5,8 @@
 	android:versionCode="1"
 	android:versionName="1.0"
 >
-	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="3"/>
-
+	<uses-sdk android:minSdkVersion="3"/>
+ 
 	<!-- Permissions -->
 	<uses-permission
 		android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -42,7 +42,7 @@
 		android:name="android.permission.CHANGE_WIFI_STATE" />
 	<application
 		android:label="@string/app_name"
-		android:name="FusionInventoryApp" android:icon="@drawable/fusioninventory" android:debuggable="true" android:vmSafeMode="true">
+		android:name="FusionInventoryApp" android:debuggable="true" android:vmSafeMode="true" android:icon="@drawable/icon">
 		<activity
 			android:name=".FusionInventory"
 			android:label="@string/app_name" android:launchMode="standard">
@@ -57,7 +57,7 @@
 			android:enabled="true"
 			android:label="FusionInventory Agent"
 			android:description="@string/agent_description"
-			android:icon="@drawable/fusioninventory"
+			android:icon="@drawable/icon"
 
 			android:name="Agent"
 		>

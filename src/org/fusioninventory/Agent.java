@@ -206,7 +206,7 @@ public class Agent
         contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, FusionInventory.class), 0);
 
         notification = new Notification();
-        notification.icon = R.drawable.fusioninventory;
+        notification.icon = R.drawable.icon;
 
         notification.tickerText = getText(R.string.agent_started).toString();
         updateNotification(getText(R.string.agent_started).toString());
