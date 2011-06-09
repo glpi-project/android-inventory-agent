@@ -17,24 +17,20 @@ public class Cameras
 	public Cameras(Context xCtx) {
         super(xCtx);
         // TODO Auto-generated constructor stub
-        
         Category c = new Category(mCtx , "CAMERAS");
-        
         Camera cam = Camera.open();
         
         Camera.Parameters params = cam.getParameters();
         List<Camera.Size> list = params.getSupportedPictureSizes();
         int width = 0,height = 0;
         for (Camera.Size size : list) {
-            if( (size.width * size.height) > (width * height) ) {
+        	if( (size.width * size.height) > (width * height) ) {
                 width  = size.width;
                 height = size.height;
             }
-            
         }
-        cam.release();
         c.put("RESOLUTIONS",String.format("%dx%d" , width, height) );
-
+        cam.release();
         this.add(c);
     }
 
