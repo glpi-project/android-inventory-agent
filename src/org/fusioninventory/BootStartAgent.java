@@ -1,6 +1,6 @@
 package org.fusioninventory;
 
-import org.fusionInventory.utils.StringUtils;
+import org.fusioninventory.utils.StringUtils;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
