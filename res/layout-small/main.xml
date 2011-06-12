@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/linearLayout"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@drawable/xbgtile"
+	android:orientation="vertical"
+>
+
+	<ScrollView
+		android:scrollbarStyle="insideOverlay"
+		android:scrollbars="vertical|horizontal"
+		android:fadingEdge="vertical"
+		android:fadingEdgeLength="30dip"
+		android:background="#77330000"
+		android:layout_marginLeft="5dip"
+		android:layout_marginRight="5dip"
+		android:layout_marginBottom="5dip"
+
+		android:layout_marginTop="5dip"
+    android:layout_weight="1"
+    
+		android:paddingLeft="2dip"
+		android:paddingRight="2dip"
+		android:layout_width="match_parent"
+	 android:layout_height="0dip"
+	>
+		<TextView
+			android:id="@+id/log_text"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			
+			android:text=""
+			android:textColor="#ffffff" />
+		
+	</ScrollView>
+
+  <ScrollView
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical|horizontal"
+    android:fadingEdge="vertical"
+    android:fadingEdgeLength="30dip"
+    android:background="#77330000"
+    android:layout_marginLeft="5dip"
+    android:layout_marginRight="5dip"
+    android:layout_marginBottom="5dip"
+
+    android:layout_marginTop="5dip"
+
+    android:paddingLeft="2dip"
+    android:paddingRight="2dip"
+    android:layout_width="match_parent"
+    android:layout_height="0dip"
+    android:layout_weight="1"    
+  >
+  <WebView android:id="@+id/web_text" android:layout_width="match_parent" android:layout_height="match_parent"></WebView>
+  </ScrollView>
+  
+</LinearLayout>
+
+
+
+
+

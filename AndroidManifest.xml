@@ -5,8 +5,7 @@
 	android:versionCode="1"
 	android:versionName="1.0"
 >
-	<uses-sdk android:minSdkVersion="3"/>
- 
+	<uses-sdk android:targetSdkVersion="4" android:minSdkVersion="4"/>
 	<!-- Permissions -->
 	<uses-permission
 		android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
