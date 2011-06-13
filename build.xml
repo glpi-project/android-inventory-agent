@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="FusionInventory" default="help">
+<!--<project name="FusionInventory" default="help">-->
+<project default="help">
 
+    <property name="project.name" value="FusionInventory" />
 <!-- The local.properties file is created and updated by the 'android'
      tool.
      It contains the path to the SDK. It should *NOT* be checked into
@@ -36,7 +38,25 @@
     <!-- Required pre-setup import -->
     <import file="${sdk.dir}/tools/ant/pre_setup.xml" />
 
+    <exec outputproperty="build.gitbranch" executable="git">
+        <arg line="symbolic-ref HEAD" />
+        <redirector>
+            <outputfilterchain>
+                <tokenfilter>
+                    <replaceregex pattern="refs/heads/" replace="" flags="" />
+                </tokenfilter>
+            </outputfilterchain>
+        </redirector>
+    </exec>
 
+    <exec outputproperty="build.gitrev" executable="git">
+        <arg line="log -1 --pretty=format:%h ${build.gitbranch}" />
+    </exec>
+
+    <echo>Git branch ${build.gitbranch}</echo>
+    <echo>Git revision ${build.gitrev}</echo>
+    <property name="project.suffix" value="-${build.gitbranch}@${build.gitrev}" />
+    <property name="ant.project.name" value="${project.name}${project.suffix}" />
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 <!--
@@ -74,6 +94,8 @@
                below to <setup import="false" />.
              - customize to your needs.
     -->
+    <echo>${ant.project.name}</echo>
     <setup />
+    <echo>${ant.project.name}</echo>
 
 </project>
