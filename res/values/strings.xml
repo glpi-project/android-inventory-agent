@@ -2,13 +2,16 @@
 <resources>
 	<string
 		name="app_name"
-	>FusionInventory</string>
+	>Fusioninventory</string>
 	<string
 		name="agent_started"
-	>FusionInventory Agent is started</string>
+	>Fusioninventory Agent is started</string>
 	<string
 		name="agent_stopped"
-	>FusionInventory Agent is stopped</string>
+	>Fusioninventory Agent is stopped</string>
+	<string
+		name="agent_reboot"
+	>Fusioninventory Agent is restarted</string>
 	<string
 		name="agent_description"
 	>The inventory agent running in background</string>
@@ -40,6 +43,9 @@
 		name="inventory_started"
 	>Starting inventory...</string>
 	<string
+		name="inventory_sended"
+	>Sending inventory...</string>
+	<string
 		name="inventory_ended"
 	>End of inventory.</string>
 	<string
@@ -48,9 +54,21 @@
 	<string
 		name="button_disconnect_agent"
 	>Disconnect Agent</string>
+    <string
+		name="error_inventory"
+	>Inventory not complet</string>
+    <string
+		name="ok_inventory"
+	>Inventory complet</string>
+    <string
+		name="error_send_inventoryi"
+	>Inventory not send</string>
+    <string
+		name="ok_send_inventory"
+	>Inventory send</string>
 	<string
 		name="service_notif_id"
-	>FusionInventory Agent</string>
+	>FusioninventoryInventory Agent</string>
 	<string-array
 		name="agent_status"
 	>

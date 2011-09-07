@@ -31,7 +31,7 @@
 		android:name="android.permission.BLUETOOTH" />
 	<uses-permission
 		android:name="android.permission.INSTALL_PACKAGES" />
-   <uses-permission 
+   <uses-permission
       android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission
 		android:name="android.permission.GET_PACKAGE_SIZE" />
@@ -43,7 +43,7 @@
 		android:label="@string/app_name"
 		android:name="FusionInventoryApp" android:debuggable="true" android:vmSafeMode="true" android:icon="@drawable/icon">
 		<activity
-			android:name=".FusionInventory"
+			android:name=".Accueil"
 			android:label="@string/app_name" android:launchMode="standard">
 			<intent-filter>
 				<action
@@ -66,6 +66,19 @@
 					android:name="org.fusioninventory.Agent" />
 			</intent-filter>
 		</service>
+        <service
+            android:enabled="true"
+            android:label="Agent Auto"
+            android:description="@string/agent_description"
+            android:icon="@drawable/icon"
+            android:name=".AutoInventory"
+        >
+            <!-- android:process=":Auto agent" -->
+            <intent-filter>
+                <action
+                    android:name="org.fusioninventory.AutoInventory" />
+            </intent-filter>
+        </service>
 		<receiver
 			android:name="BootStartAgent"
 		>
