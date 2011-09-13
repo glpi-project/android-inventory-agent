@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Advanced settings part -->
+
+	<string name="AdvancedCatDebug">Debug tools</string>
+
+	<string name="AdvancedDaemon">Run daemon as root</string>
+	<string name="AdvancedDaemonSummaryOff">Click to run daemon as user</string>
+	<string name="AdvancedDaemonSummaryOn">Click to run daemon as root</string>
+	<string name="AdvancedNotify">Notify clients connected</string>
+	<string name="AdvancedNotifySummaryOff">Click to enable notifications</string>
+	<string name="AdvancedNotifySummaryOn">Click to disable notifications</string>
+	<string name="AdvancedDebug">Debug messages</string>
+	<string name="AdvancedDebugSummaryOff">Click to enable debug messages</string>
+	<string name="AdvancedDebugSummaryOn">Click to disable debug messages</string>
+
+	<string name="AdvancedCatBin">Path to binaries</string>
+
+	<string name="AdvancedSU">Path to SU</string>
+	<string name="AdvancedSUSummary">Define path to SU binarie</string>
+	<string name="AdvancedSH">Path to SH</string>
+	<string name="AdvancedSHSummary">Define path to SH binarie</string>
+
+
+</resources>

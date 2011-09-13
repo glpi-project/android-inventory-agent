@@ -1,6 +1,7 @@
 package org.fusioninventory;
 
 import android.app.Activity;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +32,7 @@ public class FusionInventory
     private String[] STATUS_AGENT = null;
     private boolean isAgentOk = false;
     private String barcode = null;
-
+    
     public static void log(Object obj, String msg, int level) {
         String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
         Log.println(level, "FusionInventory", final_msg);
@@ -160,7 +161,7 @@ public class FusionInventory
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        STATUS_AGENT = getResources().getStringArray(R.array.agent_status);
+        STATUS_AGENT = getResources().getStringArray(R.array.agent_status);       
 
         setContentView(R.layout.main);
 
