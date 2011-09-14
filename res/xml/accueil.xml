@@ -1,0 +1,94 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/AccueilTitle">
+
+    <PreferenceCategory android:title="@string/AccueilInventoryTitle"/>
+
+    <!-- Inventory part -->
+
+    <CheckBoxPreference
+        android:summary="CheckBox summary"
+        android:title="@string/AccueilInventoryTitle"
+        android:summaryOn="@string/AccueilInventorySummaryOn"
+        android:summaryOff="@string/AccueilInventorySummaryOff"
+        android:key="autoInventory"
+        android:defaultValue="true"
+        />
+    <Preference
+        android:title="@string/AccueilInventoryRun"
+        android:summary="@string/AccueilInventoryRunSummary"
+        android:key="runInventory"
+        android:dependency="autoInventory"
+        />
+    <PreferenceScreen
+        android:title="@string/AccueilInventoryParam"
+        android:summary="@string/AccueilInventoryParamSummary"
+        android:dependency="autoInventory"
+        >
+
+        <PreferenceCategory android:title="@string/InventoryCat"/>
+
+        <CheckBoxPreference
+            android:summary="CheckBox summary"
+            android:title="@string/InventoryAuto"
+            android:summaryOn="@string/InventoryAutoSummaryOn"
+            android:summaryOff="@string/InventoryAutoSummaryOff"
+            android:key="autoStartInventory" android:defaultValue="true"
+            />
+        <ListPreference
+            android:key="timeInventory"
+            android:title="@string/InventoryFrequency"
+            android:dialogTitle="@string/InventoryFrequency"
+            android:dependency="autoStartInventory"
+            android:entries="@array/Time"
+            android:entryValues="@array/TimeValue"
+            android:defaultValue="Week"
+            android:summary="@string/InventoryFrequencySummary"
+            />
+
+    </PreferenceScreen>
+
+    <PreferenceCategory android:title="@string/AccueilGlobalTitle"/>
+
+    <PreferenceScreen
+        android:title="@string/AccueilGlobalParam"
+        android:summary="@string/AccueilGlobalParamSummary">
+
+        <PreferenceCategory android:title="@string/GlobalCat"/>
+
+        <CheckBoxPreference
+            android:summary="CheckBox summary"
+            android:title="@string/GlobalBoot"
+            android:summaryOn="@string/GlobalBootSummaryOn"
+            android:summaryOff="@string/GlobalBootSummaryOff"
+            android:key="boot" android:defaultValue="true"
+            />
+
+        <CheckBoxPreference
+            android:summary="CheckBox summary"
+            android:title="@string/GlobalNotif"
+            android:summaryOn="@string/GlobalNotifSummaryOn"
+            android:summaryOff="@string/GlobalNotifSummaryOff"
+            android:key="notif" android:defaultValue="false"
+            />
+
+        <PreferenceCategory android:title="@string/GlobalCatSet"/>
+
+        <EditTextPreference
+            android:title="@string/GlobalServer"
+            android:key="url"
+            android:summary="@string/GlobalServerSummary"
+            android:persistent="true"
+            />
+        <EditTextPreference android:dialogMessage="@string/tag" android:persistent="true" android:enabled="true" android:selectable="true" android:dialogTitle="@string/tag" android:title="@string/tag" android:key="tag"></EditTextPreference>
+
+
+
+        <PreferenceCategory android:title="@string/authentication_credentials">
+            <EditTextPreference android:dialogMessage="@string/login" android:enabled="true" android:persistent="true" android:title="@string/login" android:key="login"></EditTextPreference>
+            <EditTextPreference android:dialogMessage="@string/password" android:persistent="true" android:title="@string/password" android:key="password" android:enabled="true"></EditTextPreference>
+        </PreferenceCategory>
+
+
+    </PreferenceScreen>
+
+</PreferenceScreen>
