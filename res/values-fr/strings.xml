@@ -29,13 +29,13 @@
 	>Faire un inventaire</string>
 	<string
 		name="all_permissions"
-	>Grant all possible permissions</string>
+	>Accorder toutes les permissions possibles</string>
 	<string
 		name="agent_connected"
 	>Connecté au service</string>
 	<string
 		name="agent_disconnected"
-	>Disconnected</string>
+	>Déconnecté</string>
 	<string
 		name="inventory_started"
 	>Inventaire démarré...</string>

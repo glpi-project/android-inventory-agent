@@ -12,8 +12,8 @@
 		<string name="AccueilInventorySummaryOff">Click to enable inventory</string>
 		<string name="AccueilInventoryRun">Run inventory</string>
 		<string name="AccueilInventoryRunSummary">Run now</string>
-		<string name="AccueilInventoryParam">Parameters inventory</string>
-		<string name="AccueilInventoryParamSummary">Setup inventory frequencies</string>
+		<string name="AccueilInventoryParam">Inventory parameters</string>
+		<string name="AccueilInventoryParamSummary">Inventory frequencies</string>
 
 	<!-- Remote view part -->
 
