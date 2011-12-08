@@ -139,8 +139,8 @@ public class InventoryTask {
 //                "LocationProviders",
                 "Envs",
                 "Jvm",
-                "Softwares"
-//                "Usbs",
+                "Softwares",
+                "Usb",
 //              "Battery",
 //              "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
         };
