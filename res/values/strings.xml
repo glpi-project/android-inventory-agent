@@ -14,7 +14,7 @@
 	>Fusioninventory Agent is restarted</string>
 	<string
 		name="agent_description"
-	>The inventory agent running in background</string>
+	>Agent is running in background</string>
 	<string
 		name="button_start_inventory"
 	>Start Inventory</string>

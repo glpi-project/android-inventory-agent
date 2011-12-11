@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Inventory Preferences -->
+
+	<string name="InventoryCat">Inventaire</string>
+
+	<string name="InventoryAuto">Inventaire automatique</string>
+	<string name="InventoryAutoSummaryOn">Activer l\'inventaire automatique</string>
+	<string name="InventoryAutoSummaryOff">Désactiver l\inventaire automatique</string>
+
+	<string name="InventoryFrequency">Fréquence</string>
+	<string name="InventoryFrequencyDialog">Tous les :</string>
+	<string name="InventoryFrequencySummary">Définir la fréquence d\'inventaire</string>
+
+</resources>
+

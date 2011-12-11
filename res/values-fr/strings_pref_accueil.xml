@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Accueil Preferences -->
+
+	<string name="AccueilTitle">Paramètres de l\'agent Fusioninventory</string>
+
+	<!-- Inventory part -->
+
+		<string name="AccueilInventoryTitle">Inventaire</string>
+		<string name="AccueilInventorySummaryOn">Cliquer ici pour désactiver l\inventaire</string>
+		<string name="AccueilInventorySummaryOff">Cliquer ici pour activer l\inventaire</string>
+		<string name="AccueilInventoryRun">Lancer un  inventaire</string>
+		<string name="AccueilInventoryRunSummary">Inventorier maintenant</string>
+		<string name="AccueilInventoryParam">Paramètres de l\'inventaire</string>
+		<string name="AccueilInventoryParamSummary">Fréquence d\'inventaire</string>
+
+	<!-- Remote view part -->
+
+		<string name="AccueilRemoteTitle">Remote view</string>
+		<string name="AccueilRemoteSummaryOn">Click to disable remote view</string>
+		<string name="AccueilRemoteSummaryOff">Click to enable remote view</string>
+		<string name="AccueilRemoteParam">Parameters remote view</string>
+		<string name="AccueilRemoteParamSummary">Setup remote view settings</string>
+
+	<!-- SSH part -->
+
+		<string name="AccueilSshTitle">Secure Shell</string>
+		<string name="AccueilSshSummaryOn">Click to disable SSH</string>
+		<string name="AccueilSshSummaryOff">Click to enable SSH</string>
+
+	<!-- global part -->
+
+		<string name="AccueilGlobalTitle">Général</string>
+		<string name="AccueilGlobalParam">Paramètres généraux</string>
+		<string name="AccueilGlobalParamSummary">Certificat, adresse du serveur, etc...</string>
+
+
+
+</resources>

@@ -3,14 +3,14 @@
 
 <!-- Accueil Preferences -->
 
-	<string name="AccueilTitle">Agent Fusioninventory settings</string>
+	<string name="AccueilTitle">Fusioninventory Agent Settings</string>
 
 	<!-- Inventory part -->
 
 		<string name="AccueilInventoryTitle">Inventory</string>
 		<string name="AccueilInventorySummaryOn">Click to disable inventory</string>
 		<string name="AccueilInventorySummaryOff">Click to enable inventory</string>
-		<string name="AccueilInventoryRun">Run inventory</string>
+		<string name="AccueilInventoryRun">Run inventory now</string>
 		<string name="AccueilInventoryRunSummary">Run now</string>
 		<string name="AccueilInventoryParam">Inventory parameters</string>
 		<string name="AccueilInventoryParamSummary">Inventory frequencies</string>
