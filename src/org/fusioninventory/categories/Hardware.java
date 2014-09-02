@@ -42,12 +42,12 @@ public class Hardware
         }
 
         c.put("NAME", Build.MODEL);
-        c.put("OSNAME", "Android "+Build.VERSION.RELEASE);
-        c.put("OSVERSION", (String)props.get("os.version"));
+        c.put("OSNAME", "Android");
+        c.put("OSVERSION", Build.VERSION.RELEASE);
         c.put("ARCHNAME", (String)props.getProperty("os.arch"));
         c.put("SDK", new Integer(Build.VERSION.SDK_INT).toString());
         String deviceId = Secure.getString(xCtx.getContentResolver(), Secure.ANDROID_ID);
-        c.put("UNIQUEID", deviceId);
+        c.put("UUID", deviceId);
         
         //For OCS compatibility
         Memory memory = new Memory(xCtx);

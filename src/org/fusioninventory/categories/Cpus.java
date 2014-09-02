@@ -29,8 +29,6 @@ public class Cpus extends Categories {
         c.put("NAME", getCpuName());
         c.put("SPEED", getCpuFrequency());
 
-        
-
         this.add(c);
         
     }
