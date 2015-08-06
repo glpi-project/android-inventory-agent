@@ -29,26 +29,25 @@ public class Simcards extends Categories {
         c.put("SERIAL", mTM.getSimSerialNumber());
         
         switch(mTM.getSimState()) {
-        case TelephonyManager.SIM_STATE_ABSENT:
-            c.put("STATE", "SIM_STATE_ABSENT");
-            break;
-        case TelephonyManager.SIM_STATE_NETWORK_LOCKED:
-            c.put("STATE", "SIM_STATE_NETWORK_LOCKED");
-            break;
-        case TelephonyManager.SIM_STATE_PIN_REQUIRED:
-            c.put("STATE", "SIM_STATE_PIN_REQUIRED");
-            break;
-        case TelephonyManager.SIM_STATE_PUK_REQUIRED:
-            c.put("STATE", "SIM_STATE_PUK_REQUIRED");
-            break;
-        case TelephonyManager.SIM_STATE_READY:
-            c.put("STATE", "SIM_STATE_READY");
-            break;
-        case TelephonyManager.SIM_STATE_UNKNOWN:
-            c.put("STATE", "SIM_STATE_UNKNOWN");
-            break;
-        
-        };
+            case TelephonyManager.SIM_STATE_ABSENT:
+                c.put("STATE", "SIM_STATE_ABSENT");
+                break;
+            case TelephonyManager.SIM_STATE_NETWORK_LOCKED:
+                c.put("STATE", "SIM_STATE_NETWORK_LOCKED");
+                break;
+            case TelephonyManager.SIM_STATE_PIN_REQUIRED:
+                c.put("STATE", "SIM_STATE_PIN_REQUIRED");
+                break;
+            case TelephonyManager.SIM_STATE_PUK_REQUIRED:
+                c.put("STATE", "SIM_STATE_PUK_REQUIRED");
+                break;
+            case TelephonyManager.SIM_STATE_READY:
+                c.put("STATE", "SIM_STATE_READY");
+                break;
+            case TelephonyManager.SIM_STATE_UNKNOWN:
+                c.put("STATE", "SIM_STATE_UNKNOWN");
+                break;
+        }
 
         c.put("LINE_NUMBER", mTM.getLine1Number());
         c.put("SUBSCRIBER_ID", mTM.getSubscriberId());
