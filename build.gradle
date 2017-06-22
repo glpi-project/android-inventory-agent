@@ -9,6 +9,12 @@ android {
         targetSdkVersion 4
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -17,5 +23,11 @@ android {
     }
 }
 
-dependencies {
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
 }
