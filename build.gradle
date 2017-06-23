@@ -5,8 +5,8 @@ android {
 
     defaultConfig {
         applicationId "org.fusioninventory"
-        minSdkVersion 4
-        targetSdkVersion 4
+        minSdkVersion 12
+        targetSdkVersion 12
     }
 
     lintOptions {
@@ -21,6 +21,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+repositories {
+    maven {
+        url 'https://dl.bintray.com/flyve-mdm/inventory'
+    }
+}
+
+dependencies {
+    compile 'com.flyvemdm:inventory:1.0.2@aar'
 }
 
 buildscript {
