@@ -3,3 +3,6 @@ android:
   components:
     - build-tools-22.0.1
     - android-16
+
+notifications:
+webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
