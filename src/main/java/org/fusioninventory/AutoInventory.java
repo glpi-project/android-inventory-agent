@@ -1,12 +1,20 @@
 package org.fusioninventory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import android.app.Service;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Binder;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.flyvemdm.inventory.InventoryTask;
 
 import org.apache.http.Header;
 import org.apache.http.HttpException;
@@ -34,25 +42,19 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.fusioninventory.utils.EasySSLSocketFactory;
 
-import android.app.Service;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Binder;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class AutoInventory
     extends Service {
 
     private Messenger client = null;
-    public InventoryTaskAuto inventory = null;
+    public InventoryTask inventory = null;
 
     static final int MSG_CLIENT_REGISTER = 0;
     static final int MSG_AGENT_STATUS = 1;
@@ -136,22 +138,22 @@ public class AutoInventory
                             break;
 
                         case Agent.MSG_INVENTORY_SEND:
-                            send_inventory();
-                            if (client != null) {
-                                reply.what = Agent.MSG_INVENTORY_RESULT;
-
-                                Bundle bXML = new Bundle();
-                                bXML.putString("html", lastSendResult);
-                                reply.setData(bXML);
-                                try {
-
-                                    client.send(reply);
-
-                                } catch (RemoteException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                            }
+//                            send_inventory();
+//                            if (client != null) {
+//                                reply.what = Agent.MSG_INVENTORY_RESULT;
+//
+//                                Bundle bXML = new Bundle();
+//                                bXML.putString("html", lastSendResult);
+//                                reply.setData(bXML);
+//                                try {
+//
+//                                    client.send(reply);
+//
+//                                } catch (RemoteException e) {
+//                                    // TODO Auto-generated catch block
+//                                    e.printStackTrace();
+//                                }
+//                            }
                             break;
                         default:
                             super.handleMessage(msg);
@@ -171,7 +173,7 @@ public class AutoInventory
     @Override
         public void onCreate() {
 
-            inventory = new InventoryTaskAuto(this);
+            inventory = new InventoryTask(this, "FusionInventory-Agent-Android_v1.0");
 
             mFusionApp = (FusionInventoryApp) getApplication();
 
@@ -348,9 +350,35 @@ public class AutoInventory
 
     public void inventory() {
 
-        inventory.run();
+        inventory.getXML(new InventoryTask.OnTaskCompleted() {
+            @Override
+            public void onTaskSuccess(String data) {
+                lastXMLResult = data;
 
-        lastXMLResult = inventory.toXML();
+                Message reply = Message.obtain();
+                send_inventory();
+                if (client != null) {
+                    reply.what = Agent.MSG_INVENTORY_RESULT;
+
+                    Bundle bXML = new Bundle();
+                    bXML.putString("html", lastSendResult);
+                    reply.setData(bXML);
+                    try {
+
+                        client.send(reply);
+
+                    } catch (RemoteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onTaskError(Throwable error) {
+                Toast.makeText(AutoInventory.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (client != null) {
             try {

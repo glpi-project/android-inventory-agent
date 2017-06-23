@@ -5,8 +5,8 @@ android {
 
     defaultConfig {
         applicationId "org.fusioninventory"
-        minSdkVersion 4
-        targetSdkVersion 4
+        minSdkVersion 12
+        targetSdkVersion 12
     }
 
     lintOptions {
