@@ -23,6 +23,16 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url 'https://dl.bintray.com/flyve-mdm/inventory'
+    }
+}
+
+dependencies {
+    compile 'com.flyvemdm:inventory:1.0.2@aar'
+}
+
 buildscript {
     repositories {
         jcenter()
