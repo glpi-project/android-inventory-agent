@@ -1,7 +1,6 @@
-package org.fusioninventory;
+package org.flyve.inventory.agent;
 
 import android.app.Activity;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;

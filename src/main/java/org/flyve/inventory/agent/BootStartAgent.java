@@ -1,4 +1,4 @@
-package org.fusioninventory;
+package org.flyve.inventory.agent;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
