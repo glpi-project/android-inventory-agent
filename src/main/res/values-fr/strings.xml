@@ -2,16 +2,16 @@
 <resources>
 	<string
 		name="app_name"
-	>FusionInventory</string>
+	>Inventory Agent</string>
 	<string
 		name="agent_started"
-	>L\'agent FusionInventory est démarré</string>
+	>L\'agent Inventory est démarré</string>
 	<string
 		name="agent_stopped"
-	>L\'agent FusionInventory est arrêté</string>
+	>L\'agent Inventory est arrêté</string>
 	<string
 		name="agent_description"
-	>L\'agent FusionInventory tourne en tâche de fond</string>
+	>L\'agent Inventory tourne en tâche de fond</string>
 	<string
 		name="button_start_inventory"
 	>Faire un inventaire</string>
@@ -50,7 +50,7 @@
 	>Agent déconnecté</string>
 	<string
 		name="service_notif_id"
-	>Agent FusionInventory</string>
+	>Agent Inventory</string>
 	<string-array
 		name="agent_status"
 	>
