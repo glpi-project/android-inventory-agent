@@ -1,4 +1,4 @@
-package org.fusioninventory;
+package org.flyve.inventory.agent;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class InventoryTaskAuto {
+public class InventoryTask {
 
     /*
      * TODO: Implémenter l'inventaire sous forme de Hashmap/Hashtable
@@ -31,14 +31,14 @@ public class InventoryTaskAuto {
     public Boolean running = false;
     public int progress = 0;
 
-    private AutoInventory mAgent;
+    private Agent mAgent;
     private FusionInventoryApp mFusionApp;
-
-    public InventoryTaskAuto(AutoInventory test) {
-        mAgent= test;
+    
+    public InventoryTask(Agent agent) {
+        mAgent= agent;
         ctx = mAgent.getApplicationContext();
         mFusionApp = (FusionInventoryApp) mAgent.getApplication();
-        Accueil.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
+        FusionInventory.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
     }
 
     public String toXML() {
@@ -51,9 +51,9 @@ public class InventoryTaskAuto {
             try {
                 serializer.setOutput(writer);
                 serializer
-                    .setFeature(
-                            "http://xmlpull.org/v1/doc/features.html#indent-output",
-                            true);
+                        .setFeature(
+                                "http://xmlpull.org/v1/doc/features.html#indent-output",
+                                true);
                 // indentation as 3 spaces
 
                 serializer.startDocument("utf-8", true);
@@ -87,11 +87,11 @@ public class InventoryTaskAuto {
 
                 //Manage accountinfos :: TAG
                 if (!mFusionApp.getTag().equals("")) {
-                    serializer.startTag(null, "ACCOUNTINFO");
-                    serializer.startTag(null, "KEYNAME");
+                	serializer.startTag(null, "ACCOUNTINFO");
+                	serializer.startTag(null, "KEYNAME");
                     serializer.text("TAG");
                     serializer.endTag(null, "KEYNAME");
-                    serializer.startTag(null, "KEYVALUE");
+                	serializer.startTag(null, "KEYVALUE");
                     serializer.text(mFusionApp.getTag());
                     serializer.endTag(null, "KEYVALUE");
                     serializer.endTag(null, "ACCOUNTINFO");
@@ -115,17 +115,17 @@ public class InventoryTaskAuto {
         return null;
     }
 
-
+    
     @SuppressWarnings("unchecked")
-        public synchronized void run() {
+    public synchronized void run() {
+        
+        running = true;
+        mStart = new Date();
 
-            running = true;
-            mStart = new Date();
-
-            mContent = new ArrayList<Categories>();
-
-            String [] categories = {
-                //                "PhoneStatus",
+        mContent = new ArrayList<Categories>();
+        
+        String [] categories = { 
+//                "PhoneStatus",
                 "Hardware",
                 "Bios",
                 "Memory",
@@ -137,55 +137,55 @@ public class InventoryTaskAuto {
                 "Videos",
                 "Cameras",
                 "Networks",
-                //                "LocationProviders",
+//                "LocationProviders",
                 "Envs",
                 "Jvm",
-                "Softwares"
-                    //                "Usbs",
-                    //              "Battery",
-                    //              "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
-            };
-
-            Class<Categories> cat_class;
-
-            for(String c : categories) {
-                cat_class = null;
-                Accueil.log(this, String.format("INVENTORY of %s", c),Log.VERBOSE);
+                "Softwares",
+                "Usb",
+//              "Battery",
+//              "BluetoothAdapterCategory", // <- there is already a BluetoothAdapter class in android SDK
+        };
+        
+        Class<Categories> cat_class;
+        
+        for(String c : categories) {
+            cat_class = null;
+            FusionInventory.log(this, String.format("INVENTORY of %s", c),Log.VERBOSE);
+            try {
+                cat_class = (Class <Categories>) Class.forName(String.format("org.fusioninventory.categories.%s",c));
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(cat_class!=null) {
                 try {
-                    cat_class = (Class <Categories>) Class.forName(String.format("org.fusioninventory.categories.%s",c));
-                } catch (ClassNotFoundException e) {
+                    Constructor<Categories> co = cat_class.getConstructor(Context.class);
+                    mContent.add(co.newInstance(mFusionApp));
+                } catch (SecurityException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
-                if(cat_class!=null) {
-                    try {
-                        Constructor<Categories> co = cat_class.getConstructor(Context.class);
-                        mContent.add(co.newInstance(mFusionApp));
-                    } catch (SecurityException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (NoSuchMethodException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (InstantiationException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
+                } catch (NoSuchMethodException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IllegalArgumentException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } 
             }
-
-
-            Accueil.log(this, "end of inventory", Log.INFO);
-            mEnd = new Date();
-            running = false;
         }
+        
+
+        FusionInventory.log(this, "end of inventory", Log.INFO);
+        mEnd = new Date();
+        running = false;
+    }
 }

@@ -26,7 +26,7 @@
 		android:title="Server Settings"
 
 	>
-		<org.fusioninventory.UrlPreference
+		<org.flyve.inventory.agent.UrlPreference
 			android:key="url" android:title="Inventory Server" android:persistent="true" android:defaultValue="http://"/>
 
 	

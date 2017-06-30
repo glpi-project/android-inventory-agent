@@ -1,11 +1,6 @@
-package org.fusioninventory;
+package org.flyve.inventory.agent;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Binder;
@@ -15,7 +10,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -46,7 +40,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.fusioninventory.utils.EasySSLSocketFactory;
+import org.flyve.inventory.agent.utils.EasySSLSocketFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -55,16 +49,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Calendar;
 
-public class Agent
+public class AutoInventory
     extends Service {
-
-    private NotificationManager mNM;
-
-    private Notification notification;
-
-    private PendingIntent contentIntent;
 
     private Messenger client = null;
     public InventoryTask inventory = null;
@@ -92,9 +79,6 @@ public class Agent
     private SchemeRegistry mSchemeRegistry = new SchemeRegistry();
 
     private FusionInventoryApp mFusionApp = null;
-
-    AlarmManager am;
-    private	Calendar cal = Calendar.getInstance();
 
     private boolean notif = false;
 
@@ -135,20 +119,6 @@ public class Agent
                             }
                             break;
 
-                        case Agent.MSG_INVENTORY_START:
-                            Accueil.log(this, " received starting inventory task", Log.INFO);
-
-                            if (inventory != null) {
-
-                                if (inventory.running) {
-                                    Accueil.log(this, " inventory task is already running ...", Log.WARN);
-                                } else {
-                                    Accueil.log(this, " inventory task not running ...", Log.INFO);
-                                    start_inventory();
-                                }
-                            }
-
-                            break;
                         case Agent.MSG_INVENTORY_RESULT:
                             if (client != null) {
                                 reply.what = Agent.MSG_INVENTORY_RESULT;
@@ -193,99 +163,34 @@ public class Agent
 
     final Messenger mMessenger = new Messenger(new IncomingHandler());
 
-    private int NOTIFICATION = R.string.agent_started;
-
     public class AgentBinder
             extends Binder {
-            Agent getService() {
-                return Agent.this;
+            AutoInventory getService() {
+                return AutoInventory.this;
             }
     }
 
     @Override
         public void onCreate() {
 
-            SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean autoInventory = customSharedPreference.getBoolean("autoStartInventory", false);
-            String timeInventory = customSharedPreference.getString("timeInventory", "Week");
-            notif = customSharedPreference.getBoolean("notif", false);
-
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-
-        if (autoInventory)
-            {
-                if (timeInventory.equals("Day"))
-                {
-                    cal.set(Calendar.HOUR_OF_DAY, 18);
-                    cal.set(Calendar.MINUTE, 0);
-                    cal.set(Calendar.SECOND, 0);
-                    cal.set(Calendar.MILLISECOND, 0);
-                }
-                else if(timeInventory.equals("Week"))
-                {
-                    cal.set(Calendar.DAY_OF_WEEK, 1);
-                    cal.set(Calendar.HOUR_OF_DAY, 18);
-                    cal.set(Calendar.MINUTE, 33);
-                    cal.set(Calendar.SECOND, 0);
-                    cal.set(Calendar.MILLISECOND, 0);
-                }
-                else if(timeInventory.equals("Month"))
-                {
-                    cal.set(Calendar.WEEK_OF_MONTH, 1);
-                    cal.set(Calendar.DAY_OF_WEEK, 1);
-                    cal.set(Calendar.HOUR_OF_DAY, 18);
-                    cal.set(Calendar.MINUTE, 0);
-                    cal.set(Calendar.SECOND, 0);
-                    cal.set(Calendar.MILLISECOND, 0);
-                }
-
-                am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                setRepeatingAlarm();
-            }
-
-            Accueil.log(this, "creating inventory task", Log.INFO);
-
-            mFusionApp = (FusionInventoryApp) getApplication();
-            Accueil.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
-
             inventory = new InventoryTask(this, "FusionInventory-Agent-Android_v1.0");
 
-            mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mFusionApp = (FusionInventoryApp) getApplication();
 
-            contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, Accueil.class), 0);
+            SharedPreferences customSharedPreference =
+                PreferenceManager.getDefaultSharedPreferences(this);
+            boolean notif = customSharedPreference.getBoolean("notif", false);
 
             if (notif){
-                notification = new Notification();
-                notification.icon = R.drawable.icon;
-
-                notification.tickerText = getText(R.string.agent_started).toString();
-                updateNotification(getText(R.string.agent_started).toString());
-
-                mNM.notify(NOTIFICATION, notification);
+                Toast.makeText(this, R.string.inventory_started,Toast.LENGTH_LONG).show();
             }
 
-            Handler h = new Handler();
-            h.postDelayed(new Runnable() {
+            inventory();
 
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    mNM.cancel(NOTIFICATION);
-                }
-            }, 1000);
-
+            send_inventory();
 
         }
 
-    public void updateNotification(String text) {
-         SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-         notif = customSharedPreference.getBoolean("notif", false);
-
-        if (notif){
-            notification.setLatestEventInfo(this, getText(R.string.app_name), text, contentIntent);
-        }
-    }
 
     @Override
         public int onStartCommand(Intent intent, int flags, int startId) {
@@ -299,57 +204,21 @@ public class Agent
             return START_STICKY;
         }
 
-    public void start_inventory() {
-        inventory.getXML(new InventoryTask.OnTaskCompleted() {
-            @Override
-            public void onTaskSuccess(String data) {
-                lastXMLResult = data;
-
-                Message reply = Message.obtain();
-                send_inventory();
-                if (client != null) {
-                    reply.what = Agent.MSG_INVENTORY_RESULT;
-
-                    Bundle bXML = new Bundle();
-                    bXML.putString("html", lastSendResult);
-                    reply.setData(bXML);
-                    try {
-
-                        client.send(reply);
-
-                    } catch (RemoteException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onTaskError(Throwable error) {
-                Toast.makeText(Agent.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        if (client != null) {
-            try {
-                client.send(Message.obtain(null, Agent.MSG_INVENTORY_FINISHED));
-            } catch (RemoteException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-    }
-
     public void send_inventory() {
+
+        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        notif = customSharedPreference.getBoolean("notif", false);
 
         if (lastXMLResult == null) {
             Accueil.log(this, "No XML Inventory ", Log.ERROR);
-            Toast.makeText(this, R.string.error_inventory, Toast.LENGTH_SHORT).show();
-            return;
+            if (notif){
+                Toast.makeText(this, R.string.error_inventory, Toast.LENGTH_SHORT).show();
+            }
         }
         else{
-            Toast.makeText(this, R.string.ok_inventory, Toast.LENGTH_SHORT).show();
+            if (notif){
+                Toast.makeText(this, R.string.ok_inventory, Toast.LENGTH_SHORT).show();
+            }
         }
         URL url = null;
 
@@ -358,12 +227,16 @@ public class Agent
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             Accueil.log(this, "inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
-            Toast.makeText(this, "Server adress is malformed", Toast.LENGTH_SHORT).show();
+            if (notif){
+                Toast.makeText(this, "Server adress is malformed", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (url == null) {
             Accueil.log(this, "No URL found ", Log.ERROR);
-            Toast.makeText(this, "Server adress not found", Toast.LENGTH_SHORT).show();
+            if (notif){
+                Toast.makeText(this, "Server adress not found", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
 
@@ -425,21 +298,24 @@ public class Agent
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
             Accueil.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
-            Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            if (notif){
+                Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            }
             e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             Accueil.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
             Accueil.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
-            Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        } catch (Exception e) {
-            Toast.makeText(this, "Unknow exception", Toast.LENGTH_SHORT).show();
+            if (notif){
+                Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            }
             e.printStackTrace();
         }
         if (response == null) {
             Accueil.log(this, "No HTTP response ", Log.ERROR);
-            Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            if (notif){
+                Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
         Header[] headers = response.getAllHeaders();
@@ -467,22 +343,57 @@ public class Agent
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Toast.makeText(this, "Inventory sent", Toast.LENGTH_SHORT).show();
+        if (notif){
+            Toast.makeText(this, "Inventory sent", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void inventory() {
+
+        inventory.getXML(new InventoryTask.OnTaskCompleted() {
+            @Override
+            public void onTaskSuccess(String data) {
+                lastXMLResult = data;
+
+                Message reply = Message.obtain();
+                send_inventory();
+                if (client != null) {
+                    reply.what = Agent.MSG_INVENTORY_RESULT;
+
+                    Bundle bXML = new Bundle();
+                    bXML.putString("html", lastSendResult);
+                    reply.setData(bXML);
+                    try {
+
+                        client.send(reply);
+
+                    } catch (RemoteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onTaskError(Throwable error) {
+                Toast.makeText(AutoInventory.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if (client != null) {
+            try {
+                client.send(Message.obtain(null, Agent.MSG_INVENTORY_FINISHED));
+            } catch (RemoteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
         public void onDestroy() {
-            // Cancel the persistent notification.
 
-            SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-            notif = customSharedPreference.getBoolean("notif", false);
-
-            mNM.cancel(NOTIFICATION);
-
-            // Tell the user we stopped.
-            if (notif){
-                Toast.makeText(this, R.string.agent_stopped, Toast.LENGTH_SHORT).show();
-            }
         }
 
     @Override
@@ -490,16 +401,6 @@ public class Agent
 
             return mMessenger.getBinder();
         }
-
-    public void setRepeatingAlarm() {
-        Intent intent = new Intent(this, TimeAlarm.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
-                intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-
-    }
-
 
     // private final IBinder mBinder = new AgentBinder();
 }
