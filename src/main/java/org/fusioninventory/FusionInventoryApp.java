@@ -68,7 +68,7 @@ public class FusionInventoryApp
 
     public String getUrl() {
         if (mUrl == null) {
-            mUrl = prefs.getString("url", "");
+            mUrl = prefs.getString("url", "https://dev.flyve.org/glpi/plugins/fusioninventory/");
         }
         return mUrl;
     }
