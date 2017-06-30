@@ -1,4 +1,4 @@
-package org.fusioninventory.utils;
+package org.flyve.inventory.agent.utils;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,7 +34,7 @@ import org.apache.http.conn.scheme.LayeredSocketFactory;
 import org.apache.http.conn.scheme.SocketFactory;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.fusioninventory.FusionInventory;
+import org.flyve.inventory.agent.FusionInventory;
 
 import android.util.Log;
 

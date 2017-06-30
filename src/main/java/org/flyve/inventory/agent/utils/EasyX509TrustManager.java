@@ -1,4 +1,4 @@
-package org.fusioninventory.utils;
+package org.flyve.inventory.agent.utils;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import org.fusioninventory.FusionInventory;
+import org.flyve.inventory.agent.FusionInventory;
 
 import android.util.Log;
 

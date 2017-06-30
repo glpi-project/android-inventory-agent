@@ -2,8 +2,9 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="org.fusioninventory"
-	android:versionCode="1" android:versionName="1.2">
+	package="org.flyve.inventory.agent"
+	android:versionCode="1"
+	android:versionName="1.0">
 	<uses-sdk android:minSdkVersion="12"/>
 	<!-- Permissions -->
 	<uses-permission
@@ -36,12 +37,15 @@
 		android:name="android.permission.CHANGE_WIFI_STATE" />
 	<application
 		android:label="@string/app_name"
-		android:name="FusionInventoryApp"
+		android:name="org.flyve.inventory.agent.FusionInventoryApp"
 		android:vmSafeMode="true"
+		android:theme="@style/AppTheme"
 		android:icon="@drawable/icon">
 		<activity
-			android:name=".Accueil"
+			android:name="org.flyve.inventory.agent.Accueil"
 			android:label="@string/app_name" android:launchMode="standard">
+		</activity>
+		<activity android:name=".SplashActivity">
 			<intent-filter>
 				<action
 					android:name="android.intent.action.MAIN" />
@@ -51,11 +55,11 @@
 		</activity>
 		<service
 			android:enabled="true"
-			android:label="FusionInventory Agent"
+			android:label="Inventory Agent"
 			android:description="@string/agent_description"
 			android:icon="@drawable/icon"
 
-			android:name="Agent"
+			android:name="org.flyve.inventory.agent.Agent"
 			tools:ignore="ExportedService">
 			<!-- android:process=":agent" -->
 			<intent-filter>
@@ -68,7 +72,7 @@
             android:label="Agent Auto"
             android:description="@string/agent_description"
             android:icon="@drawable/icon"
-            android:name=".AutoInventory"
+            android:name="org.flyve.inventory.agent.AutoInventory"
 			tools:ignore="ExportedService">
             <!-- android:process=":Auto agent" -->
             <intent-filter>
@@ -77,7 +81,7 @@
             </intent-filter>
         </service>
 		<receiver
-			android:name="BootStartAgent"
+			android:name="org.flyve.inventory.agent.BootStartAgent"
 		>
 			<intent-filter>
 				<action
@@ -87,7 +91,7 @@
 			</intent-filter>
 		</receiver>
 		<activity
-			android:name="Settings"
+			android:name="org.flyve.inventory.agent.Settings"
 			android:launchMode="singleInstance"
 		android:label="@string/agent_settings"></activity>
 	</application>

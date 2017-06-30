@@ -4,7 +4,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "org.fusioninventory"
+        applicationId "org.flyve.inventory.agent"
         minSdkVersion 12
         targetSdkVersion 12
     }
@@ -12,7 +12,6 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
-
     }
 
     buildTypes {

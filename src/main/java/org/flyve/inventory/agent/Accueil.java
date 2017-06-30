@@ -1,6 +1,4 @@
-package org.fusioninventory;
-
-import java.util.Iterator;
+package org.flyve.inventory.agent;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,10 +15,10 @@ import android.os.RemoteException;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 

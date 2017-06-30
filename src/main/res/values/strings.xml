@@ -1,88 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string
-		name="app_name"
-	>Fusioninventory</string>
-	<string
-		name="agent_started"
-	>Fusioninventory Agent is started</string>
-	<string
-		name="agent_stopped"
-	>Fusioninventory Agent is stopped</string>
-	<string
-		name="agent_reboot"
-	>Fusioninventory Agent is restarted</string>
-	<string
-		name="agent_description"
-	>Agent is running in background</string>
-	<string
-		name="button_start_inventory"
-	>Start Inventory</string>
-	<string
-		name="menu_settings"
-	>Settings</string>
-	<string
-		name="menu_clearlog"
-	>Clear Log</string>
-	<string
-		name="menu_send"
-	>Send</string>
-	<string
-		name="menu_getinv"
-	>Get Inventory</string>
-	<string
-		name="all_permissions"
-	>Grant all possible permissions</string>
-	<string
-		name="agent_connected"
-	>Connected to Agent Service</string>
-	<string
-		name="agent_disconnected"
-	>Disconnected from Agent Service</string>
-	<string
-		name="inventory_started"
-	>Starting inventory...</string>
-	<string
-		name="inventory_sended"
-	>Sending inventory...</string>
-	<string
-		name="inventory_ended"
-	>End of inventory.</string>
-	<string
-		name="button_connect_agent"
-	>Connect Agent</string>
-	<string
-		name="button_disconnect_agent"
-	>Disconnect Agent</string>
-    <string
-		name="error_inventory"
-	>Inventory not complet</string>
-    <string
-		name="ok_inventory"
-	>Inventory complet</string>
-    <string
-		name="error_send_inventoryi"
-	>Inventory not send</string>
-    <string
-		name="ok_send_inventory"
-	>Inventory send</string>
-	<string
-		name="service_notif_id"
-	>FusioninventoryInventory Agent</string>
-	<string-array
-		name="agent_status"
-	>
+	<string name="app_name">Inventory Agent</string>
+	<string name="agent_started">Inventory Agent is started</string>
+	<string name="agent_stopped">Inventory Agent is stopped</string>
+	<string name="agent_reboot">Inventory Agent is restarted</string>
+	<string name="agent_description">Agent is running in background</string>
+	<string name="button_start_inventory">Start Inventory</string>
+	<string name="menu_settings">Settings</string>
+	<string name="menu_clearlog">Clear Log</string>
+	<string name="menu_send">Send</string>
+	<string name="menu_getinv">Get Inventory</string>
+	<string name="all_permissions">Grant all possible permissions</string>
+	<string name="agent_connected">Connected to Agent Service</string>
+	<string name="agent_disconnected">Disconnected from Agent Service</string>
+	<string name="inventory_started">Starting inventory...</string>
+	<string name="inventory_sended">Sending inventory...</string>
+	<string name="inventory_ended">End of inventory.</string>
+	<string name="button_connect_agent">Connect Agent</string>
+	<string name="button_disconnect_agent">Disconnect Agent</string>
+    <string name="error_inventory">Inventory not complet</string>
+    <string name="ok_inventory">Inventory complet</string>
+    <string name="error_send_inventoryi">Inventory not send</string>
+    <string name="ok_send_inventory">Inventory send</string>
+	<string name="service_notif_id">Inventory Agent</string>
+	<string-array name="agent_status">
 		<item>Agent is waiting an order ...</item>
 		<item>Agent is performing an inventory ...</item>
 	</string-array>
-<string name="agent_settings">Agent settings</string>
-<string name="phone_boot">Agent must be launched at phone boot</string>
-<string name="manual_launch">Agent must be launched manually</string>
-<string name="boot_options">Boot options</string>
-<string name="inventory_server">Inventory server</string>
-<string name="log_text">Server response</string>
-<string name="authentication_credentials">HTTP authentication credentials</string>
-<string name="login">Login</string>
-<string name="password">Password</string>
-<string name="tag">Tag</string>
+	<string name="agent_settings">Agent settings</string>
+	<string name="phone_boot">Agent must be launched at phone boot</string>
+	<string name="manual_launch">Agent must be launched manually</string>
+	<string name="boot_options">Boot options</string>
+	<string name="inventory_server">Inventory server</string>
+	<string name="log_text">Server response</string>
+	<string name="authentication_credentials">HTTP authentication credentials</string>
+	<string name="login">Login</string>
+	<string name="password">Password</string>
+	<string name="tag">Tag</string>
 </resources>
