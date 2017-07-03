@@ -11,5 +11,5 @@ then
     echo serviceAccountEmail=$GP_SERVICEACCOUNTEMAIL >> ../local.properties
 
     cd ..
-    ./gradlew publishApkRelease
+    gradle publishApkRelease
 fi
