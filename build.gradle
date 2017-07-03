@@ -1,6 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
 
+Properties properties = new Properties()
+Boolean travis = false
+
+if(project.rootProject.file('local.properties').exists()) {
+    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
+    properties.load(inputStream)
+    travis = Boolean.parseBoolean(properties.getProperty('travis'))
+}
+
 android {
     compileSdkVersion 16
     buildToolsVersion "22.0.1"
@@ -16,11 +25,34 @@ android {
         abortOnError false
     }
 
+    if(travis) {
+        signingConfigs {
+            release {
+                storeFile file('ic/release.keystore')
+                storePassword properties.getProperty('storePassword')
+                keyAlias properties.getProperty('keyAlias')
+                keyPassword properties.getProperty('keyPassword')
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+
+            if(travis) {
+                signingConfig signingConfigs.release
+            }
         }
+    }
+}
+
+if(travis) {
+    play {
+        track = 'beta'
+        serviceAccountEmail = properties.getProperty('serviceAccountEmail')
+        pk12File = file('ic/gplay.p12')
     }
 }
 
@@ -38,8 +70,9 @@ buildscript {
     repositories {
         jcenter()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:2.2.1'
         classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
     }
 }
