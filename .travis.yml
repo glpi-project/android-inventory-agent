@@ -3,6 +3,8 @@ android:
   components:
   - build-tools-22.0.1
   - android-16
+script:
+  - ./gradlew build
 after_success:
   - ci/deploy.sh
 notifications:
