@@ -16,51 +16,26 @@ fastlane_version "2.45.0"
 default_platform :android
 
 platform :android do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-  end
 
-  desc "Runs all the tests"
-  lane :test do
+  desc "Alpha release app. Deploy a new version to the Google Play Store - Alpha channel"
+  lane :alpha do |options|
+    gradle(task: "clean")
+
+    gradle(task: "assemble")
+
+    sign_apk(
+      keystore_path: "ci/release.keystore",
+      alias: "InventoryAgent",
+      storepass: options[:storepass],
+      tsa: "http://timestamp.comodoca.com/rfc316",
+    )
+
+    zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
     gradle(task: "test")
-  end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "assembleRelease")
-    crashlytics
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "assembleRelease")
-    supply
-  end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+  supply(
+     track: 'alpha',
+     apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
+  )
   end
 end
-
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://docs.fastlane.tools/actions
-
-# fastlane reports which actions are used. No personal data is recorded. 
-# Learn more at https://github.com/fastlane/fastlane#metrics
