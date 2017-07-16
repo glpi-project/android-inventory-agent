@@ -24,7 +24,7 @@
 	<string name="GlobalCatAdvanced">Configuración Advanzada</string>
 
 	<string name="GlobalAdvanced">Configuración avanzada</string>
-	<string name="GlobalAdvancedSummary">Configurar daemon settings, dirección de binarios ...</string>
+	<string name="GlobalAdvancedSummary">Configura daemon settings, dirección de binarios ...</string>
 
 </resources>
 
