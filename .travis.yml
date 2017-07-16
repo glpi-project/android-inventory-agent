@@ -1,13 +1,14 @@
 language: android
-jdk: oraclejdk8
 android:
   components:
   - build-tools-$BUILD_TOOL
   - android-$ANDROID_API
-script:
-  - gradle clean build
+  - extra-android-m2repository
+install:
+  - rvm install 2.3.4
+  - gem install fastlane
 after_success:
-  - ci/deploy.sh
+  - "./ci/deploy.sh"
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
 env:
