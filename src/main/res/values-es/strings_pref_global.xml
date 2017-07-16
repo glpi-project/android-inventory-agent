@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Global settings part -->
+
+	<string name="GlobalCat">Global</string>
+
+	<string name="GlobalBoot">Boot options</string>
+	<string name="GlobalBootSummaryOn">Click to disable automatic boot</string>
+	<string name="GlobalBootSummaryOff">Click to enable automatic boot</string>
+
+	<string name="GlobalNotif">Notifications</string>
+	<string name="GlobalNotifSummaryOn">Click to disable notifications</string>
+	<string name="GlobalNotifSummaryOff">Click to enable notifications</string>
+
+	<string name="GlobalCatSet">Server settings</string>
+
+	<string name="GlobalServer">Server address</string>
+	<string name="GlobalServerSummary">Define server address</string>
+
+	<string name="GlobalService">Authentication</string>
+	<string name="GlobalServiceSummary">Setup password, public keys ...</string>
+
+	<string name="GlobalCatAdvanced">Advanced settings</string>
+
+	<string name="GlobalAdvanced">Advanced Settings</string>
+	<string name="GlobalAdvancedSummary">Setup daemon settings, path to binaries ...</string>
+
+</resources>
+

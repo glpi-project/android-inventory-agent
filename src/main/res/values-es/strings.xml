@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Inventory Agent</string>
+	<string name="agent_started">Inventory Agent esta comenzando</string>
+	<string name="agent_stopped">Inventory Agent se detuvo</string>
+	<string name="agent_reboot">Inventory Agent se esta reiniciando</string>
+	<string name="agent_description">El agente esta en proceso de fondo</string>
+	<string name="button_start_inventory">Comenzando el Inventario</string>
+	<string name="menu_settings">Configuración</string>
+	<string name="menu_clearlog">Limpiar Historial</string>
+	<string name="menu_send">Enviar</string>
+	<string name="menu_getinv">Obtener Inventario</string>
+	<string name="all_permissions">Grant all possible permissions</string>
+	<string name="agent_connected">Conectado al servicio</string>
+	<string name="agent_disconnected">Desconectado del servicio</string>
+	<string name="inventory_started">Comenzando el inventario...</string>
+	<string name="inventory_sended">Enviando el inventario...</string>
+	<string name="inventory_ended">Fin del inventario.</string>
+	<string name="button_connect_agent">Agente Conectado</string>
+	<string name="button_disconnect_agent">Agente Desconectado</string>
+    <string name="error_inventory">No se completo el Inventario</string>
+    <string name="ok_inventory">Inventario completo</string>
+    <string name="error_send_inventoryi">El inventario no fue enviado</string>
+    <string name="ok_send_inventory">Inventario enviado</string>
+	<string name="service_notif_id">Inventory Agent</string>
+	<string-array name="agent_status">
+		<item>El agente espera una orden ...</item>
+		<item>El agent esta organizando el inventario ...</item>
+	</string-array>
+	<string name="agent_settings">Configuración del Agent</string>
+	<string name="phone_boot">El agente puede ser activido luego de reiniciar</string>
+	<string name="manual_launch">El agente debe ser activado manualmente</string>
+	<string name="boot_options">Opciones de reinicio</string>
+	<string name="inventory_server">Servidor de Inventario</string>
+	<string name="log_text">Respuesta del servidor</string>
+	<string name="authentication_credentials">Credenciales de autorización HTTP</string>
+	<string name="login">Usuario</string>
+	<string name="password">Contraseña</string>
+	<string name="tag">Etiqueta</string>
+</resources>
