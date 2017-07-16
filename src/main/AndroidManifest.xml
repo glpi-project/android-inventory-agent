@@ -41,17 +41,24 @@
 		android:vmSafeMode="true"
 		android:theme="@style/AppTheme"
 		android:icon="@drawable/icon">
-		<activity
-			android:name="org.flyve.inventory.agent.Accueil"
-			android:label="@string/app_name" android:launchMode="standard">
-		</activity>
-		<activity android:name=".SplashActivity">
+		<activity android:name=".SplashActivity"
+			android:theme="@style/NoActionBar"
+			>
 			<intent-filter>
 				<action
 					android:name="android.intent.action.MAIN" />
 				<category
 					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+		</activity>
+		<activity
+			android:name="org.flyve.inventory.agent.Accueil"
+			android:label="@string/app_name" android:launchMode="standard">
+		</activity>
+		<activity
+			android:name="org.flyve.inventory.agent.Settings"
+			android:launchMode="singleInstance"
+			android:label="@string/agent_settings">
 		</activity>
 		<service
 			android:enabled="true"
@@ -90,10 +97,5 @@
 					android:name="android.intent.category.HOME" />
 			</intent-filter>
 		</receiver>
-		<activity
-			android:name="org.flyve.inventory.agent.Settings"
-			android:launchMode="singleInstance"
-		android:label="@string/agent_settings">
-		</activity>
 	</application>
 </manifest>
