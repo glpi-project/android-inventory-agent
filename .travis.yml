@@ -5,10 +5,10 @@ android:
   - android-$ANDROID_API
   - extra-android-m2repository
 install:
-- rvm install 2.3.4
-- gem install fastlane
+  - rvm install 2.3.4
+  - gem install fastlane
 after_success:
-- "./ci/deploy.sh"
+  - "./ci/deploy.sh"
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
 env:
