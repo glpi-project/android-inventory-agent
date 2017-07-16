@@ -6,12 +6,10 @@
     >
 
     <ImageView
-        android:id="@+id/backgroud"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/splash"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
+        android:id="@+id/imgInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logoinventory"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         />
