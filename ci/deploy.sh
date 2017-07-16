@@ -1,15 +1,17 @@
 #!/bin/bash
 
-GP_TRAVIS="true"
-
 if [[ "$TRAVIS_BRANCH" == "feature-gplay" ]];
 then
-    echo travis=$GP_TRAVIS >> ../local.properties
-    echo storePassword=$GP_STOREPASSWORD >> ../local.properties
-    echo keyAlias=$GP_KEYALIAS >> ../local.properties
-    echo keyPassword=$GP_KEYPASSWORD >> ../local.properties
-    echo serviceAccountEmail=$GP_SERVICEACCOUNTEMAIL >> ../local.properties
-
+    cd ci
+    tar -zxvf google.tar.gz
     cd ..
-    gradle publishApkRelease
+    fastlane android alpha storepass:'$KEYSTORE' keypass:'$ALIAS'
+fi
+
+if [[ "$TRAVIS_BRANCH" == "develop" && "$TRAVIS_PULL_REQUEST" == "false" ]];
+then
+    cd ci
+    tar -zxvf google.tar.gz
+    cd ..
+    fastlane android alpha storepass:'$KEYSTORE' keypass:'$ALIAS'
 fi
