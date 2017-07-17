@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string
-		name="app_name"
-	>Inventory Agent</string>
-	<string
 		name="agent_started"
 	>L\'agent Inventory est démarré</string>
 	<string
