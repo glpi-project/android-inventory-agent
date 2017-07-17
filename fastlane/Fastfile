@@ -25,7 +25,6 @@ platform :android do
       alias: "InventoryAgent",
       storepass: options[:storepass],
       tsa: "http://timestamp.comodoca.com/rfc316",
-      signed_apk_path: "build/outputs/apk/",
     )
 
     zipalign(apk_path: "#{lane_context["build/outputs/apk/"]}")
