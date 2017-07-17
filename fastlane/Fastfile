@@ -30,7 +30,7 @@ platform :android do
     zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
   supply(
-     track: 'alpha',
+     track: 'beta',
      apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
   )
   end
