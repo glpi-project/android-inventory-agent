@@ -27,11 +27,11 @@ platform :android do
       tsa: "http://timestamp.comodoca.com/rfc316",
     )
 
-    zipalign(apk_path: "#{lane_context["build/outputs/apk/"]}")
+    zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
   supply(
      track: 'alpha',
-     apk: "#{lane_context["build/outputs/apk/"]}"
+     apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
   )
   end
 end
