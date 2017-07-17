@@ -1,42 +1,12 @@
-apply plugin: 'com.android.application'
-android {
-    compileSdkVersion 16
-    buildToolsVersion "22.0.1"
 
-    defaultConfig {
-        applicationId "org.flyve.inventory.agent"
-        minSdkVersion 12
-        targetSdkVersion 12
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
-    }
-}
-
-repositories {
-    maven {
-        url 'https://dl.bintray.com/flyve-mdm/inventory'
-    }
-}
-
-dependencies {
-    compile 'com.flyvemdm:inventory:1.0.2@aar'
-}
 
 buildscript {
     repositories {
         jcenter()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
     }
 }
+
