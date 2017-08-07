@@ -4,118 +4,38 @@ layout: default
 
 ## Synopsis
 
-This library help you to create a complete inventory of your iOS devices: both hardware and software informations are collected. You get the data about processor, memory, drives, sensors, etc. and also the list and description of installed application on any devices in a beautifull XML as protocol compatible with FusionInventory for GLPI.
-
-You can find more information here:
-<http://fusioninventory.org/documentation/dev/spec/protocol/inventory.html>
-
-**What's included?**
-
-* Hardware
-* Bios
-* Memory
-* Inputs
-* Sensors
-* Drives
-* Cpus
-* Simcards
-* Videos
-* Cameras
-* Networks
-* Envs
-* Jvm
-* Softwares
-* Usb
-* Battery
+TBF
 
 ## Build Status
 
-Build with Xcode 8.3.2 / Swift 3.1
-
 | **Release channel** | **Beta channel** |
 |:---:|:---:|
-| [![Build Status](https://travis-ci.org/flyve-mdm/flyve-mdm-ios-inventory.svg?branch=master)](https://travis-ci.org/flyve-mdm/flyve-mdm-ios-inventory) | [![Build Status](https://travis-ci.org/flyve-mdm/flyve-mdm-ios-inventory.svg?branch=develop)](https://travis-ci.org/flyve-mdm/flyve-mdm-ios-inventory) |
+| [![Build Status](https://travis-ci.org/flyve-mdm/flyve-mdm-android-inventory-agent.svg?branch=master)](https://travis-ci.org/flyve-mdm/flyve-mdm-android-inventory-agent) | [![Build Status](https://travis-ci.org/flyve-mdm/flyve-mdm-android-inventory-agent.svg?branch=develop)](https://travis-ci.org/flyve-mdm/flyve-mdm-android-inventory-agent) |
 
 ## Installation
 
-### CocoaPods
-
-> Less Hassle, More OSS
-
-<https://cocoapods.org/pods/FlyveMDMInventory>
-
-Install using [CocoaPods](http://cocoapods.org) by adding this line to your Podfile:
-
-````ruby
-use_frameworks! # Add this if you are targeting iOS 8+ or using Swift
-pod 'FlyveMDMInventory'
-````
-
-Then, run the following command:
-
-```console
-pod install
-```
-
-### Carthage
-
-Install using [Carthage](https://github.com/Carthage/Carthage) by adding the following lines to your Cartfile:
-
-```console
-github "flyve-mdm/flyve-mdm-ios-inventory" "master"
-```
-
-Then, run the following command:
-
-```console
-carthage update --platform iOS
-```
-
-* On your application targets “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop each framework you want to use from the Carthage/Build folder on disk.
-
-* On your application targets “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:
-
-```console
-/usr/local/bin/carthage copy-frameworks
-```
-
-* And add the paths to the frameworks you want to use under “Input Files”, e.g.:
-
-```console
-$(SRCROOT)/Carthage/Build/iOS/FlyveMDMInventory.framework
-
-```
-
-## Code Example
-
-It's easy to implement in your code
-
-```swift
-import FlyveMDMInventory
-
-let inventoryTask = InventoryTask()
-inventoryTask.execute("Agent_v1.0", tag:"1.0") { result in
-    print(result)
-}
-
-```
-
-** _Tag is optional_
+[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Pla" height="60">](https://play.google.com/store/apps/details?id=org.flyve.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.flyve.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/releases/latest)
 
 ## Documentation
 
-We share long-form content about the project in the [wiki](https://github.com/flyve-mdm/flyve-mdm-ios-inventory/wiki).
+We share long-form content about the project in the [wiki](https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/wiki).
+
+## Versioning
+
+In order to provide transparency on our release cycle and to maintain backward compatibility, Flyve MDM is maintained under [the Semantic Versioning guidelines](http://semver.org/). We are committed to following and complying with the rules, the best we can.
+
+See [the tags section of our GitHub project](http://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/tags) for changelogs for each release version of Flyve MDM. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
+
+## Contribute
+
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
+guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/issues).
 
 ## Contact
 
 For notices about major changes and general discussion of Flyve MDM development, subscribe to the [/r/FlyveMDM](http://www.reddit.com/r/FlyveMDM) subreddit.
 You can also chat with us via IRC in [#flyve-mdm on freenode](http://webchat.freenode.net/?channels=flyve-mdm]).
-Ping me @hectorerb in the IRC chatroom if you get stuck.
-
-## Contribute
-
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/flyve-mdm/flyve-mdm-inventory/issues).
+Ping me @rafaelje in the IRC chatroom if you get stuck.
 
 ## Copying
 
