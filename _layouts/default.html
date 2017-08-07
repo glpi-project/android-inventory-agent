@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+    <main aria-label="Content">
+      <div class="wrapper container">
+        {{ content }}
+      </div>
+    </main>
+      <a href="#top" class="back-to-top">
+          <i class="glyph glyph-up"></i>
+          <span class="sr-only">Back to top</span>
+      </a>
+  </body>
+  <script src="{{ "/js/bootstrap.min.js" | relative_url }}"></script>
+  <script src="{{ "/js/app.js" | relative_url }}"></script>
+</html>
