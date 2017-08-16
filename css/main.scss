@@ -1,9 +1,11 @@
 ---
 ---
 
-html {
-    width: 100% !important;
+.jumbotron.theme-default, .theme-default.hero {
+    color: #3e3e3e;
+    background-color: #fff;
 }
+
 .list-products {
     font-size: 2rem;
     p {
@@ -39,6 +41,26 @@ html {
     }
 }
 
+code {
+    white-space: pre !important;
+}
+
+hr {
+    margin: 20px 0 !important;
+}
+
+img {
+    max-width: 100% !important;
+}
+
+footer {
+    padding: 10px 0;
+    text-align: right;
+    img {
+        width: 70px;
+    }
+}
+
 .modal-body {
     $size: 15px;
     font-size: $size !important;
@@ -51,6 +73,12 @@ html {
         font-size: $size * 1.8;
     }
 }
-code {
-    white-space: pre !important;
+.product {
+    padding: 15px;
+    h2 {
+        padding-top: 0;
+    }
+    p {
+        padding: 24px 0;        
+    }
 }
