@@ -5,17 +5,22 @@
 
   <body>
 
-    {% include header.html %}
 
-        {{ content }}
+      {% include header.html %}
+
+      {{ content }}
 
       <a href="#top" class="back-to-top">
           <i class="glyph glyph-up"></i>
           <span class="sr-only">Back to top</span>
       </a>
       <img src="{{ 'images/logo2.png' | relative_url }}" class="logo hide">
-      {% include footer.html %}
+
+      {% include footer.html %}   
+
+
   </body>
+  
   <script src="{{ "/js/bootstrap.min.js" | relative_url }}"></script>
   <script src="{{ "/js/app.js" | relative_url }}"></script>
 
