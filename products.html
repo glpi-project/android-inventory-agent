@@ -3,16 +3,10 @@ layout: page
 namePage: products
 ---
 
-    {% assign my_counter = 0 %}
+    {% assign my_counter = 0 %} 
     {% for repositorie in site.github.public_repositories %}
         {% if repositorie.name != "flyve-mdm.github.io" %}
-            {% capture url_repositorie %}https://{{repositorie.owner.login}}.github.io/{{repositorie.name}}/{% endcapture %}
-            {% comment %}<li>
-                <a href="{{ url_repositorie }}">{{ repositorie.name | escape }}</a>
-            </li>
-            <p>
-                {{ repositorie.description }}
-            </p>{% endcomment %}
+            {% capture url_repositorie %}https://{{repositorie.owner.login}}.github.io/{{repositorie.name}}/{% endcapture %}            
             {% assign modulo = my_counter | modulo: 2 %}
             {% assign my_counter = my_counter | plus: 1 %}
             
@@ -22,8 +16,9 @@ namePage: products
                     <div class="jumbotron theme-default">
             {% endif %}
                 <div class="container product">
-            
-                    <h2>{{ repositorie.name | escape }}</h2>
+                    {% assign name = repositorie.name | replace: "flyve-mdm-", "" %}   
+                    {% assign name = name | replace: "-", " " %} 
+                    <h2>{{ name }}</h2>
                     <p>{{ repositorie.description }}</p>
                     <a class="btn btn-lg btn-primary" href="{{ url_repositorie }}" role="button">Visit website</a>
                     <a class="btn btn-lg btn-secondary" href="{{ repositorie.html_url }}" role="button">View on GitHub</a>
