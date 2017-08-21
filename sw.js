@@ -2,8 +2,21 @@
 ---
 
 self.addEventListener('install', function(e) {
+
+  var CACHE_NAME = 'version-2'
+
+  caches.keys().then(function(cacheNames) {
+    return Promise.all(
+      cacheNames.map(function(cacheName) {
+        if(cacheName != CACHE_NAME) {
+          return caches.delete(cacheName)
+        }
+      })
+    )
+  })
+
   e.waitUntil(
-    caches.open('airhorner').then(function(cache) {
+    caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll([
         '{{ site.baseurl }}/',
         '{{ site.baseurl }}/?homescreen=1',
