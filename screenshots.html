@@ -10,12 +10,27 @@ layout: page
     <div class="row">
 
         <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen1" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
+
+            <figure class="media">
+                <div class="media-img ratio-movie">
+                    <a type="button" data-toggle="modal" data-target="#screen1" href="#" >
+                        <img src="{{ "images/screenshots/home.jpg" | relative_url }}" alt="">
+                    </a>
+                </div>
+
+                <figcaption class="media-caption">
+                    <h4 class="media-header">
+                        <a type="button" data-toggle="modal" data-target="#screen1" href="#" >
+                            Home loading 
+                        </a>
+                    </h4>
+                    <!--<div class="media-subheader">
+                        <a type="button" data-toggle="modal" data-target="#screen1" href="#" >
+                            Subheader
+                        </a>
+                    </div>-->
+                </figcaption>
+            </figure>
 
             <div class="modal fade" id="screen1" tabindex="-1" role="dialog" aria-labelledby="screen1Title" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -27,11 +42,13 @@ layout: page
                         </div>
                         <div class="modal-body">
                              <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
+                                <img src="{{ "images/screenshots/home.jpg" | relative_url }}" alt="">
                              </div>
                              <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
+                                 <h2>Home loading</h2>
+                                 <p>
+                                     Screenshot of how the application looks when it is opened. It is the first view that all users will have of the application.
+                                </p>
                                  <button type="button" class="btn btn-primary btn-block"
                                         data-dismiss="modal">
                                     Close
@@ -45,12 +62,27 @@ layout: page
         </div>
 
         <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen2" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
+
+            <figure class="media">
+                <div class="media-img ratio-movie">
+                    <a type="button" data-toggle="modal" data-target="#screen2" href="#" >
+                        <img src="{{ "images/screenshots/settings.jpg" | relative_url }}" alt="">
+                    </a>
+                </div>
+
+                <figcaption class="media-caption">
+                    <h4 class="media-header">
+                        <a type="button" data-toggle="modal" data-target="#screen2" href="#" >
+                            Settings
+                        </a>
+                    </h4>
+                    <!--<div class="media-subheader">
+                        <a type="button" data-toggle="modal" data-target="#screen2" href="#" >
+                            Subheader
+                        </a>
+                    </div>-->
+                </figcaption>
+            </figure>
 
             <div class="modal fade" id="screen2" tabindex="-1" role="dialog" aria-labelledby="screen2Title" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -62,11 +94,41 @@ layout: page
                         </div>
                         <div class="modal-body">
                              <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
+                                <img src="{{ "images/screenshots/settings.jpg" | relative_url }}" alt="">
                              </div>
                              <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
+                                 <h2>Settings</h2>
+                                 <p>
+                                     Basic configuration screen of the application. In this you can configure the following characteristics:
+                                </p>
+                                <ul>
+                                    <li>
+                                        <b>Inventory:</b><br/>
+                                        <span>
+                                            Disables inventory at will
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <b>Run inventory now:</b><br/>
+                                        <span>
+                                            Scans the device and creates the inventory
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <b>Inventory parameters:</b><br/>
+                                        <span>
+                                            Allows configuration of the inventory parameters
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <b>Global settings:</b><br/>
+                                        <span>
+                                            Takes you to the global settings screen
+                                        </span>
+                                    </li>
+                                    
                                  <button type="button" class="btn btn-primary btn-block"
                                         data-dismiss="modal">
                                     Close
@@ -80,12 +142,27 @@ layout: page
         </div>
 
         <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen3" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
+            
+            <figure class="media">
+                <div class="media-img ratio-movie">
+                    <a type="button" data-toggle="modal" data-target="#screen3" href="#" >
+                        <img src="{{ "images/screenshots/globalSettings.jpg" | relative_url }}" alt="">
+                    </a>
+                </div>
+
+                <figcaption class="media-caption">
+                    <h4 class="media-header">
+                        <a type="button" data-toggle="modal" data-target="#screen3" href="#" >
+                            Global Settings
+                        </a>
+                    </h4>
+                    <!--<div class="media-subheader">
+                        <a type="button" data-toggle="modal" data-target="#screen3" href="#" >
+                            Subheader
+                        </a>
+                    </div>-->
+                </figcaption>
+            </figure>
 
             <div class="modal fade" id="screen3" tabindex="-1" role="dialog" aria-labelledby="screen3Title" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -97,190 +174,34 @@ layout: page
                         </div>
                         <div class="modal-body">
                              <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
+                                <img src="{{ "images/screenshots/globalSettings.jpg" | relative_url }}" alt="">
                              </div>
                              <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
-                                 <button type="button" class="btn btn-primary btn-block"
-                                        data-dismiss="modal">
-                                    Close
-                                </button>
-                             </div>
-                        </div>
-                        <div class="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                 <h2>Global Settings</h2>
+                                 <p>
+                                     In this screen you can configure the following parameters:
+                                </p>
+                                <ul>
+                                    <li>
+                                        <b>Boot options:</b><br/>
+                                        <span>
+                                            Allows you to disable automatic boot
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <b>Notifications:</b><br/>
+                                        <span>
+                                            Allows you to define the address of access server
+                                        </span> 
+                                    </li>
+                                    <li>
+                                        <b>HTTP authentication credentials:</b><br/>
+                                        <span>
+                                            In this section you need to enter your user and password of Flyve MDM
+                                        </span> 
+                                    </li>
+                                </ul>
 
-        <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen4" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
-
-            <div class="modal fade" id="screen4" tabindex="-1" role="dialog" aria-labelledby="screen4Title" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                             <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                             </div>
-                             <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
-                                 <button type="button" class="btn btn-primary btn-block"
-                                        data-dismiss="modal">
-                                    Close
-                                </button>
-                             </div>
-                        </div>
-                        <div class="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-     <div class="row">
-
-        <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen5" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
-
-            <div class="modal fade" id="screen5" tabindex="-1" role="dialog" aria-labelledby="screen5Title" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                             <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                             </div>
-                             <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
-                                 <button type="button" class="btn btn-primary btn-block"
-                                        data-dismiss="modal">
-                                    Close
-                                </button>
-                             </div>
-                        </div>
-                        <div class="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen6" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
-
-            <div class="modal fade" id="screen6" tabindex="-1" role="dialog" aria-labelledby="screen6Title" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                             <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                             </div>
-                             <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
-                                 <button type="button" class="btn btn-primary btn-block"
-                                        data-dismiss="modal">
-                                    Close
-                                </button>
-                             </div>
-                        </div>
-                        <div class="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen7" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
-
-            <div class="modal fade" id="screen7" tabindex="-1" role="dialog" aria-labelledby="screen7Title" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                             <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                             </div>
-                             <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
-                                 <button type="button" class="btn btn-primary btn-block"
-                                        data-dismiss="modal">
-                                    Close
-                                </button>
-                             </div>
-                        </div>
-                        <div class="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-sm-12 col-xs-24 element">
-            <div class="screen">
-                <a type="button" class="color-type-secondary" data-toggle="modal" data-target="#screen8" href="#" >
-                    <h3>Header</h3>
-                    <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                </a>
-            </div>
-
-            <div class="modal fade" id="screen8" tabindex="-1" role="dialog" aria-labelledby="screen8Title" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                             <div class="col-sm-12">
-                                <img src="{{ "images/screen1.png" | relative_url }}" alt="">
-                             </div>
-                             <div class="col-sm-12">
-                                 <h2>Header</h2>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam non, assumenda excepturi laudantium veniam inventore? Suscipit eius est, esse non, cumque laudantium earum odio mollitia perferendis saepe consequatur, ipsum nihil!</p>
                                  <button type="button" class="btn btn-primary btn-block"
                                         data-dismiss="modal">
                                     Close
@@ -294,4 +215,5 @@ layout: page
         </div>
 
     </div>
+    
 </section>
