@@ -1,6 +1,6 @@
-email: your-email@example.com
+email: ml-flyvemdm@teclib.com
 baseurl: "/flyve-mdm-android-inventory-agent"
-url: "https://flyve-mdm.github.io"
+url: "https://flyve-mdm.github.io"  
 
 # Build settings
 markdown: kramdown
