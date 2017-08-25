@@ -5,7 +5,7 @@ self.addEventListener('install', function(e) {
   
   {% assign name = site.github.project_title | replace: "flyve-mdm-", "" %} 
 
-  var CACHE_NAME = '{{name}}-version-4'
+  var CACHE_NAME = '{{name}}-version-5'
 
   caches.keys().then(function(cacheNames) {
     return Promise.all(
