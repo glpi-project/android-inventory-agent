@@ -1,6 +1,5 @@
 language: android
 dist: trusty
-jdk: oraclejdk8
 android:
   components:
   - build-tools-$BUILD_TOOL
