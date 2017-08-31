@@ -11,29 +11,64 @@
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
+
 fastlane_version "2.45.0"
 
 default_platform :android
 
 platform :android do
 
-  desc "Alpha release app. Deploy a new version to the Google Play Store - Alpha channel"
-  lane :alpha do |options|
+    desc "Beta release app. Deploy a new version to the Google Play Store - Beta channel"
+    lane :beta do |options|
+        sign_apk(
+            keystore_path: "ci/release.keystore",
+            alias: "InventoryAgent",
+            storepass: options[:storepass],
+            tsa: "http://timestamp.comodoca.com/rfc316",
+            keypass: options[:keypass]
+        )
 
-    sign_apk(
-      keystore_path: "ci/release.keystore",
-      alias: "InventoryAgent",
-      storepass: options[:storepass],
-      tsa: "http://timestamp.comodoca.com/rfc316",
-    )
+        zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
-    zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
+        supply(
+            track: 'beta',
+            apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
+        )
+    end
+    lane :playstore do |options|
+        sign_apk(
+            keystore_path: "ci/release.keystore",
+            alias: "InventoryAgent",
+            storepass: options[:storepass],
+            tsa: "http://timestamp.comodoca.com/rfc316",
+            keypass: options[:keypass]
+        )
 
-  supply(
-     track: 'beta',
-     apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
-  )
-  end
+        zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
+
+        supply(
+            track: 'production',
+            apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
+        )
+    end
 end
 
-# how to used it fastlane android alpha storepass:'#KEYSTORE_PASSWORD' keypass:'#ALIAS_PASSWORD'
+after_all do |lane|
+    telegram(
+        url_horn: ENV["TELEGRAM_WEBHOOKS"],
+        repo: ENV["GIT_REPO"],
+        branch: ENV["GIT_BRANCH"],
+        message: "Fastlane is OK"
+    )
+end
+
+error do |lane, exception|
+    telegram(
+        url_horn: ENV["TELEGRAM_WEBHOOKS"],
+        repo: ENV["GIT_REPO"],
+        branch: ENV["GIT_BRANCH"],
+        message: "`ERROR` Fastlane FAIL"
+    )
+end
+
+# how to used it fastlane android beta storepass:'#KEYSTORE_PASSWORD' keypass:'#ALIAS_PASSWORD'
