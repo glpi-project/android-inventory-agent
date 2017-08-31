@@ -3,11 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.3'
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "org.flyve.inventory.agent"
-        minSdkVersion 16
-        targetSdkVersion 16
+        minSdkVersion 12
+        targetSdkVersion 12
     }
 
     buildTypes {
