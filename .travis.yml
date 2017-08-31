@@ -1,19 +1,18 @@
 language: android
 dist: precise
-jdk: oraclejdk8
 android:
   components:
   - build-tools-$BUILD_TOOL
   - android-$ANDROID_API
   - extra-android-m2repository
 install:
-- source ./ci/install.sh
+  - source ./ci/install.sh
 before_script:
-- source ./ci/before_script.sh
+  - source ./ci/before_script.sh
 script:
-- source ./ci/script.sh
+  - source ./ci/script.sh
 after_success:
-- source ./ci/deploy.sh
+  - source ./ci/deploy.sh
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
 env:
