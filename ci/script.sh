@@ -28,7 +28,7 @@
 # Deletes the build directory.
 gradle clean
 
-if [[ ("$TRAVIS_BRANCH" == "develop" ||  "$TRAVIS_BRANCH" == "master") && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_RUN" == "true" ]]; then
+if [[ ("$TRAVIS_BRANCH" == "develop" ||  "$TRAVIS_BRANCH" == "master") && "$TRAVIS_RUN" == "true" ]]; then
     # Runs all device checks on currently connected devices.
     gradle build connectedCheck
 else
