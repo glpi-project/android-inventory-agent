@@ -25,8 +25,6 @@
 # @link      https://flyve-mdm.com
 # ------------------------------------------------------------------------------
 
-# Move to local branch
-git checkout $TRAVIS_BRANCH -f
 
 #-----------------------------------------------------------------
 # DEVELOP
@@ -34,6 +32,9 @@ git checkout $TRAVIS_BRANCH -f
 # - update version name -BETA
 #-----------------------------------------------------------------
 if [[ "$TRAVIS_BRANCH" == "develop" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_RUN" == "true" ]]; then
+    # Move to local branch
+    git checkout $TRAVIS_BRANCH -f
+
     # increment version on package.json, create tag and commit with changelog
     npm run release
 
@@ -57,6 +58,9 @@ fi
 # - increment version name on manifest
 #-----------------------------------------------------------------
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_RUN" == "true" ]]; then
+    # Move to local branch
+    git checkout $TRAVIS_BRANCH -f
+
     # increment version code, need to be unique to send to store
     gradle updateVersionCode -P vCode=$TRAVIS_BUILD_NUMBER
 
