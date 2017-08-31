@@ -283,7 +283,8 @@ public class Agent
          notif = customSharedPreference.getBoolean("notif", false);
 
         if (notif){
-            notification.setLatestEventInfo(this, getText(R.string.app_name), text, contentIntent);
+            // notification.setLatestEventInfo(this, getText(R.string.app_name), text, contentIntent);
+            Log.d("Notification", text);
         }
     }
 
