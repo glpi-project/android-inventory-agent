@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 16
-    buildToolsVersion "22.0.1"
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "org.flyve.inventory.agent"
@@ -10,16 +10,28 @@ android {
         targetSdkVersion 12
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    dexOptions {
+        preDexLibraries true
+        maxProcessCount 8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    defaultConfig {
+        multiDexEnabled true
     }
 }
 
@@ -35,34 +47,39 @@ dependencies {
 
 import java.util.regex.Pattern
 
-task('increaseVersionCode') << {
-    def manifestFile = file("src/main/AndroidManifest.xml")
-    def pattern = Pattern.compile("versionCode=\"(\\d+)\"")
-    def manifestText = manifestFile.getText()
-    def matcher = pattern.matcher(manifestText)
-    matcher.find()
-    def versionCode = Integer.parseInt(matcher.group(1))
-    def manifestContent = matcher.replaceAll("versionCode=\"" + ++versionCode + "\"")
-    manifestFile.write(manifestContent)
+task updateVersionCode {
+    doLast {
+        if (project.hasProperty("vCode")) {
+            def manifestFile = file("src/main/AndroidManifest.xml")
+            def pattern = Pattern.compile("versionCode=\"(\\d+)\"")
+            def manifestText = manifestFile.getText()
+            def matcher = pattern.matcher(manifestText)
+            matcher.find()
+
+            def manifestContent = matcher.replaceAll("versionCode=\"" + vCode + "\"")
+            println "Version Code: " + vCode
+            manifestFile.write(manifestContent)
+        } else {
+            println "please run: updateVersionCode -P vCode="
+        }
+    }
 }
 
-task('incrementVersionName') << {
-    def manifestFile = file("src/main/AndroidManifest.xml")
-    def patternVersionNumber = Pattern.compile("versionName=\"(\\d+)\\.(\\d+)\\.(\\d+)\"")
-    def manifestText = manifestFile.getText()
-    def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
-    matcherVersionNumber.find()
-    def majorVersion = Integer.parseInt(matcherVersionNumber.group(1))
-    def minorVersion = Integer.parseInt(matcherVersionNumber.group(2))
-    def pointVersion = Integer.parseInt(matcherVersionNumber.group(3))
-    def mNextVersionName = majorVersion + "." + minorVersion + "." + (pointVersion+1)
-    def manifestContent = matcherVersionNumber.replaceAll("versionName=\"" + mNextVersionName + "\"")
-    manifestFile.write(manifestContent)
-}
+task updateVersionName {
+    doLast {
+        if (project.hasProperty("vName")) {
+            def manifestFile = file("src/main/AndroidManifest.xml")
+            def patternVersionNumber = Pattern.compile("versionName=\"(\\d+)\\.(\\d+)\\.(\\d+)(?:\\S*)\"")
+            def manifestText = manifestFile.getText()
+            def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
+            matcherVersionNumber.find()
 
-tasks.whenTaskAdded { task ->
-    if (task.name == 'generateReleaseBuildConfig' || task.name == 'generateDebugBuildConfig') {
-        task.dependsOn 'increaseVersionCode'
-        task.dependsOn 'incrementVersionName'
+            def manifestContent = matcherVersionNumber.replaceAll("versionName=\"" + vName + "\"")
+            manifestFile.write(manifestContent)
+
+            println "Version name: " + vName
+        } else {
+            println "please run: updateVersionName -P vName="
+        }
     }
 }
