@@ -45,6 +45,8 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.flyve.inventory.agent.utils.FlyveLog;
+
 public class FusionInventory
         extends Activity {
 
@@ -66,7 +68,6 @@ public class FusionInventory
             extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
             FusionInventory.log(this, " message received " + msg.toString(), Log.INFO);
 
             switch (msg.what) {
@@ -83,8 +84,7 @@ public class FusionInventory
                 try {
                     mAgentService.send(Message.obtain(null, Agent.MSG_INVENTORY_RESULT));
                 } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    FlyveLog.e(e.getMessage());
                 }
                 break;
 
@@ -96,8 +96,7 @@ public class FusionInventory
                     try {
                         mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
                     } catch (RemoteException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        FlyveLog.e(e.getMessage());
                     }
                 }
                 break;
@@ -125,8 +124,7 @@ public class FusionInventory
 
                 mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
             } catch (RemoteException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                FlyveLog.e(e.getMessage());
             }
 
             Toast.makeText(FusionInventory.this, R.string.agent_connected, Toast.LENGTH_SHORT).show();
@@ -207,7 +205,6 @@ public class FusionInventory
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
         doUnbindService();
         FusionInventory.log(this, "OnPause()", Log.INFO);
@@ -216,7 +213,6 @@ public class FusionInventory
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         doBindService();
         FusionInventory.log(this, "OnResume()", Log.INFO);
@@ -225,7 +221,6 @@ public class FusionInventory
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // TODO Auto-generated method stub
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
@@ -233,7 +228,6 @@ public class FusionInventory
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // TODO Auto-generated method stub
         MenuItem mMenu_getinv = menu.findItem(R.id.menu_getinv);
         MenuItem mMenu_send = menu.findItem(R.id.menu_send);
 
@@ -246,7 +240,6 @@ public class FusionInventory
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Message msg;
-        // TODO Auto-generated method stub
         switch (item.getItemId()) {
 
         case R.id.menu_clearlog:
@@ -266,8 +259,7 @@ public class FusionInventory
                 try {
                     mAgentService.send(msg);
                 } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    FlyveLog.e(e.getMessage());
                 }
             }
             return true;
@@ -289,8 +281,7 @@ public class FusionInventory
                     
                     
                 } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    FlyveLog.e(e.getMessage());
                 }
             }
             return true;
