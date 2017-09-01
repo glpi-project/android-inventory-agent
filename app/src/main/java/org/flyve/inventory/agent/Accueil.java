@@ -26,17 +26,10 @@
 package org.flyve.inventory.agent;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -47,17 +40,15 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.flyvemdm.inventory.InventoryTask;
+
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.HttpInventory;
 
 public class Accueil extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
-    private Messenger mAgentService = null;
-    private  String[] statusAgent = null;
-    private boolean isAgentOk = false;
-    private String barcode = null;
     private boolean notif = false;
     private SharedPreferences customSharedPreference;
-    private final Messenger mMessenger = new Messenger(new IncomingHandler());
 
     protected void onResume() {
         super.onResume();
@@ -69,39 +60,6 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener( this );
     }
 
-    private ServiceConnection mConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-
-            mAgentService = new Messenger(service);
-
-            try {
-                Message msg = Message.obtain();
-                msg.replyTo = mMessenger;
-                msg.what = Agent.MSG_CLIENT_REGISTER;
-                mAgentService.send(msg);
-
-                mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
-            } catch (RemoteException e) {
-                FlyveLog.e(e.getMessage());
-            }
-
-            if (notif){
-                Toast.makeText(Accueil.this, R.string.agent_connected, Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            isAgentOk = false;
-            mAgentService = null;
-
-            if (notif){
-                Toast.makeText(Accueil.this, R.string.agent_disconnected, Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 
     void doBindService() {
         // Establish a connection with the service. We use an explicit
@@ -116,20 +74,11 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
             FlyveLog.log(this, " Agent already started ", Log.ERROR);
         }
 
-        boolean mIsBound = bindService(new Intent(Accueil.this, Agent.class), mConnection, Context.BIND_NOT_FOREGROUND);
-
-        if (mIsBound) {
-            FlyveLog.log(this, "Connected successfully to Agent service", Log.INFO);
-        } else {
-            FlyveLog.log(this, "Failed to connect to Agent service", Log.ERROR);
-        }
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        statusAgent = getResources().getStringArray(R.array.agent_status);
 
         addPreferencesFromResource(R.xml.accueil);
 
@@ -177,43 +126,21 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                Message msg;
-
-                if (isAgentOk) {
-                    try {
-                        Toast.makeText(Accueil.this, R.string.inventory_started, Toast.LENGTH_LONG).show();
-
-                        isAgentOk = false;
-
-                        msg = Message.obtain(null, Agent.MSG_INVENTORY_START);
-                        msg.replyTo = mMessenger;
-                        if (barcode != null) {
-                            Bundle b = new Bundle();
-                            b.putString("BARCODE", barcode);
-                            msg.setData(b);
-                        }
-                        mAgentService.send(msg);
-                    } catch (RemoteException e) {
-                        FlyveLog.e(e.getMessage());
+                InventoryTask inventoryTask = new InventoryTask(Accueil.this, "");
+                inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
+                    @Override
+                    public void onTaskSuccess(String data) {
+                        FlyveLog.d(data);
+                        HttpInventory httpInventory = new HttpInventory(Accueil.this);
+                        httpInventory.sendInventory( data );
+                        Toast.makeText(Accueil.this, "Inventory send", Toast.LENGTH_SHORT).show();
                     }
 
-                    isAgentOk = true;
-                }
-
-                if (isAgentOk) {
-
-                    isAgentOk = false;
-
-                    msg = Message.obtain(null, Agent.MSG_INVENTORY_SEND);
-                    msg.replyTo = mMessenger;
-                    try {
-                        mAgentService.send(msg);
-                    } catch (RemoteException e) {
-                        FlyveLog.e(e.getMessage());
+                    @Override
+                    public void onTaskError(Throwable error) {
+                        Toast.makeText(Accueil.this, "Inventory fail, please try again", Toast.LENGTH_SHORT).show();
                     }
-
-                    isAgentOk = true;
-                }
+                });
 
                 return true;
             }
@@ -230,41 +157,6 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         if (pref instanceof ListPreference) {
             ListPreference listp = (ListPreference) pref;
             pref.setSummary(listp.getValue());
-        }
-    }
-
-    private class IncomingHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            FlyveLog.log(this, " message received " + msg.toString(), Log.INFO);
-
-            switch (msg.what) {
-                case Agent.MSG_AGENT_STATUS:
-
-                    FlyveLog.log(this, statusAgent[msg.arg1], Log.INFO);
-                    isAgentOk = msg.arg1 == 0;
-                    break;
-                case Agent.MSG_INVENTORY_FINISHED:
-                    try {
-                        mAgentService.send(Message.obtain(null, Agent.MSG_INVENTORY_RESULT));
-                    } catch (RemoteException e) {
-                        FlyveLog.e(e.getMessage());
-                    }
-                    break;
-
-                case Agent.MSG_INVENTORY_RESULT:
-                    Bundle bXML = msg.peekData();
-                    if (bXML != null) {
-                        try {
-                            mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
-                        } catch (RemoteException e) {
-                            FlyveLog.e(e.getMessage());
-                        }
-                    }
-                    break;
-                default:
-                    super.handleMessage(msg);
-            }
         }
     }
 }

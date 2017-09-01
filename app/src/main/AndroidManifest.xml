@@ -71,7 +71,7 @@
 			<!-- android:process=":agent" -->
 			<intent-filter>
 				<action
-					android:name="org.fusioninventory.Agent" />
+					android:name="org.flyve.inventory.agent" />
 			</intent-filter>
 		</service>
         <service
@@ -84,7 +84,7 @@
             <!-- android:process=":Auto agent" -->
             <intent-filter>
                 <action
-                    android:name="org.fusioninventory.AutoInventory" />
+                    android:name="org.flyve.inventory.agent" />
             </intent-filter>
         </service>
 		<receiver
