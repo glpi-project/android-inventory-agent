@@ -4,7 +4,6 @@
     <PreferenceCategory android:title="@string/AccueilInventoryTitle"/>
 
     <!-- Inventory part -->
-
     <CheckBoxPreference
         android:summary="CheckBox summary"
         android:title="@string/AccueilInventoryTitle"
@@ -80,8 +79,6 @@
             android:persistent="true"
             />
         <EditTextPreference android:dialogMessage="@string/tag" android:persistent="true" android:enabled="true" android:selectable="true" android:dialogTitle="@string/tag" android:title="@string/tag" android:key="tag"></EditTextPreference>
-
-
 
         <PreferenceCategory android:title="@string/authentication_credentials">
             <EditTextPreference android:dialogMessage="@string/login" android:enabled="true" android:persistent="true" android:title="@string/login" android:key="login"></EditTextPreference>

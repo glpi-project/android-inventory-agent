@@ -186,75 +186,75 @@ public class Agent extends Service {
     }
 
     @Override
-        public void onCreate() {
+    public void onCreate() {
 
-            SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean autoInventory = customSharedPreference.getBoolean("autoStartInventory", false);
-            String timeInventory = customSharedPreference.getString("timeInventory", "Week");
-            notif = customSharedPreference.getBoolean("notif", false);
+        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean autoInventory = customSharedPreference.getBoolean("autoStartInventory", false);
+        String timeInventory = customSharedPreference.getString("timeInventory", "Week");
+        notif = customSharedPreference.getBoolean("notif", false);
 
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-            if (autoInventory) {
-                if (timeInventory.equals("Day")) {
-                    cal.set(Calendar.HOUR_OF_DAY, 18);
-                    cal.set(Calendar.MINUTE, 0);
-                    cal.set(Calendar.SECOND, 0);
-                    cal.set(Calendar.MILLISECOND, 0);
-                }
-                else if(timeInventory.equals("Week"))
-                {
-                    cal.set(Calendar.DAY_OF_WEEK, 1);
-                    cal.set(Calendar.HOUR_OF_DAY, 18);
-                    cal.set(Calendar.MINUTE, 33);
-                    cal.set(Calendar.SECOND, 0);
-                    cal.set(Calendar.MILLISECOND, 0);
-                }
-                else if(timeInventory.equals("Month"))
-                {
-                    cal.set(Calendar.WEEK_OF_MONTH, 1);
-                    cal.set(Calendar.DAY_OF_WEEK, 1);
-                    cal.set(Calendar.HOUR_OF_DAY, 18);
-                    cal.set(Calendar.MINUTE, 0);
-                    cal.set(Calendar.SECOND, 0);
-                    cal.set(Calendar.MILLISECOND, 0);
-                }
-
-                am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                setRepeatingAlarm();
+        if (autoInventory) {
+            if (timeInventory.equals("Day")) {
+                cal.set(Calendar.HOUR_OF_DAY, 18);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+            }
+            else if(timeInventory.equals("Week"))
+            {
+                cal.set(Calendar.DAY_OF_WEEK, 1);
+                cal.set(Calendar.HOUR_OF_DAY, 18);
+                cal.set(Calendar.MINUTE, 33);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+            }
+            else if(timeInventory.equals("Month"))
+            {
+                cal.set(Calendar.WEEK_OF_MONTH, 1);
+                cal.set(Calendar.DAY_OF_WEEK, 1);
+                cal.set(Calendar.HOUR_OF_DAY, 18);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
             }
 
-            FlyveLog.log(this, "creating Inventory task", Log.INFO);
-
-            mFusionApp = (InventoryAgentApp) getApplication();
-            FlyveLog.log(this, "InventoryAgentApp = " + mFusionApp.toString(), Log.VERBOSE);
-
-            inventory = new InventoryTask(this, "InventoryAgent-Agent-Android_v1.0");
-
-            mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-            contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, Accueil.class), 0);
-
-            if (notif){
-                notification = new Notification();
-                notification.icon = R.drawable.icon;
-
-                notification.tickerText = getText(R.string.agent_started).toString();
-                updateNotification(getText(R.string.agent_started).toString());
-
-                mNM.notify(agentStarted, notification);
-            }
-
-            Handler h = new Handler();
-            h.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    mNM.cancel(agentStarted);
-                }
-            }, 1000);
+            am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            setRepeatingAlarm();
         }
+
+        FlyveLog.log(this, "creating Inventory task", Log.INFO);
+
+        mFusionApp = (InventoryAgentApp) getApplication();
+        FlyveLog.log(this, "InventoryAgentApp = " + mFusionApp.toString(), Log.VERBOSE);
+
+        inventory = new InventoryTask(this, "InventoryAgent-Agent-Android_v1.0");
+
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, Accueil.class), 0);
+
+        if (notif){
+            notification = new Notification();
+            notification.icon = R.drawable.icon;
+
+            notification.tickerText = getText(R.string.agent_started).toString();
+            updateNotification(getText(R.string.agent_started).toString());
+
+            mNM.notify(agentStarted, notification);
+        }
+
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                mNM.cancel(agentStarted);
+            }
+        }, 1000);
+    }
 
     public void updateNotification(String text) {
          SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);

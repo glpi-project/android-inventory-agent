@@ -40,11 +40,11 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
 
     private SharedPreferences prefs;
 
-    public Boolean mShouldAutoStart = null;
-    public String mUrl = null;
-    public String mLogin = null;
-    public String mPassword = null;
-    public String mDeviceID = null;
+    private Boolean mShouldAutoStart = null;
+    private String mUrl = null;
+    private String mLogin = null;
+    private String mPassword = null;
+    private String mDeviceID = null;
 
     @Override
     public void onCreate() {
