@@ -17,7 +17,17 @@ package org.flyve.inventory.agent.utils;
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
+ * @author olamy
  */
+
+import android.util.Log;
+
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.scheme.LayeredSocketFactory;
+import org.apache.http.conn.scheme.SocketFactory;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.flyve.inventory.agent.FusionInventory;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -29,24 +39,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 
-import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.conn.scheme.LayeredSocketFactory;
-import org.apache.http.conn.scheme.SocketFactory;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.flyve.inventory.agent.FusionInventory;
-
-import android.util.Log;
-
 /**
- * This socket factory will create ssl socket that accepts self signed
- * certificate
- * 
- * @author olamy
- * @version $Id: EasySSLSocketFactory.java 765355 2009-04-15 20:59:07Z evenisse
- *          $
- * @since 1.2.3
- */
+* This socket factory will create ssl socket that accepts self signed
+* certificate
+*/
 public class EasySSLSocketFactory implements SocketFactory,
         LayeredSocketFactory {
 

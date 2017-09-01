@@ -17,7 +17,12 @@ package org.flyve.inventory.agent.utils;
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
+ * @author olamy
  */
+
+import android.util.Log;
+
+import org.flyve.inventory.agent.FusionInventory;
 
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -29,16 +34,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import org.flyve.inventory.agent.FusionInventory;
-
-import android.util.Log;
-
-/**
- * @author olamy
- * @version $Id: EasyX509TrustManager.java 765355 2009-04-15 20:59:07Z evenisse
- *          $
- * @since 1.2.3
- */
 public class EasyX509TrustManager implements X509TrustManager {
 
     private X509TrustManager standardTrustManager = null;
@@ -81,7 +76,6 @@ public class EasyX509TrustManager implements X509TrustManager {
                     + ") authtype(" + authType + ")", Log.WARN);
             if (certificates.length == 1) {
                 //TODO check preferences
-                //certificates[0].checkValidity();
             } else {
                 standardTrustManager.checkServerTrusted(certificates, authType);
             }
