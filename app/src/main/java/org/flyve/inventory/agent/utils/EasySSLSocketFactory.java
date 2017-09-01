@@ -27,7 +27,6 @@ import org.apache.http.conn.scheme.LayeredSocketFactory;
 import org.apache.http.conn.scheme.SocketFactory;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.flyve.inventory.agent.FusionInventory;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -49,7 +48,7 @@ public class EasySSLSocketFactory implements SocketFactory,
     private SSLContext sslcontext = null;
 
     private static SSLContext createEasySSLContext() throws IOException {
-        FusionInventory.log(EasySSLSocketFactory.class,
+        FlyveLog.log(EasySSLSocketFactory.class,
                 "Create Easy SSL Context", Log.ERROR);
         try {
             SSLContext context = SSLContext.getInstance("TLS");

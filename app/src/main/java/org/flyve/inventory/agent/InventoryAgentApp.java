@@ -34,14 +34,14 @@ import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-public class FusionInventoryApp
-        extends Application
-        implements OnSharedPreferenceChangeListener {
+import org.flyve.inventory.agent.utils.FlyveLog;
+
+public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
 
     private SharedPreferences prefs;
+
     public Boolean mShouldAutoStart = null;
     public String mUrl = null;
-    public String mTag = null;
     public String mLogin = null;
     public String mPassword = null;
     public String mDeviceID = null;
@@ -53,11 +53,11 @@ public class FusionInventoryApp
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         
-        String device_id = prefs.getString("device_id", null);
-        
-        FusionInventory.log(this, device_id, Log.VERBOSE);
+        String deviceId = prefs.getString("device_id", null);
+
+        FlyveLog.log(this, deviceId, Log.VERBOSE);
              
-        if(device_id == null) {
+        if(deviceId == null) {
            TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
            prefs.edit()
                 .putString("device_id", String.format("%s-%s",mTM.getDeviceId(),DateFormat.format("yyyy-MM-dd-kk-mm-ss", System.currentTimeMillis())))
@@ -65,7 +65,6 @@ public class FusionInventoryApp
         }
     }
 
-    
     public String getDeviceID(){
         if (mDeviceID == null) {
             mDeviceID = prefs.getString("device_id","<not set>");
@@ -74,11 +73,8 @@ public class FusionInventoryApp
     }
     
     public Boolean getShouldAutoStart() {
-
         if (mShouldAutoStart == null) {
-
-            mShouldAutoStart = Boolean.valueOf(prefs.getBoolean("boot", false));
-
+            mShouldAutoStart = prefs.getBoolean("boot", false);
         }
         return mShouldAutoStart;
 
@@ -95,7 +91,7 @@ public class FusionInventoryApp
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         mUrl = null;
         mShouldAutoStart = null;
-        FusionInventory.log(this, "FusionInventoryApp = " + this.toString(), Log.VERBOSE);
+        FlyveLog.log(this, "InventoryAgentApp = " + this.toString(), Log.VERBOSE);
     }
 
     public String getCredentialsLogin() {
@@ -110,13 +106,6 @@ public class FusionInventoryApp
         	mPassword = prefs.getString("password", "");
         }
         return mPassword;
-    }
-
-    public String getTag() {
-        if (mTag == null) {
-        	mTag = prefs.getString("tag", "");
-        }
-        return mTag;
     }
 
 }

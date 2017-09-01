@@ -22,8 +22,6 @@ package org.flyve.inventory.agent.utils;
 
 import android.util.Log;
 
-import org.flyve.inventory.agent.FusionInventory;
-
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -72,7 +70,7 @@ public class EasyX509TrustManager implements X509TrustManager {
     public void checkServerTrusted(X509Certificate[] certificates,
             String authType) throws CertificateException {
         if (certificates != null) {
-            FusionInventory.log(this, "certs(" + certificates.length
+            FlyveLog.log(this, "certs(" + certificates.length
                     + ") authtype(" + authType + ")", Log.WARN);
             if (certificates.length == 1) {
                 //TODO check preferences

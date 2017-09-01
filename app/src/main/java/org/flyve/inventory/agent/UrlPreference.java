@@ -34,17 +34,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TwoLineListItem;
 
-public class UrlPreference
-        extends DialogPreference {
+import org.flyve.inventory.agent.utils.FlyveLog;
+
+public class UrlPreference extends DialogPreference {
 
     private String url;
-    private TwoLineListItem mUrl;
     private EditText mEditText;
 
     public UrlPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayoutResource(R.layout.pref_widget_url);
-        FusionInventory.log(this, String.format("isPersistent %s", isPersistent()), Log.WARN);
+        FlyveLog.log(this, String.format("isPersistent %s", isPersistent()), Log.WARN);
         setPersistent(true);
     }
 
@@ -52,7 +52,7 @@ public class UrlPreference
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        mUrl = (TwoLineListItem) view;
+        TwoLineListItem mUrl = (TwoLineListItem) view;
 
         mUrl.getText1().setText(getTitle());
         mUrl.getText2().setText(getPersistedString(url));
@@ -67,7 +67,7 @@ public class UrlPreference
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
-        FusionInventory.log(this, "onDialogClosed " + url, Log.WARN);
+        FlyveLog.log(this, "onDialogClosed " + url, Log.WARN);
 
         if (!positiveResult) {
             return;
@@ -85,7 +85,7 @@ public class UrlPreference
 
     @Override
     protected void onBindDialogView(View view) {
-        FusionInventory.log(this, "onBindDialogView " + url, Log.WARN);
+        FlyveLog.log(this, "onBindDialogView " + url, Log.WARN);
         mEditText.setText(getPersistedString(url));
         super.onBindDialogView(view);
     }

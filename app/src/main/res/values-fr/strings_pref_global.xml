@@ -16,7 +16,7 @@
 	<string name="GlobalCatSet">Paramètres du serveur</string>
 
 	<string name="GlobalServer">Adresse du serveur</string>
-	<string name="GlobalServerSummary">Définir l\'adresse du serveur FusionInventory</string>
+	<string name="GlobalServerSummary">Définir l\'adresse du serveur Inventory</string>
 
 	<string name="GlobalService">Authentification</string>
 	<string name="GlobalServiceSummary">Setup password, public keys ...</string>

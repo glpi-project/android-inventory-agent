@@ -86,14 +86,14 @@ public class AutoInventory extends Service {
     private String lastXMLResult = null;
     private String lastSendResult = null;
     private SchemeRegistry mSchemeRegistry = new SchemeRegistry();
-    private FusionInventoryApp mFusionApp = null;
+    private InventoryAgentApp mFusionApp = null;
     private boolean notif = false;
 
     @Override
     public void onCreate() {
         inventory = new InventoryTask(this, "Inventory-Agent-Android_v1.0");
 
-        mFusionApp = (FusionInventoryApp) getApplication();
+        mFusionApp = (InventoryAgentApp) getApplication();
 
         SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
         boolean notif = customSharedPreference.getBoolean("notif", false);

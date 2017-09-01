@@ -37,7 +37,7 @@
 		android:name="android.permission.CHANGE_WIFI_STATE" />
 	<application
 		android:label="@string/app_name"
-		android:name="org.flyve.inventory.agent.FusionInventoryApp"
+		android:name="org.flyve.inventory.agent.InventoryAgentApp"
 		android:vmSafeMode="true"
 		android:theme="@style/AppTheme"
 		android:icon="@drawable/icon">
