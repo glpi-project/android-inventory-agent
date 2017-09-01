@@ -109,7 +109,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
 
-        ComponentName result = startService(new Intent("org.flyve.loadInventory.agent"));
+        ComponentName result = startService(new Intent("org.flyve.inventory.agent"));
         if (result != null) {
             FlyveLog.log(this, " Agent started ", Log.INFO);
         } else {
@@ -148,8 +148,8 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
                     Toast.makeText(getBaseContext(), R.string.agent_reboot, Toast.LENGTH_SHORT).show();
                 }
 
-                stopService(new Intent("org.flyve.loadInventory.agent"));
-                startService(new Intent("org.flyve.loadInventory.agent"));
+                stopService(new Intent("org.flyve.inventory.agent"));
+                startService(new Intent("org.flyve.inventory.agent"));
 
                 return true;
             }
@@ -166,8 +166,8 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
                     Toast.makeText(getBaseContext(), R.string.agent_reboot,Toast.LENGTH_SHORT).show();
                 }
 
-                stopService(new Intent("org.flyve.loadInventory.agent"));
-                startService(new Intent("org.flyve.loadInventory.agent"));
+                stopService(new Intent("org.flyve.inventory.agent"));
+                startService(new Intent("org.flyve.inventory.agent"));
 
                 return true;
             }

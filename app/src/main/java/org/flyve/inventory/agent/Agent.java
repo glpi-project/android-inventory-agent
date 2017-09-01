@@ -148,14 +148,14 @@ public class Agent extends Service {
                     break;
 
                 case Agent.MSG_INVENTORY_START:
-                    FlyveLog.log(this, " received starting loadInventory task", Log.INFO);
+                    FlyveLog.log(this, " received starting inventory task", Log.INFO);
 
                     if (inventory != null) {
 
                         if (inventory.running) {
-                            FlyveLog.log(this, " loadInventory task is already running ...", Log.WARN);
+                            FlyveLog.log(this, " Inventory task is already running ...", Log.WARN);
                         } else {
-                            FlyveLog.log(this, " loadInventory task not running ...", Log.INFO);
+                            FlyveLog.log(this, " Inventory task not running ...", Log.INFO);
                             start_inventory();
                         }
                     }
@@ -225,7 +225,7 @@ public class Agent extends Service {
                 setRepeatingAlarm();
             }
 
-            FlyveLog.log(this, "creating loadInventory task", Log.INFO);
+            FlyveLog.log(this, "creating Inventory task", Log.INFO);
 
             mFusionApp = (FusionInventoryApp) getApplication();
             FlyveLog.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
@@ -331,7 +331,7 @@ public class Agent extends Service {
         try {
             url = new URL(mFusionApp.getUrl());
         } catch (MalformedURLException e) {
-            FlyveLog.log(this, "loadInventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
+            FlyveLog.log(this, "Inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
             Toast.makeText(this, "Server adress is malformed", Toast.LENGTH_SHORT).show();
         }
 
