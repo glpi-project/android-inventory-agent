@@ -30,11 +30,16 @@ xcode-select --install
 
 # Available Actions
 ## Android
-### android alpha
+### android beta
 ```
-fastlane android alpha
+fastlane android beta
 ```
-Alpha release app. Deploy a new version to the Google Play Store - Alpha channel
+Beta release app. Deploy a new version to the Google Play Store - Beta channel
+### android playstore
+```
+fastlane android playstore
+```
+
 
 ----
 
