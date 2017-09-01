@@ -41,6 +41,7 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.flyve.inventory.agent.utils.EasySSLSocketFactory;
+import org.flyve.inventory.agent.utils.FlyveLog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -89,7 +90,7 @@ public class AutoInventory
 
                     Message reply = Message.obtain();
 
-                    Accueil.log(this, "message received " + msg.toString(), Log.INFO);
+                    FlyveLog.log(this, "message received " + msg.toString(), Log.INFO);
 
                     switch (msg.what) {
 
@@ -102,16 +103,16 @@ public class AutoInventory
                             status_agent = inventory.running ? 1 : 0;
                             reply.what = MSG_AGENT_STATUS;
                             reply.arg1 = status_agent;
-                            Accueil.log(this, "URL server = " + mFusionApp.getUrl(), Log.VERBOSE);
-                            Accueil.log(this, "shouldAutostart = " + mFusionApp.getShouldAutoStart(), Log.VERBOSE);
-                            Accueil.log(this, "mFusionApp = " + mFusionApp.toString(), Log.VERBOSE);
+                            FlyveLog.log(this, "URL server = " + mFusionApp.getUrl(), Log.VERBOSE);
+                            FlyveLog.log(this, "shouldAutostart = " + mFusionApp.getShouldAutoStart(), Log.VERBOSE);
+                            FlyveLog.log(this, "mFusionApp = " + mFusionApp.toString(), Log.VERBOSE);
 
                             try {
-                                Accueil.log(this, "message sent " + msg.toString(), Log.INFO);
+                                FlyveLog.log(this, "message sent " + msg.toString(), Log.INFO);
                                 if (client != null) {
                                     client.send(reply);
                                 } else {
-                                    Accueil.log(this, "No client registered", Log.ERROR);
+                                    FlyveLog.log(this, "No client registered", Log.ERROR);
                                 }
                             } catch (RemoteException e) {
                                 // TODO Auto-generated catch block
@@ -194,7 +195,7 @@ public class AutoInventory
 
     @Override
         public int onStartCommand(Intent intent, int flags, int startId) {
-            Accueil.log(this, "Received start id " + startId + ": " + intent, Log.INFO);
+            FlyveLog.log(this, "Received start id " + startId + ": " + intent, Log.INFO);
 
             // We want this service to continue running until it is explicitly
             // stopped, so return sticky.
@@ -210,7 +211,7 @@ public class AutoInventory
         notif = customSharedPreference.getBoolean("notif", false);
 
         if (lastXMLResult == null) {
-            Accueil.log(this, "No XML Inventory ", Log.ERROR);
+            FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
             if (notif){
                 Toast.makeText(this, R.string.error_inventory, Toast.LENGTH_SHORT).show();
             }
@@ -226,14 +227,14 @@ public class AutoInventory
             url = new URL(mFusionApp.getUrl());
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
-            Accueil.log(this, "inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
+            FlyveLog.log(this, "inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
             if (notif){
                 Toast.makeText(this, "Server adress is malformed", Toast.LENGTH_SHORT).show();
             }
         }
 
         if (url == null) {
-            Accueil.log(this, "No URL found ", Log.ERROR);
+            FlyveLog.log(this, "No URL found ", Log.ERROR);
             if (notif){
                 Toast.makeText(this, "Server adress not found", Toast.LENGTH_SHORT).show();
             }
@@ -260,7 +261,7 @@ public class AutoInventory
         // ignore that the ssl cert is self signed
         String login = mFusionApp.getCredentialsLogin();
         if (!login.equals("")) {
-            Accueil.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
+            FlyveLog.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
             CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
                     new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(),
@@ -280,7 +281,7 @@ public class AutoInventory
 
                 for( Header h : request.getAllHeaders()) {
 
-                    Accueil.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
+                    FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
                 }
 
             }
@@ -297,22 +298,22 @@ public class AutoInventory
             response = httpclient.execute(post, context);
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
-            Accueil.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
+            FlyveLog.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
             if (notif){
                 Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
             }
             e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            Accueil.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
-            Accueil.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
+            FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
+            FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
             if (notif){
                 Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
             }
             e.printStackTrace();
         }
         if (response == null) {
-            Accueil.log(this, "No HTTP response ", Log.ERROR);
+            FlyveLog.log(this, "No HTTP response ", Log.ERROR);
             if (notif){
                 Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
             }
@@ -320,7 +321,7 @@ public class AutoInventory
         }
         Header[] headers = response.getAllHeaders();
         for (Header header : headers) {
-            Accueil.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
+            FlyveLog.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
         }
         try {
             InputStream mIS = response.getEntity().getContent();
@@ -331,7 +332,7 @@ public class AutoInventory
 
             while ((line = r.readLine()) != null) {
                 //content.append(line);
-                Accueil.log(this, line, Log.VERBOSE);
+                FlyveLog.log(this, line, Log.VERBOSE);
                 sb.append(line + "\n");
             }
             this.lastSendResult = sb.toString();
