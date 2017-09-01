@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Teclib'
+ * Copyright (C) 2017 Teclib'
  *
  * This file is part of Flyve MDM Inventory Agent Android.
  *
@@ -74,5 +74,10 @@ public class FlyveLog {
         if(message != null) {
             Log.wtf(TAG, message);
         }
+    }
+
+    public static void log(Object obj, String msg, int level) {
+        String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
+        Log.println(level, "FusionInventory", final_msg);
     }
 }

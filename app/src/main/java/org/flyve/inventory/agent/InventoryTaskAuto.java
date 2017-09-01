@@ -7,15 +7,7 @@ import android.util.Xml;
 
 import com.flyvemdm.inventory.categories.Categories;
 
-import org.xmlpull.v1.XmlSerializer;
-
-import android.content.Context;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.util.Xml;
-
-import com.flyvemdm.inventory.categories.Categories;
-
+import org.flyve.inventory.agent.utils.FlyveLog;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.StringWriter;
@@ -47,7 +39,7 @@ public class InventoryTaskAuto {
         mAgent= test;
         ctx = mAgent.getApplicationContext();
         mFusionApp = (FusionInventoryApp) mAgent.getApplication();
-        Accueil.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
+        FlyveLog.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
     }
 
     public String toXML() {
@@ -159,7 +151,7 @@ public class InventoryTaskAuto {
 
             for(String c : categories) {
                 cat_class = null;
-                Accueil.log(this, String.format("INVENTORY of %s", c),Log.VERBOSE);
+                FlyveLog.log(this, String.format("INVENTORY of %s", c),Log.VERBOSE);
                 try {
                     cat_class = (Class <Categories>) Class.forName(String.format("org.fusioninventory.categories.%s",c));
                 } catch (ClassNotFoundException e) {
@@ -193,7 +185,7 @@ public class InventoryTaskAuto {
             }
 
 
-            Accueil.log(this, "end of inventory", Log.INFO);
+            FlyveLog.log(this, "end of inventory", Log.INFO);
             mEnd = new Date();
             running = false;
         }
