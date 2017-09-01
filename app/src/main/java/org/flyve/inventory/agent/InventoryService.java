@@ -42,6 +42,12 @@ public class InventoryService extends Service {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getApplicationContext().startService(new Intent(getApplicationContext(), InventoryService.class));
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         FlyveLog.log(this, "Received start id " + startId + ": " + intent, Log.INFO);
 

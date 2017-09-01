@@ -46,7 +46,7 @@
 			android:label="Inventory Agent"
 			android:description="@string/agent_description"
 			android:icon="@drawable/icon"
-			android:name="org.flyve.inventory.agent.Agent"
+			android:name="org.flyve.inventory.agent.InventoryService"
 			tools:ignore="ExportedService">
 			<intent-filter>
 				<action android:name="org.flyve.inventory.service" />
@@ -55,7 +55,6 @@
 		<receiver android:name="org.flyve.inventory.agent.BootStartAgent">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<category android:name="android.intent.category.HOME" />
 			</intent-filter>
 		</receiver>
 	</application>
