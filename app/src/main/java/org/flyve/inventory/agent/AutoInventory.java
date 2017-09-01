@@ -1,3 +1,28 @@
+/*
+ * Copyright (C) 2017 Teclib'
+ *
+ * This file is part of Flyve MDM Inventory Agent Android.
+ *
+ * Flyve MDM Inventory Agent Android is a subproject of Flyve MDM. Flyve MDM is a mobile
+ * device management software.
+ *
+ * Flyve MDM Android is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM Inventory Agent Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez - rafaelje
+ * @copyright Copyright (c) 2017 Flyve MDM
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyvemdm/flyve-mdm-android-inventory-agent
+ * @link      http://www.glpi-project.org/
+ * ------------------------------------------------------------------------------
+ */
 package org.flyve.inventory.agent;
 
 import android.app.Service;
@@ -66,7 +91,7 @@ public class AutoInventory extends Service {
 
     @Override
     public void onCreate() {
-        inventory = new InventoryTask(this, "FusionInventory-Agent-Android_v1.0");
+        inventory = new InventoryTask(this, "Inventory-Agent-Android_v1.0");
 
         mFusionApp = (FusionInventoryApp) getApplication();
 
@@ -112,7 +137,7 @@ public class AutoInventory extends Service {
         try {
             url = new URL(mFusionApp.getUrl());
         } catch (MalformedURLException e) {
-            FlyveLog.log(this, "loadInventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
+            FlyveLog.log(this, "Inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
             if (notif){
                 Toast.makeText(this, "Server adress is malformed", Toast.LENGTH_SHORT).show();
             }
