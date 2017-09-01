@@ -34,6 +34,8 @@ import android.util.Log;
 
 import com.flyvemdm.inventory.categories.StringUtils;
 
+import org.flyve.inventory.agent.utils.FlyveLog;
+
 public class BootStartAgent extends BroadcastReceiver {
 
     @Override
@@ -43,20 +45,20 @@ public class BootStartAgent extends BroadcastReceiver {
 
         boolean shouldAutoStart = prefs.getBoolean("boot", false);
 
-        FusionInventory.log(this, String.format("Intent %s Category %s",
+        FlyveLog.log(this, String.format("Intent %s Category %s",
                 intent.getAction(),
                 StringUtils.join(intent.getCategories(), " , ")), Log.INFO);
 
         if (shouldAutoStart) {
-            FusionInventory.log(this,
-                    "FusionInventory Agent is being started automatically",
+            FlyveLog.log(this,
+                    "Inventory Agent is being started automatically",
                     Log.INFO);
             Intent serviceIntent = new Intent();
-            serviceIntent.setAction("org.fusioninventory.Agent");
+            serviceIntent.setAction("org.flyve.inventory.agent");
             ctx.startService(serviceIntent);
         } else {
-            FusionInventory.log(this,
-                    "FusionInventory Agent will not be started automatically",
+            FlyveLog.log(this,
+                    "InventoryAgent Agent will not be started automatically",
                     Log.INFO);
         }
     }

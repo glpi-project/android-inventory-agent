@@ -78,6 +78,6 @@ public class FlyveLog {
 
     public static void log(Object obj, String msg, int level) {
         String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
-        Log.println(level, "FusionInventory", final_msg);
+        Log.println(level, "InventoryAgent", final_msg);
     }
 }

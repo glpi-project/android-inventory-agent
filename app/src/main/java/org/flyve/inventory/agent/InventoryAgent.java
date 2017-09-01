@@ -47,67 +47,15 @@ import android.widget.Toast;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
 
-public class FusionInventory
-        extends Activity {
-
-    private Messenger mAgentService = null;
-
-    private TextView log_text = null;
-    private WebView web_text = null;
-    // private Button start_button = null;
-    private String[] STATUS_AGENT = null;
-    private boolean isAgentOk = false;
-    private String barcode = null;
-    
-    public static void log(Object obj, String msg, int level) {
-        String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
-        Log.println(level, "FusionInventory", final_msg);
-    }
-
-    class IncomingHandler
-            extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            FusionInventory.log(this, " message received " + msg.toString(), Log.INFO);
-
-            switch (msg.what) {
-
-            case Agent.MSG_AGENT_STATUS:
-
-                // log_text.setText(STATUS_AGENT[msg.arg1]);
-                FusionInventory.log(this, STATUS_AGENT[msg.arg1], Log.INFO);
-                // start_button.setEnabled(msg.arg1 == 0 ? true : false);
-                isAgentOk = (msg.arg1 == 0 ? true : false);
-                break;
-            case Agent.MSG_INVENTORY_FINISHED:
-
-                try {
-                    mAgentService.send(Message.obtain(null, Agent.MSG_INVENTORY_RESULT));
-                } catch (RemoteException e) {
-                    FlyveLog.e(e.getMessage());
-                }
-                break;
-
-            case Agent.MSG_INVENTORY_RESULT:
-                Bundle bXML = msg.peekData();
-                if (bXML != null) {
-                    log_text.setText(bXML.getString("result"));
-                    web_text.loadData(bXML.getString("html"), "text/html", "utf-8");
-                    try {
-                        mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
-                    } catch (RemoteException e) {
-                        FlyveLog.e(e.getMessage());
-                    }
-                }
-                break;
-
-            default:
-                super.handleMessage(msg);
-            }
-        }
-    }
+public class InventoryAgent extends Activity {
 
     final Messenger mMessenger = new Messenger(new IncomingHandler());
+    private Messenger mAgentService = null;
+    private TextView logText = null;
+    private WebView webText = null;
+    private String[] statusAgent = null;
+    private boolean isAgentOk = false;
+    private String barcode = null;
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -127,14 +75,14 @@ public class FusionInventory
                 FlyveLog.e(e.getMessage());
             }
 
-            Toast.makeText(FusionInventory.this, R.string.agent_connected, Toast.LENGTH_SHORT).show();
+            Toast.makeText(InventoryAgent.this, R.string.agent_connected, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             isAgentOk = false;
             mAgentService = null;
-            Toast.makeText(FusionInventory.this, R.string.agent_disconnected, Toast.LENGTH_SHORT).show();
+            Toast.makeText(InventoryAgent.this, R.string.agent_disconnected, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -146,22 +94,19 @@ public class FusionInventory
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
 
-        // mIsBound = bindService(new Intent(FusionInventory.this, Agent.class),
-        // mConnection, Context.BIND_AUTO_CREATE);
-
         ComponentName result = startService(new Intent("org.fusioninventory.Agent"));
         if (result != null) {
-            FusionInventory.log(this, " Agent started ", Log.INFO);
+            FlyveLog.log(this, " Agent started ", Log.INFO);
         } else {
-            FusionInventory.log(this, " Agent already started ", Log.ERROR);
+            FlyveLog.log(this, " Agent already started ", Log.ERROR);
         }
 
-        mIsBound = bindService(new Intent(FusionInventory.this, Agent.class), mConnection, Context.BIND_NOT_FOREGROUND);
+        mIsBound = bindService(new Intent(InventoryAgent.this, Agent.class), mConnection, Context.BIND_NOT_FOREGROUND);
 
         if (mIsBound) {
-            FusionInventory.log(this, "Connected sucessfully to Agent service", Log.INFO);
+            FlyveLog.log(this, "Connected sucessfully to Agent service", Log.INFO);
         } else {
-            FusionInventory.log(this, "Failed to connect to Agent service", Log.ERROR);
+            FlyveLog.log(this, "Failed to connect to Agent service", Log.ERROR);
         }
 
     }
@@ -174,32 +119,26 @@ public class FusionInventory
         }
     }
 
-    /** Called when the activity is first created. */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.app.Activity#onCreate(android.os.Bundle)
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        STATUS_AGENT = getResources().getStringArray(R.array.agent_status);       
+        statusAgent = getResources().getStringArray(R.array.agent_status);
 
         setContentView(R.layout.main);
 
         doBindService();
 
-        log_text = (TextView) findViewById(R.id.log_text);
-        log_text.setMovementMethod(new ScrollingMovementMethod());
+        logText = (TextView) findViewById(R.id.log_text);
+        logText.setMovementMethod(new ScrollingMovementMethod());
 
-        web_text = (WebView) findViewById(R.id.web_text);
+        webText = (WebView) findViewById(R.id.web_text);
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FusionInventory.log(this, "OnDestroy()", Log.INFO);
+        FlyveLog.log(this, "OnDestroy()", Log.INFO);
         doUnbindService();
     }
 
@@ -207,7 +146,7 @@ public class FusionInventory
     protected void onPause() {
         super.onPause();
         doUnbindService();
-        FusionInventory.log(this, "OnPause()", Log.INFO);
+        FlyveLog.log(this, "OnPause()", Log.INFO);
 
     }
 
@@ -215,7 +154,7 @@ public class FusionInventory
     protected void onResume() {
         super.onResume();
         doBindService();
-        FusionInventory.log(this, "OnResume()", Log.INFO);
+        FlyveLog.log(this, "OnResume()", Log.INFO);
 
     }
 
@@ -243,7 +182,7 @@ public class FusionInventory
         switch (item.getItemId()) {
 
         case R.id.menu_clearlog:
-            log_text.setText("");
+            logText.setText("");
             return true;
 
         case R.id.menu_settings:
@@ -288,8 +227,44 @@ public class FusionInventory
         default:
             return super.onOptionsItemSelected(item);
         }
-
     }
 
+    private class IncomingHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            FlyveLog.log(this, " message received " + msg.toString(), Log.INFO);
+
+            switch (msg.what) {
+                case Agent.MSG_AGENT_STATUS:
+                    FlyveLog.log(this, statusAgent[msg.arg1], Log.INFO);
+                    isAgentOk = msg.arg1 == 0;
+                    break;
+                case Agent.MSG_INVENTORY_FINISHED:
+                    try {
+                        mAgentService.send(Message.obtain(null, Agent.MSG_INVENTORY_RESULT));
+                    } catch (RemoteException e) {
+                        FlyveLog.e(e.getMessage());
+                    }
+                    break;
+
+                case Agent.MSG_INVENTORY_RESULT:
+                    Bundle bXML = msg.peekData();
+                    if (bXML != null) {
+                        logText.setText(bXML.getString("result"));
+                        webText.loadData(bXML.getString("html"), "text/html", "utf-8");
+                        try {
+                            mAgentService.send(Message.obtain(null, Agent.MSG_AGENT_STATUS));
+                        } catch (RemoteException e) {
+                            FlyveLog.e(e.getMessage());
+                        }
+                    }
+                    break;
+
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
 
 }

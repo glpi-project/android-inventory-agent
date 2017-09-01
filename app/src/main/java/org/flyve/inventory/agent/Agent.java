@@ -95,7 +95,7 @@ public class Agent extends Service {
     private String lastXMLResult = null;
     private String lastSendResult = null;
     private SchemeRegistry mSchemeRegistry = new SchemeRegistry();
-    private FusionInventoryApp mFusionApp = null;
+    private InventoryAgentApp mFusionApp = null;
     private AlarmManager am;
     private	Calendar cal = Calendar.getInstance();
     private boolean notif = false;
@@ -227,10 +227,10 @@ public class Agent extends Service {
 
             FlyveLog.log(this, "creating Inventory task", Log.INFO);
 
-            mFusionApp = (FusionInventoryApp) getApplication();
-            FlyveLog.log(this, "FusionInventoryApp = " + mFusionApp.toString(), Log.VERBOSE);
+            mFusionApp = (InventoryAgentApp) getApplication();
+            FlyveLog.log(this, "InventoryAgentApp = " + mFusionApp.toString(), Log.VERBOSE);
 
-            inventory = new InventoryTask(this, "FusionInventory-Agent-Android_v1.0");
+            inventory = new InventoryTask(this, "InventoryAgent-Agent-Android_v1.0");
 
             mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -351,7 +351,7 @@ public class Agent extends Service {
         HttpProtocolParams.setContentCharset(params, "UTF-8");
         HttpProtocolParams.setUseExpectContinue(params, true);
 
-        //Send FusionInventory specific user agent
+        //Send InventoryAgent specific user agent
         //TODO get App version from manifest or somewhere else
         HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_v1.0");
 
