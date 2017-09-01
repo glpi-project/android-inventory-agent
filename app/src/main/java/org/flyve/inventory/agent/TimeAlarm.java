@@ -25,17 +25,76 @@
  */
 package org.flyve.inventory.agent;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.flyvemdm.inventory.InventoryTask;
+
+import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.HttpInventory;
+
+import java.util.Calendar;
 
 public class TimeAlarm extends BroadcastReceiver {
 
     @Override
-        public void onReceive(Context context, Intent intent) {
-            Intent serviceIntent = new Intent();
-            serviceIntent.setAction("org.flyve.inventory.agent.AutoInventory");
-            context.startService(serviceIntent);
-            context.stopService(serviceIntent);
+    public void onReceive(final Context context, Intent intent) {
+        InventoryTask inventory = new InventoryTask(context, "Inventory-Agent-Android_v1.0");
+        inventory.getXML(new InventoryTask.OnTaskCompleted() {
+            @Override
+            public void onTaskSuccess(String data) {
+                HttpInventory httpInventory = new HttpInventory(context);
+                httpInventory.sendInventory( data );
+            }
+
+            @Override
+            public void onTaskError(Throwable error) {
+                FlyveLog.e(error.getMessage());
+            }
+        });
+    }
+
+    public void setAlarm(Context context) {
+        AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(context, TimeAlarm.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+
+        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        String timeInventory = customSharedPreference.getString("timeInventory", "Week");
+
+        Calendar cal = Calendar.getInstance();
+        if (timeInventory.equals("Day")) {
+            cal.set(Calendar.HOUR_OF_DAY, 18);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+        } else if(timeInventory.equals("Week")) {
+            cal.set(Calendar.DAY_OF_WEEK, 1);
+            cal.set(Calendar.HOUR_OF_DAY, 18);
+            cal.set(Calendar.MINUTE, 33);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+        } else if(timeInventory.equals("Month")) {
+            cal.set(Calendar.WEEK_OF_MONTH, 1);
+            cal.set(Calendar.DAY_OF_WEEK, 1);
+            cal.set(Calendar.HOUR_OF_DAY, 18);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
         }
+
+        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+    }
+
+    public void cancelAlarm(Context context) {
+        Intent intent = new Intent(context, TimeAlarm.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
+    }
 }
