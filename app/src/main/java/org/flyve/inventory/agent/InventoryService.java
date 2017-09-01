@@ -19,7 +19,7 @@
  * @author    Rafael Hernandez - rafaelje
  * @copyright Copyright (c) 2017 Flyve MDM
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * @link      https://github.com/flyvemdm/flyve-mdm-android-inventory-agent
+ * @link      https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/
  * @link      http://www.glpi-project.org/
  * ------------------------------------------------------------------------------
  */
