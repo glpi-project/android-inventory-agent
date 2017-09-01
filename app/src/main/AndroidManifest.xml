@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="org.flyve.inventory.agent"
 	android:versionName="2.1.0-beta"
-	android:versionCode="85">
+	android:versionCode="96">
 
 	<!-- Permissions -->
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
