@@ -6,7 +6,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "org.flyve.inventory.agent"
+        applicationId "org.flyve.loadInventory.agent"
         minSdkVersion 12
         targetSdkVersion 12
     }
@@ -37,12 +37,12 @@ android {
 
 repositories {
     maven {
-        url 'https://dl.bintray.com/flyve-mdm/inventory'
+        url 'https://dl.bintray.com/flyve-mdm/loadInventory'
     }
 }
 
 dependencies {
-    compile 'com.flyvemdm:inventory:1.0.2@aar'
+    compile 'com.flyvemdm:loadInventory:1.0.2@aar'
 }
 
 import java.util.regex.Pattern

@@ -185,7 +185,7 @@ public class InventoryTaskAuto {
             }
 
 
-            FlyveLog.log(this, "end of inventory", Log.INFO);
+            FlyveLog.log(this, "end of loadInventory", Log.INFO);
             mEnd = new Date();
             running = false;
         }
