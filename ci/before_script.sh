@@ -73,3 +73,11 @@ if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRA
     # update version name generate on package json
     gradle updateVersionName -P vName=$GIT_TAG
 fi
+
+if [[ ("$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "develop") && "$TRAVIS_RUN" == "true" ]]; then
+    # run simulator
+    echo no | android create avd --force -n test -t android-$ANDROID_API_SIMULATOR --abi armeabi-v7a
+    emulator -avd test -no-audio -no-window &
+    android-wait-for-emulator
+    adb shell input keyevent 82 &
+fi
