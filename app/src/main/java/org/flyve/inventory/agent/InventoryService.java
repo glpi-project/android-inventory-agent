@@ -29,18 +29,16 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.flyvemdm.inventory.InventoryTask;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.HttpInventory;
 
-public class AutoInventory extends Service {
+public class InventoryService extends Service {
+
+    TimeAlarm alarm = new TimeAlarm();
 
     @Override
     public void onCreate() {
-        loadInventory();
+        super.onCreate();
     }
 
     @Override
@@ -49,29 +47,18 @@ public class AutoInventory extends Service {
 
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
-
+        alarm.setAlarm(this);
         return START_STICKY;
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+        alarm.setAlarm(this);
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    public void loadInventory() {
-        InventoryTask inventory = new InventoryTask(this, "Inventory-Agent-Android_v1.0");
-        inventory.getXML(new InventoryTask.OnTaskCompleted() {
-            @Override
-            public void onTaskSuccess(String data) {
-                HttpInventory httpInventory = new HttpInventory(AutoInventory.this);
-                httpInventory.sendInventory( data );
-            }
-
-            @Override
-            public void onTaskError(Throwable error) {
-                Toast.makeText(AutoInventory.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 }

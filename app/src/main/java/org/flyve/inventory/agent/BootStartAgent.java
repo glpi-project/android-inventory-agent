@@ -28,38 +28,15 @@ package org.flyve.inventory.agent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
-
-import com.flyvemdm.inventory.categories.StringUtils;
-
-import org.flyve.inventory.agent.utils.FlyveLog;
 
 public class BootStartAgent extends BroadcastReceiver {
 
+    TimeAlarm alarm = new TimeAlarm();
+
     @Override
-    public void onReceive(Context ctx, Intent intent) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(ctx);
-
-        boolean shouldAutoStart = prefs.getBoolean("boot", false);
-
-        FlyveLog.log(this, String.format("Intent %s Category %s",
-                intent.getAction(),
-                StringUtils.join(intent.getCategories(), " , ")), Log.INFO);
-
-        if (shouldAutoStart) {
-            FlyveLog.log(this,
-                    "Inventory Agent is being started automatically",
-                    Log.INFO);
-            Intent serviceIntent = new Intent();
-            serviceIntent.setAction("org.flyve.inventory.agent");
-            ctx.startService(serviceIntent);
-        } else {
-            FlyveLog.log(this,
-                    "InventoryAgent Agent will not be started automatically",
-                    Log.INFO);
+    public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            alarm.setAlarm(context);
         }
     }
 }
