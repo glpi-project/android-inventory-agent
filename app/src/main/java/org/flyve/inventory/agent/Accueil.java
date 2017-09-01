@@ -25,7 +25,9 @@
  */
 package org.flyve.inventory.agent;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -36,7 +38,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -47,8 +48,7 @@ import org.flyve.inventory.agent.utils.HttpInventory;
 
 public class Accueil extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
-    private boolean notif = false;
-    private SharedPreferences customSharedPreference;
+    private Intent mServiceIntent;
 
     protected void onResume() {
         super.onResume();
@@ -66,14 +66,35 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         // class name because we want a specific service implementation that
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
+        InventoryService inventoryService = new InventoryService();
+        mServiceIntent = new Intent(this, inventoryService.getClass());
 
-        ComponentName result = startService(new Intent("org.flyve.inventory.agent"));
-        if (result != null) {
-            FlyveLog.log(this, " Agent started ", Log.INFO);
+        if (!isMyServiceRunning(inventoryService.getClass())) {
+            ComponentName result = startService(mServiceIntent);
+
+            if (result != null) {
+                FlyveLog.log(this, " Agent started ", Log.INFO);
+            } else {
+                FlyveLog.log(this, " Agent fail", Log.ERROR);
+            }
         } else {
             FlyveLog.log(this, " Agent already started ", Log.ERROR);
         }
+    }
 
+    /**
+     * Check if the service is running
+     * @param serviceClass Class
+     * @return boolean
+     */
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -84,22 +105,11 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
 
         doBindService();
 
-        customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-        notif = customSharedPreference.getBoolean("notif", false);
-
         Preference autoStartInventory = findPreference("autoStartInventory");
         autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-
-                notif = customSharedPreference.getBoolean("notif", false);
-
-                if (notif){
-                    Toast.makeText(getBaseContext(), R.string.agent_reboot, Toast.LENGTH_SHORT).show();
-                }
-
-                stopService(new Intent("org.flyve.inventory.agent"));
-                startService(new Intent("org.flyve.inventory.agent"));
-
+                stopService( mServiceIntent );
+                doBindService();
                 return true;
             }
 
@@ -108,16 +118,8 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         Preference timeInventory = findPreference("timeInventory");
         timeInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-
-                notif = customSharedPreference.getBoolean("notif", false);
-
-                if (notif){
-                    Toast.makeText(getBaseContext(), R.string.agent_reboot,Toast.LENGTH_SHORT).show();
-                }
-
-                stopService(new Intent("org.flyve.inventory.agent"));
-                startService(new Intent("org.flyve.inventory.agent"));
-
+                stopService( mServiceIntent );
+                doBindService();
                 return true;
             }
 
@@ -133,7 +135,6 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
                         FlyveLog.d(data);
                         HttpInventory httpInventory = new HttpInventory(Accueil.this);
                         httpInventory.sendInventory( data );
-                        Toast.makeText(Accueil.this, "Inventory send", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

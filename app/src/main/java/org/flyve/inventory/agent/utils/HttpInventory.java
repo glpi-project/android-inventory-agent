@@ -88,6 +88,7 @@ public class HttpInventory {
 
         try {
             url = new URL(mFusionApp.getUrl());
+            FlyveLog.d(url.toString());
         } catch (MalformedURLException e) {
             FlyveLog.log(this, "Inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
             Toast.makeText(this.context, "Server adress is malformed", Toast.LENGTH_SHORT).show();
