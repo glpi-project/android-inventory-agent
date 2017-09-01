@@ -21,6 +21,7 @@
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/
  * @link      http://www.glpi-project.org/
+ * @link      https://flyve-mdm.com/
  * ------------------------------------------------------------------------------
  */
 package org.flyve.inventory.agent;
