@@ -1,3 +1,28 @@
+/*
+ * Copyright (C) 2017 Teclib'
+ *
+ * This file is part of Flyve MDM Inventory Agent Android.
+ *
+ * Flyve MDM Inventory Agent Android is a subproject of Flyve MDM. Flyve MDM is a mobile
+ * device management software.
+ *
+ * Flyve MDM Android is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM Inventory Agent Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez - rafaelje
+ * @copyright Copyright (c) 2017 Flyve MDM
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyvemdm/flyve-mdm-android-inventory-agent
+ * @link      http://www.glpi-project.org/
+ * ------------------------------------------------------------------------------
+ */
 package org.flyve.inventory.agent;
 
 import android.app.AlarmManager;
@@ -8,7 +33,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -58,149 +82,107 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 
-public class Agent
-    extends Service {
+public class Agent extends Service {
 
-    private NotificationManager mNM;
-
-    private Notification notification;
-
-    private PendingIntent contentIntent;
-
-    private Messenger client = null;
     public InventoryTask inventory = null;
 
-    static final int MSG_CLIENT_REGISTER = 0;
-    static final int MSG_AGENT_STATUS = 1;
-    static final int MSG_INVENTORY_START = 2;
-    static final int MSG_INVENTORY_PROGRESS = 3;
-    static final int MSG_INVENTORY_FINISHED = 4;
-    static final int MSG_REQUEST_INVENTORY = 5;
-    static final int MSG_INVENTORY_RESULT = 6;
-    static final int MSG_INVENTORY_SEND = 7;
-
-    static final int STATUS_AGENT_IDLE = 0;
-    static final int STATUS_AGENT_WORKING = 1;
-
-    private int status_agent = 0;
-
+    private NotificationManager mNM;
+    private Notification notification;
+    private final Messenger mMessenger = new Messenger(new IncomingHandler());
+    private int agentStarted = R.string.agent_started;
+    private PendingIntent contentIntent;
+    private Messenger client = null;
     private String lastXMLResult = null;
     private String lastSendResult = null;
-
-    private ClientConnectionManager clientConnectionManager;
-    private HttpContext context;
-    private HttpParams params;
     private SchemeRegistry mSchemeRegistry = new SchemeRegistry();
-
     private FusionInventoryApp mFusionApp = null;
-
-    AlarmManager am;
+    private AlarmManager am;
     private	Calendar cal = Calendar.getInstance();
-
     private boolean notif = false;
 
-    class IncomingHandler
-            extends Handler {
-            @Override
-                public void handleMessage(Message msg) {
+    public static final int MSG_CLIENT_REGISTER = 0;
+    public static final int MSG_AGENT_STATUS = 1;
+    public static final int MSG_INVENTORY_START = 2;
+    public static final int MSG_INVENTORY_PROGRESS = 3;
+    public static final int MSG_INVENTORY_FINISHED = 4;
+    public static final int MSG_REQUEST_INVENTORY = 5;
+    public static final int MSG_INVENTORY_RESULT = 6;
+    public static final int MSG_INVENTORY_SEND = 7;
 
-                    Message reply = Message.obtain();
+    public static final int STATUS_AGENT_IDLE = 0;
+    public static final int STATUS_AGENT_WORKING = 1;
 
-                    FlyveLog.log(this, "message received " + msg.toString(), Log.INFO);
+    private class IncomingHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
 
-                    switch (msg.what) {
+            Message reply = Message.obtain();
 
-                        case Agent.MSG_CLIENT_REGISTER:
-                            client = msg.replyTo;
-                            break;
+            FlyveLog.log(this, "message received " + msg.toString(), Log.INFO);
 
-                        case Agent.MSG_AGENT_STATUS:
+            switch (msg.what) {
 
-                            status_agent = inventory.running ? 1 : 0;
-                            reply.what = MSG_AGENT_STATUS;
-                            reply.arg1 = status_agent;
-                            FlyveLog.log(this, "URL server = " + mFusionApp.getUrl(), Log.VERBOSE);
-                            FlyveLog.log(this, "shouldAutostart = " + mFusionApp.getShouldAutoStart(), Log.VERBOSE);
-                            FlyveLog.log(this, "mFusionApp = " + mFusionApp.toString(), Log.VERBOSE);
+                case Agent.MSG_CLIENT_REGISTER:
+                    client = msg.replyTo;
+                    break;
 
-                            try {
-                                FlyveLog.log(this, "message sent " + msg.toString(), Log.INFO);
-                                if (client != null) {
-                                    client.send(reply);
-                                } else {
-                                    FlyveLog.log(this, "No client registered", Log.ERROR);
-                                }
-                            } catch (RemoteException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            break;
+                case Agent.MSG_AGENT_STATUS:
 
-                        case Agent.MSG_INVENTORY_START:
-                            FlyveLog.log(this, " received starting inventory task", Log.INFO);
+                    int statusAgent = inventory.running ? 1 : 0;
+                    reply.what = MSG_AGENT_STATUS;
+                    reply.arg1 = statusAgent;
+                    FlyveLog.log(this, "URL server = " + mFusionApp.getUrl(), Log.VERBOSE);
+                    FlyveLog.log(this, "shouldAutostart = " + mFusionApp.getShouldAutoStart(), Log.VERBOSE);
+                    FlyveLog.log(this, "mFusionApp = " + mFusionApp.toString(), Log.VERBOSE);
 
-                            if (inventory != null) {
-
-                                if (inventory.running) {
-                                    FlyveLog.log(this, " inventory task is already running ...", Log.WARN);
-                                } else {
-                                    FlyveLog.log(this, " inventory task not running ...", Log.INFO);
-                                    start_inventory();
-                                }
-                            }
-
-                            break;
-                        case Agent.MSG_INVENTORY_RESULT:
-                            if (client != null) {
-                                reply.what = Agent.MSG_INVENTORY_RESULT;
-
-                                Bundle bXML = new Bundle();
-                                bXML.putString("result", lastXMLResult);
-                                reply.setData(bXML);
-                                try {
-
-                                    client.send(reply);
-
-                                } catch (RemoteException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                            }
-                            break;
-
-                        case Agent.MSG_INVENTORY_SEND:
-//                            send_inventory();
-//                            if (client != null) {
-//                                reply.what = Agent.MSG_INVENTORY_RESULT;
-//
-//                                Bundle bXML = new Bundle();
-//                                bXML.putString("html", lastSendResult);
-//                                reply.setData(bXML);
-//                                try {
-//
-//                                    client.send(reply);
-//
-//                                } catch (RemoteException e) {
-//                                    // TODO Auto-generated catch block
-//                                    e.printStackTrace();
-//                                }
-//                            }
-                            break;
-                        default:
-                            super.handleMessage(msg);
+                    try {
+                        FlyveLog.log(this, "message sent " + msg.toString(), Log.INFO);
+                        if (client != null) {
+                            client.send(reply);
+                        } else {
+                            FlyveLog.log(this, "No client registered", Log.ERROR);
+                        }
+                    } catch (RemoteException e) {
+                        FlyveLog.e(e.getMessage());
                     }
-                }
-    }
+                    break;
 
-    final Messenger mMessenger = new Messenger(new IncomingHandler());
+                case Agent.MSG_INVENTORY_START:
+                    FlyveLog.log(this, " received starting inventory task", Log.INFO);
 
-    private int NOTIFICATION = R.string.agent_started;
+                    if (inventory != null) {
 
-    public class AgentBinder
-            extends Binder {
-            Agent getService() {
-                return Agent.this;
+                        if (inventory.running) {
+                            FlyveLog.log(this, " inventory task is already running ...", Log.WARN);
+                        } else {
+                            FlyveLog.log(this, " inventory task not running ...", Log.INFO);
+                            start_inventory();
+                        }
+                    }
+
+                    break;
+                case Agent.MSG_INVENTORY_RESULT:
+                    if (client != null) {
+                        reply.what = Agent.MSG_INVENTORY_RESULT;
+
+                        Bundle bXML = new Bundle();
+                        bXML.putString("result", lastXMLResult);
+                        reply.setData(bXML);
+                        try {
+                            client.send(reply);
+                        } catch (RemoteException e) {
+                            FlyveLog.e(e.getMessage());
+                        }
+                    }
+                    break;
+
+                case Agent.MSG_INVENTORY_SEND:
+                    start_inventory();
+                    break;
+                default:
+                    super.handleMessage(msg);
             }
+        }
     }
 
     @Override
@@ -214,10 +196,8 @@ public class Agent
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-        if (autoInventory)
-            {
-                if (timeInventory.equals("Day"))
-                {
+            if (autoInventory) {
+                if (timeInventory.equals("Day")) {
                     cal.set(Calendar.HOUR_OF_DAY, 18);
                     cal.set(Calendar.MINUTE, 0);
                     cal.set(Calendar.SECOND, 0);
@@ -263,7 +243,7 @@ public class Agent
                 notification.tickerText = getText(R.string.agent_started).toString();
                 updateNotification(getText(R.string.agent_started).toString());
 
-                mNM.notify(NOTIFICATION, notification);
+                mNM.notify(agentStarted, notification);
             }
 
             Handler h = new Handler();
@@ -271,12 +251,9 @@ public class Agent
 
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
-                    mNM.cancel(NOTIFICATION);
+                    mNM.cancel(agentStarted);
                 }
             }, 1000);
-
-
         }
 
     public void updateNotification(String text) {
@@ -295,8 +272,6 @@ public class Agent
 
             // We want this service to continue running until it is explicitly
             // stopped, so return sticky.
-
-            // mNM.cancel(NOTIFICATION);
 
             return START_STICKY;
         }
@@ -320,8 +295,7 @@ public class Agent
                         client.send(reply);
 
                     } catch (RemoteException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        FlyveLog.e(e.getMessage());
                     }
                 }
             }
@@ -336,8 +310,7 @@ public class Agent
             try {
                 client.send(Message.obtain(null, Agent.MSG_INVENTORY_FINISHED));
             } catch (RemoteException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                FlyveLog.e(e.getMessage());
             }
         }
 
@@ -350,7 +323,7 @@ public class Agent
             Toast.makeText(this, R.string.error_inventory, Toast.LENGTH_SHORT).show();
             return;
         }
-        else{
+        else {
             Toast.makeText(this, R.string.ok_inventory, Toast.LENGTH_SHORT).show();
         }
         URL url = null;
@@ -358,7 +331,6 @@ public class Agent
         try {
             url = new URL(mFusionApp.getUrl());
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             FlyveLog.log(this, "inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
             Toast.makeText(this, "Server adress is malformed", Toast.LENGTH_SHORT).show();
         }
@@ -373,7 +345,7 @@ public class Agent
         // https scheme
         mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
 
-        params = new BasicHttpParams();
+        HttpParams params = new BasicHttpParams();
 
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
         HttpProtocolParams.setContentCharset(params, "UTF-8");
@@ -381,10 +353,10 @@ public class Agent
 
         //Send FusionInventory specific user agent
         //TODO get App version from manifest or somewhere else
-        HttpProtocolParams.setUserAgent(params, "FusionInventory-Agent-Android_v1.0");
+        HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_v1.0");
 
-        clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
-        context = new BasicHttpContext();
+        ClientConnectionManager clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
+        HttpContext context = new BasicHttpContext();
 
         // ignore that the ssl cert is self signed
         String login = mFusionApp.getCredentialsLogin();
@@ -404,9 +376,6 @@ public class Agent
 
             @Override
             public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                // TODO Auto-generated method stub
-
-
                 for( Header h : request.getAllHeaders()) {
 
                     FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
@@ -418,26 +387,23 @@ public class Agent
         try {
             post.setEntity(new StringEntity(lastXMLResult));
         } catch (UnsupportedEncodingException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            FlyveLog.e(e1.getMessage());
         }
         HttpResponse response = null;
         try {
             response = httpclient.execute(post, context);
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
             FlyveLog.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
             Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            FlyveLog.e(e.getMessage());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
             FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
             Toast.makeText(this, "Server doesn't reply", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            FlyveLog.e(e.getMessage());
         } catch (Exception e) {
             Toast.makeText(this, "Unknow exception", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            FlyveLog.e(e.getMessage());
         }
         if (response == null) {
             FlyveLog.log(this, "No HTTP response ", Log.ERROR);
@@ -450,48 +416,42 @@ public class Agent
         }
         try {
             InputStream mIS = response.getEntity().getContent();
-            //StringBuilder content = new StringBuilder();
             BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
             String line;
             StringBuilder sb = new StringBuilder();
 
             while ((line = r.readLine()) != null) {
-                //content.append(line);
                 FlyveLog.log(this, line, Log.VERBOSE);
                 sb.append(line + "\n");
             }
             this.lastSendResult = sb.toString();
 
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            FlyveLog.e(e.getMessage());
         }
+
         Toast.makeText(this, "Inventory sent", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-        public void onDestroy() {
-            // Cancel the persistent notification.
+    public void onDestroy() {
+        // Cancel the persistent notification.
 
-            SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-            notif = customSharedPreference.getBoolean("notif", false);
+        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        notif = customSharedPreference.getBoolean("notif", false);
 
-            mNM.cancel(NOTIFICATION);
+        mNM.cancel(agentStarted);
 
-            // Tell the user we stopped.
-            if (notif){
-                Toast.makeText(this, R.string.agent_stopped, Toast.LENGTH_SHORT).show();
-            }
+        // Tell the user we stopped.
+        if (notif){
+            Toast.makeText(this, R.string.agent_stopped, Toast.LENGTH_SHORT).show();
         }
+    }
 
     @Override
-        public IBinder onBind(Intent intent) {
-
-            return mMessenger.getBinder();
-        }
+    public IBinder onBind(Intent intent) {
+        return mMessenger.getBinder();
+    }
 
     public void setRepeatingAlarm() {
         Intent intent = new Intent(this, TimeAlarm.class);
@@ -499,6 +459,5 @@ public class Agent
                 intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-
     }
 }
