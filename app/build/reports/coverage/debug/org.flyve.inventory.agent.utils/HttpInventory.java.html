@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HttpInventory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">HttpInventory.java</span></div><h1>HttpInventory.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 Teclib'
+ *
+ * This file is part of Flyve MDM Inventory Agent Android.
+ *
+ * Flyve MDM Inventory Agent Android is a subproject of Flyve MDM. Flyve MDM is a mobile
+ * device management software.
+ *
+ * Flyve MDM Android is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM Inventory Agent Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez - rafaelje
+ * @copyright Copyright (c) 2017 Flyve MDM
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyvemdm/flyve-mdm-android-inventory-agent
+ * @link      http://www.glpi-project.org/
+ * ------------------------------------------------------------------------------
+ */
+package org.flyve.inventory.agent.utils;
+
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+import org.apache.http.Header;
+import org.apache.http.HttpException;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpRequestInterceptor;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.flyve.inventory.agent.InventoryAgentApp;
+import org.flyve.inventory.agent.R;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class HttpInventory {
+
+    private Context context;
+    private InventoryAgentApp mFusionApp;
+
+<span class="nc" id="L72">    public HttpInventory(Context context) {</span>
+<span class="nc" id="L73">        this.context = context;</span>
+<span class="nc" id="L74">        mFusionApp = (InventoryAgentApp) context.getApplicationContext();</span>
+<span class="nc" id="L75">    }</span>
+
+    public Boolean sendInventory(String lastXMLResult) {
+
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (lastXMLResult == null) {</span>
+<span class="nc" id="L80">            FlyveLog.log(this, &quot;No XML Inventory &quot;, Log.ERROR);</span>
+<span class="nc" id="L81">            Toast.makeText(this.context, R.string.error_inventory, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L82">            return false;</span>
+        } else {
+<span class="nc" id="L84">            Toast.makeText(this.context, R.string.ok_inventory, Toast.LENGTH_SHORT).show();</span>
+        }
+
+<span class="nc" id="L87">        URL url = null;</span>
+
+        try {
+<span class="nc" id="L90">            url = new URL(mFusionApp.getUrl());</span>
+<span class="nc" id="L91">            FlyveLog.d(url.toString());</span>
+<span class="nc" id="L92">        } catch (MalformedURLException e) {</span>
+<span class="nc" id="L93">            FlyveLog.log(this, &quot;Inventory server url is malformed &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L94">            Toast.makeText(this.context, &quot;Server adress is malformed&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L95">            return false;</span>
+<span class="nc" id="L96">        }</span>
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (url == null) {</span>
+<span class="nc" id="L99">            FlyveLog.log(this, &quot;No URL found &quot;, Log.ERROR);</span>
+<span class="nc" id="L100">            Toast.makeText(this.context, &quot;Server adress not found&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L101">            return false;</span>
+        }
+
+<span class="nc" id="L104">        SchemeRegistry mSchemeRegistry = new SchemeRegistry();</span>
+<span class="nc" id="L105">        mSchemeRegistry.register(new Scheme(&quot;http&quot;, PlainSocketFactory.getSocketFactory(), 80));</span>
+
+        // https scheme
+<span class="nc" id="L108">        mSchemeRegistry.register(new Scheme(&quot;https&quot;, new EasySSLSocketFactory(), 443));</span>
+
+<span class="nc" id="L110">        HttpParams params = new BasicHttpParams();</span>
+
+<span class="nc" id="L112">        HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);</span>
+<span class="nc" id="L113">        HttpProtocolParams.setContentCharset(params, &quot;UTF-8&quot;);</span>
+<span class="nc" id="L114">        HttpProtocolParams.setUseExpectContinue(params, true);</span>
+
+        //Send InventoryAgent specific user agent
+        //TODO get App version from manifest or somewhere else
+<span class="nc" id="L118">        HttpProtocolParams.setUserAgent(params, &quot;Inventory-Agent-Android_v1.0&quot;);</span>
+
+<span class="nc" id="L120">        ClientConnectionManager clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);</span>
+<span class="nc" id="L121">        HttpContext context = new BasicHttpContext();</span>
+
+        // ignore that the ssl cert is self signed
+<span class="nc" id="L124">        String login = mFusionApp.getCredentialsLogin();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (!login.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L126">            FlyveLog.log(this, &quot;HTTP credentials given : use it if necessary&quot;, Log.VERBOSE);</span>
+<span class="nc" id="L127">            CredentialsProvider credentialsProvider = new BasicCredentialsProvider();</span>
+<span class="nc" id="L128">            credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),</span>
+<span class="nc" id="L129">                    new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(),</span>
+<span class="nc" id="L130">                            mFusionApp.getCredentialsPassword()));</span>
+<span class="nc" id="L131">            context.setAttribute(&quot;http.auth.credentials-provider&quot;, credentialsProvider);</span>
+        }
+
+<span class="nc" id="L134">        DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);</span>
+
+<span class="nc" id="L136">        HttpPost post = new HttpPost(url.toExternalForm());</span>
+<span class="nc" id="L137">        httpclient.addRequestInterceptor(new HttpRequestInterceptor() {</span>
+
+            @Override
+            public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                for( Header h : request.getAllHeaders()) {</span>
+<span class="nc" id="L142">                    FlyveLog.log(this, &quot;HEADER : &quot;+ h.getName() + &quot;=&quot; + h.getValue(), Log.VERBOSE);</span>
+                }
+
+<span class="nc" id="L145">            }</span>
+        });
+
+        try {
+<span class="nc" id="L149">            post.setEntity(new StringEntity(lastXMLResult));</span>
+<span class="nc" id="L150">        } catch (UnsupportedEncodingException e1) {</span>
+<span class="nc" id="L151">            FlyveLog.e(e1.getMessage());</span>
+<span class="nc" id="L152">            return false;</span>
+<span class="nc" id="L153">        }</span>
+<span class="nc" id="L154">        HttpResponse response = null;</span>
+        try {
+<span class="nc" id="L156">            response = httpclient.execute(post, context);</span>
+<span class="nc" id="L157">        } catch (ClientProtocolException e) {</span>
+<span class="nc" id="L158">            FlyveLog.log(this, &quot;Protocol Exception Error : &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L159">            Toast.makeText(this.context, &quot;Server doesn't reply&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L160">            FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L161">            return false;</span>
+<span class="nc" id="L162">        } catch (IOException e) {</span>
+<span class="nc" id="L163">            FlyveLog.log(this, &quot;IO error : &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L164">            FlyveLog.log(this, &quot;IO error : &quot; + url.toExternalForm(), Log.ERROR);</span>
+<span class="nc" id="L165">            Toast.makeText(this.context, &quot;Server doesn't reply&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L166">            FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L167">            return false;</span>
+<span class="nc" id="L168">        } catch (Exception e) {</span>
+<span class="nc" id="L169">            Toast.makeText(this.context, &quot;Unknow exception: &quot; + e.getMessage(), Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L170">            FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L171">            return false;</span>
+<span class="nc" id="L172">        }</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (response == null) {</span>
+<span class="nc" id="L174">            FlyveLog.log(this, &quot;No HTTP response &quot;, Log.ERROR);</span>
+<span class="nc" id="L175">            Toast.makeText(this.context, &quot;Server doesn't reply&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L176">            return false;</span>
+        }
+<span class="nc" id="L178">        Header[] headers = response.getAllHeaders();</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        for (Header header : headers) {</span>
+<span class="nc" id="L180">            FlyveLog.log(this, header.getName() + &quot; -&gt; &quot; + header.getValue(), Log.INFO);</span>
+        }
+        try {
+<span class="nc" id="L183">            InputStream mIS = response.getEntity().getContent();</span>
+<span class="nc" id="L184">            BufferedReader r = new BufferedReader(new InputStreamReader(mIS));</span>
+            String line;
+<span class="nc" id="L186">            StringBuilder sb = new StringBuilder();</span>
+
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            while ((line = r.readLine()) != null) {</span>
+<span class="nc" id="L189">                FlyveLog.log(this, line, Log.VERBOSE);</span>
+<span class="nc" id="L190">                sb.append(line + &quot;\n&quot;);</span>
+            }
+
+<span class="nc" id="L193">            Toast.makeText(this.context, &quot;Inventory sent&quot;, Toast.LENGTH_SHORT).show();</span>
+
+<span class="nc" id="L195">            FlyveLog.d(sb.toString());</span>
+<span class="nc" id="L196">            return true;</span>
+<span class="nc" id="L197">        } catch (Exception e) {</span>
+<span class="nc" id="L198">            FlyveLog.e(e.getMessage());</span>
+        }
+
+<span class="nc" id="L201">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>
