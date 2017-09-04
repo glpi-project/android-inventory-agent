@@ -37,6 +37,10 @@ public class InventoryService extends Service {
 
     TimeAlarm alarm = new TimeAlarm();
 
+    /**
+     * Called by the system when the service is first created
+     * It calls the method from the parent
+     */
     @Override
     public void onCreate() {
         super.onCreate();
