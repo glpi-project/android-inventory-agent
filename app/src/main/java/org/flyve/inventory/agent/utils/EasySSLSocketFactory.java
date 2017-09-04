@@ -65,6 +65,11 @@ public class EasySSLSocketFactory implements SocketFactory,
         }
     }
 
+    /**
+     * Gets the Context of the SSL
+     * @return string the context 
+     * @throws string IOException signals that an I/O exception has occurred
+     */
     private SSLContext getSSLContext() throws IOException {
         if (this.sslcontext == null) {
             this.sslcontext = createEasySSLContext();
