@@ -114,6 +114,10 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         return mLogin;
     }
 
+    /**
+     * Gets the credentials password
+     * @return string the password
+     */
     public String getCredentialsPassword() {
         if (mPassword == null) {
         	mPassword = prefs.getString("password", "");
