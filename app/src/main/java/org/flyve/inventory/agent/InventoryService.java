@@ -74,6 +74,12 @@ public class InventoryService extends Service {
         return START_STICKY;
     }
 
+    /**
+     * It is called when the service is stopped
+     * @param Intent the intent supplied
+     * @param int startId a unique integer representing this specific request to start
+     * @see https://developer.android.com/reference/android/app/Service.html#onStart(android.content.Intent, int)
+     */
     @Override
     public void onStart(Intent intent, int startId) {
         alarm.setAlarm(this);
