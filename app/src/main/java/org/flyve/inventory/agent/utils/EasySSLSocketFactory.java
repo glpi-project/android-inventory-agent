@@ -151,6 +151,10 @@ public class EasySSLSocketFactory implements SocketFactory,
                 EasySSLSocketFactory.class));
     }
 
+    /**
+     * Returns a hash code value
+     * @return int a hash code
+     */
     @Override
     public int hashCode() {
         return EasySSLSocketFactory.class.hashCode();
