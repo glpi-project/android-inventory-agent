@@ -60,6 +60,10 @@ public class FlyveLog {
         }
     }
 
+    /**
+     * Sends an INFO log message
+     * @param string the message to log
+     */
     public static void i(String message) {
         if(message != null) {
             Log.i(TAG, message);
