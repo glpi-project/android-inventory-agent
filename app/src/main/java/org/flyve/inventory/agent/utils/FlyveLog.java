@@ -92,7 +92,7 @@ public class FlyveLog {
 
     /**
      * Reports a condition that should never happen, wts (What a Terrible Failure)
-     * @param string the message to log
+     * @param string the message to log  
      */
     public static void wtf(String message) {
         if(message != null) {
@@ -100,6 +100,12 @@ public class FlyveLog {
         }
     }
 
+    /**
+     * Sends a low level calling log
+     * @param Object the name of the class
+     * @param string the log message
+     * @param int the priority/type of the log message
+     */
     public static void log(Object obj, String msg, int level) {
         String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
         Log.println(level, "InventoryAgent", final_msg);
