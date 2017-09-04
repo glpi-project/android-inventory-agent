@@ -47,6 +47,11 @@ public class EasySSLSocketFactory implements SocketFactory,
 
     private SSLContext sslcontext = null;
 
+    /**
+     * Create the context of the Easy SSL
+     * @return string the context
+     * @throws string IOExceptions signals that an I/O exception has occurred
+     */
     private static SSLContext createEasySSLContext() throws IOException {
         FlyveLog.log(EasySSLSocketFactory.class,
                 "Create Easy SSL Context", Log.ERROR);
