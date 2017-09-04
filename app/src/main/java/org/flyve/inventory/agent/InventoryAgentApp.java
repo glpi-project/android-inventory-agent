@@ -66,6 +66,10 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         }
     }
 
+    /**
+     * Gets the ID of the device
+     * @return string the device ID
+     */
     public String getDeviceID(){
         if (mDeviceID == null) {
             mDeviceID = prefs.getString("device_id","<not set>");
