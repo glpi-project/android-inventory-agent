@@ -50,6 +50,10 @@ public class FlyveLog {
         }
     }
 
+    /**
+     * Sends a VERBOSE log message
+     * @param string the message to log
+     */
     public static void v(String message) {
         if(message != null) {
             Log.v(TAG, message);
