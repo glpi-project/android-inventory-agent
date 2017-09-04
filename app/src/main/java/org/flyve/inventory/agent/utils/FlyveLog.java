@@ -70,6 +70,10 @@ public class FlyveLog {
         }
     }
 
+    /**
+     * Sends an ERROR log message
+     * @param string the message to log
+     */
     public static void e(String message) {
         if(message != null) {
             Log.e(TAG, message);
