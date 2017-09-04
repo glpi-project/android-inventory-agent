@@ -107,6 +107,10 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         FlyveLog.log(this, "InventoryAgentApp = " + this.toString(), Log.VERBOSE);
     }
 
+    /**
+     * Gets the credentials login
+     * @return string the login
+     */
     public String getCredentialsLogin() {
         if (mLogin == null) {
         	mLogin = prefs.getString("login", "");
