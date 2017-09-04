@@ -52,6 +52,14 @@ public class InventoryService extends Service {
         getApplicationContext().startService(new Intent(getApplicationContext(), InventoryService.class));
     }
 
+    /**
+     * Called by the system every time a client explicitly starts the service by calling the method startService(Intent)
+     * @param Intent the intent supplied to start the service
+     * @param int flags additional data about this start request
+     * @param int startID a unique integer representing this specific request to start
+     * @return constant START_STICKY
+     * @see https://developer.android.com/reference/android/app/Service.html#START_STICKY Documentation of the Constant
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         FlyveLog.log(this, "Received start id " + startId + ": " + intent, Log.INFO);
