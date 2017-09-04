@@ -77,6 +77,10 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         return mDeviceID;
     }
     
+    /**
+     * Gets if it should auto start
+     * @return boolean true if it should, false otherwise
+     */
     public Boolean getShouldAutoStart() {
         if (mShouldAutoStart == null) {
             mShouldAutoStart = prefs.getBoolean("boot", false);
