@@ -90,6 +90,10 @@ public class FlyveLog {
         }
     }
 
+    /**
+     * Reports a condition that should never happen, wts (What a Terrible Failure)
+     * @param string the message to log
+     */
     public static void wtf(String message) {
         if(message != null) {
             Log.wtf(TAG, message);
