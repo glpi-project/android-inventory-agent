@@ -47,6 +47,9 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     private String mPassword = null;
     private String mDeviceID = null;
 
+    /**
+     * This method is called when the application is starting, it gets the default Shared Preferences
+     */
     @Override
     public void onCreate() {
         super.onCreate();
