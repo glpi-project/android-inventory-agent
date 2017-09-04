@@ -41,9 +41,6 @@ if [[ "$TRAVIS_BRANCH" == "develop" && "$TRAVIS_PULL_REQUEST" == "false" && "$TR
     # Get version number from package.json
     export GIT_TAG=$(jq -r ".version" package.json)
 
-    # Revert last commit
-    git reset --hard HEAD~1
-
     # increment version code, need to be unique to send to store
     gradle updateVersionCode -P vCode=$TRAVIS_BUILD_NUMBER
 
