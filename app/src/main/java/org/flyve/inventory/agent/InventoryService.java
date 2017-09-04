@@ -63,6 +63,11 @@ public class InventoryService extends Service {
         alarm.setAlarm(this);
     }
 
+    /**
+     * Return the communication channel to the service
+     * @param Intent the intent that was used to bind to this service
+     * @return IBinder null if clients cannot bind to the service 
+     */
     @Override
     public IBinder onBind(Intent intent) {
         return null;
