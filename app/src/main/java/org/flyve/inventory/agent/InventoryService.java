@@ -46,6 +46,10 @@ public class InventoryService extends Service {
         super.onCreate();
     }
 
+    /**
+     * Called by the system to notify a Service that it is no longer used and is being removed
+     * It calls the method from the parent
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
