@@ -69,6 +69,10 @@ public class HttpInventory {
     private Context context;
     private InventoryAgentApp mFusionApp;
 
+    /**
+     * Constructor of the class, calls the context of the current class
+     * @param Context the context of the class
+     */
     public HttpInventory(Context context) {
         this.context = context;
         mFusionApp = (InventoryAgentApp) context.getApplicationContext();
