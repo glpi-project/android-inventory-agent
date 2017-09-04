@@ -40,6 +40,10 @@ public class FlyveLog {
     private FlyveLog() {
     }
 
+    /**
+     * Sends a DEBUG log message
+     * @param string the message to log
+     */
     public static void d(String message) {
         if(message != null) {
             Log.d(TAG, message);
