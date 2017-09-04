@@ -80,6 +80,10 @@ public class FlyveLog {
         }
     }
 
+    /**
+     * Sends a WARN log message
+     * @param string the message to log
+     */
     public static void w(String message) {
         if(message != null) {
             Log.w(TAG, message);
