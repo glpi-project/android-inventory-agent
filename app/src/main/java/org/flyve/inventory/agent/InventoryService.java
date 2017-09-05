@@ -75,7 +75,7 @@ public class InventoryService extends Service {
     }
 
     /**
-     * It is called when the service is stopped
+     * It is called when the service is started
      * @param Intent the intent supplied
      * @param int startId a unique integer representing this specific request to start
      * @see https://developer.android.com/reference/android/app/Service.html#onStart(android.content.Intent, int)
