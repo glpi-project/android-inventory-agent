@@ -43,6 +43,11 @@ import java.util.Calendar;
 
 public class TimeAlarm extends BroadcastReceiver {
 
+    /**
+     * If the success XML is created, it sends the inventory
+     * @param Context the context in which the receiver is running
+     * @param Intent the intent being received
+     */
     @Override
     public void onReceive(final Context context, Intent intent) {
         InventoryTask inventory = new InventoryTask(context, "Inventory-Agent-Android_v1.0");
