@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	package="org.flyve.inventory.agent"
-	android:versionName="2.1.0-beta"
+	android:versionName="2.1.1-beta"
 	android:versionCode="106">
 
 	<!-- Permissions -->
