@@ -96,6 +96,10 @@ public class TimeAlarm extends BroadcastReceiver {
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
     }
 
+    /**
+     * Removes the alarm with a matching argument
+     * @param Context the context
+     */
     public void cancelAlarm(Context context) {
         Intent intent = new Intent(context, TimeAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
