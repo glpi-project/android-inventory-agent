@@ -60,6 +60,10 @@ public class TimeAlarm extends BroadcastReceiver {
         });
     }
 
+    /**
+     * Schedules the alarm
+     * @param Context the context
+     */
     public void setAlarm(Context context) {
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, TimeAlarm.class);
