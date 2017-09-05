@@ -51,6 +51,10 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
 
     private Intent mServiceIntent;
 
+    /**
+     * Called when the activity will start interacting with the user
+     * It registers a callback to be invoked when a change happens to a preference
+     */
     protected void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener( this );
