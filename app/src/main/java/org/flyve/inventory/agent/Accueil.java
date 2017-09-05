@@ -56,7 +56,11 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener( this );
     }
 
-    protected void onPause() {
+    /**
+     * Called when the system is about to start resuming a previous activity
+     * It unregisters a previous callback
+     */
+     protected void onPause() {
         super.onPause();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener( this );
     }
