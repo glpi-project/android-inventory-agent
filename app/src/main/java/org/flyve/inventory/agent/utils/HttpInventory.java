@@ -78,6 +78,11 @@ public class HttpInventory {
         mFusionApp = (InventoryAgentApp) context.getApplicationContext();
     }
 
+    /**
+     * Sends the inventory
+     * @param string lastXMLResult the inventory information
+     * @return boolean true if succeed, false otherwise
+     */
     public Boolean sendInventory(String lastXMLResult) {
 
         if (lastXMLResult == null) {
