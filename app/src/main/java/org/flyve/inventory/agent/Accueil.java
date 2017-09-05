@@ -106,6 +106,10 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         return false;
     }
 
+    /**
+     * Called when the activity is starting, adds the preference hierarchy to the current preference hierarchy
+     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +118,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
 
         doBindService();
 
+        // When the AutoInventory is checked or unchecked, it stops the service and then starts it again
         Preference autoStartInventory = findPreference("autoStartInventory");
         autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
@@ -124,6 +129,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
 
         });
 
+        // When the frequency is changed, it stops the service and then starts it again 
         Preference timeInventory = findPreference("timeInventory");
         timeInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
@@ -134,6 +140,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
 
         });
 
+        // After the Inventory is run, it is sent
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
