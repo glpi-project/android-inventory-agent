@@ -37,6 +37,10 @@ public class SplashActivity extends Activity {
 
     private static final int SPLASH_TIME = 3000;
 
+    /**
+     * Called when the activity is starting, inflates the activity's UI
+     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
