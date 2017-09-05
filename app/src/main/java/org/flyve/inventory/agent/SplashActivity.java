@@ -60,6 +60,9 @@ public class SplashActivity extends Activity {
         }, SPLASH_TIME);
     }
 
+    /**
+     * Starts the activity
+     */
     private void openActivity() {
         Intent miIntent = new Intent(SplashActivity.this, Accueil.class);
         SplashActivity.this.startActivity(miIntent);
