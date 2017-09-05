@@ -150,6 +150,11 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         });
     }
 
+    /**
+     * Called when a shared preference is changed, added, or removed
+     * @param SharedPreferences the SharedPreferences that received the change
+     * @param string the key of the preference that was changed, added or removed
+     */
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference pref = findPreference(key);
         if (pref instanceof EditTextPreference) {
