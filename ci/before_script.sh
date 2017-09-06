@@ -32,6 +32,16 @@
 # - update version name -BETA
 #-----------------------------------------------------------------
 if [[ "$TRAVIS_BRANCH" == "develop" && "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_RUN" == "true" ]]; then
+
+    # get transifex status
+    tx status
+
+    # pull all the new language with 80% complete
+    tx pull -a
+
+    # push local files to transifex
+    tx push -s -t
+
     # Move to local branch
     git checkout $TRAVIS_BRANCH -f
 

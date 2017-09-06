@@ -54,4 +54,15 @@ if [[ ("$TRAVIS_BRANCH" == "develop" ||  "$TRAVIS_BRANCH" == "master") && "$TRAV
 
     # install node package available on package.json
     npm install
+
+    # install transifex CLI
+    pip install virtualenv
+    virtualenv ~/env
+    source ~/env/bin/activate
+    pip install transifex-client
+    sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_API_TOKEN"$'\ntoken = '"$TRANSIFEX_API_TOKEN"$'\n' > ~/.transifexrc
+
+    # check python version
+    python --version
+
 fi
