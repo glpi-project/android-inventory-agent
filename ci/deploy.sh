@@ -133,9 +133,6 @@ if [[ "$TRAVIS_BRANCH" == "develop" && "$TRAVIS_PULL_REQUEST" == "false" && "$TR
     # sign and deploy to store with fastlane
     fastlane android beta storepass:'$KEYSTORE' keypass:'$ALIAS'
 
-    # push tag to github
-    conventional-github-releaser -t $GH_TOKEN -r 0
-
     # config git
     configGit
 

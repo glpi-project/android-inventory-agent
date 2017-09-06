@@ -26,7 +26,7 @@
 # ------------------------------------------------------------------------------
 
 # Catch if last commit come from last travis build to prevent loop
-if [[ $TRAVIS_COMMIT_MESSAGE != *"**beta**"* && $TRAVIS_COMMIT_MESSAGE != *"**version**"* && $TRAVIS_COMMIT_MESSAGE != *"**CHANGELOG.md**"* ]]; then
+if [[ $TRAVIS_COMMIT_MESSAGE != *"chore(release):"* && $TRAVIS_COMMIT_MESSAGE != *"**beta**"* && $TRAVIS_COMMIT_MESSAGE != *"**version**"* && $TRAVIS_COMMIT_MESSAGE != *"**CHANGELOG.md**"* ]]; then
     export TRAVIS_RUN="true"
 else
     export TRAVIS_RUN="false"
