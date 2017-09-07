@@ -55,7 +55,17 @@ public class TimeAlarm extends BroadcastReceiver {
             @Override
             public void onTaskSuccess(String data) {
                 HttpInventory httpInventory = new HttpInventory(context);
-                httpInventory.sendInventory( data );
+                httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
+                    @Override
+                    public void onTaskSuccess(String data) {
+                        FlyveLog.d(data);
+                    }
+
+                    @Override
+                    public void onTaskError(String error) {
+                        FlyveLog.e(error);
+                    }
+                });
             }
 
             @Override
