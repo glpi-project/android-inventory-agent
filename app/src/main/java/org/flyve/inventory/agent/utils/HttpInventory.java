@@ -83,14 +83,12 @@ public class HttpInventory {
      * @param string lastXMLResult the inventory information
      * @return boolean true if succeed, false otherwise
      */
-    public Boolean sendInventory(String lastXMLResult) {
+    public Boolean sendInventory(String lastXMLResult, OnTaskCompleted callback) {
 
         if (lastXMLResult == null) {
             FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
-            Toast.makeText(this.context, R.string.error_inventory, Toast.LENGTH_SHORT).show();
+            callback.onTaskError(context.getResources().getString(R.string.error_inventory));
             return false;
-        } else {
-            Toast.makeText(this.context, R.string.ok_inventory, Toast.LENGTH_SHORT).show();
         }
 
         URL url = null;
@@ -100,13 +98,13 @@ public class HttpInventory {
             FlyveLog.d(url.toString());
         } catch (MalformedURLException e) {
             FlyveLog.log(this, "Inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
-            Toast.makeText(this.context, "Server adress is malformed", Toast.LENGTH_SHORT).show();
+            callback.onTaskError("Inventory server url is malformed");
             return false;
         }
 
         if (url == null) {
             FlyveLog.log(this, "No URL found ", Log.ERROR);
-            Toast.makeText(this.context, "Server adress not found", Toast.LENGTH_SHORT).show();
+            callback.onTaskError("Server adress not found");
             return false;
         }
 
@@ -147,10 +145,9 @@ public class HttpInventory {
 
             @Override
             public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                for( Header h : request.getAllHeaders()) {
-                    FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
-                }
-
+            for( Header h : request.getAllHeaders()) {
+                FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
+            }
             }
         });
 
@@ -165,23 +162,23 @@ public class HttpInventory {
             response = httpclient.execute(post, context);
         } catch (ClientProtocolException e) {
             FlyveLog.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
-            Toast.makeText(this.context, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            callback.onTaskError("Protocol exception error");
             FlyveLog.e(e.getMessage());
             return false;
         } catch (IOException e) {
             FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
             FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
-            Toast.makeText(this.context, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            callback.onTaskError("Server doesn't reply");
             FlyveLog.e(e.getMessage());
             return false;
         } catch (Exception e) {
-            Toast.makeText(this.context, "Unknow exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            FlyveLog.e(e.getMessage());
+            callback.onTaskError("Unknow exception");
+            FlyveLog.e(e.getLocalizedMessage());
             return false;
         }
         if (response == null) {
             FlyveLog.log(this, "No HTTP response ", Log.ERROR);
-            Toast.makeText(this.context, "Server doesn't reply", Toast.LENGTH_SHORT).show();
+            callback.onTaskError("Server doesn't reply");
             return false;
         }
         Header[] headers = response.getAllHeaders();
@@ -199,15 +196,34 @@ public class HttpInventory {
                 sb.append(line + "\n");
             }
 
-            Toast.makeText(this.context, "Inventory sent", Toast.LENGTH_SHORT).show();
+            callback.onTaskSuccess("Inventory sent");
 
             FlyveLog.d(sb.toString());
             return true;
         } catch (Exception e) {
             FlyveLog.e(e.getMessage());
+            callback.onTaskSuccess("Inventory sent fail");
         }
 
         return false;
     }
 
+    /**
+     * This is the interface of return data
+     */
+    public interface OnTaskCompleted {
+
+        /**
+         * if everything is Ok
+         * @param data String
+         */
+        void onTaskSuccess(String data);
+
+        /**
+         * if something wrong
+         * @param error String
+         */
+        void onTaskError(String error);
+
+    }
 }

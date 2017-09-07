@@ -150,7 +150,17 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
                     public void onTaskSuccess(String data) {
                         FlyveLog.d(data);
                         HttpInventory httpInventory = new HttpInventory(Accueil.this);
-                        httpInventory.sendInventory( data );
+                        httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
+                            @Override
+                            public void onTaskSuccess(String data) {
+                                Toast.makeText(Accueil.this, data, Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onTaskError(String error) {
+                                Toast.makeText(Accueil.this, error, Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override
