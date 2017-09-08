@@ -64,5 +64,4 @@ if [[ ("$TRAVIS_BRANCH" == "develop" ||  "$TRAVIS_BRANCH" == "master") && "$TRAV
 
     # check python version
     python --version
-
 fi
