@@ -39,8 +39,8 @@ jobs:
     docker:
       # Android the primary container
       - image: circleci/android:api-23-alpha
-      - image: circleci/python:3.6
-      - image: circleci/node:7
+      - image: circleci/python:3.6.2
+      - image: circleci/node:7sdasdf
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
