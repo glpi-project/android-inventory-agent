@@ -62,10 +62,11 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - flyve_build
-      - flyve_test:
-          requires:
-            - flyve_build
-      - flyve_deploy:
-          requires:
-            - flyve_test
+      -flyve_deploy
+#      - flyve_build
+#      - flyve_test:
+#          requires:
+#            - flyve_build
+#      - flyve_deploy:
+#          requires:
+#            - flyve_test
