@@ -11,8 +11,7 @@ npm install -g conventional-github-releaser
 npm install
 
 # install transifex CLI
-pip install virtualenv
-virtualenv ~/env
-source ~/env/bin/activate
+python3 -m venv venv
+. venv/bin/activate
 pip install transifex-client
 sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_API_TOKEN"$'\ntoken = '"$TRANSIFEX_API_TOKEN"$'\n' > ~/.transifexrc
