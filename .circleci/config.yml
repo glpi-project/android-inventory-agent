@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  flyve_build:
     working_directory: ~/code
     docker:
       # Android the primary container
@@ -20,7 +20,7 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  test:
+  flyve_test:
     docker:
         - image: circleci/android:api-23-alpha
       steps:
@@ -37,7 +37,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - test:
+      - flyve_build
+      - flyve_test:
           requires:
-            -build
+            - flyve_build
