@@ -1,27 +1,5 @@
 version: 2
 jobs:
-  flyve_config:
-    working_directory: ~/code
-    docker:
-      - image: circleci/python:3.6
-      - image: circleci/node:7
-      - image: circleci/android:api-23-alpha
-    steps:
-      - checkout
-      - run:
-          name: Update version and code number
-          command: |
-              # increment version code, need to be unique to send to store
-              ./gradlew updateVersionCode -P vCode=$CIRCLE_BUILD_NUM
-
-              # increment version on package.json, create tag and commit with changelog
-              npm run release -- -m "ci(release): generate **CHANGELOG.md** for version %s"
-
-              # Get version number from package.json
-              export GIT_TAG=$(jq -r ".version" package.json)
-
-              # update version name generate on package json
-              ./gradlew updateVersionName -P vName=$GIT_TAG
   flyve_build:
     working_directory: ~/code
     docker:
@@ -56,6 +34,30 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
+  flyve_deploy:
+    working_directory: ~/code
+    docker:
+      # Android the primary container
+      - image: circleci/android:api-23-alpha
+      - image: circleci/python:3.6
+      - image: circleci/node:7
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Setup environment
+          command: ci/scripts/ci_setup.sh
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
 workflows:
   version: 2
   build_and_test:
@@ -67,3 +69,4 @@ workflows:
       - flyve_instrumented_test:
           requires:
             - flyve_build
+
