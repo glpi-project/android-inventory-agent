@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # install fastlane
-bundle install --path vendor/bundle
 gem install fastlane
 
 # install globally
