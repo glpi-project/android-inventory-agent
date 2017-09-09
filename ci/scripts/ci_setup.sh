@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# go to our folder
+# go to folder
 cd flyve
 
 # install gems
@@ -23,3 +23,6 @@ npm install
 sudo apt-get -y install python-pip
 pip install transifex-client
 sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_API_TOKEN"$'\ntoken = '"$TRANSIFEX_API_TOKEN"$'\n' > ~/.transifexrc
+
+# install JQ to read JSON on bash
+sudo apt-get install jq

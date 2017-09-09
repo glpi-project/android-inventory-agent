@@ -47,7 +47,10 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Setup environment
-          command: ci/scripts/ci_setup.sh
+          command: source ci/scripts/ci_setup.sh
+      - run:
+          name: Update version and code
+          command: source ci/scripts/ci_updateversion.sh
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
