@@ -4,7 +4,7 @@
 sudo apt-get install ruby-full build-essential
 
 # install fastlane
-gem install fastlane —no-rdoc —no-ri —no-document —quiet
+sudo gem install fastlane —no-rdoc —no-ri —no-document —quiet
 
 # install Node.js v7
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -

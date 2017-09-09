@@ -5,4 +5,3 @@ openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KE
 
 # send to google play
 fastlane android $1 storepass:'$KEYSTORE' keypass:'$ALIAS'
-
