@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# go to folder
-cd flyve
-
 # install gems
 sudo apt-get install ruby-full build-essential
 
