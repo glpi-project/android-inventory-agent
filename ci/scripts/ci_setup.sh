@@ -11,10 +11,10 @@ curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # install globally
-npm install -g conventional-github-releaser
+sudo npm install -g conventional-github-releaser
 
 # install node package available on package.json
-npm install
+npm install ~/flyve
 
 # install transifex CLI
 apt-get -y install python-pip
