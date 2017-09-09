@@ -4,7 +4,10 @@
 sudo apt-get install ruby-full build-essential
 
 # install fastlane
-sudo gem install fastlane
+sudo gem install fastlane --no-rdoc --no-ri
+
+# decrypt deploy on google play file
+openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KEY
 
 # install Node.js v7
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
