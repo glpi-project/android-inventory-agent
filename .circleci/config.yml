@@ -1,7 +1,7 @@
 version: 2
 jobs:
   flyve_build:
-    working_directory: ~/code
+    working_directory: ~/flyve
     docker:
       # Android the primary container
       - image: circleci/android:api-23-alpha
@@ -19,7 +19,7 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
   flyve_test:
-    working_directory: ~/code
+    working_directory: ~/flyve
     docker:
         - image: circleci/android:api-23-alpha
     environment:
@@ -35,7 +35,7 @@ jobs:
       - store_test_results:
           path: app/build/test-results
   flyve_deploy:
-    working_directory: ~/code
+    working_directory: ~/flyve
     docker:
       # Android the primary container
       - image: circleci/android:api-23-alpha
