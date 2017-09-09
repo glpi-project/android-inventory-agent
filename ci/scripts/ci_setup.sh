@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # install gems
-# sudo apt-get install ruby-full build-essential
+sudo apt-get install ruby-full build-essential
 
 # install fastlane
-# sudo gem install fastlane
+sudo gem install fastlane
 
 # install Node.js v7
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
