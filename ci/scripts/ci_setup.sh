@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# create enviroment vars to work with fastlane telegram
+echo TELEGRAM_WEBHOOKS=$TELEGRAM_WEBHOOKS > .env
+echo GIT_REPO=$CIRCLE_REPOSITORY_URL >> .env
+echo GIT_BRANCH=$CIRCLE_BRANCH >> .env
+
 # decrypt deploy on google play file
 openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KEY
 
