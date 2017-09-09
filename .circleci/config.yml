@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/flyve
     docker:
       # Android the primary container
-      - image: circleci/android:api-23-alpha
+      - image: circleci/android:api-26-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -21,7 +21,7 @@ jobs:
   flyve_test:
     working_directory: ~/flyve
     docker:
-        - image: circleci/android:api-23-alpha
+        - image: circleci/android:api-26-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -38,7 +38,7 @@ jobs:
     working_directory: ~/flyve
     docker:
       # Android the primary container
-      - image: circleci/android:api-23-alpha
+      - image: circleci/android:api-26-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -52,8 +52,11 @@ jobs:
           name: Update version and code
           command: source ci/scripts/ci_updateversion.sh
       - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
+          name: Create apk
+          command: ./gradlew assemble
+      - run:
+          name: Deploy to Google Play
+          command: source ci/scripts/ci_google_play.sh "beta"
       - save_cache:
           paths:
             - ~/.gradle
