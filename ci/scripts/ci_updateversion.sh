@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# go to folder
-cd flyve
-
 # increment version code, need to be unique to send to store
 gradle updateVersionCode -P vCode=$CIRCLE_BUILD_NUM
 
