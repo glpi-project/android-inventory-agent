@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # build tool
-export $BUILD_TOOL=25.0.0
+export BUILD_TOOL=25.0.0
 
 # decrypt deploy on google play file
 openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KEY
