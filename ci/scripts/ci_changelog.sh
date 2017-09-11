@@ -12,6 +12,9 @@ sudo git clean -fdx
 # remove local CHANGELOG.md on gh-pages
 rm CHANGELOG.md
 
+# get changelog from branch
+git checkout $TRAVIS_BRANCH CHANGELOG.md
+
 # Create header content to work with gh-pages templates
 HEADER="---"$'\r'"layout: modal"$'\r'"title: changelog"$'\r'"---"$'\r\r'
 
