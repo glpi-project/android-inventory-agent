@@ -54,12 +54,12 @@ jobs:
       - run:
           name: Create apk
           command: ./gradlew assemble
-      - run:
-          name: Deploy to Google Play
-          command: source ci/scripts/ci_google_play.sh "beta"
-      - run:
-          name: Changelog
-          command: source ci/scripts/ci_changelog.sh
+#      - run:
+#          name: Deploy to Google Play
+#          command: source ci/scripts/ci_google_play.sh "beta"
+#      - run:
+#          name: Changelog
+#          command: source ci/scripts/ci_changelog.sh
       - run:
           name: Javadoc
           command: source ci/scripts/ci_javadoc.sh
