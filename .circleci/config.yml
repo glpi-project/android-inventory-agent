@@ -48,9 +48,9 @@ jobs:
       - run:
           name: Setup environment
           command: source ci/scripts/ci_setup.sh
-      - run:
-          name: Update version and code
-          command: source ci/scripts/ci_updateversion.sh
+#      - run:
+#          name: Update version and code
+#          command: source ci/scripts/ci_updateversion.sh
       - run:
           name: Create apk
           command: ./gradlew assemble
