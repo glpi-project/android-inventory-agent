@@ -55,12 +55,21 @@ jobs:
           name: Launch emulator
           command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
           background: true
+      - run:
+          name: Wait emulator
+          command: |
+            # wait for it to have booted
+            circle-android wait-for-boot
+            # unlock the emulator screen
+            sleep 30
+            adb shell input keyevent 82
+            # run tests  against the emulator.
 #      - run:
 #          name: Update version and code
 #          command: source ci/scripts/ci_updateversion.sh
-      - run:
-          name: Create apk
-          command: ./gradlew assemble
+#      - run:
+#          name: Create apk
+#          command: ./gradlew assemble
 #      - run:
 #          name: Deploy to Google Play
 #          command: source ci/scripts/ci_google_play.sh "beta"
