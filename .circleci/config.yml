@@ -60,9 +60,12 @@ jobs:
 #      - run:
 #          name: Changelog
 #          command: source ci/scripts/ci_changelog.sh
+#      - run:
+#          name: Javadoc
+#          command: source ci/scripts/ci_javadoc.sh
       - run:
-          name: Javadoc
-          command: source ci/scripts/ci_javadoc.sh
+          name: Coverage
+          command: source ci/scripts/ci_coverage.sh
       - save_cache:
           paths:
             - ~/.gradle
