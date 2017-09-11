@@ -57,6 +57,9 @@ jobs:
       - run:
           name: Deploy to Google Play
           command: source ci/scripts/ci_google_play.sh "beta"
+      - run:
+          name: Changelog
+          command: source ci/scripts/ci_changelog.sh
       - save_cache:
           paths:
             - ~/.gradle
