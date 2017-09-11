@@ -48,25 +48,27 @@ jobs:
       - run:
           name: Setup environment
           command: source ci/scripts/ci_setup.sh
-      - run:
-          name: Setup emulator
-          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
-      - run:
-          name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-          background: true
-      - run:
-          name: Wait emulator
-          command: |
-            # wait for it to have booted
-            circle-android wait-for-boot
-            # unlock the emulator screen
-            sleep 30
-            adb shell input keyevent 82
-            # run tests  against the emulator.
+#      - run:
+#          name: Setup emulator
+#          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+#      - run:
+#          name: Launch emulator
+#          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
+#          background: true
+#      - run:
+#          name: Wait emulator
+#          command: |
+#            # wait for it to have booted
+#            circle-android wait-for-boot
+#            # unlock the emulator screen
+#            sleep 30
+#            adb shell input keyevent 82
 #      - run:
 #          name: Update version and code
 #          command: source ci/scripts/ci_updateversion.sh
+      - run:
+          name: Transifex
+          command: source ci/scripts/ci_transifex.sh
 #      - run:
 #          name: Create apk
 #          command: ./gradlew assemble
@@ -79,9 +81,9 @@ jobs:
 #      - run:
 #          name: Javadoc
 #          command: source ci/scripts/ci_javadoc.sh
-      - run:
-          name: Coverage
-          command: source ci/scripts/ci_coverage.sh
+#      - run:
+#          name: Coverage
+#          command: source ci/scripts/ci_coverage.sh
       - save_cache:
           paths:
             - ~/.gradle
