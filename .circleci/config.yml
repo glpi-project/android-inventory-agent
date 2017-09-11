@@ -62,7 +62,7 @@ jobs:
           command: source ci/scripts/ci_changelog.sh
       - run:
           name: Javadoc
-          command: source ci/scripts/ci_changelog.sh
+          command: source ci/scripts/ci_javadoc.sh
       - save_cache:
           paths:
             - ~/.gradle
