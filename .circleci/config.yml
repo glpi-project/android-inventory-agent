@@ -76,6 +76,9 @@ jobs:
 #          name: Deploy to Google Play
 #          command: source ci/scripts/ci_fastlane.sh "beta"
 #      - run:
+#          name: Create a github release
+#          command: source ci/scripts/ci_github_release.sh
+#      - run:
 #          name: Changelog
 #          command: source ci/scripts/ci_changelog.sh
 #      - run:
