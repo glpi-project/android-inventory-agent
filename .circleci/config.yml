@@ -18,7 +18,7 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  flyve_test_26:
+  flyve_test_23:
     working_directory: ~/flyve
     docker:
         - image: circleci/android:api-26-alpha
@@ -28,38 +28,7 @@ jobs:
       - checkout
       - run:
           name: Setup emulator
-          command: sdkmanager "system-images;android-26;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-26;default;armeabi-v7a"
-      - run:
-          name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-          background: true
-      - run:
-          name: Wait emulator
-          command: |
-            # wait for it to have booted
-            circle-android wait-for-boot
-            # unlock the emulator screen
-            sleep 30
-            adb shell input keyevent 82
-      - run:
-          name: Run Tests
-          command: ./gradlew connectedAndroidTest
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
-      - store_test_results:
-          path: app/build/test-results
-  flyve_test_22:
-    working_directory: ~/flyve
-    docker:
-        - image: circleci/android:api-26-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - run:
-          name: Setup emulator
-          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+          command: sdkmanager "system-images;android-23;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-23;default;armeabi-v7a"
       - run:
           name: Launch emulator
           command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
@@ -180,19 +149,14 @@ workflows:
       - flyve_test_16:
           requires:
             - flyve_build
-      - flyve_test_22:
-          requires:
-            - flyve_build
-      - flyve_test_26:
+      - flyve_test_23:
           requires:
             - flyve_build
       - flyve_deploy:
           requires:
             - flyve_test_16
-            - flyve_test_22
-            - flyve_test_26
+            - flyve_test_23
       - flyve_documentation:
           requires:
             - flyve_test_16
-            - flyve_test_22
-            - flyve_test_26
+            - flyve_test_23
