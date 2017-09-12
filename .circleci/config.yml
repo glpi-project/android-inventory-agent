@@ -145,18 +145,19 @@ workflows:
   version: 2
   build_test_and_deploy:
     jobs:
-      - flyve_build
-      - flyve_test_16:
-          requires:
-            - flyve_build
-      - flyve_test_25:
-          requires:
-            - flyve_build
-      - flyve_deploy:
-          requires:
-            - flyve_test_16
-            - flyve_test_25
-      - flyve_documentation:
-          requires:
-            - flyve_test_16
-            - flyve_test_25
+      - flyve_documentation
+#      - flyve_build
+#      - flyve_test_16:
+#          requires:
+#            - flyve_build
+#      - flyve_test_25:
+#          requires:
+#            - flyve_build
+#      - flyve_deploy:
+#          requires:
+#            - flyve_test_16
+#            - flyve_test_25
+#      - flyve_documentation:
+#          requires:
+#            - flyve_test_16
+#            - flyve_test_25
