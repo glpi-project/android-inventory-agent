@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Агент инвентаризации</string>
+	<string name="agent_started">Агент инвентаризации запущен</string>
+	<string name="agent_stopped">Агент инвентаризации остановлен</string>
+	<string name="agent_reboot">Агент инвентаризации перезапущен</string>
+	<string name="agent_description">Агент работает в фоновом режиме</string>
+	<string name="button_start_inventory">Начало инвентаризации</string>
+	<string name="menu_settings">Настройки</string>
+	<string name="menu_clearlog">Очистить журнал</string>
+	<string name="menu_send">Отправить</string>
+	<string name="menu_getinv">Получить инвентаризацию</string>
+	<string name="all_permissions">Предоставить все возможные разрешения</string>
+	<string name="agent_connected">Подключен к службе агента</string>
+	<string name="agent_disconnected">Отключено от службы агента</string>
+	<string name="inventory_started">Запуск инвентаризации ...</string>
+	<string name="inventory_sended">Отправка инвентаризации ...</string>
+	<string name="inventory_ended">Конец инвентаризации.</string>
+	<string name="button_connect_agent">Подключить агент</string>
+	<string name="button_disconnect_agent">Отключить агент</string>
+    <string name="error_inventory">Инвентаризация не завершена</string>
+    <string name="ok_inventory">Инвентаризация завершена</string>
+    <string name="error_send_inventoryi">Инвентаризация не отправлена</string>
+    <string name="ok_send_inventory">Отправка инвентаризации</string>
+	<string name="service_notif_id">Агент инвентаризации</string>
+	<string-array name="agent_status">
+		<item>Агент ждет очереди ...</item>
+		<item>Агент выполняет инвентаризацию ...</item>
+	</string-array>
+	<string name="agent_settings">Настройки агента</string>
+	<string name="phone_boot">Агент должен быть запущен при загрузке телефона</string>
+	<string name="manual_launch">Агент должен запускаться вручную</string>
+	<string name="boot_options">Параметры загрузки</string>
+	<string name="inventory_server">Сервер инвентаризации</string>
+	<string name="log_text">Ответ сервера</string>
+	<string name="authentication_credentials">Учетные данные для проверки подлинности HTTP</string>
+	<string name="login">Логин</string>
+	<string name="password">Пароль</string>
+	<string name="tag">Тэг</string>
+</resources>
