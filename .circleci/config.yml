@@ -113,36 +113,36 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-flyve_documentation:
-    working_directory: ~/flyve
-    docker:
-      # Android the primary container
-      - image: circleci/android:api-26-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Setup environment
-          command: source ci/scripts/ci_setup.sh
-      - run:
-          name: Create apk
-          command: ./gradlew assemble
-      - run:
-          name: Changelog
-          command: source ci/scripts/ci_changelog.sh
-      - run:
-          name: Javadoc
-          command: source ci/scripts/ci_javadoc.sh
-      - run:
-          name: Coverage
-          command: source ci/scripts/ci_coverage.sh
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+  flyve_documentation:
+      working_directory: ~/flyve
+      docker:
+        # Android the primary container
+        - image: circleci/android:api-26-alpha
+      environment:
+        JVM_OPTS: -Xmx3200m
+      steps:
+        - checkout
+        - restore_cache:
+            key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+        - run:
+            name: Setup environment
+            command: source ci/scripts/ci_setup.sh
+        - run:
+            name: Create apk
+            command: ./gradlew assemble
+        - run:
+            name: Changelog
+            command: source ci/scripts/ci_changelog.sh
+        - run:
+            name: Javadoc
+            command: source ci/scripts/ci_javadoc.sh
+        - run:
+            name: Coverage
+            command: source ci/scripts/ci_coverage.sh
+        - save_cache:
+            paths:
+              - ~/.gradle
+            key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
 workflows:
   version: 2
