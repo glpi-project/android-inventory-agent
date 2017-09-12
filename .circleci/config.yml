@@ -183,6 +183,9 @@ workflows:
       - flyve_test_22:
           requires:
             - flyve_build
+      - flyve_test_26:
+          requires:
+            - flyve_build
       - flyve_deploy:
           requires:
             - flyve_test_16
