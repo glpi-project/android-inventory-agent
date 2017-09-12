@@ -9,7 +9,12 @@ git fetch origin gh-pages
 # move to gh-pages
 git checkout gh-pages
 
-# add javadoc folder
+sudo git clean -fdx
+
+# get javadoc folder
+git checkout $TRAVIS_BRANCH reports$1/javadoc
+
+# git add javadoc folder
 git add reports$1/javadoc
 
 # create commit for documentation
@@ -20,4 +25,3 @@ git push origin gh-pages
 
 # got back to original branch
 git checkout $CIRCLE_BRANCH
-
