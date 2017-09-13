@@ -4,7 +4,7 @@
 ./gradlew updateVersionCode -P vCode=$CIRCLE_BUILD_NUM
 
 # increment version on package.json, create tag and commit with changelog
-npm run release -- -m "ci(release): generate **CHANGELOG.md** for version %s"
+npm run release -- -m "ci(release): generate CHANGELOG.md for version %s"
 
 # Get version number from package.json
 export GIT_TAG=$(jq -r ".version" package.json)
