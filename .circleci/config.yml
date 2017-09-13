@@ -405,17 +405,17 @@ workflows:
   version: 2
   build_test_and_deploy:
     jobs:
-      - flyve_test_16
-      - flyve_test_17
-      - flyve_test_18
-      - flyve_test_19
-      - flyve_test_20
-      - flyve_test_21
-      - flyve_test_22
-      - flyve_test_23
-      - flyve_test_24
+#      - flyve_test_16
+#      - flyve_test_17
+#      - flyve_test_18
+#      - flyve_test_19
+#      - flyve_test_20
+#      - flyve_test_21
+#      - flyve_test_22
+#      - flyve_test_23
+#      - flyve_test_24
 #      - flyve_documentation
-#      - flyve_build
+      - flyve_build
 #      - flyve_test_16:
 #          requires:
 #            - flyve_build
@@ -430,3 +430,6 @@ workflows:
 #          requires:
 #            - flyve_test_16
 #            - flyve_test_25
+notify:
+  webhooks:
+    - url: https://payload.webhooks.stream/aethonanbot
