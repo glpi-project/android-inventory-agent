@@ -12,8 +12,8 @@ export GIT_TAG=$(jq -r ".version" package.json)
 # update version name generate on package json
 ./gradlew updateVersionName -P vName=$GIT_TAG
 
-git add app/src/main/AndroidManifest.xml
-
-git commit -m "ci(release): update version ($GIT_TAG) and code number ($CIRCLE_BUILD_NUM)"
-
-git push origin $CIRCLE_BRANCH
+# git add app/src/main/AndroidManifest.xml
+#
+# git commit -m "ci(release): update version ($GIT_TAG) and code number ($CIRCLE_BUILD_NUM)"
+#
+# git push origin $CIRCLE_BRANCH
