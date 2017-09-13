@@ -9,10 +9,10 @@ sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nu
 tx status
 
 # push local files to transifex
-tx push -s -t
+tx push --source --no-interactive
 
 # pull all the new language with 80% complete
-tx pull -a
+tx pull --all --force
 
 # # add all changes
 # git add .
