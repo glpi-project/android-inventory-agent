@@ -14,10 +14,10 @@ tx push -s -t
 # pull all the new language with 80% complete
 tx pull -a
 
-# add all changes
-git add .
-
-# commit this changes
-git commit -m "ci(transifex): update locales files"
-
-git push origin $CIRCLE_BRANCH
+# # add all changes
+# git add .
+#
+# # commit this changes
+# git commit -m "ci(transifex): update locales files"
+#
+# git push origin $CIRCLE_BRANCH

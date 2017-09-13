@@ -80,7 +80,7 @@ jobs:
             destination: reports
         - store_test_results:
             path: app/build/test-results
-  flyve_deploy:
+  flyve_deploy_beta:
     working_directory: ~/flyve
     docker:
       # Android the primary container
@@ -106,13 +106,40 @@ jobs:
       - run:
           name: Deploy to Google Play
           command: source ci/scripts/ci_fastlane.sh "beta"
-      - run:
-          name: Create a github release
-          command: source ci/scripts/ci_github_release.sh
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+  flyve_deploy_production:
+      working_directory: ~/flyve
+      docker:
+        # Android the primary container
+        - image: circleci/android:api-26-alpha
+      environment:
+        JVM_OPTS: -Xmx3200m
+      steps:
+        - checkout
+        - restore_cache:
+            key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+        - run:
+            name: Setup environment
+            command: source ci/scripts/ci_setup.sh
+        - run:
+            name: Update version and code
+            command: source ci/scripts/ci_updateversion.sh
+        - run:
+            name: Create apk
+            command: ./gradlew assemble
+        - run:
+            name: Deploy to Google Play
+            command: source ci/scripts/ci_fastlane.sh "beta"
+        - run:
+            name: Create a github release
+            command: source ci/scripts/ci_github_release.sh
+        - save_cache:
+            paths:
+              - ~/.gradle
+            key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
   flyve_documentation:
       working_directory: ~/flyve
       docker:
@@ -157,7 +184,7 @@ workflows:
   version: 2
   build_test_and_deploy:
     jobs:
-      - flyve_deploy
+      - flyve_deploy_beta
 #      - flyve_build
 #      - flyve_test_16:
 #          requires:
