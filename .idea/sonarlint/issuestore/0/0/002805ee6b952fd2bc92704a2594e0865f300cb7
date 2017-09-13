@@ -1,0 +1,39 @@
+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(¤ÀÃË8Ó±÷ã+
+Fsquid:S1068"+Remove this unused "context" private field.(êİç8Í«ñãå+
+lsquid:CallToDeprecatedMethod"?Remove this use of "SingleClientConnManager"; it is deprecated.(¦„¹ë8ÕË•÷ã+
+`squid:CallToDeprecatedMethod".Remove this use of "Scheme"; it is deprecated.(¢úşïÿÿÿÿÿ8Ó±÷ã+
+psquid:CallToDeprecatedMethod"CRemove this use of "UsernamePasswordCredentials"; it is deprecated.(óÌÏ’8¬ê÷ã+
+]squid:CallToDeprecatedMethod"0Remove this use of "HttpPost"; it is deprecated.(¥—ã8Ó±÷ã+
+isquid:CallToDeprecatedMethod"7Remove this use of "BasicHttpParams"; it is deprecated.(‡†ßØşÿÿÿÿ8Ó±÷ã+
+^squid:CallToDeprecatedMethod"1Remove this use of "AuthScope"; it is deprecated.(ğÆôí8Ó±÷ã+
+rsquid:CallToDeprecatedMethod"@Remove this use of "BasicCredentialsProvider"; it is deprecated.(ì¥®°ıÿÿÿÿ8µŸ÷ã+
+msquid:CallToDeprecatedMethod";Remove this use of "CredentialsProvider"; it is deprecated.(ì¥®°ıÿÿÿÿ8µŸ÷ã+
+ksquid:CallToDeprecatedMethod"9Remove this use of "DefaultHttpClient"; it is deprecated.(ĞÆ™×ıÿÿÿÿ8Ó±÷ã+
+csquid:CallToDeprecatedMethod"6Remove this use of "SchemeRegistry"; it is deprecated.(şç¬‚8ÕË•÷ã+
+csquid:CallToDeprecatedMethod"6Remove this use of "SchemeRegistry"; it is deprecated.(şç¬‚8ÕË•÷ã+
+gsquid:CallToDeprecatedMethod":Remove this use of "HttpProtocolParams"; it is deprecated.(¥Úä8Ó±÷ã+
+esquid:CallToDeprecatedMethod"3Remove this use of "HttpVersion"; it is deprecated.(Å÷ú©úÿÿÿÿ8µŸ÷ã+
+lsquid:CallToDeprecatedMethod"?Remove this use of "ClientConnectionManager"; it is deprecated.(¦„¹ë8µŸ÷ã+
+gsquid:CallToDeprecatedMethod":Remove this use of "HttpProtocolParams"; it is deprecated.(Óàèÿ8µŸ÷ã+
+esquid:CallToDeprecatedMethod"3Remove this use of "HttpContext"; it is deprecated.(ö‹“µÿÿÿÿÿ8µŸ÷ã+
+asquid:HiddenFieldCheck";Rename "context" which hides the field declared at line 69.(Ü×î8›Á…÷ã+
+`squid:CallToDeprecatedMethod".Remove this use of "Scheme"; it is deprecated.(éˆ³…úÿÿÿÿ8Ó±÷ã+
+_squid:CallToDeprecatedMethod"3Remove this use of "HttpContext"; it is deprecated.(Ü×î8Ó±÷ã+
+[squid:CallToDeprecatedMethod".Remove this use of "Header"; it is deprecated.(Áú×á8µŸ÷ã+
+`squid:CallToDeprecatedMethod".Remove this use of "Header"; it is deprecated.(è—¼¯ıÿÿÿÿ8Ó±÷ã+
+fsquid:CallToDeprecatedMethod"4Remove this use of "HttpResponse"; it is deprecated.(Òø±¾şÿÿÿÿ8Ó±÷ã+
+lsquid:CallToDeprecatedMethod":Remove this use of "PlainSocketFactory"; it is deprecated.(éˆ³…úÿÿÿÿ8Ó±÷ã+
+lsquid:CallToDeprecatedMethod":Remove this use of "HttpProtocolParams"; it is deprecated.(Å÷ú©úÿÿÿÿ8Ó±÷ã+
+^squid:CallToDeprecatedMethod"1Remove this use of "AuthScope"; it is deprecated.(ğÆôí8Ó±÷ã+
+`squid:S2583"DChange this condition so that it does not always evaluate to "false"(È‡ë‰8ü¶÷ã+
+gsquid:CallToDeprecatedMethod"5Remove this use of "HttpException"; it is deprecated.(ö‹“µÿÿÿÿÿ8Ó±÷ã+
+gsquid:CallToDeprecatedMethod":Remove this use of "HttpProtocolParams"; it is deprecated.(ûäë§8Ó±÷ã+
+`squid:CallToDeprecatedMethod"4Remove this use of "StringEntity"; it is deprecated.(Ó ¯38Ö¿†÷ã+
+qsquid:CallToDeprecatedMethod"?Remove this use of "ClientProtocolException"; it is deprecated.(‡¤“Óûÿÿÿÿ8Ó±÷ã+
+esquid:CallToDeprecatedMethod"3Remove this use of "HttpRequest"; it is deprecated.(ö‹“µÿÿÿÿÿ8Ó±÷ã+
+dsquid:CallToDeprecatedMethod"8Remove this use of "BasicHttpContext"; it is deprecated.(Ü×î8Ó±÷ã+
+ksquid:CallToDeprecatedMethod"9Remove this use of "DefaultHttpClient"; it is deprecated.(ĞÆ™×ıÿÿÿÿ8Ó±÷ã+
+]squid:CallToDeprecatedMethod"0Remove this use of "HttpPost"; it is deprecated.(¥—ã8Ó±÷ã+
+`squid:CallToDeprecatedMethod".Remove this use of "Header"; it is deprecated.(°´‹óüÿÿÿÿ8Ó±÷ã+
+_squid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8ÜÁ äå+
