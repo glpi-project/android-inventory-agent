@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  flyve_build:
+  build:
     working_directory: ~/flyve
     docker:
       # Android the primary container
@@ -18,7 +18,7 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  flyve_test_25:
+  test_25:
     working_directory: ~/flyve
     docker:
         - image: circleci/android:api-26-alpha
@@ -49,7 +49,7 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-  flyve_test_16:
+  test_16:
       working_directory: ~/flyve
       docker:
           - image: circleci/android:api-26-alpha
@@ -80,7 +80,7 @@ jobs:
             destination: reports
         - store_test_results:
             path: app/build/test-results
-  flyve_deploy_beta:
+  deploy_beta:
     working_directory: ~/flyve
     docker:
       # Android the primary container
@@ -110,7 +110,7 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  flyve_deploy_production:
+  deploy_production:
       working_directory: ~/flyve
       docker:
         # Android the primary container
@@ -140,7 +140,7 @@ jobs:
             paths:
               - ~/.gradle
             key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  flyve_documentation:
+  documentation:
       working_directory: ~/flyve
       docker:
         # Android the primary container
@@ -184,21 +184,21 @@ workflows:
   version: 2
   build_test_and_deploy:
     jobs:
-      - flyve_build
-      - flyve_test_16:
+      - build
+      - test_16:
           requires:
-            - flyve_build
-      - flyve_test_25:
+            - build
+      - test_25:
           requires:
-            - flyve_build
-      - flyve_deploy_beta:
+            - build
+      - deploy_beta:
           requires:
-            - flyve_test_16
-            - flyve_test_25
-      - flyve_documentation:
+            - test_16
+            - test_25
+      - documentation:
           requires:
-            - flyve_test_16
-            - flyve_test_25
+            - test_16
+            - test_25
 notify:
   webhooks:
     - url: https://payload.webhooks.stream/aethonanbot
