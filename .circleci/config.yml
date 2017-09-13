@@ -132,7 +132,7 @@ jobs:
             command: ./gradlew assemble
         - run:
             name: Deploy to Google Play
-            command: source ci/scripts/ci_fastlane.sh "beta"
+            command: source ci/scripts/ci_fastlane.sh "playstore"
         - run:
             name: Create a github release
             command: source ci/scripts/ci_github_release.sh
@@ -188,17 +188,38 @@ workflows:
       - test_16:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - develop
       - test_25:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - develop
       - deploy_beta:
           requires:
             - test_16
             - test_25
+          filters:
+            branches:
+              only:
+                - develop
       - documentation:
           requires:
             - test_16
             - test_25
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy_production:
+          filters:
+            branches:
+              only:
+                - master
 notify:
   webhooks:
     - url: https://payload.webhooks.stream/aethonanbot
