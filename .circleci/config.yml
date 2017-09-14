@@ -201,16 +201,16 @@ workflows:
                 - develop
       - deploy_beta:
           requires:
-            - test_16
-            - test_25
+            - test_api_version_16
+            - test_api_version_25
           filters:
             branches:
               only:
                 - develop
       - documentation:
           requires:
-            - test_16
-            - test_25
+            - test_api_version_16
+            - test_api_version_25
           filters:
             branches:
               only:
