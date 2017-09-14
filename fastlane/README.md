@@ -11,7 +11,7 @@ In this android project we used to:
 - Deploy to Google play production
 - Send message to telegram with success or fail
 
-### How to use
+### How to use 
 
 In Appfile is the configuration with package name and json key file
 
