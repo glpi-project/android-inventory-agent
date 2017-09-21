@@ -4,7 +4,7 @@
   "description": "Branch created with the intention of functioning as an introduction web site of the project, a small point of entry where anyone can find out what it is about and to be able to get relevant information.",
   "sasslintConfig": ".sass-lint.yml",
   "scripts": {
-    "test": "sass-lint -c app/config/.sass-lint.yml 'css/**/*.scss, _sass/**/*.scss' -v -q"
+    "test": "sass-lint -c app/config/.sass-lint.yml 'css/**/*.scss, _sass/**/*.scss' -v -q & ./node_modules/.bin/eslint js/*.js "
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent",
   "devDependencies": {
+    "eslint": "^4.7.2",
+    "eslint-config-google": "^0.9.1",
     "sass-lint": "^1.11.1"
   }
 }

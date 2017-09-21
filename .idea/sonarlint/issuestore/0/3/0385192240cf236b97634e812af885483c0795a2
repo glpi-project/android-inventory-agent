@@ -1,6 +1,0 @@
-
-³%squid:RedundantThrowsDeclarationCheck"xRemove the declaration of thrown exception 'java.net.UnknownHostException' which is a subclass of 'java.io.IOException'.(Ò·ùâùÿÿÿÿ8Øí’óã+
-bsquid:S1226"FIntroduce a new variable instead of reusing the parameter "localPort".(üËó¸8Øí’óã+
-Ã%squid:RedundantThrowsDeclarationCheck"‡Remove the declaration of thrown exception 'org.apache.http.conn.ConnectTimeoutException' which is a subclass of 'java.io.IOException'.(Ò·ùâùÿÿÿÿ8Øí’óã+
-³%squid:RedundantThrowsDeclarationCheck"xRemove the declaration of thrown exception 'java.net.UnknownHostException' which is a subclass of 'java.io.IOException'.(ø½¤íûÿÿÿÿ8Øí’óã+
-£%squid:RedundantThrowsDeclarationCheck"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(ã½8Øí’óã+
