@@ -1,0 +1,23 @@
+{
+  "name": "flyve-mdm-android-inventory-agent",
+  "version": "1.0.0",
+  "description": "Branch created with the intention of functioning as an introduction web site of the project, a small point of entry where anyone can find out what it is about and to be able to get relevant information.",
+  "sasslintConfig": ".sass-lint.yml",
+  "scripts": {
+    "test": "sass-lint -c app/config/.sass-lint.yml 'css/**/*.scss, _sass/**/*.scss' -v -q"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/issues"
+  },
+  "homepage": "https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent",
+  "devDependencies": {
+    "sass-lint": "^1.11.1"
+  }
+}

@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/flyveMDM
+    docker:
+      - image: circleci/node:8.5-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install 
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: test
+          command: npm test
