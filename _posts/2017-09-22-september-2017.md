@@ -1,0 +1,7 @@
+---
+layout: post
+category: blog
+published: true
+title: September 2017
+---
+# September 2017 (version 1.0)
