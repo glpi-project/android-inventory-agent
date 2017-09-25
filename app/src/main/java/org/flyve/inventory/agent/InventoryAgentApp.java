@@ -115,7 +115,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
      */
     public String getUrl() {
         if (mUrl == null) {
-            mUrl = prefs.getString("url", "https://dev.flyve.org/glpi/plugins/fusioninventory/");
+            mUrl = prefs.getString("url","https://dev.flyve.org/glpi/plugins/fusioninventory/");
         }
         return mUrl;
     }
