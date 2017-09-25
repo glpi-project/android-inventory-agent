@@ -75,6 +75,7 @@
         <EditTextPreference
             android:title="@string/GlobalServer"
             android:key="url"
+            android:defaultValue="https://dev.flyve.org/glpi/plugins/fusioninventory/"
             android:summary="@string/GlobalServerSummary"
             android:persistent="true"
             />
