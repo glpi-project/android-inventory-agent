@@ -134,6 +134,9 @@ jobs:
             name: Deploy to Google Play
             command: source ci/scripts/ci_fastlane.sh "playstore"
         - run:
+            name: Send changelog to gh-page
+            command: source ci/scripts/ci_changelog.sh
+        - run:
             name: Create a github release
             command: source ci/scripts/ci_github_release.sh
         - save_cache:
