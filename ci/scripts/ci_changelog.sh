@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# git add Manifest
+git add app/src/main/AndroidManifest.xml
+
+# git commit
+git commit -m "ci(manifest): update code and version manifest"
+
 # get gh-pages branch
 git fetch origin gh-pages
 
