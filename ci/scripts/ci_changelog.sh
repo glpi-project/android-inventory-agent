@@ -10,31 +10,36 @@ git checkout gh-pages
 sudo git clean -fdx
 
 # remove local CHANGELOG.md on gh-pages
-rm CHANGELOG.md
+if [[ -e CHANGELOG.md ]]; then
+    sudo rm CHANGELOG.md
+fi
 
 # get changelog from branch
 git checkout $CIRCLE_BRANCH CHANGELOG.md
 
-# Create header content to work with gh-pages templates
-HEADER="---"$'\r'"layout: modal"$'\r'"title: changelog"$'\r'"---"$'\r\r'
+# Create header content to CHANGELOG.md
+echo "---" > header.md
+echo "layout: modal" >> header.md
+echo "title: changelog" >> header.md
+echo "---" >> header.md
 
 # Duplicate CHANGELOG.md
 cp CHANGELOG.md CHANGELOG_COPY.md
-
 # Add header to CHANGELOG.md
-(echo $HEADER ; cat CHANGELOG_COPY.md) > CHANGELOG.md
-
+(cat header.md ; cat CHANGELOG_COPY.md) > CHANGELOG.md
 # Remove CHANGELOG_COPY.md
 rm CHANGELOG_COPY.md
+rm header.md
 
-# add
-git add CHANGELOG.md
+# if has change
+if [[ -z $(git status -s) ]]; then
+    echo "with out modifications"
+else
+    # create a commit
+    git commit -m "build(changelog): send changelog.md to gh-page"
 
-# create commit
-git commit -m "docs(changelog): update changelog$1 with version ${GIT_TAG}"
-
-# push to branch
-git push origin gh-pages
-
-# got back to original branch
-git checkout $CIRCLE_BRANCH
+    # push to branch
+    git push origin gh-pages
+fi
+    # got back to original branch
+    git checkout $CIRCLE_BRANCH
