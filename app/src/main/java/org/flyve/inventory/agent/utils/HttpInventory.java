@@ -26,8 +26,8 @@
 package org.flyve.inventory.agent.utils;
 
 import android.content.Context;
+import android.os.StrictMode;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.http.Header;
 import org.apache.http.HttpException;
@@ -84,6 +84,10 @@ public class HttpInventory {
      * @return boolean true if succeed, false otherwise
      */
     public Boolean sendInventory(String lastXMLResult, OnTaskCompleted callback) {
+
+        // Allow work with main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         if (lastXMLResult == null) {
             FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
