@@ -34,8 +34,17 @@ import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
-
+import org.acra.*;
+import org.acra.annotation.*;
 import org.flyve.inventory.agent.utils.FlyveLog;
+
+
+/**
+ * This is the url ACRA Configuration
+ */
+@ReportsCrashes(
+        formUri = "https://hooks.thestralbot.com/"
+)
 
 public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
 
@@ -46,6 +55,14 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     private String mLogin = null;
     private String mPassword = null;
     private String mDeviceID = null;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+        // The following line triggers the initialization of ACRA
+        ACRA.init(this);
+    }
 
     /**
      * This method is called when the application is starting, it gets the default Shared Preferences
