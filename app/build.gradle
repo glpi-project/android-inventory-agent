@@ -7,8 +7,8 @@ android {
 
     defaultConfig {
         applicationId "org.flyve.inventory.agent"
-        minSdkVersion 12
-        targetSdkVersion 12
+        minSdkVersion 16
+        targetSdkVersion 16
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
