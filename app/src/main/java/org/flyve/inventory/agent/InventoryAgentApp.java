@@ -34,8 +34,12 @@ import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
-import org.acra.*;
-import org.acra.annotation.*;
+
+import org.acra.ACRA;
+import org.acra.ReportField;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
+import org.acra.sender.HttpSender;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
 
@@ -43,7 +47,19 @@ import org.flyve.inventory.agent.utils.FlyveLog;
  * This is the url ACRA Configuration
  */
 @ReportsCrashes(
-        formUri = "https://hooks.thestralbot.com/"
+        formUri = "https://collector.tracepot.com/632edab5",
+        reportType = HttpSender.Type.JSON,
+        httpMethod = HttpSender.Method.POST,
+        customReportContent = {
+                ReportField.APP_VERSION_CODE,
+                ReportField.APP_VERSION_NAME,
+                ReportField.ANDROID_VERSION,
+                ReportField.PACKAGE_NAME,
+                ReportField.REPORT_ID,
+                ReportField.BUILD,
+                ReportField.STACK_TRACE
+        },
+        mode = ReportingInteractionMode.SILENT
 )
 
 public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
