@@ -21,6 +21,9 @@ sudo sudo apt-get install -y nodejs
 # install globally
 sudo npm install -g conventional-github-releaser
 
+# Install node-github-release to create and edit releases on Github
+sudo npm install -g node-github-release
+
 # install node package available on package.json
 sudo npm install
 
