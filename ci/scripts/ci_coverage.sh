@@ -4,17 +4,19 @@
 ./gradlew createDebugCoverageReport
 
 # move code coverage
-mv -v app/build/reports/coverage reports$1
+mv -v inventory/build/reports/coverage reports$1
 
 #move Android test
-mv -v app/build/reports/androidTests reports$1
+mv -v inventory/build/reports/androidTests reports$1
 
 # replace .resources with resource because github don't support folders with "_" or "." at the beginning
 mv reports$1/debug/.resources reports$1/debug/resources
 
-index=$(<reports$1/debug/index.html)
-newindex="${index//.resources/resources}"
-echo $newindex > reports$1/debug/index.html
+# replace .sessions
+mv reports$1/debug/.sessions.html reports$1/debug/sessions.html
+
+# add header
+ruby ci/scripts/add_coverage_header.rb
 
 # add code coverage and test result
 git add reports$1 -f
@@ -30,6 +32,9 @@ git checkout gh-pages
 
 # clean
 sudo git clean -fdx
+
+# remove report folder
+sudo rm -R reports$1
 
 # get documentation folder
 git checkout $CIRCLE_BRANCH reports$1
