@@ -42,7 +42,7 @@ import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.flyvemdm.inventory.InventoryTask;
+import org.flyve.inventory.InventoryTask;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;

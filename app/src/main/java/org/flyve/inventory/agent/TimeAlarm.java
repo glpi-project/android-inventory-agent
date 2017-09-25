@@ -34,7 +34,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.flyvemdm.inventory.InventoryTask;
+import org.flyve.inventory.InventoryTask;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;
