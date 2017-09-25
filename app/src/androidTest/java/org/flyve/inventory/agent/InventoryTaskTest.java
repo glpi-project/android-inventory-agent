@@ -30,9 +30,7 @@ package org.flyve.inventory.agent;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-
-import com.flyvemdm.inventory.InventoryTask;
-
+import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;
 import org.junit.Test;
