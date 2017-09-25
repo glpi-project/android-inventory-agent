@@ -46,4 +46,4 @@ git commit -m "docs(javadoc): update javadoc"
 git push origin gh-pages
 
 # got back to original branch
-git checkout $CIRCLE_BRANCHgit checkout $CIRCLE_BRANCH
+git checkout $CIRCLE_BRANCH
