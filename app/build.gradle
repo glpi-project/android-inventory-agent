@@ -48,7 +48,6 @@ dependencies {
         })
     testCompile 'junit:junit:4.12'
     compile 'org.flyve:inventory:0.0.1@aar'
-    compile 'ch.acra:acra:4.9.2'
 }
 
 import java.util.regex.Pattern
