@@ -28,6 +28,11 @@
 		android:vmSafeMode="true"
 		android:theme="@style/AppTheme"
 		android:icon="@drawable/icon">
+
+		<meta-data
+			android:name="com.bugsnag.android.API_KEY"
+			android:value="b6bc7ce0da33f92fe6c49c568af43963"/>
+
 		<activity android:name=".SplashActivity"
 			android:theme="@style/NoActionBar">
 			<intent-filter>
