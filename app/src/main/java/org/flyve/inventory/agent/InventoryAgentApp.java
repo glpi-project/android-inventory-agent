@@ -35,11 +35,8 @@ import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import org.acra.ACRA;
-import org.acra.ReportField;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
-import org.acra.sender.HttpSender;
+import com.bugsnag.android.Bugsnag;
+
 import org.flyve.inventory.agent.utils.FlyveLog;
 
 public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
@@ -58,6 +55,8 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Bugsnag.init(this);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
