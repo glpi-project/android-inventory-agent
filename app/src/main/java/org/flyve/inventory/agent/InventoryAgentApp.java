@@ -57,6 +57,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         super.onCreate();
 
         Bugsnag.init(this);
+        Bugsnag.setEndpoint("https://hooks.thestralbot.com/-1001061475099/");
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
