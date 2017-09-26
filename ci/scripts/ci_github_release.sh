@@ -17,5 +17,5 @@ github-release upload \
 --user $CIRCLE_PROJECT_USERNAME \
 --repo $CIRCLE_PROJECT_REPONAME \
 --tag ${GIT_TAG} \
---name "Inventory Agent zip" \
+--name "InventoryAgent-${GIT_TAG}.apk" \
 --file app/build/outputs/apk/app-release.apk
