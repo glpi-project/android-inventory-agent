@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# git add Manifest
-git add app/src/main/AndroidManifest.xml
-
-# git commit
-git commit -m "ci(manifest): update code and version manifest"
-
 # get gh-pages branch
 git fetch origin gh-pages
 
@@ -41,6 +35,8 @@ rm header.md
 if [[ -z $(git status -s) ]]; then
     echo "with out modifications"
 else
+    git add CHANGELOG.md
+
     # create a commit
     git commit -m "build(changelog): send changelog.md to gh-page"
 
