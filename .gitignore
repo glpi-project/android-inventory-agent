@@ -81,6 +81,7 @@ build
 
 #fastlane
 /fastlane/report.xml
+/fastlane/metadata/
 
 #javadoc and reports
 /reports
