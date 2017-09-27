@@ -61,6 +61,7 @@ public class MainActivityTest {
         if (Build.VERSION.SDK_INT < 24) {
             Screengrab.screenshot("MainScreen");
         }
+
         onData(PreferenceMatchers.withTitle(R.string.AccueilInventoryParam)).perform(click());
     }
 
