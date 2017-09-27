@@ -108,7 +108,7 @@ jobs:
                 adb shell input keyevent 82
           - run:
               name: Assemble Android Tests
-              command: ./gradlew assembleAndroidTest
+              command: ./gradlew assembleDebug assembleAndroidTest
           - run:
               name: Run Fastlane Screengrab
               command: fastlane screengrab
