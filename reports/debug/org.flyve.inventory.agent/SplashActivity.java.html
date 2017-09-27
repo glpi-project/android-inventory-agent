@@ -36,7 +36,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
-<span class="nc" id="L36">public class SplashActivity extends Activity {</span>
+<span class="fc" id="L36">public class SplashActivity extends Activity {</span>
 
     private static final int SPLASH_TIME = 3000;
 
@@ -46,14 +46,14 @@ import android.view.WindowManager;
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<span class="nc" id="L46">        super.onCreate(savedInstanceState);</span>
+<span class="fc" id="L46">        super.onCreate(savedInstanceState);</span>
 
-<span class="nc" id="L48">        requestWindowFeature(Window.FEATURE_NO_TITLE);</span>
-<span class="nc" id="L49">        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);</span>
+<span class="fc" id="L48">        requestWindowFeature(Window.FEATURE_NO_TITLE);</span>
+<span class="fc" id="L49">        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);</span>
 
-<span class="nc" id="L51">        setContentView(R.layout.activity_splash);</span>
+<span class="fc" id="L51">        setContentView(R.layout.activity_splash);</span>
 
-<span class="nc" id="L53">        new Handler().postDelayed(new Runnable() {</span>
+<span class="fc" id="L53">        new Handler().postDelayed(new Runnable() {</span>
             @Override
             public void run() {
 
@@ -61,7 +61,7 @@ import android.view.WindowManager;
 
 <span class="nc" id="L59">            }</span>
         }, SPLASH_TIME);
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Starts the activity

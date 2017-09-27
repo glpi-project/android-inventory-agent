@@ -50,7 +50,7 @@ import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;
 
-<span class="nc" id="L50">public class Accueil extends PreferenceActivity implements OnSharedPreferenceChangeListener {</span>
+<span class="fc" id="L50">public class Accueil extends PreferenceActivity implements OnSharedPreferenceChangeListener {</span>
 
     private Intent mServiceIntent;
 
@@ -59,18 +59,18 @@ import org.flyve.inventory.agent.utils.HttpInventory;
      * It registers a callback to be invoked when a change happens to a preference
      */
     protected void onResume() {
-<span class="nc" id="L59">        super.onResume();</span>
-<span class="nc" id="L60">        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener( this );</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L59">        super.onResume();</span>
+<span class="fc" id="L60">        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener( this );</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Called when the system is about to start resuming a previous activity
      * It unregisters a previous callback
      */
      protected void onPause() {
-<span class="nc" id="L68">        super.onPause();</span>
-<span class="nc" id="L69">        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener( this );</span>
-<span class="nc" id="L70">    }</span>
+<span class="fc" id="L68">        super.onPause();</span>
+<span class="fc" id="L69">        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener( this );</span>
+<span class="fc" id="L70">    }</span>
 
 
     void doBindService() {
@@ -78,21 +78,21 @@ import org.flyve.inventory.agent.utils.HttpInventory;
         // class name because we want a specific service implementation that
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
-<span class="nc" id="L78">        InventoryService inventoryService = new InventoryService();</span>
-<span class="nc" id="L79">        mServiceIntent = new Intent(this, inventoryService.getClass());</span>
+<span class="fc" id="L78">        InventoryService inventoryService = new InventoryService();</span>
+<span class="fc" id="L79">        mServiceIntent = new Intent(this, inventoryService.getClass());</span>
 
-<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (!isMyServiceRunning(inventoryService.getClass())) {</span>
-<span class="nc" id="L82">            ComponentName result = startService(mServiceIntent);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (!isMyServiceRunning(inventoryService.getClass())) {</span>
+<span class="fc" id="L82">            ComponentName result = startService(mServiceIntent);</span>
 
-<span class="nc bnc" id="L84" title="All 2 branches missed.">            if (result != null) {</span>
-<span class="nc" id="L85">                FlyveLog.log(this, &quot; Agent started &quot;, Log.INFO);</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">            if (result != null) {</span>
+<span class="fc" id="L85">                FlyveLog.log(this, &quot; Agent started &quot;, Log.INFO);</span>
             } else {
 <span class="nc" id="L87">                FlyveLog.log(this, &quot; Agent fail&quot;, Log.ERROR);</span>
             }
-<span class="nc" id="L89">        } else {</span>
-<span class="nc" id="L90">            FlyveLog.log(this, &quot; Agent already started &quot;, Log.ERROR);</span>
+<span class="fc" id="L89">        } else {</span>
+<span class="fc" id="L90">            FlyveLog.log(this, &quot; Agent already started &quot;, Log.ERROR);</span>
         }
-<span class="nc" id="L92">    }</span>
+<span class="fc" id="L92">    }</span>
 
     /**
      * Check if the service is running
@@ -100,13 +100,13 @@ import org.flyve.inventory.agent.utils.HttpInventory;
      * @return boolean
      */
     private boolean isMyServiceRunning(Class&lt;?&gt; serviceClass) {
-<span class="nc" id="L100">        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">            if (serviceClass.getName().equals(service.service.getClassName())) {</span>
-<span class="nc" id="L103">                return true;</span>
+<span class="fc" id="L100">        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">            if (serviceClass.getName().equals(service.service.getClassName())) {</span>
+<span class="fc" id="L103">                return true;</span>
             }
-<span class="nc" id="L105">        }</span>
-<span class="nc" id="L106">        return false;</span>
+<span class="fc" id="L105">        }</span>
+<span class="fc" id="L106">        return false;</span>
     }
 
     /**
@@ -115,15 +115,15 @@ import org.flyve.inventory.agent.utils.HttpInventory;
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<span class="nc" id="L115">        super.onCreate(savedInstanceState);</span>
+<span class="fc" id="L115">        super.onCreate(savedInstanceState);</span>
 
-<span class="nc" id="L117">        addPreferencesFromResource(R.xml.accueil);</span>
+<span class="fc" id="L117">        addPreferencesFromResource(R.xml.accueil);</span>
 
-<span class="nc" id="L119">        doBindService();</span>
+<span class="fc" id="L119">        doBindService();</span>
 
         // When the AutoInventory is checked or unchecked, it stops the service and then starts it again
-<span class="nc" id="L122">        Preference autoStartInventory = findPreference(&quot;autoStartInventory&quot;);</span>
-<span class="nc" id="L123">        autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {</span>
+<span class="fc" id="L122">        Preference autoStartInventory = findPreference(&quot;autoStartInventory&quot;);</span>
+<span class="fc" id="L123">        autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {</span>
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
 <span class="nc" id="L125">                stopService( mServiceIntent );</span>
 <span class="nc" id="L126">                doBindService();</span>
@@ -133,8 +133,8 @@ import org.flyve.inventory.agent.utils.HttpInventory;
         });
 
         // When the frequency is changed, it stops the service and then starts it again 
-<span class="nc" id="L133">        Preference timeInventory = findPreference(&quot;timeInventory&quot;);</span>
-<span class="nc" id="L134">        timeInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {</span>
+<span class="fc" id="L133">        Preference timeInventory = findPreference(&quot;timeInventory&quot;);</span>
+<span class="fc" id="L134">        timeInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {</span>
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
 <span class="nc" id="L136">                stopService( mServiceIntent );</span>
 <span class="nc" id="L137">                doBindService();</span>
@@ -144,8 +144,8 @@ import org.flyve.inventory.agent.utils.HttpInventory;
         });
 
         // After the Inventory is run, it is sent
-<span class="nc" id="L144">        Preference runInventory = findPreference(&quot;runInventory&quot;);</span>
-<span class="nc" id="L145">        runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {</span>
+<span class="fc" id="L144">        Preference runInventory = findPreference(&quot;runInventory&quot;);</span>
+<span class="fc" id="L145">        runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {</span>
             public boolean onPreferenceClick(Preference preference) {
 <span class="nc" id="L147">                InventoryTask inventoryTask = new InventoryTask(Accueil.this, &quot;&quot;);</span>
 <span class="nc" id="L148">                inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {</span>
@@ -176,7 +176,7 @@ import org.flyve.inventory.agent.utils.HttpInventory;
             }
 
         });
-<span class="nc" id="L176">    }</span>
+<span class="fc" id="L176">    }</span>
 
     /**
      * Called when a shared preference is changed, added, or removed

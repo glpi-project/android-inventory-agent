@@ -36,9 +36,9 @@ import android.util.Log;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
 
-<span class="nc" id="L36">public class InventoryService extends Service {</span>
+<span class="fc" id="L36">public class InventoryService extends Service {</span>
 
-<span class="nc" id="L38">    TimeAlarm alarm = new TimeAlarm();</span>
+<span class="fc" id="L38">    TimeAlarm alarm = new TimeAlarm();</span>
 
     /**
      * Called by the system when the service is first created
@@ -46,8 +46,8 @@ import org.flyve.inventory.agent.utils.FlyveLog;
      */
     @Override
     public void onCreate() {
-<span class="nc" id="L46">        super.onCreate();</span>
-<span class="nc" id="L47">    }</span>
+<span class="fc" id="L46">        super.onCreate();</span>
+<span class="fc" id="L47">    }</span>
 
     /**
      * Called by the system to notify a Service that it is no longer used and is being removed
@@ -69,12 +69,12 @@ import org.flyve.inventory.agent.utils.FlyveLog;
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-<span class="nc" id="L69">        FlyveLog.log(this, &quot;Received start id &quot; + startId + &quot;: &quot; + intent, Log.INFO);</span>
+<span class="fc" id="L69">        FlyveLog.log(this, &quot;Received start id &quot; + startId + &quot;: &quot; + intent, Log.INFO);</span>
 
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
-<span class="nc" id="L73">        alarm.setAlarm(this);</span>
-<span class="nc" id="L74">        return START_STICKY;</span>
+<span class="fc" id="L73">        alarm.setAlarm(this);</span>
+<span class="fc" id="L74">        return START_STICKY;</span>
     }
 
     /**
