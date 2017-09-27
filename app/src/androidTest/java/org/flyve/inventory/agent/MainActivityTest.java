@@ -27,6 +27,7 @@ package org.flyve.inventory.agent;
  * ------------------------------------------------------------------------------
  */
 
+import android.os.Build;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.matcher.PreferenceMatchers;
@@ -57,7 +58,9 @@ public class MainActivityTest {
 
     @Test
     public void InventoryParameters() {
-        Screengrab.screenshot("MainScreen");
+        if (Build.VERSION.SDK_INT < 24) {
+            Screengrab.screenshot("MainScreen");
+        }
         onData(PreferenceMatchers.withTitle(R.string.AccueilInventoryParam)).perform(click());
     }
 
