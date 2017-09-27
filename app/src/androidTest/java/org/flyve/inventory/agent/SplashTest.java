@@ -27,6 +27,7 @@ package org.flyve.inventory.agent;
  * ------------------------------------------------------------------------------
  */
 
+import android.os.Build;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -48,8 +49,8 @@ public class SplashTest {
 
     @Test
     public void testTakeScreenshot() {
-        Screengrab.screenshot("splash");
-
-        //onView(withId(R.id.fab)).perform(click());
+        if (Build.VERSION.SDK_INT < 24) {
+            Screengrab.screenshot("splash");
+        }
     }
 }
