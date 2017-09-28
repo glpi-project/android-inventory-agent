@@ -8,3 +8,4 @@ echo "about.version=${GIT_TAG}" >> app/src/main/assets/about.properties.md
 echo "about.build=$CIRCLE_BUILD_NUM" >> app/src/main/assets/about.properties.md
 echo "about.date=$(date "+%a %b %d %H:%M:%S %Y")" >> app/src/main/assets/about.properties.md
 echo "about.commit=$(git rev-parse --verify --short=7 HEAD)" >> app/src/main/assets/about.properties.md
+echo "about.commitFull=$(git rev-parse --verify HEAD)" >> app/src/main/assets/about.properties.md
