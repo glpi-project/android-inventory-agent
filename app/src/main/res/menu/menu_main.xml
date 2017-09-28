@@ -1,38 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-	xmlns:android="http://schemas.android.com/apk/res/android"
->
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
 		android:orderInCategory="0"
-		android:title="@string/menu_clearlog"
-		android:id="@+id/menu_clearlog"
-		android:titleCondensed="@string/menu_clearlog"
+		android:title="@string/menu_about"
+		android:id="@+id/menu_about"
+		android:titleCondensed="@string/menu_about"
 		android:menuCategory="system"
 		android:icon="@android:drawable/ic_menu_close_clear_cancel" />
-
-	<item
-		android:orderInCategory="0"
-		android:title="@string/menu_getinv"
-		android:id="@+id/menu_getinv"
-		android:titleCondensed="@string/menu_getinv"
-		android:menuCategory="container"
-		android:icon="@android:drawable/ic_menu_info_details" />
-
-	<item
-		android:orderInCategory="1"
-		android:title="@string/menu_send"
-		android:id="@+id/menu_send"
-		android:titleCondensed="@string/menu_send"
-		android:menuCategory="container"
-		android:icon="@android:drawable/ic_menu_send" />
-
-	<item
-		android:orderInCategory="2"
-		android:title="@string/menu_settings"
-		android:id="@+id/menu_settings"
-		android:titleCondensed="@string/menu_settings"
-		android:menuCategory="system"
-		android:icon="@android:drawable/ic_menu_preferences" />
-
 </menu>

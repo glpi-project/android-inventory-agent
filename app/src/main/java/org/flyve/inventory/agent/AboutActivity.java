@@ -26,16 +26,10 @@
  */
 package org.flyve.inventory.agent;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Window;
-import android.view.WindowManager;
+import android.support.v7.app.AppCompatActivity;
 
-public class SplashActivity extends Activity {
-
-    private static final int SPLASH_TIME = 3000;
+public class AboutActivity extends AppCompatActivity {
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -45,27 +39,8 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_about);
 
-        setContentView(R.layout.activity_splash);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                openActivity();
-
-            }
-        }, SPLASH_TIME);
     }
 
-    /**
-     * Starts the activity
-     */
-    private void openActivity() {
-        Intent miIntent = new Intent(SplashActivity.this, MainActivity.class);
-        SplashActivity.this.startActivity(miIntent);
-        SplashActivity.this.finish();
-    }
 }
