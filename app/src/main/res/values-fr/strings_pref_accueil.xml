@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!-- Accueil Preferences -->
+<!-- FragmentAccueil Preferences -->
 
 	<string name="AccueilTitle">Paramètres de l\'agent Inventory</string>
 
