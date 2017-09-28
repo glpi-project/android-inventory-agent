@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!-- Accueil Preferences -->
+<!-- FragmentAccueil Preferences -->
 
 	<string name="AccueilTitle">Configuración de la aplicación</string>
 

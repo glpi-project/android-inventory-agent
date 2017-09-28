@@ -1,5 +1,6 @@
 package org.flyve.inventory.agent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String FLAG_COMMIT_FRAGMENT = "commitFragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.icon);
 
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new Accueil()).commit();
+                new FragmentAccueil()).commit();
     }
 
     @Override
@@ -69,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public static Intent getStartIntent(Context context, boolean commitFragment) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(FLAG_COMMIT_FRAGMENT, commitFragment);
+        return intent;
     }
 }
