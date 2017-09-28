@@ -75,8 +75,9 @@ public class AboutActivity extends AppCompatActivity {
             String build = properties.getProperty("about.build");
             String date = properties.getProperty("about.date");
             String commit = properties.getProperty("about.commit");
+            String commitFull = properties.getProperty("about.commitFull");
 
-            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit)));
+            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit, commitFull)));
             txtAbout.setMovementMethod(LinkMovementMethod.getInstance());
         } catch (Exception ex) {
             FlyveLog.e(ex.getMessage());
@@ -84,9 +85,9 @@ public class AboutActivity extends AppCompatActivity {
     }
 
 
-    private String aboutStr(String version, String build, String date, String commit) {
+    private String aboutStr(String version, String build, String date, String commit, String commitFull) {
         String str = "Inventory Agent, version "+ version +", build "+ build +".<br />";
-        str += "Built on "+ date +". Last commit <a href='https://github.com/flyve-mdm/flyve-mdm-ios-inventory-agent/commit/"+commit+"'>"+ commit +".<br />";
+        str += "Built on "+ date +". Last commit <a href='https://github.com/flyve-mdm/flyve-mdm-ios-inventory-agent/commit/"+commitFull+"'>"+ commit +".<br />";
         str += "© <a href='http://teclib-edition.com/'>Teclib'</a> 2017. Licensed under <a href='https://www.gnu.org/licenses/gpl-3.0.en.html'>GPLv3</a>. <a href='https://flyve-mdm.com/'>Flyve MDM</a>®";
 
         return str;
