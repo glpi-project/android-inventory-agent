@@ -26,10 +26,19 @@
  */
 package org.flyve.inventory.agent;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.TextView;
+
+import org.flyve.inventory.agent.utils.FlyveLog;
+
+import java.io.InputStream;
+import java.util.Properties;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -54,6 +63,32 @@ public class AboutActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);
+
+        try {
+            Properties properties = new Properties();
+            AssetManager assetManager = getAssets();
+            InputStream inputStream = assetManager.open("about.properties");
+            properties.load(inputStream);
+            String version = properties.getProperty("about.version");
+            String build = properties.getProperty("about.build");
+            String date = properties.getProperty("about.date");
+            String commit = properties.getProperty("about.commit");
+
+            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit)));
+            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());
+        } catch (Exception ex) {
+            FlyveLog.e(ex.getMessage());
+        }
     }
 
+
+    private String aboutStr(String version, String build, String date, String commit) {
+        String str = "Inventory Agent, version "+ version +", build "+ build +".<br />";
+        str += "Built on "+ date +". Last commit <a href='https://github.com/flyve-mdm/flyve-mdm-ios-inventory-agent/commit/"+commit+"'>"+ commit +".<br />";
+        str += "© <a href='http://teclib-edition.com/'>Teclib'</a> 2017. Application released under <a href='https://www.gnu.org/licenses/gpl-3.0.en.html'>GPLv3</a>. <a href='https://flyve-mdm.com/'>Flyve MDM®</a>";
+
+        return str;
+    }
 }
