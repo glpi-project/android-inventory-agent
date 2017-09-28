@@ -52,6 +52,8 @@ dependencies {
     })
 
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'org.flyve:inventory:0.0.1@aar'
     compile 'com.bugsnag:bugsnag-android:3.+'
 }
@@ -61,7 +63,7 @@ import java.util.regex.Pattern
 task updateVersionCode {
     doLast {
         if (project.hasProperty("vCode")) {
-            def manifestFile = file("src/main/AndroidManifest.xml")
+            def manifestFile = file("src/activity_main/AndroidManifest.xml")
             def pattern = Pattern.compile("versionCode=\"(\\d+)\"")
             def manifestText = manifestFile.getText()
             def matcher = pattern.matcher(manifestText)
@@ -79,7 +81,7 @@ task updateVersionCode {
 task updateVersionName {
     doLast {
         if (project.hasProperty("vName")) {
-            def manifestFile = file("src/main/AndroidManifest.xml")
+            def manifestFile = file("src/activity_main/AndroidManifest.xml")
             def patternVersionNumber = Pattern.compile("versionName=\"(\\d+)\\.(\\d+)\\.(\\d+)(?:\\S*)\"")
             def manifestText = manifestFile.getText()
             def matcherVersionNumber = patternVersionNumber.matcher(manifestText)

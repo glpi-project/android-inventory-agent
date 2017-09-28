@@ -54,8 +54,18 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="org.flyve.inventory.agent.Accueil"
-			android:label="@string/app_name" android:launchMode="standard">
+			android:name="org.flyve.inventory.agent.MainActivity"
+			android:label="@string/app_name"
+			android:launchMode="standard"
+			android:theme="@style/NoActionBar"
+			>
+		</activity>
+		<activity
+			android:name="org.flyve.inventory.agent.AboutActivity"
+			android:label="@string/app_name"
+			android:launchMode="standard"
+			android:theme="@style/NoActionBar"
+			>
 		</activity>
 		<service
 			android:enabled="true"

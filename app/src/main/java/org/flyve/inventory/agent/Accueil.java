@@ -38,16 +38,15 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.flyve.inventory.InventoryTask;
-
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;
 
-public class Accueil extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+public class Accueil extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
     private Intent mServiceIntent;
 
@@ -55,7 +54,8 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
      * Called when the activity will start interacting with the user
      * It registers a callback to be invoked when a change happens to a preference
      */
-    protected void onResume() {
+    @Override
+    public void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener( this );
     }
@@ -64,7 +64,8 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
      * Called when the system is about to start resuming a previous activity
      * It unregisters a previous callback
      */
-     protected void onPause() {
+    @Override
+    public void onPause() {
         super.onPause();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener( this );
     }
@@ -76,10 +77,10 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
         InventoryService inventoryService = new InventoryService();
-        mServiceIntent = new Intent(this, inventoryService.getClass());
+        mServiceIntent = new Intent(this.getActivity(), inventoryService.getClass());
 
         if (!isMyServiceRunning(inventoryService.getClass())) {
-            ComponentName result = startService(mServiceIntent);
+            ComponentName result = Accueil.this.getActivity().startService(mServiceIntent);
 
             if (result != null) {
                 FlyveLog.log(this, " Agent started ", Log.INFO);
@@ -97,7 +98,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
      * @return boolean
      */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) Accueil.this.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -111,7 +112,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
      * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.accueil);
@@ -122,7 +123,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         Preference autoStartInventory = findPreference("autoStartInventory");
         autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                stopService( mServiceIntent );
+                Accueil.this.getActivity().stopService( mServiceIntent );
                 doBindService();
                 return true;
             }
@@ -133,7 +134,7 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         Preference timeInventory = findPreference("timeInventory");
         timeInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                stopService( mServiceIntent );
+                Accueil.this.getActivity().stopService( mServiceIntent );
                 doBindService();
                 return true;
             }
@@ -144,28 +145,28 @@ public class Accueil extends PreferenceActivity implements OnSharedPreferenceCha
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                InventoryTask inventoryTask = new InventoryTask(Accueil.this, "");
+                InventoryTask inventoryTask = new InventoryTask(Accueil.this.getActivity(), "");
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
                         FlyveLog.d(data);
-                        HttpInventory httpInventory = new HttpInventory(Accueil.this);
+                        HttpInventory httpInventory = new HttpInventory(Accueil.this.getActivity());
                         httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
-                                Toast.makeText(Accueil.this, data, Toast.LENGTH_LONG).show();
+                                Toast.makeText(Accueil.this.getActivity(), data, Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onTaskError(String error) {
-                                Toast.makeText(Accueil.this, error, Toast.LENGTH_LONG).show();
+                                Toast.makeText(Accueil.this.getActivity(), error, Toast.LENGTH_LONG).show();
                             }
                         });
                     }
 
                     @Override
                     public void onTaskError(Throwable error) {
-                        Toast.makeText(Accueil.this, "Inventory fail, please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Accueil.this.getActivity(), "Inventory fail, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -85,7 +85,7 @@ public class HttpInventory {
      */
     public Boolean sendInventory(String lastXMLResult, OnTaskCompleted callback) {
 
-        // Allow work with main thread
+        // Allow work with activity_main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
