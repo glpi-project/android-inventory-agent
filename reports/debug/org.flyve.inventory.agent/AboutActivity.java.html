@@ -1,0 +1,98 @@
+---
+layout: coverage
+---
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>AboutActivity.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">AboutActivity.java</span></div><h1>AboutActivity.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 Teclib'
+ *
+ * This file is part of Flyve MDM Inventory Agent Android.
+ *
+ * Flyve MDM Inventory Agent Android is a subproject of Flyve MDM. Flyve MDM is a mobile
+ * device management software.
+ *
+ * Flyve MDM Android is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM Inventory Agent Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez - rafaelje
+ * @copyright Copyright (c) 2017 Flyve MDM
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/
+ * @link      http://www.glpi-project.org/
+ * @link      https://flyve-mdm.com/
+ * ------------------------------------------------------------------------------
+ */
+package org.flyve.inventory.agent;
+
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.view.View;
+import android.widget.TextView;
+
+import org.flyve.inventory.agent.utils.FlyveLog;
+
+import java.io.InputStream;
+import java.util.Properties;
+
+<span class="fc" id="L43">public class AboutActivity extends AppCompatActivity {</span>
+
+    /**
+     * Called when the activity is starting, inflates the activity's UI
+     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="fc" id="L51">        super.onCreate(savedInstanceState);</span>
+
+<span class="fc" id="L53">        setContentView(R.layout.activity_about);</span>
+
+<span class="fc" id="L55">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
+<span class="fc" id="L56">        toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
+
+<span class="fc" id="L58">        setSupportActionBar(toolbar);</span>
+<span class="fc" id="L59">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L60">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L63">                onBackPressed();</span>
+<span class="nc" id="L64">            }</span>
+        });
+
+<span class="fc" id="L67">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
+
+        try {
+<span class="fc" id="L70">            Properties properties = new Properties();</span>
+<span class="fc" id="L71">            AssetManager assetManager = getAssets();</span>
+<span class="fc" id="L72">            InputStream inputStream = assetManager.open(&quot;about.properties&quot;);</span>
+<span class="fc" id="L73">            properties.load(inputStream);</span>
+<span class="fc" id="L74">            String version = properties.getProperty(&quot;about.version&quot;);</span>
+<span class="fc" id="L75">            String build = properties.getProperty(&quot;about.build&quot;);</span>
+<span class="fc" id="L76">            String date = properties.getProperty(&quot;about.date&quot;);</span>
+<span class="fc" id="L77">            String commit = properties.getProperty(&quot;about.commit&quot;);</span>
+
+<span class="fc" id="L79">            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit)));</span>
+<span class="fc" id="L80">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
+<span class="nc" id="L81">        } catch (Exception ex) {</span>
+<span class="nc" id="L82">            FlyveLog.e(ex.getMessage());</span>
+<span class="fc" id="L83">        }</span>
+<span class="fc" id="L84">    }</span>
+
+
+    private String aboutStr(String version, String build, String date, String commit) {
+<span class="fc" id="L88">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L89">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='https://github.com/flyve-mdm/flyve-mdm-ios-inventory-agent/commit/&quot;+commit+&quot;'&gt;&quot;+ commit +&quot;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L90">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
+
+<span class="fc" id="L92">        return str;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>
