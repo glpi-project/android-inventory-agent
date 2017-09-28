@@ -28,14 +28,9 @@ package org.flyve.inventory.agent;
  */
 
 import android.os.Build;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.matcher.PreferenceMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
 
-import org.hamcrest.Matcher;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,56 +39,18 @@ import org.junit.runner.RunWith;
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.locale.LocaleTestRule;
 
-import static android.support.test.espresso.Espresso.onData;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
-
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class AboutTest {
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
     @Rule
-    public ActivityTestRule<Accueil> activityRule = new ActivityTestRule<>(Accueil.class);
+    public ActivityTestRule<AboutActivity> activityRule = new ActivityTestRule<>(AboutActivity.class);
 
     @Test
-    public void InventoryParameters() {
+    public void testTakeScreenshot() {
         if (Build.VERSION.SDK_INT < 24) {
-            Screengrab.screenshot("MainScreen");
+            Screengrab.screenshot("about");
         }
-
-        onData(PreferenceMatchers.withTitle(R.string.AccueilInventoryParam)).perform(click());
-    }
-
-    @Test
-    public void GlobalSettings() {
-
-        onData(PreferenceMatchers.withTitle(R.string.AccueilGlobalParam)).perform(click());
-        ///Screengrab.screenshot("GlobalSettings");
-
-        onData(PreferenceMatchers.withTitle(R.string.GlobalServer)).perform(click());
-        ///Screengrab.screenshot("ServerAddress");
-    }
-
-    /**
-     * Perform action of waiting for a specific time.
-     */
-    public static ViewAction waitFor(final long millis) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isRoot();
-            }
-
-            @Override
-            public String getDescription() {
-                return "Wait for " + millis + " milliseconds.";
-            }
-
-            @Override
-            public void perform(UiController uiController, final View view) {
-                uiController.loopMainThreadForAtLeast(millis);
-            }
-        };
     }
 }
