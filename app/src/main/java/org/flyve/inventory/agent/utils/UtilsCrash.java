@@ -35,7 +35,7 @@ public class UtilsCrash {
     public static void configCrash(Context context, Boolean val) {
         if(val) {
             Bugsnag.init(context);
-            Bugsnag.setEndpoint("https://hooks.thestralbot.com/-1001061475099/");
+            Bugsnag.setEndpoint("https://hooks.thestral.pro/-1001061475099/");
             Bugsnag.setSendThreads(val);
         } else {
             Bugsnag.init(context);
