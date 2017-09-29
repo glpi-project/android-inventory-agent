@@ -87,7 +87,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private String aboutStr(String version, String build, String date, String commit, String commitFull) {
         String str = "Inventory Agent, version "+ version +", build "+ build +".<br />";
-        str += "Built on "+ date +". Last commit <a href='https://github.com/flyve-mdm/flyve-mdm-ios-inventory-agent/commit/"+commitFull+"'>"+ commit +".<br />";
+        str += "Built on "+ date +". Last commit <a href='https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/commit/"+commitFull+"'>"+ commit +".<br />";
         str += "© <a href='http://teclib-edition.com/'>Teclib'</a> 2017. Licensed under <a href='https://www.gnu.org/licenses/gpl-3.0.en.html'>GPLv3</a>. <a href='https://flyve-mdm.com/'>Flyve MDM</a>®";
 
         return str;
