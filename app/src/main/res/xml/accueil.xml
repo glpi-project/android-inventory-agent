@@ -86,22 +86,22 @@
             <EditTextPreference android:dialogMessage="@string/password" android:persistent="true" android:title="@string/password" android:key="password" android:enabled="true"></EditTextPreference>
         </PreferenceCategory>
 
-        <PreferenceCategory android:title="Privacy"/>
+        <PreferenceCategory android:title="@string/AccueilPrivacyTitle"/>
 
         <CheckBoxPreference
             android:summary="CheckBox summary"
-            android:title="Health Report"
+            android:title="@string/AccueilCrashReportTitle"
             android:key="crashReport"
-            android:summaryOn="Send crash reports "
-            android:summaryOff="Send crash reports "
+            android:summaryOn="@string/AccueilCrashReportSummaryOn"
+            android:summaryOff="@string/AccueilCrashReportSummaryOff"
             android:defaultValue="true"
             />
 
         <CheckBoxPreference
             android:summary="CheckBox summary"
-            android:title="Usage Data"
-            android:summaryOn="Send anonymous usage data"
-            android:summaryOff="Send anonymous usage data"
+            android:title="@string/AccueilAnonymousDataTitle"
+            android:summaryOn="@string/AccueilCrashReportSummaryOn"
+            android:summaryOff="@string/AccueilAnonymousDataSummaryOff"
             android:key="anonymousData"
             android:defaultValue="true"
             />

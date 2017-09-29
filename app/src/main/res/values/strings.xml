@@ -40,6 +40,16 @@
 	<string name="password">Password</string>
 	<string name="tag">Tag</string>
 
+	<!--Privacy-->
+
+	<string name="AccueilPrivacyTitle">Privacy</string>
+	<string name="AccueilCrashReportTitle">Health Report</string>
+	<string name="AccueilCrashReportSummaryOn">Send crash reports</string>
+	<string name="AccueilCrashReportSummaryOff">Send crash reports</string>
+	<string name="AccueilAnonymousDataTitle">Usage Data</string>
+	<string name="AccueilAnonymousDataSummaryOn">Send anonymous usage data</string>
+	<string name="AccueilAnonymousDataSummaryOff">Send anonymous usage data</string>
+
 	<!-- FragmentAccueil Preferences -->
 
 	<string name="AccueilTitle">Inventory Agent Settings</string>
