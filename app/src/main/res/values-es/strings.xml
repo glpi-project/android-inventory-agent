@@ -36,4 +36,79 @@
 	<string name="login">Usuario</string>
 	<string name="password">Contraseña</string>
 	<string name="tag">Etiqueta</string>
+	<string name="week">Semana</string>
+
+	<string-array name="Time">
+		<item>día</item>
+		<item>semana</item>
+		<item>mes</item>
+	</string-array>
+	<string-array name="TimeValue">
+		<item>Día</item>
+		<item>Semana</item>
+		<item>Mes</item>
+	</string-array>
+
+	<!-- FragmentAccueil Preferences -->
+
+	<string name="AccueilTitle">Configuración de la aplicación</string>
+
+	<!-- Inventory part -->
+
+	<string name="AccueilInventoryTitle">Inventario</string>
+	<string name="AccueilInventorySummaryOn">Click para desactivar el inventario</string>
+	<string name="AccueilInventorySummaryOff">Click para activar el inventario</string>
+	<string name="AccueilInventoryRun">Correr el inventario ahora!</string>
+	<string name="AccueilInventoryRunSummary">Correr ahora!</string>
+	<string name="AccueilInventoryParam">Parametros del inventario</string>
+	<string name="AccueilInventoryParamSummary">Frecuencia del inventario</string>
+
+	<!-- Remote view part -->
+
+	<string name="AccueilRemoteTitle">Vista remota</string>
+	<string name="AccueilRemoteSummaryOn">Click para desactivar la vista remota</string>
+	<string name="AccueilRemoteSummaryOff">Click para activar la vista remota</string>
+	<string name="AccueilRemoteParam">Parametros de la vista remota</string>
+	<string name="AccueilRemoteParamSummary">Configurar la vista remota</string>
+
+	<!-- SSH part -->
+
+	<string name="AccueilSshTitle">Secure Shell</string>
+	<string name="AccueilSshSummaryOn">Click para desactivar SSH</string>
+	<string name="AccueilSshSummaryOff">Click para activar SSH</string>
+
+	<!-- global part -->
+
+	<string name="AccueilGlobalTitle">Global</string>
+	<string name="AccueilGlobalParam">Configuración Global</string>
+	<string name="AccueilGlobalParamSummary">Configurar certificados, servidores ...</string>
+
+	<!-- Global settings part -->
+
+	<string name="GlobalCat">Global</string>
+	<string name="GlobalBoot">Opciones de reinicio</string>
+	<string name="GlobalBootSummaryOn">Click para desactivar el reinicio automatico</string>
+	<string name="GlobalBootSummaryOff">Click para activar el reinicio automatico</string>
+	<string name="GlobalNotif">Notificaciones</string>
+	<string name="GlobalNotifSummaryOn">Click para desactivar las notificaciones</string>
+	<string name="GlobalNotifSummaryOff">Click para activar las notificaciones</string>
+	<string name="GlobalCatSet">Configuracion del servidor</string>
+	<string name="GlobalServer">Dirección del Servidor</string>
+	<string name="GlobalServerSummary">Define la dirección del servidor</string>
+	<string name="GlobalService">Autenticación</string>
+	<string name="GlobalServiceSummary">Configura contraseñas, llaves públicas ...</string>
+	<string name="GlobalCatAdvanced">Configuración Advanzada</string>
+	<string name="GlobalAdvanced">Configuración avanzada</string>
+	<string name="GlobalAdvancedSummary">Configura daemon settings, dirección de binarios ...</string>
+
+	<!-- Inventory Preferences -->
+
+	<string name="InventoryCat">Inventario</string>
+	<string name="InventoryAuto">Inventario automatico</string>
+	<string name="InventoryAutoSummaryOn">Click para desactivar el inventario automatico</string>
+	<string name="InventoryAutoSummaryOff">Click para activar el inventario automatico</string>
+	<string name="InventoryFrequency">Frecuencia</string>
+	<string name="InventoryFrequencyDialog">Cada :</string>
+	<string name="InventoryFrequencySummary">Define la frecuencia</string>
+
 </resources>
