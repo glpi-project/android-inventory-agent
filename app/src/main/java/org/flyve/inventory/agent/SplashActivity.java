@@ -33,6 +33,8 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import org.flyve.inventory.agent.utils.LocalStorage;
+
 public class SplashActivity extends Activity {
 
     private static final int SPLASH_TIME = 3000;
@@ -49,6 +51,18 @@ public class SplashActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
+
+        LocalStorage localStorage = new LocalStorage(SplashActivity.this);
+
+        String crashReport = localStorage.getData("crashReport");
+        if(crashReport==null) {
+            localStorage.setData("crashReport", "true");
+        }
+
+        String anonymousData = localStorage.getData("anonymousData");
+        if(anonymousData==null) {
+            localStorage.setData("anonymousData", "true");
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
