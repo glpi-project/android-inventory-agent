@@ -188,7 +188,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                     inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
                         @Override
                         public void onTaskSuccess(String s) {
-                            ConnectionHTTP.syncWebData("https://n1jolfx3b3pb.runscope.net", s);
+                            ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001061475099/", s);
                         }
 
                         @Override
