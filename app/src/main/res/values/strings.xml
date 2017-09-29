@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<string name="app_name">Inventory Agent</string>
 	<string name="agent_started">Inventory Agent is started</string>
 	<string name="agent_stopped">Inventory Agent is stopped</string>
@@ -38,4 +39,98 @@
 	<string name="login">Login</string>
 	<string name="password">Password</string>
 	<string name="tag">Tag</string>
+
+	<!-- FragmentAccueil Preferences -->
+
+	<string name="AccueilTitle">Inventory Agent Settings</string>
+
+	<!-- Inventory part -->
+
+	<string name="AccueilInventoryTitle">Inventory</string>
+	<string name="AccueilInventorySummaryOn">Click to disable inventory</string>
+	<string name="AccueilInventorySummaryOff">Click to enable inventory</string>
+	<string name="AccueilInventoryRun">Run inventory now</string>
+	<string name="AccueilInventoryRunSummary">Run now</string>
+	<string name="AccueilInventoryParam">Inventory parameters</string>
+	<string name="AccueilInventoryParamSummary">Inventory frequencies</string>
+
+	<!-- Remote view part -->
+
+	<string name="AccueilRemoteTitle">Remote view</string>
+	<string name="AccueilRemoteSummaryOn">Click to disable remote view</string>
+	<string name="AccueilRemoteSummaryOff">Click to enable remote view</string>
+	<string name="AccueilRemoteParam">Parameters remote view</string>
+	<string name="AccueilRemoteParamSummary">Setup remote view settings</string>
+
+	<!-- SSH part -->
+
+	<string name="AccueilSshTitle">Secure Shell</string>
+	<string name="AccueilSshSummaryOn">Click to disable SSH</string>
+	<string name="AccueilSshSummaryOff">Click to enable SSH</string>
+
+	<!-- global part -->
+
+	<string name="AccueilGlobalTitle">Global</string>
+	<string name="AccueilGlobalParam">Global settings</string>
+	<string name="AccueilGlobalParamSummary">Setup certificates, server ...</string>
+
+	<!-- Advanced settings part -->
+
+	<string name="AdvancedCatDebug">Debug tools</string>
+	<string name="AdvancedDaemon">Run daemon as root</string>
+	<string name="AdvancedDaemonSummaryOff">Click to run daemon as user</string>
+	<string name="AdvancedDaemonSummaryOn">Click to run daemon as root</string>
+	<string name="AdvancedNotify">Notify clients connected</string>
+	<string name="AdvancedNotifySummaryOff">Click to enable notifications</string>
+	<string name="AdvancedNotifySummaryOn">Click to disable notifications</string>
+	<string name="AdvancedDebug">Debug messages</string>
+	<string name="AdvancedDebugSummaryOff">Click to enable debug messages</string>
+	<string name="AdvancedDebugSummaryOn">Click to disable debug messages</string>
+	<string name="AdvancedCatBin">Path to binaries</string>
+	<string name="AdvancedSU">Path to SU</string>
+	<string name="AdvancedSUSummary">Define path to SU binarie</string>
+	<string name="AdvancedSH">Path to SH</string>
+	<string name="AdvancedSHSummary">Define path to SH binarie</string>
+
+	<!-- Auth settings part -->
+
+	<string name="AuthCatCertif">Certificate</string>
+	<string name="AuthCertif">User certificate</string>
+	<string name="AuthCertifSummary">Define path to user certificate</string>
+	<string name="AuthCA">CA certificate</string>
+	<string name="AuthCASummary">Define path to CA certificate</string>
+	<string name="AuthCatPass">Passwords and keys</string>
+	<string name="AuthPrivateKey">Private key</string>
+	<string name="AuthPrivateKeySummary">Define path to private key</string>
+	<string name="AuthPrivatePass">Private key password</string>
+	<string name="AuthPrivatePassSummary">Define the private key password</string>
+
+	<!-- Global settings part -->
+
+	<string name="GlobalCat">Global</string>
+	<string name="GlobalBoot">Boot options</string>
+	<string name="GlobalBootSummaryOn">Click to disable automatic boot</string>
+	<string name="GlobalBootSummaryOff">Click to enable automatic boot</string>
+	<string name="GlobalNotif">Notifications</string>
+	<string name="GlobalNotifSummaryOn">Click to disable notifications</string>
+	<string name="GlobalNotifSummaryOff">Click to enable notifications</string>
+	<string name="GlobalCatSet">Server settings</string>
+	<string name="GlobalServer">Server address</string>
+	<string name="GlobalServerSummary">Define server address</string>
+	<string name="GlobalService">Authentication</string>
+	<string name="GlobalServiceSummary">Setup password, public keys ...</string>
+	<string name="GlobalCatAdvanced">Advanced settings</string>
+	<string name="GlobalAdvanced">Advanced Settings</string>
+	<string name="GlobalAdvancedSummary">Setup daemon settings, path to binaries ...</string>
+
+	<!-- Inventory Preferences -->
+
+	<string name="InventoryCat">Inventory</string>
+	<string name="InventoryAuto">Automatic inventory</string>
+	<string name="InventoryAutoSummaryOn">Click to disable automatic inventory</string>
+	<string name="InventoryAutoSummaryOff">Click to enable automatic inventory</string>
+	<string name="InventoryFrequency">Frequency</string>
+	<string name="InventoryFrequencyDialog">Every :</string>
+	<string name="InventoryFrequencySummary">Define frequency</string>
+
 </resources>
