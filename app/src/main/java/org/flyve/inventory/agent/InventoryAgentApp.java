@@ -35,9 +35,9 @@ import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import com.bugsnag.android.Bugsnag;
-
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.LocalStorage;
+import org.flyve.inventory.agent.utils.UtilsCrash;
 
 public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
 
@@ -55,9 +55,9 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Bugsnag.init(this);
-        Bugsnag.setEndpoint("https://hooks.thestralbot.com/-1001061475099/");
+        LocalStorage localStorage = new LocalStorage(this);
+        Boolean val = Boolean.getBoolean( localStorage.getData("crashReport") );
+        UtilsCrash.configCrash(this, val);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);

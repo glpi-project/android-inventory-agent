@@ -39,12 +39,16 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.utils.ConnectionHTTP;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;
+import org.flyve.inventory.agent.utils.LocalStorage;
+import org.flyve.inventory.agent.utils.UtilsCrash;
 
 public class FragmentAccueil extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
@@ -140,11 +144,60 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
 
         });
 
+        Preference crashReport = findPreference("crashReport");
+        crashReport.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            public boolean onPreferenceChange(Preference arg0, Object arg1) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                Boolean val = sharedPreferences.getBoolean("crashReport",false);
+                UtilsCrash.configCrash(FragmentAccueil.this.getActivity(), val);
+
+                LocalStorage localStorage = new LocalStorage(FragmentAccueil.this.getActivity());
+                localStorage.setData("crashReport", String.valueOf(val));
+
+                FlyveLog.d("crashReport: " + val);
+                return true;
+            }
+        });
+
+        Preference anonymousData = findPreference("anonymousData");
+        anonymousData.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            public boolean onPreferenceChange(Preference arg0, Object arg1) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                Boolean val = sharedPreferences.getBoolean("anonymousData",false);
+
+                LocalStorage localStorage = new LocalStorage(FragmentAccueil.this.getActivity());
+                localStorage.setData("anonymousData", String.valueOf(val));
+
+                FlyveLog.d("anonymousData: " + val);
+                return true;
+            }
+        });
+
+
+
         // After the Inventory is run, it is sent
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), "");
+
+                // Sending anonymous information
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());
+                Boolean val = sharedPreferences.getBoolean("anonymousData",false);
+                if(val) {
+                    inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
+                        @Override
+                        public void onTaskSuccess(String s) {
+                            ConnectionHTTP.syncWebData("https://n1jolfx3b3pb.runscope.net", s);
+                        }
+
+                        @Override
+                        public void onTaskError(Throwable throwable) {
+                            FlyveLog.e(throwable.getMessage());
+                        }
+                    });
+                }
+
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
