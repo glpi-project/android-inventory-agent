@@ -39,6 +39,17 @@
 	<string name="login">Login</string>
 	<string name="password">Password</string>
 	<string name="tag">Tag</string>
+	<string name="week">Week</string>
+	<string-array name="Time">
+		<item>day</item>
+		<item>week</item>
+		<item>month</item>
+	</string-array>
+	<string-array name="TimeValue">
+		<item>Day</item>
+		<item>Week</item>
+		<item>Month</item>
+	</string-array>
 
 	<!--Privacy-->
 

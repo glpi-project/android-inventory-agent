@@ -40,7 +40,7 @@
             android:dependency="autoStartInventory"
             android:entries="@array/Time"
             android:entryValues="@array/TimeValue"
-            android:defaultValue="Week"
+            android:defaultValue="@string/week"
             android:summary="@string/InventoryFrequencySummary"
             />
 
