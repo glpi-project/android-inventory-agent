@@ -26,9 +26,7 @@
 package org.flyve.inventory.agent.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.http.Header;
@@ -55,6 +53,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.flyve.inventory.agent.AboutActivity;
 import org.flyve.inventory.agent.InventoryAgentApp;
 import org.flyve.inventory.agent.R;
 
@@ -127,8 +126,12 @@ public class HttpInventory {
         HttpProtocolParams.setUseExpectContinue(params, true);
 
         //Send InventoryAgent specific user agent
-        //TODO get App version from manifest or somewhere else
-        HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_v1.0");
+        EnvironmentInfo enviromentInfo = new EnvironmentInfo(appContext);
+        String version = "v0.0.0";
+        if(enviromentInfo.getIsLoaded()) {
+            version = "v" + enviromentInfo.getVersion();
+        }
+        HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_" + version);
 
         ClientConnectionManager clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
         HttpContext context = new BasicHttpContext();
