@@ -71,7 +71,7 @@ import java.net.URL;
 
 public class HttpInventory {
 
-    private Context context;
+    private Context appContext;
     private InventoryAgentApp mFusionApp;
 
     /**
@@ -79,7 +79,7 @@ public class HttpInventory {
      * @param Context the context of the class
      */
 <span class="fc" id="L78">    public HttpInventory(Context context) {</span>
-<span class="fc" id="L79">        this.context = context;</span>
+<span class="fc" id="L79">        this.appContext = context;</span>
 <span class="fc" id="L80">        mFusionApp = (InventoryAgentApp) context.getApplicationContext();</span>
 <span class="fc" id="L81">    }</span>
 
@@ -96,7 +96,7 @@ public class HttpInventory {
 
 <span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (lastXMLResult == null) {</span>
 <span class="nc" id="L95">            FlyveLog.log(this, &quot;No XML Inventory &quot;, Log.ERROR);</span>
-<span class="nc" id="L96">            callback.onTaskError(context.getResources().getString(R.string.error_inventory));</span>
+<span class="nc" id="L96">            callback.onTaskError(appContext.getResources().getString(R.string.error_inventory));</span>
 <span class="nc" id="L97">            return false;</span>
         }
 
@@ -106,14 +106,14 @@ public class HttpInventory {
 <span class="fc" id="L103">            url = new URL(mFusionApp.getUrl());</span>
 <span class="fc" id="L104">            FlyveLog.d(url.toString());</span>
 <span class="nc" id="L105">        } catch (MalformedURLException e) {</span>
-<span class="nc" id="L106">            FlyveLog.log(this, &quot;Inventory server url is malformed &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
-<span class="nc" id="L107">            callback.onTaskError(&quot;Inventory server url is malformed&quot;);</span>
+<span class="nc" id="L106">            FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L107">            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_malformed));</span>
 <span class="nc" id="L108">            return false;</span>
 <span class="fc" id="L109">        }</span>
 
 <span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (url == null) {</span>
-<span class="nc" id="L112">            FlyveLog.log(this, &quot;No URL found &quot;, Log.ERROR);</span>
-<span class="nc" id="L113">            callback.onTaskError(&quot;Server adress not found&quot;);</span>
+<span class="nc" id="L112">            FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_not_found), Log.ERROR);</span>
+<span class="nc" id="L113">            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
 <span class="nc" id="L114">            return false;</span>
         }
 
@@ -170,24 +170,24 @@ public class HttpInventory {
         try {
 <span class="fc" id="L168">            response = httpclient.execute(post, context);</span>
 <span class="nc" id="L169">        } catch (ClientProtocolException e) {</span>
-<span class="nc" id="L170">            FlyveLog.log(this, &quot;Protocol Exception Error : &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
-<span class="nc" id="L171">            callback.onTaskError(&quot;Protocol exception error&quot;);</span>
+<span class="nc" id="L170">            FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L171">            callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));</span>
 <span class="nc" id="L172">            FlyveLog.e(e.getMessage());</span>
 <span class="nc" id="L173">            return false;</span>
 <span class="nc" id="L174">        } catch (IOException e) {</span>
 <span class="nc" id="L175">            FlyveLog.log(this, &quot;IO error : &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
 <span class="nc" id="L176">            FlyveLog.log(this, &quot;IO error : &quot; + url.toExternalForm(), Log.ERROR);</span>
-<span class="nc" id="L177">            callback.onTaskError(&quot;Server doesn't reply&quot;);</span>
+<span class="nc" id="L177">            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
 <span class="nc" id="L178">            FlyveLog.e(e.getMessage());</span>
 <span class="nc" id="L179">            return false;</span>
 <span class="nc" id="L180">        } catch (Exception e) {</span>
-<span class="nc" id="L181">            callback.onTaskError(&quot;Unknow exception&quot;);</span>
+<span class="nc" id="L181">            callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
 <span class="nc" id="L182">            FlyveLog.e(e.getLocalizedMessage());</span>
 <span class="nc" id="L183">            return false;</span>
 <span class="fc" id="L184">        }</span>
 <span class="pc bpc" id="L185" title="1 of 2 branches missed.">        if (response == null) {</span>
 <span class="nc" id="L186">            FlyveLog.log(this, &quot;No HTTP response &quot;, Log.ERROR);</span>
-<span class="nc" id="L187">            callback.onTaskError(&quot;Server doesn't reply&quot;);</span>
+<span class="nc" id="L187">            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
 <span class="nc" id="L188">            return false;</span>
         }
 <span class="fc" id="L190">        Header[] headers = response.getAllHeaders();</span>
@@ -211,7 +211,7 @@ public class HttpInventory {
 <span class="fc" id="L208">            return true;</span>
 <span class="nc" id="L209">        } catch (Exception e) {</span>
 <span class="nc" id="L210">            FlyveLog.e(e.getMessage());</span>
-<span class="nc" id="L211">            callback.onTaskSuccess(&quot;Inventory sent fail&quot;);</span>
+<span class="nc" id="L211">            callback.onTaskSuccess(appContext.getResources().getString(R.string.error_send_fail));</span>
         }
 
 <span class="nc" id="L214">        return false;</span>
