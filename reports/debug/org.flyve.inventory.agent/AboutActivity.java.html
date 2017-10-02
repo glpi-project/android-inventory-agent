@@ -38,12 +38,13 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import org.flyve.inventory.agent.utils.EnvironmentInfo;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
 import java.io.InputStream;
 import java.util.Properties;
 
-<span class="fc" id="L43">public class AboutActivity extends AppCompatActivity {</span>
+<span class="fc" id="L44">public class AboutActivity extends AppCompatActivity {</span>
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -51,50 +52,40 @@ import java.util.Properties;
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<span class="fc" id="L51">        super.onCreate(savedInstanceState);</span>
+<span class="fc" id="L52">        super.onCreate(savedInstanceState);</span>
 
-<span class="fc" id="L53">        setContentView(R.layout.activity_about);</span>
+<span class="fc" id="L54">        setContentView(R.layout.activity_about);</span>
 
-<span class="fc" id="L55">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
-<span class="fc" id="L56">        toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
+<span class="fc" id="L56">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
+<span class="fc" id="L57">        toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
 
-<span class="fc" id="L58">        setSupportActionBar(toolbar);</span>
-<span class="fc" id="L59">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
-<span class="fc" id="L60">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+<span class="fc" id="L59">        setSupportActionBar(toolbar);</span>
+<span class="fc" id="L60">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L61">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
             @Override
             public void onClick(View v) {
-<span class="nc" id="L63">                onBackPressed();</span>
-<span class="nc" id="L64">            }</span>
+<span class="nc" id="L64">                onBackPressed();</span>
+<span class="nc" id="L65">            }</span>
         });
 
-<span class="fc" id="L67">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
+<span class="fc" id="L68">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
 
-        try {
-<span class="fc" id="L70">            Properties properties = new Properties();</span>
-<span class="fc" id="L71">            AssetManager assetManager = getAssets();</span>
-<span class="fc" id="L72">            InputStream inputStream = assetManager.open(&quot;about.properties&quot;);</span>
-<span class="fc" id="L73">            properties.load(inputStream);</span>
-<span class="fc" id="L74">            String version = properties.getProperty(&quot;about.version&quot;);</span>
-<span class="fc" id="L75">            String build = properties.getProperty(&quot;about.build&quot;);</span>
-<span class="fc" id="L76">            String date = properties.getProperty(&quot;about.date&quot;);</span>
-<span class="fc" id="L77">            String commit = properties.getProperty(&quot;about.commit&quot;);</span>
-<span class="fc" id="L78">            String commitFull = properties.getProperty(&quot;about.commitFull&quot;);</span>
-<span class="fc" id="L79">            String github = properties.getProperty(&quot;about.github&quot;);</span>
+<span class="fc" id="L70">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);</span>
 
-<span class="fc" id="L81">            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit, commitFull, github)));</span>
-<span class="fc" id="L82">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
-<span class="nc" id="L83">        } catch (Exception ex) {</span>
-<span class="nc" id="L84">            FlyveLog.e(ex.getMessage());</span>
-<span class="fc" id="L85">        }</span>
-<span class="fc" id="L86">    }</span>
-
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if(enviromentInfo.getIsLoaded()) {</span>
+<span class="fc" id="L73">            txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));</span>
+<span class="fc" id="L74">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
+        } else {
+<span class="nc" id="L76">            txtAbout.setVisibility(View.GONE);</span>
+        }
+<span class="fc" id="L78">    }</span>
 
     private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {
-<span class="fc" id="L90">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
-<span class="fc" id="L91">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='&quot;+github+&quot;/commit/&quot;+commitFull+&quot;'&gt;&quot;+ commit +&quot;.&lt;br /&gt;&quot;;</span>
-<span class="fc" id="L92">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
+<span class="fc" id="L81">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L82">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='&quot;+github+&quot;/commit/&quot;+commitFull+&quot;'&gt;&quot;+ commit +&quot;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L83">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
 
-<span class="fc" id="L94">        return str;</span>
+<span class="fc" id="L85">        return str;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>

@@ -183,87 +183,93 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
             public boolean onPreferenceClick(Preference preference) {
 <span class="nc" id="L181">                final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), &quot;&quot;);</span>
 
+<span class="nc" id="L183">                ((MainActivity)FragmentAccueil.this.getActivity()).loading(true);</span>
+
                 // Sending anonymous information
-<span class="nc" id="L184">                inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {</span>
+<span class="nc" id="L186">                inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {</span>
                     @Override
                     public void onTaskSuccess(String data) {
-<span class="nc" id="L187">                        FlyveLog.d(data);</span>
-<span class="nc" id="L188">                        HttpInventory httpInventory = new HttpInventory(FragmentAccueil.this.getActivity());</span>
-<span class="nc" id="L189">                        httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {</span>
+<span class="nc" id="L189">                        FlyveLog.d(data);</span>
+<span class="nc" id="L190">                        HttpInventory httpInventory = new HttpInventory(FragmentAccueil.this.getActivity());</span>
+<span class="nc" id="L191">                        httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {</span>
                             @Override
                             public void onTaskSuccess(String data) {
-<span class="nc" id="L192">                                Helpers.snackClose(FragmentAccueil.this.getActivity(), data, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), false);</span>
-<span class="nc" id="L193">                                sendAnonymousData(inventoryTask);</span>
-<span class="nc" id="L194">                            }</span>
+<span class="nc" id="L194">                                ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);</span>
+<span class="nc" id="L195">                                Helpers.snackClose(FragmentAccueil.this.getActivity(), data, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), false);</span>
+<span class="nc" id="L196">                                sendAnonymousData(inventoryTask);</span>
+<span class="nc" id="L197">                            }</span>
 
                             @Override
                             public void onTaskError(String error) {
-<span class="nc" id="L198">                                Helpers.snackClose(FragmentAccueil.this.getActivity(), error, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);</span>
-<span class="nc" id="L199">                            }</span>
+<span class="nc" id="L201">                                ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);</span>
+<span class="nc" id="L202">                                Helpers.snackClose(FragmentAccueil.this.getActivity(), error, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);</span>
+
+<span class="nc" id="L204">                            }</span>
                         });
-<span class="nc" id="L201">                    }</span>
+<span class="nc" id="L206">                    }</span>
 
                     @Override
                     public void onTaskError(Throwable error) {
-<span class="nc" id="L205">                        FlyveLog.e(error.getMessage());</span>
-<span class="nc" id="L206">                        Helpers.snackClose(FragmentAccueil.this.getActivity(), error.getMessage(), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);</span>
-<span class="nc" id="L207">                    }</span>
+<span class="nc" id="L210">                        FlyveLog.e(error.getMessage());</span>
+<span class="nc" id="L211">                        ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);</span>
+<span class="nc" id="L212">                        Helpers.snackClose(FragmentAccueil.this.getActivity(), error.getMessage(), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);</span>
+<span class="nc" id="L213">                    }</span>
                 });
 
-<span class="nc" id="L210">                return true;</span>
+<span class="nc" id="L216">                return true;</span>
             }
 
         });
 
         // Open about screen
-<span class="nc" id="L216">        Preference about = findPreference(&quot;About&quot;);</span>
-<span class="nc" id="L217">        about.setOnPreferenceClickListener(new OnPreferenceClickListener() {</span>
+<span class="nc" id="L222">        Preference about = findPreference(&quot;About&quot;);</span>
+<span class="nc" id="L223">        about.setOnPreferenceClickListener(new OnPreferenceClickListener() {</span>
             @Override
             public boolean onPreferenceClick(Preference preference) {
-<span class="nc" id="L220">                Intent miIntent = new Intent(FragmentAccueil.this.getActivity(), AboutActivity.class);</span>
-<span class="nc" id="L221">                FragmentAccueil.this.getActivity().startActivity(miIntent);</span>
+<span class="nc" id="L226">                Intent miIntent = new Intent(FragmentAccueil.this.getActivity(), AboutActivity.class);</span>
+<span class="nc" id="L227">                FragmentAccueil.this.getActivity().startActivity(miIntent);</span>
 
-<span class="nc" id="L223">                return true;</span>
+<span class="nc" id="L229">                return true;</span>
             }
         });
 
         // link to Help Center
-<span class="nc" id="L228">        Preference helpCenter = findPreference(&quot;HelpCenter&quot;);</span>
-<span class="nc" id="L229">        helpCenter.setOnPreferenceClickListener(new OnPreferenceClickListener() {</span>
+<span class="nc" id="L234">        Preference helpCenter = findPreference(&quot;HelpCenter&quot;);</span>
+<span class="nc" id="L235">        helpCenter.setOnPreferenceClickListener(new OnPreferenceClickListener() {</span>
             @Override
             public boolean onPreferenceClick(Preference preference) {
-<span class="nc" id="L232">                String url = &quot;http://flyve.org/flyve-mdm-android-inventory-agent/&quot;;</span>
-<span class="nc" id="L233">                openURL( FragmentAccueil.this.getActivity(), url );</span>
-<span class="nc" id="L234">                return true;</span>
+<span class="nc" id="L238">                String url = &quot;http://flyve.org/flyve-mdm-android-inventory-agent/&quot;;</span>
+<span class="nc" id="L239">                openURL( FragmentAccueil.this.getActivity(), url );</span>
+<span class="nc" id="L240">                return true;</span>
             }
         });
 
         //TODO waiting for help center to make it visible
-<span class="nc" id="L239">        PreferenceScreen preferenceScreen = getPreferenceScreen();</span>
-<span class="nc" id="L240">        preferenceScreen.removePreference(helpCenter);</span>
-<span class="nc" id="L241">    }</span>
+<span class="nc" id="L245">        PreferenceScreen preferenceScreen = getPreferenceScreen();</span>
+<span class="nc" id="L246">        preferenceScreen.removePreference(helpCenter);</span>
+<span class="nc" id="L247">    }</span>
 
     private void sendAnonymousData(InventoryTask inventoryTask) {
         // Sending anonymous information
-<span class="nc" id="L245">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());</span>
-<span class="nc" id="L246">        Boolean val = sharedPreferences.getBoolean(&quot;anonymousData&quot;,false);</span>
-<span class="nc bnc" id="L247" title="All 2 branches missed.">        if(val) {</span>
-<span class="nc" id="L248">            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
+<span class="nc" id="L251">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());</span>
+<span class="nc" id="L252">        Boolean val = sharedPreferences.getBoolean(&quot;anonymousData&quot;,false);</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">        if(val) {</span>
+<span class="nc" id="L254">            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
                 @Override
                 public void onTaskSuccess(String s) {
-<span class="nc" id="L251">                    FlyveLog.d(s);</span>
-<span class="nc" id="L252">                    ConnectionHTTP.syncWebData(&quot;https://inventory.chollima.pro/-1001061475099/&quot;, s);</span>
-<span class="nc" id="L253">                }</span>
+<span class="nc" id="L257">                    FlyveLog.d(s);</span>
+<span class="nc" id="L258">                    ConnectionHTTP.syncWebData(&quot;https://inventory.chollima.pro/-1001061475099/&quot;, s);</span>
+<span class="nc" id="L259">                }</span>
 
                 @Override
                 public void onTaskError(Throwable throwable) {
-<span class="nc" id="L257">                    FlyveLog.e(throwable.getMessage());</span>
-<span class="nc" id="L258">                }</span>
+<span class="nc" id="L263">                    FlyveLog.e(throwable.getMessage());</span>
+<span class="nc" id="L264">                }</span>
             });
         }
 
 
-<span class="nc" id="L263">    }</span>
+<span class="nc" id="L269">    }</span>
 
     /**
      * Open url on browser
@@ -271,9 +277,9 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @param url String the url to display
      */
     public static void openURL(Context context, String url) {
-<span class="nc" id="L271">        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));</span>
-<span class="nc" id="L272">        context.startActivity(browserIntent);</span>
-<span class="nc" id="L273">    }</span>
+<span class="nc" id="L277">        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));</span>
+<span class="nc" id="L278">        context.startActivity(browserIntent);</span>
+<span class="nc" id="L279">    }</span>
 
     /**
      * Called when a shared preference is changed, added, or removed
@@ -281,15 +287,15 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @param string the key of the preference that was changed, added or removed
      */
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-<span class="nc" id="L281">        Preference pref = findPreference(key);</span>
-<span class="nc bnc" id="L282" title="All 2 branches missed.">        if (pref instanceof EditTextPreference) {</span>
-<span class="nc" id="L283">            EditTextPreference editextp = (EditTextPreference) pref;</span>
-<span class="nc" id="L284">            pref.setSummary(editextp.getText());</span>
+<span class="nc" id="L287">        Preference pref = findPreference(key);</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">        if (pref instanceof EditTextPreference) {</span>
+<span class="nc" id="L289">            EditTextPreference editextp = (EditTextPreference) pref;</span>
+<span class="nc" id="L290">            pref.setSummary(editextp.getText());</span>
         }
-<span class="nc bnc" id="L286" title="All 2 branches missed.">        if (pref instanceof ListPreference) {</span>
-<span class="nc" id="L287">            ListPreference listp = (ListPreference) pref;</span>
-<span class="nc" id="L288">            pref.setSummary(listp.getValue());</span>
+<span class="nc bnc" id="L292" title="All 2 branches missed.">        if (pref instanceof ListPreference) {</span>
+<span class="nc" id="L293">            ListPreference listp = (ListPreference) pref;</span>
+<span class="nc" id="L294">            pref.setSummary(listp.getValue());</span>
         }
-<span class="nc" id="L290">    }</span>
+<span class="nc" id="L296">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>
