@@ -182,23 +182,6 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
             public boolean onPreferenceClick(Preference preference) {
                 InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), "");
 
-                // Sending anonymous information
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());
-                Boolean val = sharedPreferences.getBoolean("anonymousData",false);
-                if(val) {
-                    inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
-                        @Override
-                        public void onTaskSuccess(String s) {
-                            ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001061475099/", s);
-                        }
-
-                        @Override
-                        public void onTaskError(Throwable throwable) {
-                            FlyveLog.e(throwable.getMessage());
-                        }
-                    });
-                }
-
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
@@ -219,9 +202,27 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
 
                     @Override
                     public void onTaskError(Throwable error) {
-                        Helpers.snackClose(FragmentAccueil.this.getActivity(), FragmentAccueil.this.getActivity().getResources().getString(R.string.error_send_fail), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
+                        FlyveLog.e(error.getMessage());
+                        Helpers.snackClose(FragmentAccueil.this.getActivity(), error.getMessage(), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
                     }
                 });
+
+                // Sending anonymous information
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());
+                Boolean val = sharedPreferences.getBoolean("anonymousData",false);
+                if(val) {
+                    inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
+                        @Override
+                        public void onTaskSuccess(String s) {
+                            ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001061475099/", s);
+                        }
+
+                        @Override
+                        public void onTaskError(Throwable throwable) {
+                            FlyveLog.e(throwable.getMessage());
+                        }
+                    });
+                }
 
                 return true;
             }
