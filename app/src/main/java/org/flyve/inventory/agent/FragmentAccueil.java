@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -40,6 +41,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -226,6 +228,43 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
             }
 
         });
+
+        // Open about screen
+        Preference about = findPreference("About");
+        about.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent miIntent = new Intent(FragmentAccueil.this.getActivity(), AboutActivity.class);
+                FragmentAccueil.this.getActivity().startActivity(miIntent);
+
+                return true;
+            }
+        });
+
+        // link to Help Center
+        Preference helpCenter = findPreference("HelpCenter");
+        helpCenter.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                String url = "http://flyve.org/flyve-mdm-android-inventory-agent/";
+                openURL( FragmentAccueil.this.getActivity(), url );
+                return true;
+            }
+        });
+
+        //TODO waiting for help center to make it visible
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        preferenceScreen.removePreference(helpCenter);
+    }
+
+    /**
+     * Open url on browser
+     * @param context Context where is working
+     * @param url String the url to display
+     */
+    public static void openURL(Context context, String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        context.startActivity(browserIntent);
     }
 
     /**

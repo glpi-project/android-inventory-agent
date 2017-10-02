@@ -52,6 +52,16 @@
 		<item>Month</item>
 	</string-array>
 
+	<!--About-->
+
+	<string name="AboutTitle">About</string>
+	<string name="AboutSummary">License and build information</string>
+
+	<!--Help Center-->
+
+	<string name="HelpTitle">Help</string>
+	<string name="HelpSummary">Articles of the help center</string>
+
 	<!--Privacy-->
 
 	<string name="AccueilPrivacyTitle">Privacy</string>

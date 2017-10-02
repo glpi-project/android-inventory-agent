@@ -131,4 +131,17 @@
 
     </PreferenceScreen>
 
+    <Preference
+        android:title="@string/AboutTitle"
+        android:summary="@string/AboutSummary"
+        android:key="About"
+        />
+
+    <Preference
+        android:title="@string/HelpTitle"
+        android:summary="@string/HelpSummary"
+        android:key="HelpCenter"
+
+        />
+
 </PreferenceScreen>
