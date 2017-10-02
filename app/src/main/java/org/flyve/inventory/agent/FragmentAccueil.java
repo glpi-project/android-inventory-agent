@@ -174,13 +174,11 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
             }
         });
 
-
-
         // After the Inventory is run, it is sent
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), "");
+                final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), "", true);
 
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
@@ -191,6 +189,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                             @Override
                             public void onTaskSuccess(String data) {
                                 Helpers.snackClose(FragmentAccueil.this.getActivity(), data, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), false);
+                                sendAnonymousData(inventoryTask);
                             }
 
                             @Override
@@ -206,23 +205,6 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                         Helpers.snackClose(FragmentAccueil.this.getActivity(), error.getMessage(), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
                     }
                 });
-
-                // Sending anonymous information
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());
-                Boolean val = sharedPreferences.getBoolean("anonymousData",false);
-                if(val) {
-                    inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
-                        @Override
-                        public void onTaskSuccess(String s) {
-                            ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001061475099/", s);
-                        }
-
-                        @Override
-                        public void onTaskError(Throwable throwable) {
-                            FlyveLog.e(throwable.getMessage());
-                        }
-                    });
-                }
 
                 return true;
             }
@@ -255,6 +237,28 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         //TODO waiting for help center to make it visible
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.removePreference(helpCenter);
+    }
+
+    private void sendAnonymousData(InventoryTask inventoryTask) {
+        // Sending anonymous information
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());
+        Boolean val = sharedPreferences.getBoolean("anonymousData",false);
+        if(val) {
+            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
+                @Override
+                public void onTaskSuccess(String s) {
+                    FlyveLog.d(s);
+                    ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001061475099/", s);
+                }
+
+                @Override
+                public void onTaskError(Throwable throwable) {
+                    FlyveLog.e(throwable.getMessage());
+                }
+            });
+        }
+
+
     }
 
     /**
