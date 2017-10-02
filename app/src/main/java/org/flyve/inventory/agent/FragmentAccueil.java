@@ -43,11 +43,10 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
-import android.widget.Toast;
-
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.ConnectionHTTP;
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
 import org.flyve.inventory.agent.utils.LocalStorage;
 import org.flyve.inventory.agent.utils.UtilsCrash;
@@ -208,19 +207,19 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                         httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
-                                Toast.makeText(FragmentAccueil.this.getActivity(), data, Toast.LENGTH_LONG).show();
+                                Helpers.snackClose(FragmentAccueil.this.getActivity(), data, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), false);
                             }
 
                             @Override
                             public void onTaskError(String error) {
-                                Toast.makeText(FragmentAccueil.this.getActivity(), error, Toast.LENGTH_LONG).show();
+                                Helpers.snackClose(FragmentAccueil.this.getActivity(), error, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
                             }
                         });
                     }
 
                     @Override
                     public void onTaskError(Throwable error) {
-                        Toast.makeText(FragmentAccueil.this.getActivity(), "Inventory fail, please try again", Toast.LENGTH_SHORT).show();
+                        Helpers.snackClose(FragmentAccueil.this.getActivity(), FragmentAccueil.this.getActivity().getResources().getString(R.string.error_send_fail), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
                     }
                 });
 
