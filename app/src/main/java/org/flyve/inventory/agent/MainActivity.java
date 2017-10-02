@@ -1,5 +1,6 @@
 package org.flyve.inventory.agent;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import android.support.v7.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     public static final String FLAG_COMMIT_FRAGMENT = "commitFragment";
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +58,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(FLAG_COMMIT_FRAGMENT, commitFragment);
         return intent;
+    }
+
+    public void loading(Boolean visible) {
+        if(visible) {
+            pd = ProgressDialog.show(MainActivity.this, "", getResources().getString(R.string.loading));
+        } else {
+            pd.dismiss();
+        }
     }
 }
