@@ -26,6 +26,8 @@
 package org.flyve.inventory.agent.utils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -53,7 +55,6 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.flyve.inventory.agent.AboutActivity;
 import org.flyve.inventory.agent.InventoryAgentApp;
 import org.flyve.inventory.agent.R;
 
@@ -69,6 +70,17 @@ public class HttpInventory {
 
     private Context appContext;
     private InventoryAgentApp mFusionApp;
+    private URL url = null;
+
+    private static Handler uiHandler;
+
+    static {
+        uiHandler = new Handler(Looper.getMainLooper());
+    }
+
+    private static void runOnUI(Runnable runnable) {
+        uiHandler.post(runnable);
+    }
 
     /**
      * Constructor of the class, calls the context of the current class
@@ -84,19 +96,12 @@ public class HttpInventory {
      * @param string lastXMLResult the inventory information
      * @return boolean true if succeed, false otherwise
      */
-    public Boolean sendInventory(String lastXMLResult, OnTaskCompleted callback) {
-
-        // Allow work with activity_main thread
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+    public void sendInventory(final String lastXMLResult, final OnTaskCompleted callback) {
 
         if (lastXMLResult == null) {
             FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_inventory));
-            return false;
         }
-
-        URL url = null;
 
         try {
             url = new URL(mFusionApp.getUrl());
@@ -104,117 +109,116 @@ public class HttpInventory {
         } catch (MalformedURLException e) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_malformed));
-            return false;
         }
 
         if (url == null) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_not_found), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
-            return false;
         }
 
-        SchemeRegistry mSchemeRegistry = new SchemeRegistry();
-        mSchemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+        Thread t = new Thread(new Runnable()
+        {
+            public void run()
+            {
 
-        // https scheme
-        mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
+                SchemeRegistry mSchemeRegistry = new SchemeRegistry();
+                mSchemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 
-        HttpParams params = new BasicHttpParams();
+                // https scheme
+                mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
 
-        HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-        HttpProtocolParams.setContentCharset(params, "UTF-8");
-        HttpProtocolParams.setUseExpectContinue(params, true);
+                HttpParams params = new BasicHttpParams();
 
-        //Send InventoryAgent specific user agent
-        EnvironmentInfo enviromentInfo = new EnvironmentInfo(appContext);
-        String version = "v0.0.0";
-        if(enviromentInfo.getIsLoaded()) {
-            version = "v" + enviromentInfo.getVersion();
-        }
-        HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_" + version);
+                HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+                HttpProtocolParams.setContentCharset(params, "UTF-8");
+                HttpProtocolParams.setUseExpectContinue(params, true);
 
-        ClientConnectionManager clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
-        HttpContext context = new BasicHttpContext();
+                //Send InventoryAgent specific user agent
+                EnvironmentInfo enviromentInfo = new EnvironmentInfo(appContext);
+                String version = "v0.0.0";
+                if(enviromentInfo.getIsLoaded()) {
+                    version = "v" + enviromentInfo.getVersion();
+                }
+                HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_" + version);
 
-        // ignore that the ssl cert is self signed
-        String login = mFusionApp.getCredentialsLogin();
-        if (!login.equals("")) {
-            FlyveLog.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
-            CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-            credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
-                    new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(),
-                            mFusionApp.getCredentialsPassword()));
-            context.setAttribute("http.auth.credentials-provider", credentialsProvider);
-        }
+                ClientConnectionManager clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
+                HttpContext context = new BasicHttpContext();
 
-        DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
+                // ignore that the ssl cert is self signed
+                String login = mFusionApp.getCredentialsLogin();
+                if (!login.equals("")) {
+                    FlyveLog.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
+                    CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+                    credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
+                            new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(),
+                                    mFusionApp.getCredentialsPassword()));
+                    context.setAttribute("http.auth.credentials-provider", credentialsProvider);
+                }
 
-        HttpPost post = new HttpPost(url.toExternalForm());
-        httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
+                DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
 
-            @Override
-            public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-            for( Header h : request.getAllHeaders()) {
-                FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
-            }
+                HttpPost post = new HttpPost(url.toExternalForm());
+                httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
+
+                    @Override
+                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                    for( Header h : request.getAllHeaders()) {
+                        FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
+                    }
+                    }
+                });
+
+                try {
+                    post.setEntity(new StringEntity(lastXMLResult));
+                } catch (UnsupportedEncodingException e1) {
+                    FlyveLog.e(e1.getMessage());
+                }
+                HttpResponse response = null;
+                try {
+                    response = httpclient.execute(post, context);
+                } catch (ClientProtocolException e) {
+                    FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));
+                    FlyveLog.e(e.getMessage());
+                } catch (IOException e) {
+                    FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
+                    FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
+                    FlyveLog.e(e.getMessage());
+                } catch (Exception e) {
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
+                    FlyveLog.e(e.getLocalizedMessage());
+                }
+                if (response == null) {
+                    FlyveLog.log(this, "No HTTP response ", Log.ERROR);
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
+                }
+                Header[] headers = response.getAllHeaders();
+                for (Header header : headers) {
+                    FlyveLog.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
+                }
+                try {
+                    InputStream mIS = response.getEntity().getContent();
+                    BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
+                    String line;
+                    StringBuilder sb = new StringBuilder();
+
+                    while ((line = r.readLine()) != null) {
+                        FlyveLog.log(this, line, Log.VERBOSE);
+                        sb.append(line + "\n");
+                    }
+
+                    callback.onTaskSuccess("Inventory sent");
+
+                    FlyveLog.d(sb.toString());
+                } catch (Exception e) {
+                    FlyveLog.e(e.getMessage());
+                    callback.onTaskSuccess(appContext.getResources().getString(R.string.error_send_fail));
+                }
+
             }
         });
-
-        try {
-            post.setEntity(new StringEntity(lastXMLResult));
-        } catch (UnsupportedEncodingException e1) {
-            FlyveLog.e(e1.getMessage());
-            return false;
-        }
-        HttpResponse response = null;
-        try {
-            response = httpclient.execute(post, context);
-        } catch (ClientProtocolException e) {
-            FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);
-            callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));
-            FlyveLog.e(e.getMessage());
-            return false;
-        } catch (IOException e) {
-            FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
-            FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
-            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
-            FlyveLog.e(e.getMessage());
-            return false;
-        } catch (Exception e) {
-            callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
-            FlyveLog.e(e.getLocalizedMessage());
-            return false;
-        }
-        if (response == null) {
-            FlyveLog.log(this, "No HTTP response ", Log.ERROR);
-            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
-            return false;
-        }
-        Header[] headers = response.getAllHeaders();
-        for (Header header : headers) {
-            FlyveLog.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
-        }
-        try {
-            InputStream mIS = response.getEntity().getContent();
-            BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
-            String line;
-            StringBuilder sb = new StringBuilder();
-
-            while ((line = r.readLine()) != null) {
-                FlyveLog.log(this, line, Log.VERBOSE);
-                sb.append(line + "\n");
-            }
-
-            callback.onTaskSuccess("Inventory sent");
-
-            FlyveLog.d(sb.toString());
-            return true;
-        } catch (Exception e) {
-            FlyveLog.e(e.getMessage());
-            callback.onTaskSuccess(appContext.getResources().getString(R.string.error_send_fail));
-        }
-
-        return false;
+        t.start();
     }
 
     /**

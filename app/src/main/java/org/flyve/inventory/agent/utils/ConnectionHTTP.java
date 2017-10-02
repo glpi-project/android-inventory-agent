@@ -52,7 +52,7 @@ public class ConnectionHTTP {
 	private static int timeout = 18000;
 	private static int readtimeout = 6000;
 
-	private static void runOnUI(Runnable runnable) {
+	public static void runOnUI(Runnable runnable) {
 		uiHandler.post(runnable);
 	}
 
