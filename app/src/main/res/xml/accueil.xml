@@ -123,7 +123,7 @@
         <CheckBoxPreference
             android:summary="CheckBox summary"
             android:title="@string/AccueilAnonymousDataTitle"
-            android:summaryOn="@string/AccueilCrashReportSummaryOn"
+            android:summaryOn="@string/AccueilAnonymousDataSummaryOn"
             android:summaryOff="@string/AccueilAnonymousDataSummaryOff"
             android:key="anonymousData"
             android:defaultValue="true"
