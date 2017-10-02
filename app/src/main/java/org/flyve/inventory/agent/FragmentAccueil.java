@@ -180,6 +180,8 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
             public boolean onPreferenceClick(Preference preference) {
                 final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), "");
 
+                ((MainActivity)FragmentAccueil.this.getActivity()).loading(true);
+
                 // Sending anonymous information
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
@@ -189,13 +191,16 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                         httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
+                                ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);
                                 Helpers.snackClose(FragmentAccueil.this.getActivity(), data, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), false);
                                 sendAnonymousData(inventoryTask);
                             }
 
                             @Override
                             public void onTaskError(String error) {
+                                ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);
                                 Helpers.snackClose(FragmentAccueil.this.getActivity(), error, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
+
                             }
                         });
                     }
@@ -203,6 +208,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                     @Override
                     public void onTaskError(Throwable error) {
                         FlyveLog.e(error.getMessage());
+                        ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);
                         Helpers.snackClose(FragmentAccueil.this.getActivity(), error.getMessage(), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
                     }
                 });

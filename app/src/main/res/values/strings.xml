@@ -42,6 +42,7 @@
 	<string name="tagSummary">Custom asset tag</string>
 	<string name="week">Week</string>
 	<string name="snackButton">Done</string>
+	<string name="loading">Processing...</string>
 	<string-array name="Time">
 		<item>day</item>
 		<item>week</item>
