@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 /*
  *   Copyright © 2017 Teclib. All rights reserved.
@@ -53,25 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentAccueil()).commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_about:
-                Intent miIntent = new Intent(MainActivity.this, AboutActivity.class);
-                MainActivity.this.startActivity(miIntent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public static Intent getStartIntent(Context context, boolean commitFragment) {
