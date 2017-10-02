@@ -68,7 +68,7 @@ import java.net.URL;
 
 public class HttpInventory {
 
-    private Context context;
+    private Context appContext;
     private InventoryAgentApp mFusionApp;
 
     /**
@@ -76,7 +76,7 @@ public class HttpInventory {
      * @param Context the context of the class
      */
     public HttpInventory(Context context) {
-        this.context = context;
+        this.appContext = context;
         mFusionApp = (InventoryAgentApp) context.getApplicationContext();
     }
 
@@ -93,7 +93,7 @@ public class HttpInventory {
 
         if (lastXMLResult == null) {
             FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
-            callback.onTaskError(context.getResources().getString(R.string.error_inventory));
+            callback.onTaskError(appContext.getResources().getString(R.string.error_inventory));
             return false;
         }
 
@@ -103,14 +103,14 @@ public class HttpInventory {
             url = new URL(mFusionApp.getUrl());
             FlyveLog.d(url.toString());
         } catch (MalformedURLException e) {
-            FlyveLog.log(this, "Inventory server url is malformed " + e.getLocalizedMessage(), Log.ERROR);
-            callback.onTaskError("Inventory server url is malformed");
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_malformed));
             return false;
         }
 
         if (url == null) {
-            FlyveLog.log(this, "No URL found ", Log.ERROR);
-            callback.onTaskError("Server adress not found");
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_not_found), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
             return false;
         }
 
@@ -167,24 +167,24 @@ public class HttpInventory {
         try {
             response = httpclient.execute(post, context);
         } catch (ClientProtocolException e) {
-            FlyveLog.log(this, "Protocol Exception Error : " + e.getLocalizedMessage(), Log.ERROR);
-            callback.onTaskError("Protocol exception error");
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));
             FlyveLog.e(e.getMessage());
             return false;
         } catch (IOException e) {
             FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
             FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
-            callback.onTaskError("Server doesn't reply");
+            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
             FlyveLog.e(e.getMessage());
             return false;
         } catch (Exception e) {
-            callback.onTaskError("Unknow exception");
+            callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
             FlyveLog.e(e.getLocalizedMessage());
             return false;
         }
         if (response == null) {
             FlyveLog.log(this, "No HTTP response ", Log.ERROR);
-            callback.onTaskError("Server doesn't reply");
+            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
             return false;
         }
         Header[] headers = response.getAllHeaders();
@@ -208,7 +208,7 @@ public class HttpInventory {
             return true;
         } catch (Exception e) {
             FlyveLog.e(e.getMessage());
-            callback.onTaskSuccess("Inventory sent fail");
+            callback.onTaskSuccess(appContext.getResources().getString(R.string.error_send_fail));
         }
 
         return false;
