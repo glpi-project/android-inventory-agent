@@ -35,6 +35,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import org.flyve.inventory.agent.utils.EnvironmentInfo;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
 import java.io.InputStream;
@@ -66,25 +67,15 @@ public class AboutActivity extends AppCompatActivity {
 
         TextView txtAbout = (TextView) findViewById(R.id.txtAbout);
 
-        try {
-            Properties properties = new Properties();
-            AssetManager assetManager = getAssets();
-            InputStream inputStream = assetManager.open("about.properties");
-            properties.load(inputStream);
-            String version = properties.getProperty("about.version");
-            String build = properties.getProperty("about.build");
-            String date = properties.getProperty("about.date");
-            String commit = properties.getProperty("about.commit");
-            String commitFull = properties.getProperty("about.commitFull");
-            String github = properties.getProperty("about.github");
+        EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);
 
-            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit, commitFull, github)));
+        if(enviromentInfo.getIsLoaded()) {
+            txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));
             txtAbout.setMovementMethod(LinkMovementMethod.getInstance());
-        } catch (Exception ex) {
-            FlyveLog.e(ex.getMessage());
+        } else {
+            txtAbout.setVisibility(View.GONE);
         }
     }
-
 
     private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {
         String str = "Inventory Agent, version "+ version +", build "+ build +".<br />";
