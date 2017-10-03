@@ -43,6 +43,7 @@
 	<string name="week">Week</string>
 	<string name="snackButton">Done</string>
 	<string name="loading">Processing...</string>
+	<string name="inventory_sent">Inventory sent</string>
 	<string-array name="Time">
 		<item>day</item>
 		<item>week</item>
@@ -57,7 +58,7 @@
 	<!--Error Message-->
 
 	<string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
-	<string name="error_url_is_not_found">Server address is not found, please check it</string>
+	<string name="error_url_is_not_found">The requested URL is not found, please check it</string>
 	<string name="error_protocol">Protocol exception, please check your url</string>
 	<string name="error_server_not_response">Server doesn\'t reply, please check your url</string>
 	<string name="error_send_fail">Can\'t send the inventory, please check your connection</string>
