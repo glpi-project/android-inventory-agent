@@ -28,21 +28,24 @@ package org.flyve.inventory.agent;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.adapter.InventoryAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class InventoryActivity extends AppCompatActivity {
 
+    private RecyclerView lst;
     /**
      * Called when the activity is starting, inflates the activity's UI
      * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
@@ -51,7 +54,7 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_inventory);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.menu_about));
@@ -65,7 +68,10 @@ public class InventoryActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView lst = (RecyclerView)findViewById(R.id.lst);
+        lst = (RecyclerView)findViewById(R.id.lst);
+
+        GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
+        lst.setLayoutManager(llm);
 
         InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, "");
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
@@ -81,31 +87,63 @@ public class InventoryActivity extends AppCompatActivity {
         });
     }
 
-    private void load(String json) {
+    private void load(String jsonStr) {
 
         ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
 
         try {
-            JSONObject jsonrequest = new JSONObject(json);
-            JSONArray jsonContent = jsonrequest.getJSONArray("content");
-            for(int i=0; i < jsonContent.length(); i++) {
+            JSONObject json = new JSONObject(jsonStr);
+            JSONObject jsonrequest = json.getJSONObject("request");
+            JSONObject jsonContent = jsonrequest.getJSONObject("content");
 
-                HashMap<String, String> c = new HashMap<>();
+                Iterator<?> keys = jsonContent.keys();
 
-                Object obj = jsonContent.get(i);
-                if(obj instanceof JSONArray) {
-                    JSONArray d = jsonContent.getJSONArray(i);
+                while( keys.hasNext() ) {
+                    String key = (String)keys.next();
 
-                    Log.d("","" + d.length());
+                    if ( jsonContent.get(key) instanceof JSONArray ) {
+                        // add header
+                        FlyveLog.d("----------- Header: " + key);
 
+                        HashMap<String, String> h = new HashMap<>();
+                        h.put("type", "header");
+                        h.put("title", key.toUpperCase());
+
+                        data.add(h);
+
+                        if(!key.equals("")) {
+                            JSONArray category = jsonContent.getJSONArray(key);
+                            for (int y = 0; y < category.length(); y++) {
+
+
+                                JSONObject obj = category.getJSONObject(y);
+
+                                Iterator<?> keysObj = obj.keys();
+
+                                while (keysObj.hasNext()) {
+                                    HashMap<String, String> c = new HashMap<>();
+
+                                    String keyObj = (String) keysObj.next();
+                                    c.put("type", "data");
+                                    c.put("title", keyObj);
+                                    c.put("description", obj.getString(keyObj));
+                                    FlyveLog.d(keyObj);
+
+                                    data.add(c);
+                                }
+
+
+                            }
+                        }
+                    }
                 }
-            }
 
+            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);
+            lst.setAdapter(mAdapter);
 
         } catch (Exception ex) {
             FlyveLog.e(ex.getMessage());
         }
-
 
     }
 

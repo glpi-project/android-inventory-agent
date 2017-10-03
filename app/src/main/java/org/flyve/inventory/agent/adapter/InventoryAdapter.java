@@ -2,13 +2,12 @@ package org.flyve.inventory.agent.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import org.flyve.inventory.agent.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,18 +16,9 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private ArrayList<HashMap<String, String>> data;
     private Activity activity;
-    ClickListener clickListener;
 
-    public static final int ITEM_TYPE_DATA = 0;
-    public static final int ITEM_TYPE_HEADER = 1;
-
-    public void setClickListener(ClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
-
-    public interface ClickListener {
-        void ItemClicked(View v, int position);
-    }
+    private static final int ITEM_TYPE_DATA = 0;
+    private static final int ITEM_TYPE_HEADER = 1;
 
     public InventoryAdapter(Activity activity, ArrayList<HashMap<String, String>> data) {
         this.data = data;
@@ -37,12 +27,11 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-//        if((data.get(position)).getType().equals("video")) {
-//            return ITEM_TYPE_HEADER;
-//        } else {
-//            return ITEM_TYPE_DATA;
-//        }
-        return 0;
+        if((data.get(position)).get("type").equals("header")) {
+            return ITEM_TYPE_HEADER;
+        } else {
+            return ITEM_TYPE_DATA;
+        }
     }
 
     @Override
@@ -96,40 +85,24 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
             title = (TextView)itemView.findViewById(R.id.title);
             description = (TextView)itemView.findViewById(R.id.description);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.ItemClicked(v, getAdapterPosition());
-                }
-            });
         }
 
         public void bindData(HashMap<String, String> model) {
-            //titulo.setText( Html.fromHtml( model.getTitle() ));
+            title.setText( Html.fromHtml( model.get("title") ));
+            description.setText( Html.fromHtml( model.get("description") ));
         }
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView title;
-        TextView description;
 
         HeaderViewHolder(View itemView) {
             super(itemView);
             title = (TextView)itemView.findViewById(R.id.title);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.ItemClicked(v, getAdapterPosition());
-                }
-            });
         }
 
         public void bindData(HashMap<String, String> model) {
-            //titulo.setText( Html.fromHtml( model.getTitle() ));
-
-
+            title.setText( Html.fromHtml( model.get("title") ));
         }
     }
 

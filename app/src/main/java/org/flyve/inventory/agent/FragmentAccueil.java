@@ -26,6 +26,7 @@
  */
 package org.flyve.inventory.agent;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -43,6 +44,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.ConnectionHTTP;
 import org.flyve.inventory.agent.utils.FlyveLog;
@@ -216,6 +218,18 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                 return true;
             }
 
+        });
+
+        // Open about screen
+        Preference showInventory = findPreference("showInventory");
+        showInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent miIntent = new Intent(FragmentAccueil.this.getActivity(), InventoryActivity.class);
+                FragmentAccueil.this.getActivity().startActivity(miIntent);
+
+                return true;
+            }
         });
 
         // Open about screen

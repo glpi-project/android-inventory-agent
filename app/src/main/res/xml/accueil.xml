@@ -18,6 +18,12 @@
         android:key="runInventory"
         android:dependency="autoInventory"
         />
+    <Preference
+        android:title="@string/AccueilInventoryShow"
+        android:summary="@string/AccueilInventoryShowSummary"
+        android:key="showInventory"
+        android:dependency="autoInventory"
+        />
     <PreferenceScreen
         android:title="@string/AccueilInventoryParam"
         android:summary="@string/AccueilInventoryParamSummary"
