@@ -14,6 +14,7 @@
         android:layout_margin="10dp"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         />
 
 </RelativeLayout>
