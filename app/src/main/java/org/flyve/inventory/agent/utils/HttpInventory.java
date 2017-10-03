@@ -208,12 +208,20 @@ public class HttpInventory {
                         sb.append(line + "\n");
                     }
 
-                    callback.onTaskSuccess("Inventory sent");
+                    if(sb.toString().toLowerCase().contains("<reply>")) {
+                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));
+                    } else {
+                        if(sb.toString().toLowerCase().contains("404 not found")) {
+                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
+                        } else {
+                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
+                        }
+                    }
 
                     FlyveLog.d(sb.toString());
                 } catch (Exception e) {
                     FlyveLog.e(e.getMessage());
-                    callback.onTaskSuccess(appContext.getResources().getString(R.string.error_send_fail));
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
                 }
 
             }
