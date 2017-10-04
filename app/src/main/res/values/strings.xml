@@ -160,8 +160,8 @@
 	<string name="GlobalBootSummaryOn">Startup from system boot</string>
 	<string name="GlobalBootSummaryOff">Startup from system boot</string>
 	<string name="GlobalNotif">Notifications</string>
-	<string name="GlobalNotifSummaryOn">Disable toast notifications</string>
-	<string name="GlobalNotifSummaryOff">Enable toast notifications</string>
+	<string name="GlobalNotifSummaryOn">Disable notifications</string>
+	<string name="GlobalNotifSummaryOff">Enable notifications</string>
 	<string name="GlobalCatSet">Server settings</string>
 	<string name="GlobalServer">Server address</string>
 	<string name="GlobalServerSummary">Define server address</string>
