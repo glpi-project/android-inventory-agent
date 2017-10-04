@@ -37,6 +37,7 @@ import android.preference.PreferenceManager;
 import org.flyve.inventory.InventoryTask;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
 
 import java.util.Calendar;
@@ -58,6 +59,9 @@ public class TimeAlarm extends BroadcastReceiver {
                 httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
+                        if(!Helpers.isForeground()) {
+                            Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_sent));
+                        }
                         FlyveLog.d(data);
                     }
 
