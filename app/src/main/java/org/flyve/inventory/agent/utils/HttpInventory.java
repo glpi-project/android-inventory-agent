@@ -104,7 +104,7 @@ public class HttpInventory {
         }
 
         try {
-            url = new URL(mFusionApp.getUrl());
+            url = new URL("https://dev.flyve.org/glpi/plugins/fusioninventory/");
             FlyveLog.d(url.toString());
         } catch (MalformedURLException e) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);
