@@ -32,6 +32,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
@@ -46,6 +47,8 @@ import java.util.Iterator;
 public class InventoryActivity extends AppCompatActivity {
 
     private RecyclerView lst;
+    private ProgressBar pb;
+
     /**
      * Called when the activity is starting, inflates the activity's UI
      * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
@@ -68,6 +71,9 @@ public class InventoryActivity extends AppCompatActivity {
             }
         });
 
+        pb = (ProgressBar) findViewById(R.id.pb);
+        pb.setVisibility(View.VISIBLE);
+
         lst = (RecyclerView)findViewById(R.id.lst);
 
         GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
@@ -82,7 +88,8 @@ public class InventoryActivity extends AppCompatActivity {
 
             @Override
             public void onTaskError(Throwable throwable) {
-
+                pb.setVisibility(View.GONE);
+                FlyveLog.e(throwable.getMessage());
             }
         });
     }
@@ -137,11 +144,13 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                     }
                 }
+                pb.setVisibility(View.GONE);
 
             InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);
             lst.setAdapter(mAdapter);
 
         } catch (Exception ex) {
+            pb.setVisibility(View.GONE);
             FlyveLog.e(ex.getMessage());
         }
 
