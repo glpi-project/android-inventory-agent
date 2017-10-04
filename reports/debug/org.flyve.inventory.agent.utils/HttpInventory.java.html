@@ -107,7 +107,7 @@ public class HttpInventory {
         }
 
         try {
-<span class="fc" id="L107">            url = new URL(mFusionApp.getUrl());</span>
+<span class="fc" id="L107">            url = new URL(&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
 <span class="fc" id="L108">            FlyveLog.d(url.toString());</span>
 <span class="nc" id="L109">        } catch (MalformedURLException e) {</span>
 <span class="nc" id="L110">            FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);</span>
@@ -211,18 +211,26 @@ public class HttpInventory {
 <span class="nc" id="L208">                        sb.append(line + &quot;\n&quot;);</span>
                     }
 
-<span class="nc" id="L211">                    callback.onTaskSuccess(&quot;Inventory sent&quot;);</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">                    if(sb.toString().toLowerCase().contains(&quot;&lt;reply&gt;&quot;)) {</span>
+<span class="nc" id="L212">                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));</span>
+                    } else {
+<span class="nc bnc" id="L214" title="All 2 branches missed.">                        if(sb.toString().toLowerCase().contains(&quot;404 not found&quot;)) {</span>
+<span class="nc" id="L215">                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
+                        } else {
+<span class="nc" id="L217">                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
+                        }
+                    }
 
-<span class="nc" id="L213">                    FlyveLog.d(sb.toString());</span>
-<span class="nc" id="L214">                } catch (Exception e) {</span>
-<span class="nc" id="L215">                    FlyveLog.e(e.getMessage());</span>
-<span class="nc" id="L216">                    callback.onTaskSuccess(appContext.getResources().getString(R.string.error_send_fail));</span>
-<span class="nc" id="L217">                }</span>
+<span class="nc" id="L221">                    FlyveLog.d(sb.toString());</span>
+<span class="nc" id="L222">                } catch (Exception e) {</span>
+<span class="nc" id="L223">                    FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L224">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
+<span class="nc" id="L225">                }</span>
 
-<span class="nc" id="L219">            }</span>
+<span class="nc" id="L227">            }</span>
         });
-<span class="fc" id="L221">        t.start();</span>
-<span class="fc" id="L222">    }</span>
+<span class="fc" id="L229">        t.start();</span>
+<span class="fc" id="L230">    }</span>
 
     /**
      * This is the interface of return data
