@@ -107,7 +107,7 @@ public class HttpInventory {
         }
 
         try {
-<span class="fc" id="L107">            url = new URL(&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
+<span class="fc" id="L107">            url = new URL(mFusionApp.getUrl());</span>
 <span class="fc" id="L108">            FlyveLog.d(url.toString());</span>
 <span class="nc" id="L109">        } catch (MalformedURLException e) {</span>
 <span class="nc" id="L110">            FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);</span>
@@ -165,10 +165,10 @@ public class HttpInventory {
 
                     @Override
                     public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-<span class="nc bnc" id="L165" title="All 2 branches missed.">                    for( Header h : request.getAllHeaders()) {</span>
-<span class="nc" id="L166">                        FlyveLog.log(this, &quot;HEADER : &quot;+ h.getName() + &quot;=&quot; + h.getValue(), Log.VERBOSE);</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">                    for( Header h : request.getAllHeaders()) {</span>
+<span class="fc" id="L166">                        FlyveLog.log(this, &quot;HEADER : &quot;+ h.getName() + &quot;=&quot; + h.getValue(), Log.VERBOSE);</span>
                     }
-<span class="nc" id="L168">                    }</span>
+<span class="fc" id="L168">                    }</span>
                 });
 
                 try {

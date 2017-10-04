@@ -105,10 +105,11 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @return string the URL 
      */
     public String getUrl() {
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (mUrl == null) {</span>
-<span class="nc" id="L106">            mUrl = prefs.getString(&quot;url&quot;,&quot;&quot;);</span>
+        // This variable is preset for instrumented test
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (mUrl == null) {</span>
+<span class="fc" id="L107">            mUrl = prefs.getString(&quot;url&quot;,&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
         }
-<span class="nc" id="L108">        return mUrl;</span>
+<span class="fc" id="L109">        return mUrl;</span>
     }
 
     /**
@@ -118,20 +119,20 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-<span class="fc" id="L118">        mUrl = null;</span>
-<span class="fc" id="L119">        mShouldAutoStart = null;</span>
-<span class="fc" id="L120">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
-<span class="fc" id="L121">    }</span>
+<span class="fc" id="L119">        mUrl = null;</span>
+<span class="fc" id="L120">        mShouldAutoStart = null;</span>
+<span class="fc" id="L121">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
+<span class="fc" id="L122">    }</span>
 
     /**
      * Gets the credentials login
      * @return string the login
      */
     public String getCredentialsLogin() {
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
-<span class="fc" id="L129">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
+<span class="fc" id="L130">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
         }
-<span class="fc" id="L131">        return mLogin;</span>
+<span class="fc" id="L132">        return mLogin;</span>
     }
 
     /**
@@ -139,10 +140,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @return string the password
      */
     public String getCredentialsPassword() {
-<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (mPassword == null) {</span>
-<span class="nc" id="L140">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (mPassword == null) {</span>
+<span class="nc" id="L141">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
         }
-<span class="nc" id="L142">        return mPassword;</span>
+<span class="nc" id="L143">        return mPassword;</span>
     }
 
 }
