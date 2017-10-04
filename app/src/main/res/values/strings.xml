@@ -45,6 +45,8 @@
 	<string name="snackButton">Done</string>
 	<string name="loading">Processing...</string>
 	<string name="inventory_sent">Inventory sent</string>
+	<string name="inventory_notification_sent">Inventory scheduled shipped</string>
+	<string name="inventory_notification_fail">Inventory scheduled fail</string>
 	<string-array name="Time">
 		<item>day</item>
 		<item>week</item>

@@ -60,13 +60,16 @@ public class TimeAlarm extends BroadcastReceiver {
                     @Override
                     public void onTaskSuccess(String data) {
                         if(!Helpers.isForeground()) {
-                            Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_sent));
+                            Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_sent));
                         }
                         FlyveLog.d(data);
                     }
 
                     @Override
                     public void onTaskError(String error) {
+                        if(!Helpers.isForeground()) {
+                            Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
+                        }
                         FlyveLog.e(error);
                     }
                 });
