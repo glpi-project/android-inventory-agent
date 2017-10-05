@@ -1,5 +1,6 @@
 ---
-layout: container
+layout: post
+permalink: wiki/how-it-works
 wiki: true
 published: true
 title: How it works
