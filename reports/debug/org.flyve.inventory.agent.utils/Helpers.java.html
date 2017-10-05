@@ -4,10 +4,25 @@ layout: coverage
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>Helpers.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">Helpers.java</span></div><h1>Helpers.java</h1><pre class="source lang-java linenums">package org.flyve.inventory.agent.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
+import org.flyve.inventory.agent.MainActivity;
 import org.flyve.inventory.agent.R;
+
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
 /*
  *   Copyright © 2017 Teclib. All rights reserved.
@@ -40,8 +55,8 @@ public class Helpers {
     /**
      * private constructor
      */
-<span class="nc" id="L40">    private Helpers() {</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L55">    private Helpers() {</span>
+<span class="nc" id="L56">    }</span>
 
     /**
      * Generate a snackbar with the given arguments
@@ -52,19 +67,54 @@ public class Helpers {
      */
     public static void snackClose(Activity activity, String message, String action, Boolean fail) {
 
-<span class="nc" id="L52">        int color = activity.getResources().getColor(R.color.snackbar_action_good);</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        if(fail) {</span>
-<span class="nc" id="L54">            color = activity.getResources().getColor(R.color.snackbar_action_fail);</span>
+<span class="nc" id="L67">        int color = activity.getResources().getColor(R.color.snackbar_action_good);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if(fail) {</span>
+<span class="nc" id="L69">            color = activity.getResources().getColor(R.color.snackbar_action_fail);</span>
         }
 
-<span class="nc" id="L57">        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)</span>
-<span class="nc" id="L58">                .setActionTextColor(color)</span>
-<span class="nc" id="L59">                .setAction(action, new View.OnClickListener() {</span>
+<span class="nc" id="L72">        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)</span>
+<span class="nc" id="L73">                .setActionTextColor(color)</span>
+<span class="nc" id="L74">                .setAction(action, new View.OnClickListener() {</span>
                     @Override
                     public void onClick(View v) {
-<span class="nc" id="L62">                    }</span>
+<span class="nc" id="L77">                    }</span>
                 })
-<span class="nc" id="L64">                .show();</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L79">                .show();</span>
+<span class="nc" id="L80">    }</span>
+
+    public static boolean isForeground() {
+<span class="nc" id="L83">        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();</span>
+<span class="nc" id="L84">        ActivityManager.getMyMemoryState(appProcessInfo);</span>
+<span class="nc bnc" id="L85" title="All 4 branches missed.">        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);</span>
+    }
+
+    public static void sendToNotificationBar(Context context, String message) {
+<span class="nc" id="L89">        Intent resultIntent = new Intent(context, MainActivity.class);</span>
+<span class="nc" id="L90">        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);</span>
+<span class="nc" id="L91">        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);</span>
+
+<span class="nc" id="L93">        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);</span>
+
+<span class="nc" id="L95">        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)</span>
+<span class="nc" id="L96">                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))</span>
+<span class="nc" id="L97">                .setContentTitle(context.getResources().getString(R.string.app_name))</span>
+<span class="nc" id="L98">                .setContentText(message)</span>
+<span class="nc" id="L99">                .setSound(defaultSoundUri)</span>
+<span class="nc" id="L100">                .setAutoCancel(true)</span>
+<span class="nc" id="L101">                .setContentIntent(piResult)</span>
+<span class="nc" id="L102">                .setPriority(Notification.PRIORITY_HIGH);</span>
+
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (android.os.Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span>
+<span class="nc" id="L105">            builder.setSmallIcon(R.drawable.ic_notification_white);</span>
+        } else {
+<span class="nc" id="L107">            builder.setSmallIcon(R.drawable.icon);</span>
+        }
+
+
+<span class="nc" id="L111">        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));</span>
+
+<span class="nc" id="L113">        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);</span>
+<span class="nc" id="L114">        notificationManager.notify(121, builder.build());</span>
+<span class="nc" id="L115">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>
