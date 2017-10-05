@@ -1,6 +1,9 @@
+title: android inventory agent
 email: ml-flyvemdm@teclib.com
+twitter: flyvemdm
 baseurl: "/flyve-mdm-android-inventory-agent"
-url: "http://flyve.org"  
+url: "http://flyve.org"   
+image: http://flyve.org/flyve-mdm-android-inventory-agent/images/logo2.png
 
 # Build settings
 markdown: kramdown
