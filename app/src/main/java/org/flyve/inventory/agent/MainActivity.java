@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String FLAG_COMMIT_FRAGMENT = "commitFragment";
     private ProgressDialog pd;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

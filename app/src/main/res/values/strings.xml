@@ -47,6 +47,7 @@
 	<string name="inventory_sent">Inventory sent</string>
 	<string name="inventory_notification_sent">Inventory scheduled shipped</string>
 	<string name="inventory_notification_fail">Inventory scheduled fail</string>
+	<string name="crashreport_disable">Crash report is disable, please enable to test it</string>
 	<string-array name="Time">
 		<item>day</item>
 		<item>week</item>
@@ -57,7 +58,10 @@
 		<item>Week</item>
 		<item>Month</item>
 	</string-array>
-
+	<plurals name="easter_egg_attempts">
+		<item quantity="one">You have %d Attempt</item>
+		<item quantity="other">You have %d Attempts</item>
+	</plurals>
 	<!--Error Message-->
 
 	<string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
