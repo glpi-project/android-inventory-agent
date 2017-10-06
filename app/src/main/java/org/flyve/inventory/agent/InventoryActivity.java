@@ -26,7 +26,10 @@
  */
 package org.flyve.inventory.agent;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +40,7 @@ import android.widget.ProgressBar;
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.Helpers;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -74,16 +78,26 @@ public class InventoryActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.pb);
         pb.setVisibility(View.VISIBLE);
 
+        FloatingActionButton btnShare = (FloatingActionButton) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogShare();
+            }
+        });
+
         lst = (RecyclerView)findViewById(R.id.lst);
 
         GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
         lst.setLayoutManager(llm);
 
-        InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, "");
+        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, "FlyveMDMInventoryAgent", true);
+
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {
                 load(s);
+                inventoryTask.getXMLSyn();
             }
 
             @Override
@@ -155,7 +169,46 @@ public class InventoryActivity extends AppCompatActivity {
             pb.setVisibility(View.GONE);
             FlyveLog.e(ex.getMessage());
         }
+    }
 
+    public void showDialogShare() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);
+        builder.setTitle(R.string.dialog_share_title);
+
+        final int[] type = new int[1];
+
+        //list of items
+        String[] items = getResources().getStringArray(R.array.export_list);
+        builder.setSingleChoiceItems(items, 0,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        type[0] = which;
+                    }
+                });
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // positive button logic
+                        Helpers.share( InventoryActivity.this, "Inventory Agent File", type[0] );
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
     }
 
 }
