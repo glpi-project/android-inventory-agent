@@ -26,22 +26,25 @@
  */
 package org.flyve.inventory.agent;
 
-import android.content.res.AssetManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bugsnag.android.Bugsnag;
 
 import org.flyve.inventory.agent.utils.EnvironmentInfo;
-import org.flyve.inventory.agent.utils.FlyveLog;
-
-import java.io.InputStream;
-import java.util.Properties;
 
 public class AboutActivity extends AppCompatActivity {
+
+    private int countEasterEgg;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -66,6 +69,27 @@ public class AboutActivity extends AppCompatActivity {
         });
 
         TextView txtAbout = (TextView) findViewById(R.id.txtAbout);
+
+        ImageView imgInventory = (ImageView) findViewById(R.id.imgInventory);
+        imgInventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countEasterEgg++;
+                if (countEasterEgg > 6 && countEasterEgg <= 10) {
+                    Toast.makeText(AboutActivity.this, getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();
+                }
+                if (countEasterEgg == 10) {
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AboutActivity.this);
+                    Boolean val = sharedPreferences.getBoolean("crashReport",false);
+
+                    if(val) {
+                        Bugsnag.notify(new RuntimeException("Easter Egg Fail on" + AboutActivity.this.getResources().getString(R.string.app_name)));
+                    } else {
+                        Toast.makeText(AboutActivity.this, getResources().getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
 
         EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);
 

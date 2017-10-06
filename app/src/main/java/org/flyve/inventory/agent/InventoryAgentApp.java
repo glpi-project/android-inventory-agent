@@ -55,8 +55,10 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     @Override
     public void onCreate() {
         super.onCreate();
-        LocalStorage localStorage = new LocalStorage(this);
-        Boolean val = Boolean.getBoolean( localStorage.getData("crashReport") );
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Boolean val = sharedPreferences.getBoolean("crashReport",false);
+
         UtilsCrash.configCrash(this, val);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
