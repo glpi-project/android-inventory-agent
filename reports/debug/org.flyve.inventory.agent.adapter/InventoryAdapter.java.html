@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.utils.Helpers;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,17 +25,17 @@ public class InventoryAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewH
     private static final int ITEM_TYPE_DATA = 0;
     private static final int ITEM_TYPE_HEADER = 1;
 
-<span class="nc" id="L23">    public InventoryAdapter(Activity activity, ArrayList&lt;HashMap&lt;String, String&gt;&gt; data) {</span>
-<span class="nc" id="L24">        this.data = data;</span>
-<span class="nc" id="L25">        this.activity = activity;</span>
-<span class="nc" id="L26">    }</span>
+<span class="nc" id="L25">    public InventoryAdapter(Activity activity, ArrayList&lt;HashMap&lt;String, String&gt;&gt; data) {</span>
+<span class="nc" id="L26">        this.data = data;</span>
+<span class="nc" id="L27">        this.activity = activity;</span>
+<span class="nc" id="L28">    }</span>
 
     @Override
     public int getItemViewType(int position) {
-<span class="nc bnc" id="L30" title="All 2 branches missed.">        if((data.get(position)).get(&quot;type&quot;).equals(&quot;header&quot;)) {</span>
-<span class="nc" id="L31">            return ITEM_TYPE_HEADER;</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if((data.get(position)).get(&quot;type&quot;).equals(&quot;header&quot;)) {</span>
+<span class="nc" id="L33">            return ITEM_TYPE_HEADER;</span>
         } else {
-<span class="nc" id="L33">            return ITEM_TYPE_DATA;</span>
+<span class="nc" id="L35">            return ITEM_TYPE_DATA;</span>
         }
     }
 
@@ -41,72 +43,72 @@ public class InventoryAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         // Vista por defecto
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        if(viewType == ITEM_TYPE_DATA) {</span>
-<span class="nc" id="L42">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory, viewGroup, false);</span>
-<span class="nc" id="L43">            return new DataViewHolder(v);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if(viewType == ITEM_TYPE_DATA) {</span>
+<span class="nc" id="L44">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory, viewGroup, false);</span>
+<span class="nc" id="L45">            return new DataViewHolder(v);</span>
         }
 
         // Vista alternativa
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        else if (viewType == ITEM_TYPE_HEADER) {</span>
-<span class="nc" id="L48">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_header, viewGroup, false);</span>
-<span class="nc" id="L49">            return new HeaderViewHolder(v);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        else if (viewType == ITEM_TYPE_HEADER) {</span>
+<span class="nc" id="L50">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_header, viewGroup, false);</span>
+<span class="nc" id="L51">            return new HeaderViewHolder(v);</span>
         }
 
-<span class="nc" id="L52">        return null;</span>
+<span class="nc" id="L54">        return null;</span>
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-<span class="nc" id="L57">        HashMap&lt;String, String&gt; response = data.get(position);</span>
+<span class="nc" id="L59">        HashMap&lt;String, String&gt; response = data.get(position);</span>
 
-<span class="nc" id="L59">        final int itemType = getItemViewType(position);</span>
+<span class="nc" id="L61">        final int itemType = getItemViewType(position);</span>
 
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if(itemType == ITEM_TYPE_DATA) {</span>
-<span class="nc" id="L62">            ((DataViewHolder)holder).bindData( response );</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if(itemType == ITEM_TYPE_DATA) {</span>
+<span class="nc" id="L64">            ((DataViewHolder)holder).bindData( response );</span>
         }
 
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if(itemType == ITEM_TYPE_HEADER) {</span>
-<span class="nc" id="L66">            ((HeaderViewHolder)holder).bindData( response );</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if(itemType == ITEM_TYPE_HEADER) {</span>
+<span class="nc" id="L68">            ((HeaderViewHolder)holder).bindData( response );</span>
         }
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L70">    }</span>
 
     @Override
     public int getItemCount() {
-<span class="nc" id="L72">        return data.size();</span>
+<span class="nc" id="L74">        return data.size();</span>
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-<span class="nc" id="L77">        super.onAttachedToRecyclerView(recyclerView);</span>
-<span class="nc" id="L78">    }</span>
+<span class="nc" id="L79">        super.onAttachedToRecyclerView(recyclerView);</span>
+<span class="nc" id="L80">    }</span>
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView description;
 
-<span class="nc" id="L84">        DataViewHolder(View itemView) {</span>
-<span class="nc" id="L85">            super(itemView);</span>
-<span class="nc" id="L86">            title = (TextView)itemView.findViewById(R.id.title);</span>
-<span class="nc" id="L87">            description = (TextView)itemView.findViewById(R.id.description);</span>
-<span class="nc" id="L88">        }</span>
+<span class="nc" id="L86">        DataViewHolder(View itemView) {</span>
+<span class="nc" id="L87">            super(itemView);</span>
+<span class="nc" id="L88">            title = (TextView)itemView.findViewById(R.id.title);</span>
+<span class="nc" id="L89">            description = (TextView)itemView.findViewById(R.id.description);</span>
+<span class="nc" id="L90">        }</span>
 
         public void bindData(HashMap&lt;String, String&gt; model) {
-<span class="nc" id="L91">            title.setText( Html.fromHtml( model.get(&quot;title&quot;) ));</span>
-<span class="nc" id="L92">            description.setText( Html.fromHtml( model.get(&quot;description&quot;) ));</span>
-<span class="nc" id="L93">        }</span>
+<span class="nc" id="L93">            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get(&quot;title&quot;)).toUpperCase() ));</span>
+<span class="nc" id="L94">            description.setText( Html.fromHtml( model.get(&quot;description&quot;) ));</span>
+<span class="nc" id="L95">        }</span>
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView title;
 
-<span class="nc" id="L99">        HeaderViewHolder(View itemView) {</span>
-<span class="nc" id="L100">            super(itemView);</span>
-<span class="nc" id="L101">            title = (TextView)itemView.findViewById(R.id.title);</span>
-<span class="nc" id="L102">        }</span>
+<span class="nc" id="L101">        HeaderViewHolder(View itemView) {</span>
+<span class="nc" id="L102">            super(itemView);</span>
+<span class="nc" id="L103">            title = (TextView)itemView.findViewById(R.id.title);</span>
+<span class="nc" id="L104">        }</span>
 
         public void bindData(HashMap&lt;String, String&gt; model) {
-<span class="nc" id="L105">            title.setText( Html.fromHtml( model.get(&quot;title&quot;) ));</span>
-<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">            title.setText( Html.fromHtml( model.get(&quot;title&quot;) ));</span>
+<span class="nc" id="L108">        }</span>
     }
 
 

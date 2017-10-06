@@ -58,34 +58,36 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
     @Override
     public void onCreate() {
 <span class="fc" id="L57">        super.onCreate();</span>
-<span class="fc" id="L58">        LocalStorage localStorage = new LocalStorage(this);</span>
-<span class="fc" id="L59">        Boolean val = Boolean.getBoolean( localStorage.getData(&quot;crashReport&quot;) );</span>
-<span class="fc" id="L60">        UtilsCrash.configCrash(this, val);</span>
 
-<span class="fc" id="L62">        prefs = PreferenceManager.getDefaultSharedPreferences(this);</span>
-<span class="fc" id="L63">        prefs.registerOnSharedPreferenceChangeListener(this);</span>
+<span class="fc" id="L59">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span>
+<span class="fc" id="L60">        Boolean val = sharedPreferences.getBoolean(&quot;crashReport&quot;,false);</span>
+
+<span class="fc" id="L62">        UtilsCrash.configCrash(this, val);</span>
+
+<span class="fc" id="L64">        prefs = PreferenceManager.getDefaultSharedPreferences(this);</span>
+<span class="fc" id="L65">        prefs.registerOnSharedPreferenceChangeListener(this);</span>
         
-<span class="fc" id="L65">        String deviceId = prefs.getString(&quot;device_id&quot;, null);</span>
+<span class="fc" id="L67">        String deviceId = prefs.getString(&quot;device_id&quot;, null);</span>
 
-<span class="fc" id="L67">        FlyveLog.log(this, deviceId, Log.VERBOSE);</span>
+<span class="fc" id="L69">        FlyveLog.log(this, deviceId, Log.VERBOSE);</span>
              
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if(deviceId == null) {</span>
-<span class="fc" id="L70">           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);</span>
-<span class="fc" id="L71">           prefs.edit()</span>
-<span class="fc" id="L72">                .putString(&quot;device_id&quot;, String.format(&quot;%s-%s&quot;,mTM.getDeviceId(),DateFormat.format(&quot;yyyy-MM-dd-kk-mm-ss&quot;, System.currentTimeMillis())))</span>
-<span class="fc" id="L73">                .commit();</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if(deviceId == null) {</span>
+<span class="fc" id="L72">           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);</span>
+<span class="fc" id="L73">           prefs.edit()</span>
+<span class="fc" id="L74">                .putString(&quot;device_id&quot;, String.format(&quot;%s-%s&quot;,mTM.getDeviceId(),DateFormat.format(&quot;yyyy-MM-dd-kk-mm-ss&quot;, System.currentTimeMillis())))</span>
+<span class="fc" id="L75">                .commit();</span>
         }
-<span class="fc" id="L75">    }</span>
+<span class="fc" id="L77">    }</span>
 
     /**
      * Gets the ID of the device
      * @return string the device ID
      */
     public String getDeviceID(){
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (mDeviceID == null) {</span>
-<span class="nc" id="L83">            mDeviceID = prefs.getString(&quot;device_id&quot;,&quot;&lt;not set&gt;&quot;);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (mDeviceID == null) {</span>
+<span class="nc" id="L85">            mDeviceID = prefs.getString(&quot;device_id&quot;,&quot;&lt;not set&gt;&quot;);</span>
         }
-<span class="nc" id="L85">        return mDeviceID;</span>
+<span class="nc" id="L87">        return mDeviceID;</span>
     }
     
     /**
@@ -93,10 +95,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @return boolean true if it should, false otherwise
      */
     public Boolean getShouldAutoStart() {
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (mShouldAutoStart == null) {</span>
-<span class="nc" id="L94">            mShouldAutoStart = prefs.getBoolean(&quot;boot&quot;, false);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (mShouldAutoStart == null) {</span>
+<span class="nc" id="L96">            mShouldAutoStart = prefs.getBoolean(&quot;boot&quot;, false);</span>
         }
-<span class="nc" id="L96">        return mShouldAutoStart;</span>
+<span class="nc" id="L98">        return mShouldAutoStart;</span>
 
     }
 
@@ -106,10 +108,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      */
     public String getUrl() {
         // This variable is preset for instrumented test
-<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (mUrl == null) {</span>
-<span class="fc" id="L107">            mUrl = prefs.getString(&quot;url&quot;,&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (mUrl == null) {</span>
+<span class="fc" id="L109">            mUrl = prefs.getString(&quot;url&quot;,&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
         }
-<span class="fc" id="L109">        return mUrl;</span>
+<span class="fc" id="L111">        return mUrl;</span>
     }
 
     /**
@@ -119,20 +121,20 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-<span class="fc" id="L119">        mUrl = null;</span>
-<span class="fc" id="L120">        mShouldAutoStart = null;</span>
-<span class="fc" id="L121">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
-<span class="fc" id="L122">    }</span>
+<span class="fc" id="L121">        mUrl = null;</span>
+<span class="fc" id="L122">        mShouldAutoStart = null;</span>
+<span class="fc" id="L123">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
+<span class="fc" id="L124">    }</span>
 
     /**
      * Gets the credentials login
      * @return string the login
      */
     public String getCredentialsLogin() {
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
-<span class="fc" id="L130">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
+<span class="fc" id="L132">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
         }
-<span class="fc" id="L132">        return mLogin;</span>
+<span class="fc" id="L134">        return mLogin;</span>
     }
 
     /**
@@ -140,10 +142,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @return string the password
      */
     public String getCredentialsPassword() {
-<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (mPassword == null) {</span>
-<span class="nc" id="L141">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (mPassword == null) {</span>
+<span class="nc" id="L143">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
         }
-<span class="nc" id="L143">        return mPassword;</span>
+<span class="nc" id="L145">        return mPassword;</span>
     }
 
 }

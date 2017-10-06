@@ -35,10 +35,10 @@ import com.bugsnag.android.Bugsnag;
  */
 <span class="nc" id="L33">public class UtilsCrash {</span>
 
-    public static void configCrash(Context context, Boolean val) {
+    public static void configCrash(Context context, boolean val) {
 <span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if(val) {</span>
 <span class="nc" id="L37">            Bugsnag.init(context);</span>
-<span class="nc" id="L38">            Bugsnag.setEndpoint(&quot;https://hooks.thestral.pro/-1001061475099/&quot;);</span>
+<span class="nc" id="L38">            Bugsnag.setEndpoint(&quot;https://hooks.thestralbot.com/-1001061475099/&quot;);</span>
 <span class="nc" id="L39">            Bugsnag.setSendThreads(val);</span>
         } else {
 <span class="fc" id="L41">            Bugsnag.init(context);</span>

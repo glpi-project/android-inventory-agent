@@ -20,6 +20,7 @@ import android.view.View;
 
 import org.flyve.inventory.agent.MainActivity;
 import org.flyve.inventory.agent.R;
+import org.json.JSONObject;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
@@ -55,8 +56,8 @@ public class Helpers {
     /**
      * private constructor
      */
-<span class="nc" id="L55">    private Helpers() {</span>
-<span class="nc" id="L56">    }</span>
+<span class="nc" id="L56">    private Helpers() {</span>
+<span class="nc" id="L57">    }</span>
 
     /**
      * Generate a snackbar with the given arguments
@@ -67,54 +68,78 @@ public class Helpers {
      */
     public static void snackClose(Activity activity, String message, String action, Boolean fail) {
 
-<span class="nc" id="L67">        int color = activity.getResources().getColor(R.color.snackbar_action_good);</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if(fail) {</span>
-<span class="nc" id="L69">            color = activity.getResources().getColor(R.color.snackbar_action_fail);</span>
+<span class="nc" id="L68">        int color = activity.getResources().getColor(R.color.snackbar_action_good);</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if(fail) {</span>
+<span class="nc" id="L70">            color = activity.getResources().getColor(R.color.snackbar_action_fail);</span>
         }
 
-<span class="nc" id="L72">        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)</span>
-<span class="nc" id="L73">                .setActionTextColor(color)</span>
-<span class="nc" id="L74">                .setAction(action, new View.OnClickListener() {</span>
+<span class="nc" id="L73">        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)</span>
+<span class="nc" id="L74">                .setActionTextColor(color)</span>
+<span class="nc" id="L75">                .setAction(action, new View.OnClickListener() {</span>
                     @Override
                     public void onClick(View v) {
-<span class="nc" id="L77">                    }</span>
+<span class="nc" id="L78">                    }</span>
                 })
-<span class="nc" id="L79">                .show();</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L80">                .show();</span>
+<span class="nc" id="L81">    }</span>
+
+    public static String splitCamelCase(String s) {
+<span class="nc" id="L84">        return s.replaceAll(</span>
+<span class="nc" id="L85">                String.format(&quot;%s|%s|%s&quot;,</span>
+                        &quot;(?&lt;=[A-Z])(?=[A-Z][a-z])&quot;,
+                        &quot;(?&lt;=[^A-Z])(?=[A-Z])&quot;,
+                        &quot;(?&lt;=[A-Za-z])(?=[^A-Za-z])&quot;
+                ),
+                &quot; &quot;
+        );
+    }
 
     public static boolean isForeground() {
-<span class="nc" id="L83">        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();</span>
-<span class="nc" id="L84">        ActivityManager.getMyMemoryState(appProcessInfo);</span>
-<span class="nc bnc" id="L85" title="All 4 branches missed.">        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);</span>
+<span class="nc" id="L95">        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();</span>
+<span class="nc" id="L96">        ActivityManager.getMyMemoryState(appProcessInfo);</span>
+<span class="nc bnc" id="L97" title="All 4 branches missed.">        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);</span>
     }
 
     public static void sendToNotificationBar(Context context, String message) {
-<span class="nc" id="L89">        Intent resultIntent = new Intent(context, MainActivity.class);</span>
-<span class="nc" id="L90">        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);</span>
-<span class="nc" id="L91">        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);</span>
+<span class="nc" id="L101">        Intent resultIntent = new Intent(context, MainActivity.class);</span>
+<span class="nc" id="L102">        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);</span>
+<span class="nc" id="L103">        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);</span>
 
-<span class="nc" id="L93">        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);</span>
+<span class="nc" id="L105">        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);</span>
 
-<span class="nc" id="L95">        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)</span>
-<span class="nc" id="L96">                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))</span>
-<span class="nc" id="L97">                .setContentTitle(context.getResources().getString(R.string.app_name))</span>
-<span class="nc" id="L98">                .setContentText(message)</span>
-<span class="nc" id="L99">                .setSound(defaultSoundUri)</span>
-<span class="nc" id="L100">                .setAutoCancel(true)</span>
-<span class="nc" id="L101">                .setContentIntent(piResult)</span>
-<span class="nc" id="L102">                .setPriority(Notification.PRIORITY_HIGH);</span>
+<span class="nc" id="L107">        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)</span>
+<span class="nc" id="L108">                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))</span>
+<span class="nc" id="L109">                .setContentTitle(context.getResources().getString(R.string.app_name))</span>
+<span class="nc" id="L110">                .setContentText(message)</span>
+<span class="nc" id="L111">                .setSound(defaultSoundUri)</span>
+<span class="nc" id="L112">                .setAutoCancel(true)</span>
+<span class="nc" id="L113">                .setContentIntent(piResult)</span>
+<span class="nc" id="L114">                .setPriority(Notification.PRIORITY_HIGH);</span>
 
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (android.os.Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span>
-<span class="nc" id="L105">            builder.setSmallIcon(R.drawable.ic_notification_white);</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (android.os.Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span>
+<span class="nc" id="L117">            builder.setSmallIcon(R.drawable.ic_notification_white);</span>
         } else {
-<span class="nc" id="L107">            builder.setSmallIcon(R.drawable.icon);</span>
+<span class="nc" id="L119">            builder.setSmallIcon(R.drawable.icon);</span>
         }
 
 
-<span class="nc" id="L111">        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));</span>
+<span class="nc" id="L123">        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));</span>
 
-<span class="nc" id="L113">        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);</span>
-<span class="nc" id="L114">        notificationManager.notify(121, builder.build());</span>
-<span class="nc" id="L115">    }</span>
+<span class="nc" id="L125">        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);</span>
+<span class="nc" id="L126">        notificationManager.notify(121, builder.build());</span>
+<span class="nc" id="L127">    }</span>
+
+    public static void share(Context context, String message, int type){
+<span class="nc" id="L130">        Intent intent = new Intent(Intent.ACTION_SEND);</span>
+<span class="nc" id="L131">        intent.setType(&quot;text/plain&quot;);</span>
+<span class="nc" id="L132">        intent.putExtra(Intent.EXTRA_TEXT, message);</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if(type==1) {</span>
+<span class="nc" id="L134">            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;file:///sdcard/FlyveMDM/Inventory.json&quot;));</span>
+        } else {
+<span class="nc" id="L136">            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;file:///sdcard/FlyveMDM/Inventory.xml&quot;));</span>
+        }
+<span class="nc" id="L138">        context.startActivity(Intent.createChooser(intent, &quot;Send Email&quot;));</span>
+<span class="nc" id="L139">    }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>

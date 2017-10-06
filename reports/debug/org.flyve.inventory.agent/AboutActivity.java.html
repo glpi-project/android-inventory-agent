@@ -29,22 +29,25 @@ layout: coverage
  */
 package org.flyve.inventory.agent;
 
-import android.content.res.AssetManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bugsnag.android.Bugsnag;
 
 import org.flyve.inventory.agent.utils.EnvironmentInfo;
-import org.flyve.inventory.agent.utils.FlyveLog;
 
-import java.io.InputStream;
-import java.util.Properties;
+<span class="fc" id="L45">public class AboutActivity extends AppCompatActivity {</span>
 
-<span class="fc" id="L44">public class AboutActivity extends AppCompatActivity {</span>
+    private int countEasterEgg;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -52,40 +55,61 @@ import java.util.Properties;
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<span class="fc" id="L52">        super.onCreate(savedInstanceState);</span>
+<span class="fc" id="L55">        super.onCreate(savedInstanceState);</span>
 
-<span class="fc" id="L54">        setContentView(R.layout.activity_about);</span>
+<span class="fc" id="L57">        setContentView(R.layout.activity_about);</span>
 
-<span class="fc" id="L56">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
-<span class="fc" id="L57">        toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
+<span class="fc" id="L59">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
+<span class="fc" id="L60">        toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
 
-<span class="fc" id="L59">        setSupportActionBar(toolbar);</span>
-<span class="fc" id="L60">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
-<span class="fc" id="L61">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+<span class="fc" id="L62">        setSupportActionBar(toolbar);</span>
+<span class="fc" id="L63">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L64">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
             @Override
             public void onClick(View v) {
-<span class="nc" id="L64">                onBackPressed();</span>
-<span class="nc" id="L65">            }</span>
+<span class="nc" id="L67">                onBackPressed();</span>
+<span class="nc" id="L68">            }</span>
         });
 
-<span class="fc" id="L68">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
+<span class="fc" id="L71">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
 
-<span class="fc" id="L70">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);</span>
+<span class="fc" id="L73">        ImageView imgInventory = (ImageView) findViewById(R.id.imgInventory);</span>
+<span class="fc" id="L74">        imgInventory.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L77">                countEasterEgg++;</span>
+<span class="nc bnc" id="L78" title="All 4 branches missed.">                if (countEasterEgg &gt; 6 &amp;&amp; countEasterEgg &lt;= 10) {</span>
+<span class="nc" id="L79">                    Toast.makeText(AboutActivity.this, getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();</span>
+                }
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                if (countEasterEgg == 10) {</span>
+<span class="nc" id="L82">                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AboutActivity.this);</span>
+<span class="nc" id="L83">                    Boolean val = sharedPreferences.getBoolean(&quot;crashReport&quot;,false);</span>
 
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if(enviromentInfo.getIsLoaded()) {</span>
-<span class="fc" id="L73">            txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));</span>
-<span class="fc" id="L74">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">                    if(val) {</span>
+<span class="nc" id="L86">                        Bugsnag.notify(new RuntimeException(&quot;Easter Egg Fail on&quot; + AboutActivity.this.getResources().getString(R.string.app_name)));</span>
+                    } else {
+<span class="nc" id="L88">                        Toast.makeText(AboutActivity.this, getResources().getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();</span>
+                    }
+                }
+<span class="nc" id="L91">            }</span>
+        });
+
+<span class="fc" id="L94">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);</span>
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if(enviromentInfo.getIsLoaded()) {</span>
+<span class="fc" id="L97">            txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));</span>
+<span class="fc" id="L98">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
         } else {
-<span class="nc" id="L76">            txtAbout.setVisibility(View.GONE);</span>
+<span class="nc" id="L100">            txtAbout.setVisibility(View.GONE);</span>
         }
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L102">    }</span>
 
     private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {
-<span class="fc" id="L81">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
-<span class="fc" id="L82">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='&quot;+github+&quot;/commit/&quot;+commitFull+&quot;'&gt;&quot;+ commit +&quot;&lt;/a&gt;.&lt;br /&gt;&quot;;</span>
-<span class="fc" id="L83">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
+<span class="fc" id="L105">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L106">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='&quot;+github+&quot;/commit/&quot;+commitFull+&quot;'&gt;&quot;+ commit +&quot;&lt;/a&gt;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L107">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
 
-<span class="fc" id="L85">        return str;</span>
+<span class="fc" id="L109">        return str;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>

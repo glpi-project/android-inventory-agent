@@ -32,8 +32,7 @@ package org.flyve.inventory.agent.utils;
 
 import android.os.Handler;
 import android.os.Looper;
-
-import org.json.JSONObject;
+import android.os.StrictMode;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -44,20 +43,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-<span class="nc" id="L44">public class ConnectionHTTP {</span>
+<span class="nc" id="L43">public class ConnectionHTTP {</span>
 
 	private static Handler uiHandler;
 
 	static {
-<span class="nc" id="L49">		uiHandler = new Handler(Looper.getMainLooper());</span>
+<span class="nc" id="L48">		uiHandler = new Handler(Looper.getMainLooper());</span>
 	}
 
-<span class="nc" id="L52">	private static int timeout = 18000;</span>
-<span class="nc" id="L53">	private static int readtimeout = 6000;</span>
+<span class="nc" id="L51">	private static int timeout = 18000;</span>
+<span class="nc" id="L52">	private static int readtimeout = 6000;</span>
 
 	public static void runOnUI(Runnable runnable) {
-<span class="nc" id="L56">		uiHandler.post(runnable);</span>
-<span class="nc" id="L57">	}</span>
+<span class="nc" id="L55">		uiHandler.post(runnable);</span>
+<span class="nc" id="L56">	}</span>
 
 	/**
 	 * Send information by post with a JSONObject and header
@@ -68,72 +67,72 @@ import java.util.Map;
 	 */
 	public static void webData(final String url, final String data, final Map&lt;String, String&gt; header, final DataCallback callback)
 	{
-<span class="nc" id="L68">		Thread t = new Thread(new Runnable()</span>
-<span class="nc" id="L69">		{</span>
+<span class="nc" id="L67">		Thread t = new Thread(new Runnable()</span>
+<span class="nc" id="L68">		{</span>
 			public void run()
 			{
 				try
 				{
-<span class="nc" id="L74">					URL dataURL = new URL(url);</span>
-<span class="nc" id="L75">					FlyveLog.i(&quot;Method: POST - URL = &quot; + url);</span>
-<span class="nc" id="L76">					HttpURLConnection conn = (HttpURLConnection)dataURL.openConnection();</span>
+<span class="nc" id="L73">					URL dataURL = new URL(url);</span>
+<span class="nc" id="L74">					FlyveLog.i(&quot;Method: POST - URL = &quot; + url);</span>
+<span class="nc" id="L75">					HttpURLConnection conn = (HttpURLConnection)dataURL.openConnection();</span>
 
-<span class="nc" id="L78">					conn.setRequestMethod(&quot;POST&quot;);</span>
-<span class="nc" id="L79">					conn.setConnectTimeout(timeout);</span>
-<span class="nc" id="L80">					conn.setReadTimeout(readtimeout);</span>
+<span class="nc" id="L77">					conn.setRequestMethod(&quot;POST&quot;);</span>
+<span class="nc" id="L78">					conn.setConnectTimeout(timeout);</span>
+<span class="nc" id="L79">					conn.setReadTimeout(readtimeout);</span>
 
-<span class="nc bnc" id="L82" title="All 2 branches missed.">					for (Map.Entry&lt;String, String&gt; entry : header.entrySet()) {</span>
-<span class="nc" id="L83">						conn.setRequestProperty(entry.getKey(), entry.getValue());</span>
-<span class="nc" id="L84">						FlyveLog.d(entry.getKey() + &quot; = &quot; + entry.getValue());</span>
-<span class="nc" id="L85">					}</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">					for (Map.Entry&lt;String, String&gt; entry : header.entrySet()) {</span>
+<span class="nc" id="L82">						conn.setRequestProperty(entry.getKey(), entry.getValue());</span>
+<span class="nc" id="L83">						FlyveLog.d(entry.getKey() + &quot; = &quot; + entry.getValue());</span>
+<span class="nc" id="L84">					}</span>
 
 					// Send post request
-<span class="nc" id="L88">					conn.setDoOutput(true);</span>
+<span class="nc" id="L87">					conn.setDoOutput(true);</span>
 
-<span class="nc" id="L90">					DataOutputStream os = new DataOutputStream(conn.getOutputStream());</span>
-<span class="nc" id="L91">					os.writeBytes(data);</span>
-<span class="nc" id="L92">					os.flush();</span>
-<span class="nc" id="L93">					os.close();</span>
+<span class="nc" id="L89">					DataOutputStream os = new DataOutputStream(conn.getOutputStream());</span>
+<span class="nc" id="L90">					os.writeBytes(data);</span>
+<span class="nc" id="L91">					os.flush();</span>
+<span class="nc" id="L92">					os.close();</span>
 
-<span class="nc bnc" id="L95" title="All 2 branches missed.">					if(conn.getResponseCode() &gt;= 400) {</span>
-<span class="nc" id="L96">						InputStream is = conn.getErrorStream();</span>
-<span class="nc" id="L97">						final String result = inputStreamToString(is);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">					if(conn.getResponseCode() &gt;= 400) {</span>
+<span class="nc" id="L95">						InputStream is = conn.getErrorStream();</span>
+<span class="nc" id="L96">						final String result = inputStreamToString(is);</span>
 
-<span class="nc" id="L99">						ConnectionHTTP.runOnUI(new Runnable()</span>
-<span class="nc" id="L100">						{</span>
+<span class="nc" id="L98">						ConnectionHTTP.runOnUI(new Runnable()</span>
+<span class="nc" id="L99">						{</span>
 							public void run()
 							{
-<span class="nc" id="L103">								callback.callback(result);</span>
-<span class="nc" id="L104">							}</span>
+<span class="nc" id="L102">								callback.callback(result);</span>
+<span class="nc" id="L103">							}</span>
 						});
-<span class="nc" id="L106">						return;</span>
+<span class="nc" id="L105">						return;</span>
 					}
 
-<span class="nc" id="L109">					InputStream is = conn.getInputStream();</span>
-<span class="nc" id="L110">					final String result = inputStreamToString(is);</span>
+<span class="nc" id="L108">					InputStream is = conn.getInputStream();</span>
+<span class="nc" id="L109">					final String result = inputStreamToString(is);</span>
 
-<span class="nc" id="L112">					ConnectionHTTP.runOnUI(new Runnable() {</span>
+<span class="nc" id="L111">					ConnectionHTTP.runOnUI(new Runnable() {</span>
 						public void run() {
-<span class="nc" id="L114">							callback.callback(result);</span>
-<span class="nc" id="L115">						}</span>
+<span class="nc" id="L113">							callback.callback(result);</span>
+<span class="nc" id="L114">						}</span>
 					});
 
 				}
-<span class="nc" id="L119">				catch (final Exception ex)</span>
+<span class="nc" id="L118">				catch (final Exception ex)</span>
 				{
-<span class="nc" id="L121">					ConnectionHTTP.runOnUI(new Runnable()</span>
-<span class="nc" id="L122">					{</span>
+<span class="nc" id="L120">					ConnectionHTTP.runOnUI(new Runnable()</span>
+<span class="nc" id="L121">					{</span>
 						public void run()
 						{
-<span class="nc" id="L125">							callback.callback(&quot;EXCEPTION_HTTP_&quot; + ex.getMessage());</span>
-<span class="nc" id="L126">							FlyveLog.e(ex.getClass() + &quot; : &quot; + ex.getMessage());</span>
-<span class="nc" id="L127">						}</span>
+<span class="nc" id="L124">							callback.callback(&quot;EXCEPTION_HTTP_&quot; + ex.getMessage());</span>
+<span class="nc" id="L125">							FlyveLog.e(ex.getClass() + &quot; : &quot; + ex.getMessage());</span>
+<span class="nc" id="L126">						}</span>
 					});
-<span class="nc" id="L129">				}</span>
-<span class="nc" id="L130">			}</span>
+<span class="nc" id="L128">				}</span>
+<span class="nc" id="L129">			}</span>
 		});
-<span class="nc" id="L132">		t.start();</span>
-<span class="nc" id="L133">	}</span>
+<span class="nc" id="L131">		t.start();</span>
+<span class="nc" id="L132">	}</span>
 
 	/**
 	 * Get the data in a synchronous way
@@ -143,38 +142,42 @@ import java.util.Map;
 	 * @param Map string header
 	 */
 	public static String syncWebData(final String url, final String data) {
+
+<span class="nc" id="L143">		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();</span>
+<span class="nc" id="L144">		StrictMode.setThreadPolicy(policy);</span>
+
 		try
 		{
-<span class="nc" id="L145">			URL dataURL = new URL(url);</span>
-<span class="nc" id="L146">			FlyveLog.i(&quot;Method: POST - URL = &quot; + url);</span>
-<span class="nc" id="L147">			HttpURLConnection conn = (HttpURLConnection)dataURL.openConnection();</span>
+<span class="nc" id="L148">			URL dataURL = new URL(url);</span>
+<span class="nc" id="L149">			FlyveLog.i(&quot;Method: POST - URL = &quot; + url);</span>
+<span class="nc" id="L150">			HttpURLConnection conn = (HttpURLConnection)dataURL.openConnection();</span>
 
-<span class="nc" id="L149">			conn.setRequestMethod(&quot;POST&quot;);</span>
-<span class="nc" id="L150">			conn.setConnectTimeout(timeout);</span>
-<span class="nc" id="L151">			conn.setReadTimeout(readtimeout);</span>
+<span class="nc" id="L152">			conn.setRequestMethod(&quot;POST&quot;);</span>
+<span class="nc" id="L153">			conn.setConnectTimeout(timeout);</span>
+<span class="nc" id="L154">			conn.setReadTimeout(readtimeout);</span>
 
 			// Send post request
-<span class="nc" id="L154">			conn.setDoOutput(true);</span>
+<span class="nc" id="L157">			conn.setDoOutput(true);</span>
 
-<span class="nc" id="L156">			DataOutputStream os = new DataOutputStream(conn.getOutputStream());</span>
-<span class="nc" id="L157">			os.writeBytes(data);</span>
-<span class="nc" id="L158">			os.flush();</span>
-<span class="nc" id="L159">			os.close();</span>
+<span class="nc" id="L159">			DataOutputStream os = new DataOutputStream(conn.getOutputStream());</span>
+<span class="nc" id="L160">			os.writeBytes(data);</span>
+<span class="nc" id="L161">			os.flush();</span>
+<span class="nc" id="L162">			os.close();</span>
 
-<span class="nc bnc" id="L161" title="All 2 branches missed.">			if(conn.getResponseCode() &gt;= 400) {</span>
-<span class="nc" id="L162">				InputStream is = conn.getErrorStream();</span>
-<span class="nc" id="L163">				return inputStreamToString(is);</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">			if(conn.getResponseCode() &gt;= 400) {</span>
+<span class="nc" id="L165">				InputStream is = conn.getErrorStream();</span>
+<span class="nc" id="L166">				return inputStreamToString(is);</span>
 			}
 
-<span class="nc" id="L166">			InputStream is = conn.getInputStream();</span>
-<span class="nc" id="L167">			return inputStreamToString(is);</span>
+<span class="nc" id="L169">			InputStream is = conn.getInputStream();</span>
+<span class="nc" id="L170">			return inputStreamToString(is);</span>
 
 		}
-<span class="nc" id="L170">		catch (final Exception ex)</span>
+<span class="nc" id="L173">		catch (final Exception ex)</span>
 		{
-<span class="nc" id="L172">			String error = &quot;EXCEPTION_HTTP_&quot; + ex.getMessage();</span>
-<span class="nc" id="L173">			FlyveLog.e(error);</span>
-<span class="nc" id="L174">			return error;</span>
+<span class="nc" id="L175">			String error = &quot;EXCEPTION_HTTP_&quot; + ex.getMessage();</span>
+<span class="nc" id="L176">			FlyveLog.e(error);</span>
+<span class="nc" id="L177">			return error;</span>
 		}
 	}
 
@@ -185,14 +188,14 @@ import java.util.Map;
 	 * @throws IOException error
 	 */
 	private static String inputStreamToString(final InputStream stream) throws IOException {
-<span class="nc" id="L185">		BufferedReader br = new BufferedReader(new InputStreamReader(stream, &quot;UTF-8&quot;));</span>
-<span class="nc" id="L186">		StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L187">		String line = null;</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">		while ((line = br.readLine()) != null) {</span>
-<span class="nc" id="L189">			sb.append(line + &quot;\n&quot;);</span>
+<span class="nc" id="L188">		BufferedReader br = new BufferedReader(new InputStreamReader(stream, &quot;UTF-8&quot;));</span>
+<span class="nc" id="L189">		StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L190">		String line = null;</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">		while ((line = br.readLine()) != null) {</span>
+<span class="nc" id="L192">			sb.append(line + &quot;\n&quot;);</span>
 		}
-<span class="nc" id="L191">		br.close();</span>
-<span class="nc" id="L192">		return sb.toString();</span>
+<span class="nc" id="L194">		br.close();</span>
+<span class="nc" id="L195">		return sb.toString();</span>
 	}
 
 	/**
