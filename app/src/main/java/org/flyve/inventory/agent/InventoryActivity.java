@@ -116,7 +116,9 @@ public class InventoryActivity extends AppCompatActivity {
                         h.put("type", "header");
                         h.put("title", key.toUpperCase());
 
-                        data.add(h);
+                        if(!key.trim().equals("")) {
+                            data.add(h);
+                        }
 
                         if(!key.equals("")) {
                             JSONArray category = jsonContent.getJSONArray(key);

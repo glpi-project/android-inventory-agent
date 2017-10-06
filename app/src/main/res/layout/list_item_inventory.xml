@@ -6,30 +6,29 @@
     android:layout_margin="5dp"
     >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Title"
-            android:layout_margin="10dp"
-            />
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/title"
+        android:textColor="@color/colorAccent"
+        />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Description"
-            android:layout_margin="10dp"
-            android:textColor="@color/colorAccent"
-            />
-
-    </LinearLayout>
 
     <View
         android:id="@+id/viewSeparator"
