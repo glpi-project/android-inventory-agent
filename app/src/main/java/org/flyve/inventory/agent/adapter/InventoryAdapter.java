@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.utils.Helpers;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -88,7 +90,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindData(HashMap<String, String> model) {
-            title.setText( Html.fromHtml( model.get("title") ));
+            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get("title")).toUpperCase() ));
             description.setText( Html.fromHtml( model.get("description") ));
         }
     }
