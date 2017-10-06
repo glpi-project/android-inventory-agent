@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Header"
-        android:textSize="16dp"
-        android:textStyle="bold"
         android:textColor="@color/colorAccent"
-        android:background="@color/grayLight"
         android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif-medium"
         />
 
 </RelativeLayout>

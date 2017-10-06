@@ -19,7 +19,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Inventory Agent Setting"
+				android:text="@string/AccueilTitle"
 				android:textColor="@color/black"
 				android:textSize="18sp"
 				/>

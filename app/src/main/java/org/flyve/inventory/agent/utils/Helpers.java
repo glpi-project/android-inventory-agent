@@ -81,13 +81,13 @@ public class Helpers {
     }
 
     public static String splitCamelCase(String s) {
-        return s.replaceAll(
+        return capitalize(s.replaceAll(
                 String.format("%s|%s|%s",
                         "(?<=[A-Z])(?=[A-Z][a-z])",
                         "(?<=[^A-Z])(?=[A-Z])",
                         "(?<=[A-Za-z])(?=[^A-Za-z])"
                 ),
-                " "
+                " ")
         );
     }
 
@@ -136,6 +136,12 @@ public class Helpers {
             intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/FlyveMDM/Inventory.xml"));
         }
         context.startActivity(Intent.createChooser(intent, "Send Email"));
+    }
+
+    public static String capitalize(String str) {
+        StringBuilder sb = new StringBuilder(str.toLowerCase());
+        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        return sb.toString();
     }
 
 }
