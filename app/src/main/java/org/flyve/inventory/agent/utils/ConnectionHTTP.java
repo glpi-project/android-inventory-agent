@@ -29,8 +29,7 @@ package org.flyve.inventory.agent.utils;
 
 import android.os.Handler;
 import android.os.Looper;
-
-import org.json.JSONObject;
+import android.os.StrictMode;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -140,6 +139,10 @@ public class ConnectionHTTP {
 	 * @param Map string header
 	 */
 	public static String syncWebData(final String url, final String data) {
+
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+
 		try
 		{
 			URL dataURL = new URL(url);
