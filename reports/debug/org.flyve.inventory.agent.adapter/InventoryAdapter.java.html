@@ -93,7 +93,7 @@ public class InventoryAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewH
 <span class="nc" id="L90">        }</span>
 
         public void bindData(HashMap&lt;String, String&gt; model) {
-<span class="nc" id="L93">            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get(&quot;title&quot;)).toUpperCase() ));</span>
+<span class="nc" id="L93">            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get(&quot;title&quot;)) ));</span>
 <span class="nc" id="L94">            description.setText( Html.fromHtml( model.get(&quot;description&quot;) ));</span>
 <span class="nc" id="L95">        }</span>
     }

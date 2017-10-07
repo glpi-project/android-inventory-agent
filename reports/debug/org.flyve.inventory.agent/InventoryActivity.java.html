@@ -67,152 +67,151 @@ import java.util.Iterator;
 <span class="fc" id="L64">        setContentView(R.layout.activity_inventory);</span>
 
 <span class="fc" id="L66">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
-<span class="fc" id="L67">        toolbar.setTitle(getResources().getString(R.string.menu_show_inventory));</span>
 
-<span class="fc" id="L69">        setSupportActionBar(toolbar);</span>
-<span class="fc" id="L70">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
-<span class="fc" id="L71">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+<span class="fc" id="L68">        setSupportActionBar(toolbar);</span>
+<span class="fc" id="L69">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L70">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
             @Override
             public void onClick(View v) {
-<span class="nc" id="L74">                onBackPressed();</span>
-<span class="nc" id="L75">            }</span>
+<span class="nc" id="L73">                onBackPressed();</span>
+<span class="nc" id="L74">            }</span>
         });
 
-<span class="fc" id="L78">        pb = (ProgressBar) findViewById(R.id.pb);</span>
-<span class="fc" id="L79">        pb.setVisibility(View.VISIBLE);</span>
+<span class="fc" id="L77">        pb = (ProgressBar) findViewById(R.id.pb);</span>
+<span class="fc" id="L78">        pb.setVisibility(View.VISIBLE);</span>
 
-<span class="fc" id="L81">        FloatingActionButton btnShare = (FloatingActionButton) findViewById(R.id.btnShare);</span>
-<span class="fc" id="L82">        btnShare.setOnClickListener(new View.OnClickListener() {</span>
+<span class="fc" id="L80">        FloatingActionButton btnShare = (FloatingActionButton) findViewById(R.id.btnShare);</span>
+<span class="fc" id="L81">        btnShare.setOnClickListener(new View.OnClickListener() {</span>
             @Override
             public void onClick(View v) {
-<span class="nc" id="L85">                showDialogShare();</span>
-<span class="nc" id="L86">            }</span>
+<span class="nc" id="L84">                showDialogShare();</span>
+<span class="nc" id="L85">            }</span>
         });
 
-<span class="fc" id="L89">        lst = (RecyclerView)findViewById(R.id.lst);</span>
+<span class="fc" id="L88">        lst = (RecyclerView)findViewById(R.id.lst);</span>
 
-<span class="fc" id="L91">        GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);</span>
-<span class="fc" id="L92">        lst.setLayoutManager(llm);</span>
+<span class="fc" id="L90">        GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);</span>
+<span class="fc" id="L91">        lst.setLayoutManager(llm);</span>
 
-<span class="fc" id="L94">        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, &quot;FlyveMDMInventoryAgent&quot;, true);</span>
+<span class="fc" id="L93">        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, &quot;FlyveMDMInventoryAgent&quot;, true);</span>
 
-<span class="fc" id="L96">        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
+<span class="fc" id="L95">        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
             @Override
             public void onTaskSuccess(String s) {
-<span class="nc" id="L99">                load(s);</span>
-<span class="nc" id="L100">                inventoryTask.getXMLSyn();</span>
-<span class="nc" id="L101">            }</span>
+<span class="nc" id="L98">                load(s);</span>
+<span class="nc" id="L99">                inventoryTask.getXMLSyn();</span>
+<span class="nc" id="L100">            }</span>
 
             @Override
             public void onTaskError(Throwable throwable) {
-<span class="fc" id="L105">                pb.setVisibility(View.GONE);</span>
-<span class="fc" id="L106">                FlyveLog.e(throwable.getMessage());</span>
-<span class="fc" id="L107">            }</span>
+<span class="fc" id="L104">                pb.setVisibility(View.GONE);</span>
+<span class="fc" id="L105">                FlyveLog.e(throwable.getMessage());</span>
+<span class="fc" id="L106">            }</span>
         });
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L108">    }</span>
 
     private void load(String jsonStr) {
 
-<span class="nc" id="L113">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
+<span class="nc" id="L112">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
 
         try {
-<span class="nc" id="L116">            JSONObject json = new JSONObject(jsonStr);</span>
-<span class="nc" id="L117">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
-<span class="nc" id="L118">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
+<span class="nc" id="L115">            JSONObject json = new JSONObject(jsonStr);</span>
+<span class="nc" id="L116">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
+<span class="nc" id="L117">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
 
-<span class="nc" id="L120">                Iterator&lt;?&gt; keys = jsonContent.keys();</span>
+<span class="nc" id="L119">                Iterator&lt;?&gt; keys = jsonContent.keys();</span>
 
-<span class="nc bnc" id="L122" title="All 2 branches missed.">                while( keys.hasNext() ) {</span>
-<span class="nc" id="L123">                    String key = (String)keys.next();</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                while( keys.hasNext() ) {</span>
+<span class="nc" id="L122">                    String key = (String)keys.next();</span>
 
-<span class="nc bnc" id="L125" title="All 2 branches missed.">                    if ( jsonContent.get(key) instanceof JSONArray ) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">                    if ( jsonContent.get(key) instanceof JSONArray ) {</span>
                         // add header
-<span class="nc" id="L127">                        FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
+<span class="nc" id="L126">                        FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
 
-<span class="nc" id="L129">                        HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L130">                        h.put(&quot;type&quot;, &quot;header&quot;);</span>
-<span class="nc" id="L131">                        h.put(&quot;title&quot;, key.toUpperCase());</span>
+<span class="nc" id="L128">                        HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L129">                        h.put(&quot;type&quot;, &quot;header&quot;);</span>
+<span class="nc" id="L130">                        h.put(&quot;title&quot;, key.toUpperCase());</span>
 
-<span class="nc bnc" id="L133" title="All 2 branches missed.">                        if(!key.trim().equals(&quot;&quot;)) {</span>
-<span class="nc" id="L134">                            data.add(h);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">                        if(!key.trim().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L133">                            data.add(h);</span>
                         }
 
-<span class="nc bnc" id="L137" title="All 2 branches missed.">                        if(!key.equals(&quot;&quot;)) {</span>
-<span class="nc" id="L138">                            JSONArray category = jsonContent.getJSONArray(key);</span>
-<span class="nc bnc" id="L139" title="All 2 branches missed.">                            for (int y = 0; y &lt; category.length(); y++) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                        if(!key.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L137">                            JSONArray category = jsonContent.getJSONArray(key);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">                            for (int y = 0; y &lt; category.length(); y++) {</span>
 
 
-<span class="nc" id="L142">                                JSONObject obj = category.getJSONObject(y);</span>
+<span class="nc" id="L141">                                JSONObject obj = category.getJSONObject(y);</span>
 
-<span class="nc" id="L144">                                Iterator&lt;?&gt; keysObj = obj.keys();</span>
+<span class="nc" id="L143">                                Iterator&lt;?&gt; keysObj = obj.keys();</span>
 
-<span class="nc bnc" id="L146" title="All 2 branches missed.">                                while (keysObj.hasNext()) {</span>
-<span class="nc" id="L147">                                    HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">                                while (keysObj.hasNext()) {</span>
+<span class="nc" id="L146">                                    HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
 
-<span class="nc" id="L149">                                    String keyObj = (String) keysObj.next();</span>
-<span class="nc" id="L150">                                    c.put(&quot;type&quot;, &quot;data&quot;);</span>
-<span class="nc" id="L151">                                    c.put(&quot;title&quot;, keyObj);</span>
-<span class="nc" id="L152">                                    c.put(&quot;description&quot;, obj.getString(keyObj));</span>
-<span class="nc" id="L153">                                    FlyveLog.d(keyObj);</span>
+<span class="nc" id="L148">                                    String keyObj = (String) keysObj.next();</span>
+<span class="nc" id="L149">                                    c.put(&quot;type&quot;, &quot;data&quot;);</span>
+<span class="nc" id="L150">                                    c.put(&quot;title&quot;, keyObj);</span>
+<span class="nc" id="L151">                                    c.put(&quot;description&quot;, obj.getString(keyObj));</span>
+<span class="nc" id="L152">                                    FlyveLog.d(keyObj);</span>
 
-<span class="nc" id="L155">                                    data.add(c);</span>
-<span class="nc" id="L156">                                }</span>
+<span class="nc" id="L154">                                    data.add(c);</span>
+<span class="nc" id="L155">                                }</span>
 
 
                             }
                         }
                     }
-<span class="nc" id="L162">                }</span>
-<span class="nc" id="L163">                pb.setVisibility(View.GONE);</span>
+<span class="nc" id="L161">                }</span>
+<span class="nc" id="L162">                pb.setVisibility(View.GONE);</span>
 
-<span class="nc" id="L165">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
-<span class="nc" id="L166">            lst.setAdapter(mAdapter);</span>
+<span class="nc" id="L164">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
+<span class="nc" id="L165">            lst.setAdapter(mAdapter);</span>
 
-<span class="nc" id="L168">        } catch (Exception ex) {</span>
-<span class="nc" id="L169">            pb.setVisibility(View.GONE);</span>
-<span class="nc" id="L170">            FlyveLog.e(ex.getMessage());</span>
-<span class="nc" id="L171">        }</span>
-<span class="nc" id="L172">    }</span>
+<span class="nc" id="L167">        } catch (Exception ex) {</span>
+<span class="nc" id="L168">            pb.setVisibility(View.GONE);</span>
+<span class="nc" id="L169">            FlyveLog.e(ex.getMessage());</span>
+<span class="nc" id="L170">        }</span>
+<span class="nc" id="L171">    }</span>
 
     public void showDialogShare() {
-<span class="nc" id="L175">        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);</span>
-<span class="nc" id="L176">        builder.setTitle(R.string.dialog_share_title);</span>
+<span class="nc" id="L174">        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);</span>
+<span class="nc" id="L175">        builder.setTitle(R.string.dialog_share_title);</span>
 
-<span class="nc" id="L178">        final int[] type = new int[1];</span>
+<span class="nc" id="L177">        final int[] type = new int[1];</span>
 
         //list of items
-<span class="nc" id="L181">        String[] items = getResources().getStringArray(R.array.export_list);</span>
-<span class="nc" id="L182">        builder.setSingleChoiceItems(items, 0,</span>
-<span class="nc" id="L183">                new DialogInterface.OnClickListener() {</span>
+<span class="nc" id="L180">        String[] items = getResources().getStringArray(R.array.export_list);</span>
+<span class="nc" id="L181">        builder.setSingleChoiceItems(items, 0,</span>
+<span class="nc" id="L182">                new DialogInterface.OnClickListener() {</span>
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-<span class="nc" id="L186">                        type[0] = which;</span>
-<span class="nc" id="L187">                    }</span>
+<span class="nc" id="L185">                        type[0] = which;</span>
+<span class="nc" id="L186">                    }</span>
                 });
 
-<span class="nc" id="L190">        String positiveText = getString(android.R.string.ok);</span>
-<span class="nc" id="L191">        builder.setPositiveButton(positiveText,</span>
-<span class="nc" id="L192">                new DialogInterface.OnClickListener() {</span>
+<span class="nc" id="L189">        String positiveText = getString(android.R.string.ok);</span>
+<span class="nc" id="L190">        builder.setPositiveButton(positiveText,</span>
+<span class="nc" id="L191">                new DialogInterface.OnClickListener() {</span>
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // positive button logic
-<span class="nc" id="L196">                        Helpers.share( InventoryActivity.this, &quot;Inventory Agent File&quot;, type[0] );</span>
-<span class="nc" id="L197">                    }</span>
+<span class="nc" id="L195">                        Helpers.share( InventoryActivity.this, &quot;Inventory Agent File&quot;, type[0] );</span>
+<span class="nc" id="L196">                    }</span>
                 });
 
-<span class="nc" id="L200">        String negativeText = getString(android.R.string.cancel);</span>
-<span class="nc" id="L201">        builder.setNegativeButton(negativeText,</span>
-<span class="nc" id="L202">                new DialogInterface.OnClickListener() {</span>
+<span class="nc" id="L199">        String negativeText = getString(android.R.string.cancel);</span>
+<span class="nc" id="L200">        builder.setNegativeButton(negativeText,</span>
+<span class="nc" id="L201">                new DialogInterface.OnClickListener() {</span>
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // negative button logic
-<span class="nc" id="L206">                    }</span>
+<span class="nc" id="L205">                    }</span>
                 });
 
-<span class="nc" id="L209">        AlertDialog dialog = builder.create();</span>
+<span class="nc" id="L208">        AlertDialog dialog = builder.create();</span>
         // display dialog
-<span class="nc" id="L211">        dialog.show();</span>
-<span class="nc" id="L212">    }</span>
+<span class="nc" id="L210">        dialog.show();</span>
+<span class="nc" id="L211">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>
