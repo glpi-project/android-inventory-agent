@@ -11,5 +11,8 @@ git checkout develop
 # merge with master
 git merge master
 
+# push develop
+git push origin develop
+
 # return to master
 git checkout master
