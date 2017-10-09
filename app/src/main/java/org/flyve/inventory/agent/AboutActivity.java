@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.bugsnag.android.Bugsnag;
 
 import org.flyve.inventory.agent.utils.EnvironmentInfo;
+import org.flyve.inventory.agent.utils.FlyveLog;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -57,16 +58,21 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.menu_about));
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        try {
+            toolbar.setTitle(getResources().getString(R.string.menu_about));
+
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        } catch(Exception ex) {
+            FlyveLog.e(ex.getMessage());
+        }
 
         TextView txtAbout = (TextView) findViewById(R.id.txtAbout);
 

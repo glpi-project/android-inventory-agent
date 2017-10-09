@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import org.flyve.inventory.agent.utils.FlyveLog;
+
 /*
  *   Copyright © 2017 Teclib. All rights reserved.
  *
@@ -46,10 +48,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.app_name));
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setIcon(R.drawable.icon);
+        try {
+            toolbar.setTitle(getResources().getString(R.string.app_name));
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setIcon(R.drawable.icon);
+        } catch (Exception ex) {
+            FlyveLog.e(ex.getMessage());
+        }
 
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentAccueil()).commit();
