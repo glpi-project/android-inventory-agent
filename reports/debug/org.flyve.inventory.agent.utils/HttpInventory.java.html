@@ -196,41 +196,47 @@ public class HttpInventory {
 <span class="nc" id="L193">                    FlyveLog.log(this, &quot;No HTTP response &quot;, Log.ERROR);</span>
 <span class="nc" id="L194">                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
                 }
-<span class="fc" id="L196">                Header[] headers = response.getAllHeaders();</span>
-<span class="fc bfc" id="L197" title="All 2 branches covered.">                for (Header header : headers) {</span>
-<span class="fc" id="L198">                    FlyveLog.log(this, header.getName() + &quot; -&gt; &quot; + header.getValue(), Log.INFO);</span>
-                }
-                try {
-<span class="fc" id="L201">                    InputStream mIS = response.getEntity().getContent();</span>
-<span class="fc" id="L202">                    BufferedReader r = new BufferedReader(new InputStreamReader(mIS));</span>
-                    String line;
-<span class="fc" id="L204">                    StringBuilder sb = new StringBuilder();</span>
 
-<span class="fc bfc" id="L206" title="All 2 branches covered.">                    while ((line = r.readLine()) != null) {</span>
-<span class="fc" id="L207">                        FlyveLog.log(this, line, Log.VERBOSE);</span>
-<span class="fc" id="L208">                        sb.append(line + &quot;\n&quot;);</span>
+                try {
+<span class="fc" id="L198">                    Header[] headers = response.getAllHeaders();</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">                    for (Header header : headers) {</span>
+<span class="fc" id="L200">                        FlyveLog.log(this, header.getName() + &quot; -&gt; &quot; + header.getValue(), Log.INFO);</span>
+                    }
+<span class="nc" id="L202">                } catch (Exception ex) {</span>
+<span class="nc" id="L203">                    FlyveLog.e(ex.getMessage());</span>
+<span class="fc" id="L204">                }</span>
+
+                try {
+<span class="fc" id="L207">                    InputStream mIS = response.getEntity().getContent();</span>
+<span class="fc" id="L208">                    BufferedReader r = new BufferedReader(new InputStreamReader(mIS));</span>
+                    String line;
+<span class="fc" id="L210">                    StringBuilder sb = new StringBuilder();</span>
+
+<span class="fc bfc" id="L212" title="All 2 branches covered.">                    while ((line = r.readLine()) != null) {</span>
+<span class="fc" id="L213">                        FlyveLog.log(this, line, Log.VERBOSE);</span>
+<span class="fc" id="L214">                        sb.append(line + &quot;\n&quot;);</span>
                     }
 
-<span class="pc bpc" id="L211" title="1 of 2 branches missed.">                    if(sb.toString().toLowerCase().contains(&quot;&lt;reply&gt;&quot;)) {</span>
-<span class="fc" id="L212">                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));</span>
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">                    if(sb.toString().toLowerCase().contains(&quot;&lt;reply&gt;&quot;)) {</span>
+<span class="fc" id="L218">                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));</span>
                     } else {
-<span class="nc bnc" id="L214" title="All 2 branches missed.">                        if(sb.toString().toLowerCase().contains(&quot;404 not found&quot;)) {</span>
-<span class="nc" id="L215">                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">                        if(sb.toString().toLowerCase().contains(&quot;404 not found&quot;)) {</span>
+<span class="nc" id="L221">                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
                         } else {
-<span class="nc" id="L217">                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
+<span class="nc" id="L223">                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
                         }
                     }
 
-<span class="fc" id="L221">                    FlyveLog.d(sb.toString());</span>
-<span class="nc" id="L222">                } catch (Exception e) {</span>
-<span class="nc" id="L223">                    FlyveLog.e(e.getMessage());</span>
-<span class="nc" id="L224">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
-<span class="fc" id="L225">                }</span>
+<span class="fc" id="L227">                    FlyveLog.d(sb.toString());</span>
+<span class="nc" id="L228">                } catch (Exception e) {</span>
+<span class="nc" id="L229">                    FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L230">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
+<span class="fc" id="L231">                }</span>
 
-<span class="fc" id="L227">            }</span>
+<span class="fc" id="L233">            }</span>
         });
-<span class="fc" id="L229">        t.start();</span>
-<span class="fc" id="L230">    }</span>
+<span class="fc" id="L235">        t.start();</span>
+<span class="fc" id="L236">    }</span>
 
     /**
      * This is the interface of return data
