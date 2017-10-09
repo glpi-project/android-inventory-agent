@@ -29,21 +29,26 @@ layout: coverage
  */
 package org.flyve.inventory.agent;
 
-import android.content.res.AssetManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bugsnag.android.Bugsnag;
+
+import org.flyve.inventory.agent.utils.EnvironmentInfo;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
-import java.io.InputStream;
-import java.util.Properties;
+<span class="fc" id="L46">public class AboutActivity extends AppCompatActivity {</span>
 
-<span class="fc" id="L43">public class AboutActivity extends AppCompatActivity {</span>
+    private int countEasterEgg;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -51,49 +56,66 @@ import java.util.Properties;
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<span class="fc" id="L51">        super.onCreate(savedInstanceState);</span>
+<span class="fc" id="L56">        super.onCreate(savedInstanceState);</span>
 
-<span class="fc" id="L53">        setContentView(R.layout.activity_about);</span>
+<span class="fc" id="L58">        setContentView(R.layout.activity_about);</span>
 
-<span class="fc" id="L55">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
-<span class="fc" id="L56">        toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
-
-<span class="fc" id="L58">        setSupportActionBar(toolbar);</span>
-<span class="fc" id="L59">        getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
-<span class="fc" id="L60">        toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
-            @Override
-            public void onClick(View v) {
-<span class="nc" id="L63">                onBackPressed();</span>
-<span class="nc" id="L64">            }</span>
-        });
-
-<span class="fc" id="L67">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
+<span class="fc" id="L60">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
 
         try {
-<span class="fc" id="L70">            Properties properties = new Properties();</span>
-<span class="fc" id="L71">            AssetManager assetManager = getAssets();</span>
-<span class="fc" id="L72">            InputStream inputStream = assetManager.open(&quot;about.properties&quot;);</span>
-<span class="fc" id="L73">            properties.load(inputStream);</span>
-<span class="fc" id="L74">            String version = properties.getProperty(&quot;about.version&quot;);</span>
-<span class="fc" id="L75">            String build = properties.getProperty(&quot;about.build&quot;);</span>
-<span class="fc" id="L76">            String date = properties.getProperty(&quot;about.date&quot;);</span>
-<span class="fc" id="L77">            String commit = properties.getProperty(&quot;about.commit&quot;);</span>
-<span class="fc" id="L78">            String commitFull = properties.getProperty(&quot;about.commitFull&quot;);</span>
+<span class="fc" id="L63">            toolbar.setTitle(getResources().getString(R.string.menu_about));</span>
 
-<span class="fc" id="L80">            txtAbout.setText(Html.fromHtml(aboutStr(version, build, date, commit, commitFull)));</span>
-<span class="fc" id="L81">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
-<span class="nc" id="L82">        } catch (Exception ex) {</span>
-<span class="nc" id="L83">            FlyveLog.e(ex.getMessage());</span>
-<span class="fc" id="L84">        }</span>
-<span class="fc" id="L85">    }</span>
+<span class="fc" id="L65">            setSupportActionBar(toolbar);</span>
+<span class="fc" id="L66">            getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L67">            toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+                @Override
+                public void onClick(View v) {
+<span class="nc" id="L70">                    onBackPressed();</span>
+<span class="nc" id="L71">                }</span>
+            });
+<span class="nc" id="L73">        } catch(Exception ex) {</span>
+<span class="nc" id="L74">            FlyveLog.e(ex.getMessage());</span>
+<span class="fc" id="L75">        }</span>
 
+<span class="fc" id="L77">        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);</span>
 
-    private String aboutStr(String version, String build, String date, String commit, String commitFull) {
-<span class="fc" id="L89">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
-<span class="fc" id="L90">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='https://github.com/flyve-mdm/flyve-mdm-ios-inventory-agent/commit/&quot;+commitFull+&quot;'&gt;&quot;+ commit +&quot;.&lt;br /&gt;&quot;;</span>
-<span class="fc" id="L91">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
+<span class="fc" id="L79">        ImageView imgInventory = (ImageView) findViewById(R.id.imgInventory);</span>
+<span class="fc" id="L80">        imgInventory.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L83">                countEasterEgg++;</span>
+<span class="nc bnc" id="L84" title="All 4 branches missed.">                if (countEasterEgg &gt; 6 &amp;&amp; countEasterEgg &lt;= 10) {</span>
+<span class="nc" id="L85">                    Toast.makeText(AboutActivity.this, getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();</span>
+                }
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                if (countEasterEgg == 10) {</span>
+<span class="nc" id="L88">                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AboutActivity.this);</span>
+<span class="nc" id="L89">                    Boolean val = sharedPreferences.getBoolean(&quot;crashReport&quot;,false);</span>
 
-<span class="fc" id="L93">        return str;</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                    if(val) {</span>
+<span class="nc" id="L92">                        Bugsnag.notify(new RuntimeException(&quot;Easter Egg Fail on&quot; + AboutActivity.this.getResources().getString(R.string.app_name)));</span>
+                    } else {
+<span class="nc" id="L94">                        Toast.makeText(AboutActivity.this, getResources().getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();</span>
+                    }
+                }
+<span class="nc" id="L97">            }</span>
+        });
+
+<span class="fc" id="L100">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);</span>
+
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if(enviromentInfo.getIsLoaded()) {</span>
+<span class="fc" id="L103">            txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));</span>
+<span class="fc" id="L104">            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());</span>
+        } else {
+<span class="nc" id="L106">            txtAbout.setVisibility(View.GONE);</span>
+        }
+<span class="fc" id="L108">    }</span>
+
+    private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {
+<span class="fc" id="L111">        String str = &quot;Inventory Agent, version &quot;+ version +&quot;, build &quot;+ build +&quot;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L112">        str += &quot;Built on &quot;+ date +&quot;. Last commit &lt;a href='&quot;+github+&quot;/commit/&quot;+commitFull+&quot;'&gt;&quot;+ commit +&quot;&lt;/a&gt;.&lt;br /&gt;&quot;;</span>
+<span class="fc" id="L113">        str += &quot;© &lt;a href='http://teclib-edition.com/'&gt;Teclib'&lt;/a&gt; 2017. Licensed under &lt;a href='https://www.gnu.org/licenses/gpl-3.0.en.html'&gt;GPLv3&lt;/a&gt;. &lt;a href='https://flyve-mdm.com/'&gt;Flyve MDM&lt;/a&gt;®&quot;;</span>
+
+<span class="fc" id="L115">        return str;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>

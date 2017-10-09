@@ -1,6 +1,9 @@
+title: android inventory agent
 email: ml-flyvemdm@teclib.com
+twitter: flyvemdm
 baseurl: "/flyve-mdm-android-inventory-agent"
-url: "http://flyve.org"  
+url: "http://flyve.org"   
+image: http://flyve.org/flyve-mdm-android-inventory-agent/images/logo2.png
 
 # Build settings
 markdown: kramdown
@@ -59,7 +62,7 @@ prose:
       - name: "layout"
         field:
           element: "hidden"
-          value: "container"
+          value: "post"
       - name: "title"
         field:
           element: "text"
@@ -70,6 +73,31 @@ prose:
           element: "text"
           label: "Permalink"
           value: ""
+      - name: "wiki"
+        field:
+          element: "checkbox"
+          label: "wiki"
+          value: false
+      - name: "published"
+        field:
+          element: "checkbox"
+          label: "Published"
+          value: false
+      - name: "description"
+        field:
+          element: "textarea"
+          label: "Description"
+      - name: "hackerNewsURL"
+        field:
+          element: "text"
+          label: Hacker News URL
+          value: ""
+      - name: "redditURL"
+        field:
+          element: "text" 
+          label: Reddit URL
+          value: ""
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

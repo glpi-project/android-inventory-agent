@@ -1,0 +1,221 @@
+---
+layout: coverage
+---
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 Teclib'
+ *
+ * This file is part of Flyve MDM Inventory Agent Android.
+ *
+ * Flyve MDM Inventory Agent Android is a subproject of Flyve MDM. Flyve MDM is a mobile
+ * device management software.
+ *
+ * Flyve MDM Android is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM Inventory Agent Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez - rafaelje
+ * @copyright Copyright (c) 2017 Flyve MDM
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/
+ * @link      http://www.glpi-project.org/
+ * @link      https://flyve-mdm.com/
+ * ------------------------------------------------------------------------------
+ */
+package org.flyve.inventory.agent;
+
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.adapter.InventoryAdapter;
+import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.Helpers;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+<span class="fc" id="L51">public class InventoryActivity extends AppCompatActivity {</span>
+
+    private RecyclerView lst;
+    private ProgressBar pb;
+
+    /**
+     * Called when the activity is starting, inflates the activity's UI
+     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="fc" id="L62">        super.onCreate(savedInstanceState);</span>
+
+<span class="fc" id="L64">        setContentView(R.layout.activity_inventory);</span>
+
+<span class="fc" id="L66">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span>
+
+        try {
+<span class="fc" id="L69">            setSupportActionBar(toolbar);</span>
+<span class="fc" id="L70">            getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L71">            toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+                @Override
+                public void onClick(View v) {
+<span class="nc" id="L74">                    onBackPressed();</span>
+<span class="nc" id="L75">                }</span>
+            });
+<span class="nc" id="L77">        } catch (Exception ex) {</span>
+<span class="nc" id="L78">            FlyveLog.e(ex.getMessage());</span>
+<span class="fc" id="L79">        }</span>
+
+<span class="fc" id="L81">        pb = (ProgressBar) findViewById(R.id.pb);</span>
+<span class="fc" id="L82">        pb.setVisibility(View.VISIBLE);</span>
+
+<span class="fc" id="L84">        FloatingActionButton btnShare = (FloatingActionButton) findViewById(R.id.btnShare);</span>
+<span class="fc" id="L85">        btnShare.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L88">                showDialogShare();</span>
+<span class="nc" id="L89">            }</span>
+        });
+
+<span class="fc" id="L92">        lst = (RecyclerView)findViewById(R.id.lst);</span>
+
+<span class="fc" id="L94">        GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);</span>
+<span class="fc" id="L95">        lst.setLayoutManager(llm);</span>
+
+<span class="fc" id="L97">        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, &quot;FlyveMDMInventoryAgent&quot;, true);</span>
+
+<span class="fc" id="L99">        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
+            @Override
+            public void onTaskSuccess(String s) {
+<span class="nc" id="L102">                load(s);</span>
+<span class="nc" id="L103">                inventoryTask.getXMLSyn();</span>
+<span class="nc" id="L104">            }</span>
+
+            @Override
+            public void onTaskError(Throwable throwable) {
+<span class="fc" id="L108">                pb.setVisibility(View.GONE);</span>
+<span class="fc" id="L109">                FlyveLog.e(throwable.getMessage());</span>
+<span class="fc" id="L110">            }</span>
+        });
+<span class="fc" id="L112">    }</span>
+
+    private void load(String jsonStr) {
+
+<span class="nc" id="L116">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
+
+        try {
+<span class="nc" id="L119">            JSONObject json = new JSONObject(jsonStr);</span>
+<span class="nc" id="L120">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
+<span class="nc" id="L121">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
+
+<span class="nc" id="L123">                Iterator&lt;?&gt; keys = jsonContent.keys();</span>
+
+<span class="nc bnc" id="L125" title="All 2 branches missed.">                while( keys.hasNext() ) {</span>
+<span class="nc" id="L126">                    String key = (String)keys.next();</span>
+
+<span class="nc bnc" id="L128" title="All 2 branches missed.">                    if ( jsonContent.get(key) instanceof JSONArray ) {</span>
+                        // add header
+<span class="nc" id="L130">                        FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
+
+<span class="nc" id="L132">                        HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L133">                        h.put(&quot;type&quot;, &quot;header&quot;);</span>
+<span class="nc" id="L134">                        h.put(&quot;title&quot;, key.toUpperCase());</span>
+
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                        if(!key.trim().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L137">                            data.add(h);</span>
+                        }
+
+<span class="nc bnc" id="L140" title="All 2 branches missed.">                        if(!key.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L141">                            JSONArray category = jsonContent.getJSONArray(key);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">                            for (int y = 0; y &lt; category.length(); y++) {</span>
+
+
+<span class="nc" id="L145">                                JSONObject obj = category.getJSONObject(y);</span>
+
+<span class="nc" id="L147">                                Iterator&lt;?&gt; keysObj = obj.keys();</span>
+
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                                while (keysObj.hasNext()) {</span>
+<span class="nc" id="L150">                                    HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L152">                                    String keyObj = (String) keysObj.next();</span>
+<span class="nc" id="L153">                                    c.put(&quot;type&quot;, &quot;data&quot;);</span>
+<span class="nc" id="L154">                                    c.put(&quot;title&quot;, keyObj);</span>
+<span class="nc" id="L155">                                    c.put(&quot;description&quot;, obj.getString(keyObj));</span>
+<span class="nc" id="L156">                                    FlyveLog.d(keyObj);</span>
+
+<span class="nc" id="L158">                                    data.add(c);</span>
+<span class="nc" id="L159">                                }</span>
+
+
+                            }
+                        }
+                    }
+<span class="nc" id="L165">                }</span>
+<span class="nc" id="L166">                pb.setVisibility(View.GONE);</span>
+
+<span class="nc" id="L168">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
+<span class="nc" id="L169">            lst.setAdapter(mAdapter);</span>
+
+<span class="nc" id="L171">        } catch (Exception ex) {</span>
+<span class="nc" id="L172">            pb.setVisibility(View.GONE);</span>
+<span class="nc" id="L173">            FlyveLog.e(ex.getMessage());</span>
+<span class="nc" id="L174">        }</span>
+<span class="nc" id="L175">    }</span>
+
+    public void showDialogShare() {
+<span class="nc" id="L178">        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);</span>
+<span class="nc" id="L179">        builder.setTitle(R.string.dialog_share_title);</span>
+
+<span class="nc" id="L181">        final int[] type = new int[1];</span>
+
+        //list of items
+<span class="nc" id="L184">        String[] items = getResources().getStringArray(R.array.export_list);</span>
+<span class="nc" id="L185">        builder.setSingleChoiceItems(items, 0,</span>
+<span class="nc" id="L186">                new DialogInterface.OnClickListener() {</span>
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+<span class="nc" id="L189">                        type[0] = which;</span>
+<span class="nc" id="L190">                    }</span>
+                });
+
+<span class="nc" id="L193">        String positiveText = getString(android.R.string.ok);</span>
+<span class="nc" id="L194">        builder.setPositiveButton(positiveText,</span>
+<span class="nc" id="L195">                new DialogInterface.OnClickListener() {</span>
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // positive button logic
+<span class="nc" id="L199">                        Helpers.share( InventoryActivity.this, &quot;Inventory Agent File&quot;, type[0] );</span>
+<span class="nc" id="L200">                    }</span>
+                });
+
+<span class="nc" id="L203">        String negativeText = getString(android.R.string.cancel);</span>
+<span class="nc" id="L204">        builder.setNegativeButton(negativeText,</span>
+<span class="nc" id="L205">                new DialogInterface.OnClickListener() {</span>
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+<span class="nc" id="L209">                    }</span>
+                });
+
+<span class="nc" id="L212">        AlertDialog dialog = builder.create();</span>
+        // display dialog
+<span class="nc" id="L214">        dialog.show();</span>
+<span class="nc" id="L215">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>

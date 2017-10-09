@@ -2,3 +2,12 @@ h3 {
     font-size: 15px !important;
     padding: 0 !important;
 }
+h1 {
+    font-size: 46px !important;
+}
+.deviceName {
+    font-size: 24px !important;
+}
+* {
+    font-family: "Segoe UI",Selawik,Tahoma,Verdana,Arial,sans-serif !important;
+}
