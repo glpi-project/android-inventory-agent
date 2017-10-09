@@ -193,10 +193,16 @@ public class HttpInventory {
                     FlyveLog.log(this, "No HTTP response ", Log.ERROR);
                     callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
                 }
-                Header[] headers = response.getAllHeaders();
-                for (Header header : headers) {
-                    FlyveLog.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
+
+                try {
+                    Header[] headers = response.getAllHeaders();
+                    for (Header header : headers) {
+                        FlyveLog.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
+                    }
+                } catch (Exception ex) {
+                    FlyveLog.e(ex.getMessage());
                 }
+
                 try {
                     InputStream mIS = response.getEntity().getContent();
                     BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
