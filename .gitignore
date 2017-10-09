@@ -4,3 +4,11 @@ _site
 .jekyll-metadata
 .DS_Store
 node_modules
+.gradle/
+gradle
+.idea/
+build/
+app/
+local.properties
+gradlew
+gradlew.bat
