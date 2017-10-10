@@ -180,9 +180,6 @@ jobs:
         - run:
             name: Create a github release
             command: source ci/scripts/ci_github_release.sh
-        - run:
-            name: Send changelog to gh-page
-            command: source ci/scripts/ci_changelog.sh
         - save_cache:
             paths:
               - ~/.gradle
@@ -219,6 +216,9 @@ jobs:
         - run:
             name: Coverage
             command: source ci/scripts/ci_coverage.sh
+        - run:
+            name: Send changelog to gh-page
+            command: source ci/scripts/ci_changelog.sh
         - run:
             name: Javadoc
             command: source ci/scripts/ci_javadoc.sh
