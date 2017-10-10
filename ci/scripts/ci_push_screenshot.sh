@@ -2,7 +2,7 @@
 
 # Push commits and tags to origin branch
 sudo mv ./fastlane/metadata/android ./screenshots
-sudo mv ./fastlane/metadata/android/screenshots.html ./screenshots/index.html
+sudo mv ./screenshots/screenshots.html ./screenshots/index.html
 
 # add
 git add ./screenshots
