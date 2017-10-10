@@ -1,7 +1,4 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2017 Teclib'
  *
  * This file is part of Flyve MDM Inventory Agent Android.
@@ -102,80 +99,80 @@ import java.util.Iterator;
 <span class="fc" id="L99">        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
             @Override
             public void onTaskSuccess(String s) {
-<span class="nc" id="L102">                load(s);</span>
-<span class="nc" id="L103">                inventoryTask.getXMLSyn();</span>
-<span class="nc" id="L104">            }</span>
+<span class="fc" id="L102">                load(s);</span>
+<span class="fc" id="L103">                inventoryTask.getXMLSyn();</span>
+<span class="fc" id="L104">            }</span>
 
             @Override
             public void onTaskError(Throwable throwable) {
-<span class="fc" id="L108">                pb.setVisibility(View.GONE);</span>
-<span class="fc" id="L109">                FlyveLog.e(throwable.getMessage());</span>
-<span class="fc" id="L110">            }</span>
+<span class="nc" id="L108">                pb.setVisibility(View.GONE);</span>
+<span class="nc" id="L109">                FlyveLog.e(throwable.getMessage());</span>
+<span class="nc" id="L110">            }</span>
         });
 <span class="fc" id="L112">    }</span>
 
     private void load(String jsonStr) {
 
-<span class="nc" id="L116">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
+<span class="fc" id="L116">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
 
         try {
-<span class="nc" id="L119">            JSONObject json = new JSONObject(jsonStr);</span>
-<span class="nc" id="L120">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
-<span class="nc" id="L121">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
+<span class="fc" id="L119">            JSONObject json = new JSONObject(jsonStr);</span>
+<span class="fc" id="L120">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
+<span class="fc" id="L121">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
 
-<span class="nc" id="L123">                Iterator&lt;?&gt; keys = jsonContent.keys();</span>
+<span class="fc" id="L123">                Iterator&lt;?&gt; keys = jsonContent.keys();</span>
 
-<span class="nc bnc" id="L125" title="All 2 branches missed.">                while( keys.hasNext() ) {</span>
-<span class="nc" id="L126">                    String key = (String)keys.next();</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">                while( keys.hasNext() ) {</span>
+<span class="fc" id="L126">                    String key = (String)keys.next();</span>
 
-<span class="nc bnc" id="L128" title="All 2 branches missed.">                    if ( jsonContent.get(key) instanceof JSONArray ) {</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                    if ( jsonContent.get(key) instanceof JSONArray ) {</span>
                         // add header
-<span class="nc" id="L130">                        FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
+<span class="fc" id="L130">                        FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
 
-<span class="nc" id="L132">                        HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L133">                        h.put(&quot;type&quot;, &quot;header&quot;);</span>
-<span class="nc" id="L134">                        h.put(&quot;title&quot;, key.toUpperCase());</span>
+<span class="fc" id="L132">                        HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L133">                        h.put(&quot;type&quot;, &quot;header&quot;);</span>
+<span class="fc" id="L134">                        h.put(&quot;title&quot;, key.toUpperCase());</span>
 
-<span class="nc bnc" id="L136" title="All 2 branches missed.">                        if(!key.trim().equals(&quot;&quot;)) {</span>
-<span class="nc" id="L137">                            data.add(h);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                        if(!key.trim().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L137">                            data.add(h);</span>
                         }
 
-<span class="nc bnc" id="L140" title="All 2 branches missed.">                        if(!key.equals(&quot;&quot;)) {</span>
-<span class="nc" id="L141">                            JSONArray category = jsonContent.getJSONArray(key);</span>
-<span class="nc bnc" id="L142" title="All 2 branches missed.">                            for (int y = 0; y &lt; category.length(); y++) {</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">                        if(!key.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L141">                            JSONArray category = jsonContent.getJSONArray(key);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">                            for (int y = 0; y &lt; category.length(); y++) {</span>
 
 
-<span class="nc" id="L145">                                JSONObject obj = category.getJSONObject(y);</span>
+<span class="fc" id="L145">                                JSONObject obj = category.getJSONObject(y);</span>
 
-<span class="nc" id="L147">                                Iterator&lt;?&gt; keysObj = obj.keys();</span>
+<span class="fc" id="L147">                                Iterator&lt;?&gt; keysObj = obj.keys();</span>
 
-<span class="nc bnc" id="L149" title="All 2 branches missed.">                                while (keysObj.hasNext()) {</span>
-<span class="nc" id="L150">                                    HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                                while (keysObj.hasNext()) {</span>
+<span class="fc" id="L150">                                    HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
 
-<span class="nc" id="L152">                                    String keyObj = (String) keysObj.next();</span>
-<span class="nc" id="L153">                                    c.put(&quot;type&quot;, &quot;data&quot;);</span>
-<span class="nc" id="L154">                                    c.put(&quot;title&quot;, keyObj);</span>
-<span class="nc" id="L155">                                    c.put(&quot;description&quot;, obj.getString(keyObj));</span>
-<span class="nc" id="L156">                                    FlyveLog.d(keyObj);</span>
+<span class="fc" id="L152">                                    String keyObj = (String) keysObj.next();</span>
+<span class="fc" id="L153">                                    c.put(&quot;type&quot;, &quot;data&quot;);</span>
+<span class="fc" id="L154">                                    c.put(&quot;title&quot;, keyObj);</span>
+<span class="fc" id="L155">                                    c.put(&quot;description&quot;, obj.getString(keyObj));</span>
+<span class="fc" id="L156">                                    FlyveLog.d(keyObj);</span>
 
-<span class="nc" id="L158">                                    data.add(c);</span>
-<span class="nc" id="L159">                                }</span>
+<span class="fc" id="L158">                                    data.add(c);</span>
+<span class="fc" id="L159">                                }</span>
 
 
                             }
                         }
                     }
-<span class="nc" id="L165">                }</span>
-<span class="nc" id="L166">                pb.setVisibility(View.GONE);</span>
+<span class="fc" id="L165">                }</span>
+<span class="fc" id="L166">                pb.setVisibility(View.GONE);</span>
 
-<span class="nc" id="L168">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
-<span class="nc" id="L169">            lst.setAdapter(mAdapter);</span>
+<span class="fc" id="L168">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
+<span class="fc" id="L169">            lst.setAdapter(mAdapter);</span>
 
 <span class="nc" id="L171">        } catch (Exception ex) {</span>
 <span class="nc" id="L172">            pb.setVisibility(View.GONE);</span>
 <span class="nc" id="L173">            FlyveLog.e(ex.getMessage());</span>
-<span class="nc" id="L174">        }</span>
-<span class="nc" id="L175">    }</span>
+<span class="fc" id="L174">        }</span>
+<span class="fc" id="L175">    }</span>
 
     public void showDialogShare() {
 <span class="nc" id="L178">        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);</span>
