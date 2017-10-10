@@ -28,7 +28,7 @@ To get started, check out <https://flyve-mdm.com/>!
 
 This application is the Android inventory agent of the Inventory project.
 
-It features a complete inventory of your Android devices: both hardware and software informations are collected. You get the data about processor, memory, drives, sensors, etc. and also the list and description of installed application (apk).
+It features a complete inventory of your Android devices: both hardware and software informations are collected. You get the data about processor, memory, drives, sensors, the list and description of installed application (apk) and [more](#data-collected).
 
 Inventory Agent for Android is running on Android 1.6 and higher.
 
@@ -37,15 +37,37 @@ Inventory Agent for Android can send inventory to:
 - OCSInventory NG (ocsng) 1.3.x and 2.x
 - Mandriva Pulse2
 
-The Inventory project is an open source project providing :
+The Inventory project is a free software project providing:
 - hardware and software inventory (multiplatform)
 - network discovery
-- network inventory for printers and switchs
+- network inventory for printers and switches
 - Wake On Lan (WOL)
 - Software deployment
 - total integration with the GLPI project (open source asset management software and helpdesk)
 
 Inventory agents can also be used with other open sources projects like Uranos or Rudder.
+
+#### Data collected:
+
+- USB
+- Hardware
+- Sensors
+- Software
+- Memories
+- Cameras
+- Networks
+- Battery
+- CPUs
+- BIOS
+- Inputs
+- Drives
+- Accesslog
+- SIM Cards
+- Environments variables
+- JVM
+- Videos
+
+Visit our [website](http://flyve.org/flyve-mdm-android-inventory-agent/) for more information.
 
 ## Build Status
 
@@ -55,11 +77,11 @@ Inventory agents can also be used with other open sources projects like Uranos o
 
 ## Installation
 
-[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Pla" height="60">](https://play.google.com/store/apps/details?id=org.flyve.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.flyve.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/releases/latest)
+[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.flyve.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.flyve.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/releases/latest)
 
 ## Documentation
 
-We share long-form content about the project in the [wiki](https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/wiki).
+We maintain a detailed documentation of the project on its [website](http://flyve.org/flyve-mdm-android-inventory-agent/).
 
 ## Versioning
 
