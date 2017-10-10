@@ -112,6 +112,9 @@ jobs:
           - run:
               name: Run Fastlane Screengrab
               command: fastlane screengrab
+          - run:
+              name: send screenshot to gh-pages
+              command: source ci/scripts/ci_push_screenshot.sh
           - store_artifacts:
               path: fastlane/metadata
               destination: screenshot
