@@ -22,6 +22,9 @@ sudo git clean -fdx
 # git get screenshots
 git checkout $CIRCLE_BRANCH ./screenshots
 
+# add header
+ruby ./ci/add_header_screenshot.rb
+
 # add
 git add ./screenshots
 
