@@ -5,7 +5,7 @@ sudo mv ./fastlane/metadata/android ./screenshots
 sudo mv ./screenshots/screenshots.html ./screenshots/index.html
 
 # add
-git add ./screenshots
+git add .
 
 # temporal commit
 git commit -m "ci(tmp): temporal commit"
