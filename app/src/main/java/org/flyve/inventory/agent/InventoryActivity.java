@@ -28,7 +28,12 @@ package org.flyve.inventory.agent;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -38,6 +43,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.IdlingResource.RecycleViewIdlingResource;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
@@ -52,6 +58,10 @@ public class InventoryActivity extends AppCompatActivity {
 
     private RecyclerView lst;
     private ProgressBar pb;
+
+    // The Idling Resource which will be null in production.
+    @Nullable
+    private RecycleViewIdlingResource mIdlingResource;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -94,11 +104,15 @@ public class InventoryActivity extends AppCompatActivity {
         GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
         lst.setLayoutManager(llm);
 
-        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, "FlyveMDMInventoryAgent", true);
+        // this is just for testing
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(false);
+        }
 
+        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, "FlyveMDMInventoryAgent", true);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
-            public void onTaskSuccess(String s) {
+            public void onTaskSuccess(final String s) {
                 load(s);
                 inventoryTask.getXMLSyn();
             }
@@ -120,57 +134,64 @@ public class InventoryActivity extends AppCompatActivity {
             JSONObject jsonrequest = json.getJSONObject("request");
             JSONObject jsonContent = jsonrequest.getJSONObject("content");
 
-                Iterator<?> keys = jsonContent.keys();
+            Iterator<?> keys = jsonContent.keys();
 
-                while( keys.hasNext() ) {
-                    String key = (String)keys.next();
+            while( keys.hasNext() ) {
+                String key = (String)keys.next();
 
-                    if ( jsonContent.get(key) instanceof JSONArray ) {
-                        // add header
-                        FlyveLog.d("----------- Header: " + key);
+                if ( jsonContent.get(key) instanceof JSONArray ) {
+                    // add header
+                    FlyveLog.d("----------- Header: " + key);
 
-                        HashMap<String, String> h = new HashMap<>();
-                        h.put("type", "header");
-                        h.put("title", key.toUpperCase());
+                    HashMap<String, String> h = new HashMap<>();
+                    h.put("type", "header");
+                    h.put("title", key.toUpperCase());
 
-                        if(!key.trim().equals("")) {
-                            data.add(h);
-                        }
+                    if(!key.trim().equals("")) {
+                        data.add(h);
+                    }
 
-                        if(!key.equals("")) {
-                            JSONArray category = jsonContent.getJSONArray(key);
-                            for (int y = 0; y < category.length(); y++) {
-
-
-                                JSONObject obj = category.getJSONObject(y);
-
-                                Iterator<?> keysObj = obj.keys();
-
-                                while (keysObj.hasNext()) {
-                                    HashMap<String, String> c = new HashMap<>();
-
-                                    String keyObj = (String) keysObj.next();
-                                    c.put("type", "data");
-                                    c.put("title", keyObj);
-                                    c.put("description", obj.getString(keyObj));
-                                    FlyveLog.d(keyObj);
-
-                                    data.add(c);
-                                }
+                    if(!key.equals("")) {
+                        JSONArray category = jsonContent.getJSONArray(key);
+                        for (int y = 0; y < category.length(); y++) {
 
 
+                            JSONObject obj = category.getJSONObject(y);
+
+                            Iterator<?> keysObj = obj.keys();
+
+                            while (keysObj.hasNext()) {
+                                HashMap<String, String> c = new HashMap<>();
+
+                                String keyObj = (String) keysObj.next();
+                                c.put("type", "data");
+                                c.put("title", keyObj);
+                                c.put("description", obj.getString(keyObj));
+                                FlyveLog.d(keyObj);
+
+                                data.add(c);
                             }
                         }
                     }
                 }
-                pb.setVisibility(View.GONE);
+            }
+            pb.setVisibility(View.GONE);
 
             InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);
             lst.setAdapter(mAdapter);
 
+            // this is just for testing
+            if (mIdlingResource != null) {
+                mIdlingResource.setIdleState(true);
+            }
         } catch (Exception ex) {
             pb.setVisibility(View.GONE);
             FlyveLog.e(ex.getMessage());
+
+            // this is just for testing
+            if (mIdlingResource != null) {
+                mIdlingResource.setIdleState(true);
+            }
         }
     }
 
@@ -214,4 +235,16 @@ public class InventoryActivity extends AppCompatActivity {
         dialog.show();
     }
 
+
+    /**
+     * Only called from test, creates and returns a new {@link RecycleViewIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new RecycleViewIdlingResource();
+        }
+        return mIdlingResource;
+    }
 }
