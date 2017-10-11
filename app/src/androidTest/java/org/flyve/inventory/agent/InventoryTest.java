@@ -28,9 +28,19 @@ package org.flyve.inventory.agent;
  */
 
 import android.os.Build;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingResource;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.assertion.ViewAssertions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 
+import org.hamcrest.Matcher;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,6 +48,10 @@ import org.junit.runner.RunWith;
 
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.locale.LocaleTestRule;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
 @RunWith(AndroidJUnit4.class)
 public class InventoryTest {
@@ -47,15 +61,53 @@ public class InventoryTest {
     @Rule
     public ActivityTestRule<InventoryActivity> activityRule = new ActivityTestRule<>(InventoryActivity.class);
 
+    private IdlingResource mIdlingResource;
+
+    @Before
+    public void registerIdlingResource() {
+        mIdlingResource = activityRule.getActivity().getIdlingResource();
+
+        // To prove that the test fails, omit this call:
+        Espresso.registerIdlingResources(mIdlingResource);
+    }
+
     @Test
     public void testTakeScreenshot() {
         if (Build.VERSION.SDK_INT < 24) {
-//            Espresso.onView(ViewMatchers.withId(R.id.lst)).check(ViewAssertions.matches(isDisplayed()));
-//
-//            Espresso.onView(ViewMatchers.withId(R.id.lst))
-//                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(isRoot()).perform(waitFor(1000));
+
+            onView(ViewMatchers.withId(R.id.lst)).check(ViewAssertions.matches(isDisplayed()));
 
             Screengrab.screenshot("inventory");
         }
+    }
+
+    @After
+    public void unregisterIdlingResource() {
+        if (mIdlingResource != null) {
+            Espresso.unregisterIdlingResources(mIdlingResource);
+        }
+    }
+
+    /**
+     * Perform action of waiting for a specific time.
+     */
+    public static ViewAction waitFor(final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "Wait for " + millis + " milliseconds.";
+            }
+
+            @Override
+            public void perform(UiController uiController, final View view) {
+                uiController.loopMainThreadForAtLeast(millis);
+            }
+        };
     }
 }
