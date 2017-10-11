@@ -10,5 +10,7 @@ gradle
 build/
 app/
 local.properties
+app/src/main/assets/about.properties
+*.properties
 gradlew
 gradlew.bat
