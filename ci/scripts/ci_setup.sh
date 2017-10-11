@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# accept all Android Licenses
+yes | sdkmanager --licenses || true
+
 # create enviroment vars to work with fastlane telegram
 echo TELEGRAM_WEBHOOKS=$TELEGRAM_WEBHOOKS > .env
 echo GIT_REPO=$CIRCLE_REPOSITORY_URL >> .env
