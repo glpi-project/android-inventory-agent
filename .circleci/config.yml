@@ -12,6 +12,11 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: Accept licenses
+          command: |
+              yes | sdkmanager --install "extras;android;m2repository" || true
+              yes | sdkmanager --licenses || true
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
@@ -26,6 +31,9 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
+      - run:
+          name: Accept licenses
+          command: yes | sdkmanager --licenses || true
       - run:
           name: Setup emulator
           command: sdkmanager "system-images;android-25;google_apis;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a"
@@ -57,6 +65,9 @@ jobs:
         JVM_OPTS: -Xmx3200m
       steps:
         - checkout
+        - run:
+            name: Accept licenses
+            command: yes | sdkmanager --licenses || true
         - run:
             name: Setup emulator
             command: sdkmanager "system-images;android-16;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-16;default;armeabi-v7a"
