@@ -50,6 +50,11 @@ public class InventoryTest {
     @Test
     public void testTakeScreenshot() {
         if (Build.VERSION.SDK_INT < 24) {
+//            Espresso.onView(ViewMatchers.withId(R.id.lst)).check(ViewAssertions.matches(isDisplayed()));
+//
+//            Espresso.onView(ViewMatchers.withId(R.id.lst))
+//                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
             Screengrab.screenshot("inventory");
         }
     }
