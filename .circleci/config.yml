@@ -88,6 +88,8 @@ jobs:
           JVM_OPTS: -Xmx3200m
         steps:
           - checkout
+          - restore_cache:
+              key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
           - run:
               name: Setup environment
               command: source ci/scripts/ci_setup.sh
@@ -124,6 +126,11 @@ jobs:
           - store_artifacts:
               path: fastlane/metadata
               destination: screenshot
+          - save_cache:
+              paths:
+                - ~/.gradle
+              key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
   deploy_beta:
     working_directory: ~/flyve_mdm
     docker:
