@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
             FlyveLog.e(ex.getMessage());
         }
 
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new FragmentAccueil()).commit();
+//        getFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                new FragmentAccueil()).commit();
     }
 
     public static Intent getStartIntent(Context context, boolean commitFragment) {

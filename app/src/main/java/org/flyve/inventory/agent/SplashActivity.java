@@ -78,7 +78,7 @@ public class SplashActivity extends Activity {
      * Starts the activity
      */
     private void openActivity() {
-        Intent miIntent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent miIntent = new Intent(SplashActivity.this, FragmentAccueil.class);
         SplashActivity.this.startActivity(miIntent);
         SplashActivity.this.finish();
     }
