@@ -1,3 +1,4 @@
 org.flyve.inventory.agent
+org.flyve.inventory.agent.IdlingResource
 org.flyve.inventory.agent.adapter
 org.flyve.inventory.agent.utils
