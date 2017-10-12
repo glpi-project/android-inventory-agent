@@ -26,7 +26,6 @@
  */
 package org.flyve.inventory.agent;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -40,11 +39,11 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceFragment;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.ConnectionHTTP;
 import org.flyve.inventory.agent.utils.FlyveLog;
@@ -53,9 +52,10 @@ import org.flyve.inventory.agent.utils.HttpInventory;
 import org.flyve.inventory.agent.utils.LocalStorage;
 import org.flyve.inventory.agent.utils.UtilsCrash;
 
-public class FragmentAccueil extends PreferenceFragment implements OnSharedPreferenceChangeListener {
+public class FragmentAccueil extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
     private Intent mServiceIntent;
+    private Toolbar mToolbar;
 
     /**
      * Called when the activity will start interacting with the user
@@ -83,10 +83,10 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
         InventoryService inventoryService = new InventoryService();
-        mServiceIntent = new Intent(this.getActivity(), inventoryService.getClass());
+        mServiceIntent = new Intent(this, inventoryService.getClass());
 
         if (!isMyServiceRunning(inventoryService.getClass())) {
-            ComponentName result = FragmentAccueil.this.getActivity().startService(mServiceIntent);
+            ComponentName result = FragmentAccueil.this.startService(mServiceIntent);
 
             if (result != null) {
                 FlyveLog.log(this, " Agent started ", Log.INFO);
@@ -104,7 +104,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
      * @return boolean
      */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) FragmentAccueil.this.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) FragmentAccueil.this.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -129,7 +129,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         Preference autoStartInventory = findPreference("autoStartInventory");
         autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                FragmentAccueil.this.getActivity().stopService( mServiceIntent );
+                FragmentAccueil.this.stopService( mServiceIntent );
                 doBindService();
                 return true;
             }
@@ -140,7 +140,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         Preference timeInventory = findPreference("timeInventory");
         timeInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                FragmentAccueil.this.getActivity().stopService( mServiceIntent );
+                FragmentAccueil.this.stopService( mServiceIntent );
                 doBindService();
                 return true;
             }
@@ -150,11 +150,11 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         Preference crashReport = findPreference("crashReport");
         crashReport.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this);
                 Boolean val = sharedPreferences.getBoolean("crashReport",false);
-                UtilsCrash.configCrash(FragmentAccueil.this.getActivity(), val);
+                UtilsCrash.configCrash(FragmentAccueil.this, val);
 
-                LocalStorage localStorage = new LocalStorage(FragmentAccueil.this.getActivity());
+                LocalStorage localStorage = new LocalStorage(FragmentAccueil.this);
                 localStorage.setData("crashReport", String.valueOf(val));
 
                 FlyveLog.d("crashReport: " + val);
@@ -165,10 +165,10 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         Preference anonymousData = findPreference("anonymousData");
         anonymousData.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this);
                 Boolean val = sharedPreferences.getBoolean("anonymousData",false);
 
-                LocalStorage localStorage = new LocalStorage(FragmentAccueil.this.getActivity());
+                LocalStorage localStorage = new LocalStorage(FragmentAccueil.this);
                 localStorage.setData("anonymousData", String.valueOf(val));
 
                 FlyveLog.d("anonymousData: " + val);
@@ -180,28 +180,28 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this.getActivity(), "");
+                final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this, "");
 
-                ((MainActivity)FragmentAccueil.this.getActivity()).loading(true);
+                //((MainActivity)FragmentAccueil.this).loading(true);
 
                 // Sending anonymous information
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
                         FlyveLog.d(data);
-                        HttpInventory httpInventory = new HttpInventory(FragmentAccueil.this.getActivity());
+                        HttpInventory httpInventory = new HttpInventory(FragmentAccueil.this);
                         httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
-                                ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);
-                                Helpers.snackClose(FragmentAccueil.this.getActivity(), data, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), false);
+                                //((MainActivity)FragmentAccueil.this).loading(false);
+                                Helpers.snackClose(FragmentAccueil.this, data, FragmentAccueil.this.getResources().getString(R.string.snackButton), false);
                                 sendAnonymousData(inventoryTask);
                             }
 
                             @Override
                             public void onTaskError(String error) {
-                                ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);
-                                Helpers.snackClose(FragmentAccueil.this.getActivity(), error, FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
+                                //((MainActivity)FragmentAccueil.this).loading(false);
+                                Helpers.snackClose(FragmentAccueil.this, error, FragmentAccueil.this.getResources().getString(R.string.snackButton), true);
 
                             }
                         });
@@ -210,8 +210,8 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
                     @Override
                     public void onTaskError(Throwable error) {
                         FlyveLog.e(error.getMessage());
-                        ((MainActivity)FragmentAccueil.this.getActivity()).loading(false);
-                        Helpers.snackClose(FragmentAccueil.this.getActivity(), error.getMessage(), FragmentAccueil.this.getActivity().getResources().getString(R.string.snackButton), true);
+                        //((MainActivity)FragmentAccueil.this).loading(false);
+                        Helpers.snackClose(FragmentAccueil.this, error.getMessage(), FragmentAccueil.this.getResources().getString(R.string.snackButton), true);
                     }
                 });
 
@@ -225,8 +225,8 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         showInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent miIntent = new Intent(FragmentAccueil.this.getActivity(), InventoryActivity.class);
-                FragmentAccueil.this.getActivity().startActivity(miIntent);
+                Intent miIntent = new Intent(FragmentAccueil.this, InventoryActivity.class);
+                FragmentAccueil.this.startActivity(miIntent);
 
                 return true;
             }
@@ -237,8 +237,8 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
         about.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent miIntent = new Intent(FragmentAccueil.this.getActivity(), AboutActivity.class);
-                FragmentAccueil.this.getActivity().startActivity(miIntent);
+                Intent miIntent = new Intent(FragmentAccueil.this, AboutActivity.class);
+                FragmentAccueil.this.startActivity(miIntent);
 
                 return true;
             }
@@ -250,7 +250,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 String url = "http://flyve.org/flyve-mdm-android-inventory-agent/";
-                openURL( FragmentAccueil.this.getActivity(), url );
+                openURL( FragmentAccueil.this, url );
                 return true;
             }
         });
@@ -262,7 +262,7 @@ public class FragmentAccueil extends PreferenceFragment implements OnSharedPrefe
 
     private void sendAnonymousData(InventoryTask inventoryTask) {
         // Sending anonymous information
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this.getActivity());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this);
         Boolean val = sharedPreferences.getBoolean("anonymousData",false);
         if(val) {
             inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
