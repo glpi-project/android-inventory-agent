@@ -1,7 +1,4 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2017 Teclib'
  *
  * This file is part of Flyve MDM Inventory Agent Android.
@@ -116,75 +113,75 @@ import java.util.Iterator;
 <span class="fc" id="L113">        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
             @Override
             public void onTaskSuccess(final String s) {
-<span class="nc" id="L116">                load(s);</span>
-<span class="nc" id="L117">                inventoryTask.getXMLSyn();</span>
-<span class="nc" id="L118">            }</span>
+<span class="fc" id="L116">                load(s);</span>
+<span class="fc" id="L117">                inventoryTask.getXMLSyn();</span>
+<span class="fc" id="L118">            }</span>
 
             @Override
             public void onTaskError(Throwable throwable) {
-<span class="fc" id="L122">                pb.setVisibility(View.GONE);</span>
-<span class="fc" id="L123">                FlyveLog.e(throwable.getMessage());</span>
-<span class="fc" id="L124">            }</span>
+<span class="nc" id="L122">                pb.setVisibility(View.GONE);</span>
+<span class="nc" id="L123">                FlyveLog.e(throwable.getMessage());</span>
+<span class="nc" id="L124">            }</span>
         });
 <span class="fc" id="L126">    }</span>
 
     private void load(String jsonStr) {
 
-<span class="nc" id="L130">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
+<span class="fc" id="L130">        ArrayList&lt;HashMap&lt;String, String&gt;&gt; data = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();</span>
 
         try {
-<span class="nc" id="L133">            JSONObject json = new JSONObject(jsonStr);</span>
-<span class="nc" id="L134">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
-<span class="nc" id="L135">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
+<span class="fc" id="L133">            JSONObject json = new JSONObject(jsonStr);</span>
+<span class="fc" id="L134">            JSONObject jsonrequest = json.getJSONObject(&quot;request&quot;);</span>
+<span class="fc" id="L135">            JSONObject jsonContent = jsonrequest.getJSONObject(&quot;content&quot;);</span>
 
-<span class="nc" id="L137">            Iterator&lt;?&gt; keys = jsonContent.keys();</span>
+<span class="fc" id="L137">            Iterator&lt;?&gt; keys = jsonContent.keys();</span>
 
-<span class="nc bnc" id="L139" title="All 2 branches missed.">            while( keys.hasNext() ) {</span>
-<span class="nc" id="L140">                String key = (String)keys.next();</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">            while( keys.hasNext() ) {</span>
+<span class="fc" id="L140">                String key = (String)keys.next();</span>
 
-<span class="nc bnc" id="L142" title="All 2 branches missed.">                if ( jsonContent.get(key) instanceof JSONArray ) {</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">                if ( jsonContent.get(key) instanceof JSONArray ) {</span>
                     // add header
-<span class="nc" id="L144">                    FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
+<span class="fc" id="L144">                    FlyveLog.d(&quot;----------- Header: &quot; + key);</span>
 
-<span class="nc" id="L146">                    HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L147">                    h.put(&quot;type&quot;, &quot;header&quot;);</span>
-<span class="nc" id="L148">                    h.put(&quot;title&quot;, key.toUpperCase());</span>
+<span class="fc" id="L146">                    HashMap&lt;String, String&gt; h = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L147">                    h.put(&quot;type&quot;, &quot;header&quot;);</span>
+<span class="fc" id="L148">                    h.put(&quot;title&quot;, key.toUpperCase());</span>
 
-<span class="nc bnc" id="L150" title="All 2 branches missed.">                    if(!key.trim().equals(&quot;&quot;)) {</span>
-<span class="nc" id="L151">                        data.add(h);</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">                    if(!key.trim().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L151">                        data.add(h);</span>
                     }
 
-<span class="nc bnc" id="L154" title="All 2 branches missed.">                    if(!key.equals(&quot;&quot;)) {</span>
-<span class="nc" id="L155">                        JSONArray category = jsonContent.getJSONArray(key);</span>
-<span class="nc bnc" id="L156" title="All 2 branches missed.">                        for (int y = 0; y &lt; category.length(); y++) {</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                    if(!key.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L155">                        JSONArray category = jsonContent.getJSONArray(key);</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">                        for (int y = 0; y &lt; category.length(); y++) {</span>
 
 
-<span class="nc" id="L159">                            JSONObject obj = category.getJSONObject(y);</span>
+<span class="fc" id="L159">                            JSONObject obj = category.getJSONObject(y);</span>
 
-<span class="nc" id="L161">                            Iterator&lt;?&gt; keysObj = obj.keys();</span>
+<span class="fc" id="L161">                            Iterator&lt;?&gt; keysObj = obj.keys();</span>
 
-<span class="nc bnc" id="L163" title="All 2 branches missed.">                            while (keysObj.hasNext()) {</span>
-<span class="nc" id="L164">                                HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">                            while (keysObj.hasNext()) {</span>
+<span class="fc" id="L164">                                HashMap&lt;String, String&gt; c = new HashMap&lt;&gt;();</span>
 
-<span class="nc" id="L166">                                String keyObj = (String) keysObj.next();</span>
-<span class="nc" id="L167">                                c.put(&quot;type&quot;, &quot;data&quot;);</span>
-<span class="nc" id="L168">                                c.put(&quot;title&quot;, keyObj);</span>
-<span class="nc" id="L169">                                c.put(&quot;description&quot;, obj.getString(keyObj));</span>
-<span class="nc" id="L170">                                FlyveLog.d(keyObj);</span>
+<span class="fc" id="L166">                                String keyObj = (String) keysObj.next();</span>
+<span class="fc" id="L167">                                c.put(&quot;type&quot;, &quot;data&quot;);</span>
+<span class="fc" id="L168">                                c.put(&quot;title&quot;, keyObj);</span>
+<span class="fc" id="L169">                                c.put(&quot;description&quot;, obj.getString(keyObj));</span>
+<span class="fc" id="L170">                                FlyveLog.d(keyObj);</span>
 
-<span class="nc" id="L172">                                data.add(c);</span>
-<span class="nc" id="L173">                            }</span>
+<span class="fc" id="L172">                                data.add(c);</span>
+<span class="fc" id="L173">                            }</span>
                         }
                     }
                 }
-<span class="nc" id="L177">            }</span>
-<span class="nc" id="L178">            pb.setVisibility(View.GONE);</span>
+<span class="fc" id="L177">            }</span>
+<span class="fc" id="L178">            pb.setVisibility(View.GONE);</span>
 
-<span class="nc" id="L180">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
-<span class="nc" id="L181">            lst.setAdapter(mAdapter);</span>
+<span class="fc" id="L180">            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);</span>
+<span class="fc" id="L181">            lst.setAdapter(mAdapter);</span>
 
             // this is just for testing
-<span class="nc bnc" id="L184" title="All 2 branches missed.">            if (mIdlingResource != null) {</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">            if (mIdlingResource != null) {</span>
 <span class="nc" id="L185">                mIdlingResource.setIdleState(true);</span>
             }
 <span class="nc" id="L187">        } catch (Exception ex) {</span>
@@ -195,8 +192,8 @@ import java.util.Iterator;
 <span class="nc bnc" id="L192" title="All 2 branches missed.">            if (mIdlingResource != null) {</span>
 <span class="nc" id="L193">                mIdlingResource.setIdleState(true);</span>
             }
-<span class="nc" id="L195">        }</span>
-<span class="nc" id="L196">    }</span>
+<span class="fc" id="L195">        }</span>
+<span class="fc" id="L196">    }</span>
 
     public void showDialogShare() {
 <span class="nc" id="L199">        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);</span>
@@ -245,10 +242,10 @@ import java.util.Iterator;
     @VisibleForTesting
     @NonNull
     public IdlingResource getIdlingResource() {
-<span class="pc bpc" id="L245" title="1 of 2 branches missed.">        if (mIdlingResource == null) {</span>
-<span class="fc" id="L246">            mIdlingResource = new RecycleViewIdlingResource();</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        if (mIdlingResource == null) {</span>
+<span class="nc" id="L246">            mIdlingResource = new RecycleViewIdlingResource();</span>
         }
-<span class="fc" id="L248">        return mIdlingResource;</span>
+<span class="nc" id="L248">        return mIdlingResource;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.2.0</div></body></html>
