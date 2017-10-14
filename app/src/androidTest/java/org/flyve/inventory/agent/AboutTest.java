@@ -30,7 +30,9 @@ package org.flyve.inventory.agent;
 import android.os.Build;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.WindowManager;
 
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,6 +48,19 @@ public class AboutTest {
 
     @Rule
     public ActivityTestRule<AboutActivity> activityRule = new ActivityTestRule<>(AboutActivity.class);
+
+    @Before
+    public void unlockScreen() {
+        final AboutActivity activity = activityRule.getActivity();
+        Runnable wakeUpDevice = new Runnable() {
+            public void run() {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        };
+        activity.runOnUiThread(wakeUpDevice);
+    }
 
     @Test
     public void testTakeScreenshot() {
