@@ -1,6 +1,6 @@
 {
   "name": "@teclib/flyve-mdm-android-inventory-agent",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Flyve MDM Inventory Agent for Android",
   "main": "index.js",
   "scripts": {
