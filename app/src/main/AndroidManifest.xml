@@ -3,8 +3,13 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	package="org.flyve.inventory.agent"
+<<<<<<< HEAD
 	android:versionName="0.5.0"
 	android:versionCode="37960">
+=======
+	android:versionName="0.1.0"
+	android:versionCode="39160">
+>>>>>>> fb71080... ci(release): update version (0.1.0) and code number (979)
 
 	<!-- Permissions -->
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
