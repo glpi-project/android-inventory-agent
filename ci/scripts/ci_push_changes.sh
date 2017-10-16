@@ -14,6 +14,9 @@ git fetch origin develop
 # go to develop
 git checkout develop
 
+# review some change
+git pull origin develop
+
 # merge with master
 git merge master
 
