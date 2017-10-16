@@ -69,8 +69,8 @@ task updateVersionCode {
             def matcher = pattern.matcher(manifestText)
             matcher.find()
 
-            def manifestContent = matcher.replaceAll("versionCode=\"" + (vCode + 54) + "\"")
-            println "Version Code: " + vCode + 54
+            def manifestContent = matcher.replaceAll("versionCode=\"" + vCode + "\"")
+            println "Version Code: " + vCode
             manifestFile.write(manifestContent)
         } else {
             println "please run: updateVersionCode -P vCode="
