@@ -11,4 +11,4 @@ hackerNewsURL: 'https://news.ycombinator.com/item?id=15503920'
 
 As a tester, you'll receive an update that includes a testing version of the **Inventory Agent** app. Please note that testing versions may be unstable or have a few bugs.
 
-https://play.google.com/apps/testing/org.flyve.inventory.agent
+[https://play.google.com/apps/testing/org.flyve.inventory.agent](https://play.google.com/apps/testing/org.flyve.inventory.agent)
