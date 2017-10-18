@@ -5,7 +5,7 @@ published: true
 title: Join us to the Testing Program
 redditURL: >-
   https://www.reddit.com/r/FlyveMDM/comments/77a3p3/inventory_agent_testing_program/?ref=share&ref_source=link
-hackerNewsURL: 'https://news.ycombinator.com/item?id=15503875'
+hackerNewsURL: 'https://news.ycombinator.com/item?id=15503920'
 ---
 **Teclib'** has invited you to a testing program for an unreleased version of the **Inventory Agent** app.
 
