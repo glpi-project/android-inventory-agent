@@ -1,7 +1,4 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InventoryActivity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryActivity.java</span></div><h1>InventoryActivity.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2017 Teclib'
  *
  * This file is part of Flyve MDM Inventory Agent Android.
@@ -112,7 +109,7 @@ import java.util.Iterator;
 <span class="nc" id="L109">            mIdlingResource.setIdleState(false);</span>
         }
 
-<span class="fc" id="L112">        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, &quot;FlyveMDMInventoryAgent&quot;, true);</span>
+<span class="fc" id="L112">        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, Helpers.getAgentDescription(InventoryActivity.this), true);</span>
 <span class="fc" id="L113">        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
             @Override
             public void onTaskSuccess(final String s) {
