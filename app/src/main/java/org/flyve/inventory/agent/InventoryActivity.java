@@ -109,7 +109,7 @@ public class InventoryActivity extends AppCompatActivity {
             mIdlingResource.setIdleState(false);
         }
 
-        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, "FlyveMDMInventoryAgent", true);
+        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, Helpers.getAgentDescription(InventoryActivity.this), true);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(final String s) {
