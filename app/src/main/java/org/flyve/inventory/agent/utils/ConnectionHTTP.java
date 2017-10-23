@@ -150,6 +150,7 @@ public class ConnectionHTTP {
 			HttpURLConnection conn = (HttpURLConnection)dataURL.openConnection();
 
 			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 			conn.setConnectTimeout(timeout);
 			conn.setReadTimeout(readtimeout);
 
