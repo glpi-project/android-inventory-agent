@@ -15,9 +15,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
+import org.flyve.inventory.agent.AboutActivity;
 import org.flyve.inventory.agent.MainActivity;
 import org.flyve.inventory.agent.R;
-import org.json.JSONObject;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
@@ -142,6 +142,20 @@ public class Helpers {
         StringBuilder sb = new StringBuilder(str.toLowerCase());
         sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
         return sb.toString();
+    }
+
+    public static String getAgentDescription(Context context) {
+
+        EnvironmentInfo enviromentInfo = new EnvironmentInfo(context);
+
+        String name = "Inventory Agent/";
+        String versionApp = enviromentInfo.getVersion();
+        String type = "Linux";
+        String versionAndroid = "Android " + Build.VERSION.RELEASE;
+        String app = "Flyve MDM";
+
+        // Inventory Agent/0.2.0[568] (Linux; Android 4.0.4; Flyve MDM)
+        return name + versionApp + " (" + type + "; " + versionAndroid + "; " + app + ")";
     }
 
 }

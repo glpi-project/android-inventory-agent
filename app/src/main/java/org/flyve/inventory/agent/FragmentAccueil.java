@@ -180,7 +180,7 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
         Preference runInventory = findPreference("runInventory");
         runInventory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this, "");
+                final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this, Helpers.getAgentDescription(FragmentAccueil.this));
 
                 //((MainActivity)FragmentAccueil.this).loading(true);
 
