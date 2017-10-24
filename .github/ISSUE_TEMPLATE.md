@@ -4,13 +4,13 @@ PLEASE HELP US PROCESS GITHUB ISSUES FASTER BY PROVIDING THE FOLLOWING INFORMATI
 
 ## I'm submitting a...
 <!-- Check one of the following options with "x" -->
-<pre><code>
-[ ] Regression (a behavior that used to work and stopped working in a new release)
-[ ] Bug report  <!-- Please search GitHub for a similar issue or PR before submitting -->
-[ ] Feature request
-[ ] Documentation issue or request
-[ ] Support request => Please do not submit support request here, instead see https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/blob/develop/CONTRIBUTING.md#questions-or-doubts
-</code></pre>
+
+- [ ] Regression (a behavior that used to work and stopped working in a new release)
+- [ ] Bug report  <!-- Please search GitHub for a similar issue or PR before submitting -->
+- [ ] Feature request
+- [ ] Documentation issue or request
+- [ ] Support request => Please do not submit support request here, instead see https://github.com/flyve-mdm/flyve-mdm-android-inventory-agent/blob/develop/CONTRIBUTING.md#questions-or-doubts
+
 
 ## Current behavior
 <!-- Describe how the issue manifests. -->
