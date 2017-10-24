@@ -3,7 +3,7 @@ Welcome to our ever growing community! We are more than happy to accept external
 As a contributor, we present you the guidelines to start contributing in any of the Flyve MDM projects.
 
 * [Code of Conduct](#code-of-conduct)
-* [Questions & Doubts](#questions-amp-doubts)
+* [Questions & Doubts](#questions-or-doubts)
 * [Bugs](#found-a-bug)
 * [Proposed Features](#new-feature)
 * [Submitting issues and Pull Requests](#submitting)
@@ -21,7 +21,7 @@ If any member of the community violates this code of conduct, the maintainers of
 
 If you are subject to or witness unacceptable behavior, or have any other concerns, please email us at ml-flyvemdm@teclib.com
 
-### Questions & Doubts?
+### Questions or Doubts?
 
 If you require general support assistance, you can find us in [Telegram](https://t.me/flyvemdm), and we'll help you as soon as possible.
 
@@ -102,11 +102,11 @@ You can safely delete your branch and pull the changes from the main (upstream) 
 
 To ensure consistency throughout the source code, keep these rules in mind as you are working:
 
-- All features or bug fixes must be [tested](#tests-amp-building) by one or more specs (unit-tests).
+- All features or bug fixes must be [tested](#test-and-build) by one or more specs (unit-tests).
 
 - All methods must be documented.
 
-## Tests & Building
+## Test and Build
 
 - Fork and clone the source code from our repo
 
