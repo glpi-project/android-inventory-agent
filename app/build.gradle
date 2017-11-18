@@ -40,6 +40,10 @@ repositories {
     maven {
         url 'https://dl.bintray.com/flyve-mdm/inventory'
     }
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }
 
 dependencies {
@@ -56,6 +60,7 @@ dependencies {
     compile 'org.flyve:inventory:0.5.0@aar'
     compile 'com.bugsnag:bugsnag-android:3.+'
     compile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+    compile 'com.android.support:multidex:1.0.1'
 }
 
 import java.util.regex.Pattern
