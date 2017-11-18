@@ -31,12 +31,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.LocalStorage;
 import org.flyve.inventory.agent.utils.UtilsCrash;
 
 public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
@@ -48,6 +48,11 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     private String mLogin = null;
     private String mPassword = null;
     private String mDeviceID = null;
+
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     /**
      * This method is called when the application is starting, it gets the default Shared Preferences
