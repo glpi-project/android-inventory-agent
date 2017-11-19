@@ -1,7 +1,4 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>InventoryAgentApp.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryAgentApp.java</span></div><h1>InventoryAgentApp.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InventoryAgentApp.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent</a> &gt; <span class="el_source">InventoryAgentApp.java</span></div><h1>InventoryAgentApp.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2017 Teclib'
  *
  * This file is part of Flyve MDM Inventory Agent Android.
@@ -34,12 +31,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.LocalStorage;
 import org.flyve.inventory.agent.utils.UtilsCrash;
 
 <span class="fc" id="L42">public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {</span>
@@ -52,42 +49,47 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
 <span class="fc" id="L49">    private String mPassword = null;</span>
 <span class="fc" id="L50">    private String mDeviceID = null;</span>
 
+    protected void attachBaseContext(Context base) {
+<span class="fc" id="L53">        super.attachBaseContext(base);</span>
+<span class="fc" id="L54">        MultiDex.install(this);</span>
+<span class="fc" id="L55">    }</span>
+
     /**
      * This method is called when the application is starting, it gets the default Shared Preferences
      */
     @Override
     public void onCreate() {
-<span class="fc" id="L57">        super.onCreate();</span>
+<span class="fc" id="L62">        super.onCreate();</span>
 
-<span class="fc" id="L59">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span>
-<span class="fc" id="L60">        Boolean val = sharedPreferences.getBoolean(&quot;crashReport&quot;,false);</span>
+<span class="fc" id="L64">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span>
+<span class="fc" id="L65">        Boolean val = sharedPreferences.getBoolean(&quot;crashReport&quot;,false);</span>
 
-<span class="fc" id="L62">        UtilsCrash.configCrash(this, val);</span>
+<span class="fc" id="L67">        UtilsCrash.configCrash(this, val);</span>
 
-<span class="fc" id="L64">        prefs = PreferenceManager.getDefaultSharedPreferences(this);</span>
-<span class="fc" id="L65">        prefs.registerOnSharedPreferenceChangeListener(this);</span>
+<span class="fc" id="L69">        prefs = PreferenceManager.getDefaultSharedPreferences(this);</span>
+<span class="fc" id="L70">        prefs.registerOnSharedPreferenceChangeListener(this);</span>
         
-<span class="fc" id="L67">        String deviceId = prefs.getString(&quot;device_id&quot;, null);</span>
+<span class="fc" id="L72">        String deviceId = prefs.getString(&quot;device_id&quot;, null);</span>
 
-<span class="fc" id="L69">        FlyveLog.log(this, deviceId, Log.VERBOSE);</span>
+<span class="fc" id="L74">        FlyveLog.log(this, deviceId, Log.VERBOSE);</span>
              
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if(deviceId == null) {</span>
-<span class="fc" id="L72">           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);</span>
-<span class="fc" id="L73">           prefs.edit()</span>
-<span class="fc" id="L74">                .putString(&quot;device_id&quot;, String.format(&quot;%s-%s&quot;,mTM.getDeviceId(),DateFormat.format(&quot;yyyy-MM-dd-kk-mm-ss&quot;, System.currentTimeMillis())))</span>
-<span class="fc" id="L75">                .commit();</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if(deviceId == null) {</span>
+<span class="fc" id="L77">           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);</span>
+<span class="fc" id="L78">           prefs.edit()</span>
+<span class="fc" id="L79">                .putString(&quot;device_id&quot;, String.format(&quot;%s-%s&quot;,mTM.getDeviceId(),DateFormat.format(&quot;yyyy-MM-dd-kk-mm-ss&quot;, System.currentTimeMillis())))</span>
+<span class="fc" id="L80">                .commit();</span>
         }
-<span class="fc" id="L77">    }</span>
+<span class="fc" id="L82">    }</span>
 
     /**
      * Gets the ID of the device
      * @return string the device ID
      */
     public String getDeviceID(){
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (mDeviceID == null) {</span>
-<span class="nc" id="L85">            mDeviceID = prefs.getString(&quot;device_id&quot;,&quot;&lt;not set&gt;&quot;);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (mDeviceID == null) {</span>
+<span class="nc" id="L90">            mDeviceID = prefs.getString(&quot;device_id&quot;,&quot;&lt;not set&gt;&quot;);</span>
         }
-<span class="nc" id="L87">        return mDeviceID;</span>
+<span class="nc" id="L92">        return mDeviceID;</span>
     }
     
     /**
@@ -95,10 +97,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @return boolean true if it should, false otherwise
      */
     public Boolean getShouldAutoStart() {
-<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (mShouldAutoStart == null) {</span>
-<span class="nc" id="L96">            mShouldAutoStart = prefs.getBoolean(&quot;boot&quot;, false);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (mShouldAutoStart == null) {</span>
+<span class="nc" id="L101">            mShouldAutoStart = prefs.getBoolean(&quot;boot&quot;, false);</span>
         }
-<span class="nc" id="L98">        return mShouldAutoStart;</span>
+<span class="nc" id="L103">        return mShouldAutoStart;</span>
 
     }
 
@@ -108,10 +110,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      */
     public String getUrl() {
         // This variable is preset for instrumented test
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (mUrl == null) {</span>
-<span class="fc" id="L109">            mUrl = prefs.getString(&quot;url&quot;,&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if (mUrl == null) {</span>
+<span class="fc" id="L114">            mUrl = prefs.getString(&quot;url&quot;,&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
         }
-<span class="fc" id="L111">        return mUrl;</span>
+<span class="fc" id="L116">        return mUrl;</span>
     }
 
     /**
@@ -121,20 +123,20 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-<span class="fc" id="L121">        mUrl = null;</span>
-<span class="fc" id="L122">        mShouldAutoStart = null;</span>
-<span class="fc" id="L123">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
-<span class="fc" id="L124">    }</span>
+<span class="fc" id="L126">        mUrl = null;</span>
+<span class="fc" id="L127">        mShouldAutoStart = null;</span>
+<span class="fc" id="L128">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
+<span class="fc" id="L129">    }</span>
 
     /**
      * Gets the credentials login
      * @return string the login
      */
     public String getCredentialsLogin() {
-<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
-<span class="fc" id="L132">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
+<span class="fc" id="L137">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
         }
-<span class="fc" id="L134">        return mLogin;</span>
+<span class="fc" id="L139">        return mLogin;</span>
     }
 
     /**
@@ -142,10 +144,10 @@ import org.flyve.inventory.agent.utils.UtilsCrash;
      * @return string the password
      */
     public String getCredentialsPassword() {
-<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (mPassword == null) {</span>
-<span class="nc" id="L143">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (mPassword == null) {</span>
+<span class="nc" id="L148">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
         }
-<span class="nc" id="L145">        return mPassword;</span>
+<span class="nc" id="L150">        return mPassword;</span>
     }
 
 }
