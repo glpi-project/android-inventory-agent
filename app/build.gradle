@@ -36,16 +36,6 @@ android {
     }
 }
 
-repositories {
-    maven {
-        url 'https://dl.bintray.com/flyve-mdm/inventory'
-    }
-    maven {
-        url 'https://maven.google.com/'
-        name 'Google'
-    }
-}
-
 dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
             exclude group: 'com.android.support', module: 'support-annotations'
