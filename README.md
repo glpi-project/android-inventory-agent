@@ -12,12 +12,13 @@
 
 Flyve MDM is a Mobile device management software that enables you to secure and manage all the mobile devices of your business or family via a web-based console.
 
-To get started, check out <https://flyve-mdm.com/>!
+To get started, check out [Flyve MDM Website](https://flyve-mdm.com/)!
 
 ## Table of contents
 
 * [Synopsis](#synopsis)
 * [Build Status](#build-status)
+* [Compatibility Matrix](#compatibility-matrix)
 * [Installation](#installation)
 * [Documentation](#documentation)
 * [Versioning](#versioning)
@@ -75,6 +76,13 @@ Visit our [website](http://flyve.org/flyve-mdm-android-inventory-agent/) for mor
 | **Release channel** | **Beta channel** |
 |:---:|:---:|
 | [![Build Status](https://circleci.com/gh/flyve-mdm/flyve-mdm-android-inventory-agent/tree/master.svg?style=svg)](https://circleci.com/gh/flyve-mdm/flyve-mdm-android-inventory-agent/tree/master) | [![Build Status](https://circleci.com/gh/flyve-mdm/flyve-mdm-android-inventory-agent/tree/develop.svg?style=svg)](https://circleci.com/gh/flyve-mdm/flyve-mdm-android-inventory-agent/tree/develop) |
+
+## Compatibility Matrix
+
+|GLPI|9.1.1|9.1.2|9.1.3|9.1.4|9.1.5|9.1.6|9.2.0|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|**Flyve MDM**||||1.0|||||
+|**FusionInventory**||||9.1+1.1|||||
 
 ## Installation
 
