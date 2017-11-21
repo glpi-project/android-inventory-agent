@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/flyve-mdm/android-inventory-agent#readme",
   "devDependencies": {
-    "standard-version": "^4.0.0"
+    "standard-version": "^4.2.0"
   },
   "dependencies": {
     "conventional-github-releaser": "^2.0.0"
