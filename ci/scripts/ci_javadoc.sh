@@ -65,7 +65,7 @@ git add reports/javadoc
 git add ./reports/javadoc/stylesheet.css
 
 # create commit for documentation
-git commit -m "docs(javadoc): update javadoc"
+git commit -m "docs(javadoc): update JavaDoc"
 
 # change headers
 ruby ci/add_header.rb

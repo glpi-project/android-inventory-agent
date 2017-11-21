@@ -29,7 +29,7 @@ ruby ./ci/add_header_screenshot.rb
 git add ./screenshots
 
 # commit
-git commit -m "ci(screenshot): update screenshot"
+git commit -m "ci(screenshot): update screenshots"
 
 # push to branch
 git push origin gh-pages
