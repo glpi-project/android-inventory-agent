@@ -36,12 +36,19 @@ public class BootStartAgent extends BroadcastReceiver {
 
     /**
      * It sets an alarm after the user has finished booting
-     * @param Context the context in which the receiver is running
-     * @param Intent the intent being received
+     * @param context in which the receiver is running
+     * @param intent being received
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+
+        String action = intent.getAction();
+
+        if(action==null) {
+            return;
+        }
+
+        if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             alarm.setAlarm(context);
         }
     }
