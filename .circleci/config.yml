@@ -251,11 +251,14 @@ jobs:
             name: Coverage
             command: source ci/scripts/ci_coverage.sh
         - run:
-            name: Send changelog to gh-page
+            name: Commit changelog to gh-page
             command: source ci/scripts/ci_changelog.sh
         - run:
             name: Javadoc
             command: source ci/scripts/ci_javadoc.sh
+        - run:
+            name: Push to gh-pages
+            command: source ci/scripts/ci_git_push.sh
         - save_cache:
             paths:
               - ~/.gradle

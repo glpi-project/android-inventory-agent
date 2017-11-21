@@ -21,8 +21,5 @@ git add CHANGELOG.md
 # create a commit
 git commit -m "ci(changelog): update ChangeLog"
 
-# push to branch
-git push origin gh-pages
-
 # got back to original branch
 git checkout $CIRCLE_BRANCH

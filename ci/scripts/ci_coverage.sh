@@ -80,8 +80,5 @@ git add ./reports/androidTests/connected/css/base-style.css
 # create commit
 git commit -m "docs(coverage): update code coverage and test result"
 
-# push to branch
-git push origin gh-pages
-
 # got back to original branch
 git checkout $CIRCLE_BRANCH

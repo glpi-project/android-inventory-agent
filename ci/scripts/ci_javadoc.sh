@@ -76,8 +76,5 @@ git add .
 # git commit
 git commit -m "docs(headers): update headers"
 
-# push to branch
-git push origin gh-pages
-
 # got back to original branch
 git checkout $CIRCLE_BRANCH
