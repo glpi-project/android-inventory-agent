@@ -32,10 +32,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 
 import org.flyve.inventory.InventoryTask;
-
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
@@ -51,25 +51,26 @@ public class TimeAlarm extends BroadcastReceiver {
      */
     @Override
     public void onReceive(final Context context, Intent intent) {
-        InventoryTask inventory = new InventoryTask(context, "Inventory-Agent-Android_v1.0");
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        wl.acquire();
+
+        final InventoryTask inventory = new InventoryTask(context.getApplicationContext(), "Inventory-Agent-Android_v1.0");
         inventory.getXML(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
-                HttpInventory httpInventory = new HttpInventory(context);
+                HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
                 httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
-                        if(!Helpers.isForeground()) {
-                            Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_sent));
-                        }
+                        Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
                         FlyveLog.d(data);
+                        FragmentAccueil.sendAnonymousData(context.getApplicationContext(), inventory);
                     }
 
                     @Override
                     public void onTaskError(String error) {
-                        if(!Helpers.isForeground()) {
-                            Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
-                        }
+                        Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
                         FlyveLog.e(error);
                     }
                 });
@@ -78,8 +79,11 @@ public class TimeAlarm extends BroadcastReceiver {
             @Override
             public void onTaskError(Throwable error) {
                 FlyveLog.e(error.getMessage());
+                Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
             }
         });
+
+        wl.release();
     }
 
     /**
@@ -89,6 +93,7 @@ public class TimeAlarm extends BroadcastReceiver {
     public void setAlarm(Context context) {
         AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, TimeAlarm.class);
+        i.setAction("org.flyve.inventory.agent.ALARM");
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
 
         SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
@@ -115,7 +120,11 @@ public class TimeAlarm extends BroadcastReceiver {
             cal.set(Calendar.MILLISECOND, 0);
         }
 
-        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+        try {
+            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), cal.getTimeInMillis(), pi);
+        } catch (NullPointerException ex) {
+            FlyveLog.e(ex.getMessage());
+        }
     }
 
     /**

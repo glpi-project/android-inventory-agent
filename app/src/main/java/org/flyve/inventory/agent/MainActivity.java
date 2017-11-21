@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         try {
             toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception ex) {
             FlyveLog.e(ex.getMessage());
         }
-
-//        getFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                new FragmentAccueil()).commit();
     }
 
     public static Intent getStartIntent(Context context, boolean commitFragment) {
