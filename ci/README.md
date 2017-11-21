@@ -1,19 +1,19 @@
-# Continuous Integration script and files 
+# Continuous Integration script and files
 
 Here is placed files and bash script required to build, test and deploy the app
 
-## Files description:
+## Files description
 
 - release.keystore is the key to certified the app to deploy required by fastlane
 - gplay.json.enc is the file with Google Play configuration required by fastlane
 
-## Workflow description:
+## Workflow description
 
-#### On feature branch
+### On feature branch
 
 - run Build
 
-#### On develop
+### On develop
 
 - Setup environment (ci_setup.sh)
 - Update version and code (ci_updateversion.sh)
@@ -22,7 +22,7 @@ Here is placed files and bash script required to build, test and deploy the app
 - Create Coverage (ci_coverage)
 - Create Javadoc (ci_javadoc)
 
-#### On master
+### On master
 
 - Update version and code (ci_updateversion.sh)
 - Deploy to Google Play (ci_fastlane.sh)
