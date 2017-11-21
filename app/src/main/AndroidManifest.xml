@@ -26,7 +26,7 @@
 	<uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
 	<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<!-- Allows unlocking your device and activating its screen so UI tests can succeed -->
 	<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 	<uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -91,6 +91,12 @@
 		<receiver android:name="org.flyve.inventory.agent.BootStartAgent">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+
+		<receiver android:name="org.flyve.inventory.agent.TimeAlarm">
+			<intent-filter>
+				<action android:name="org.flyve.inventory.agent.ALARM"/>
 			</intent-filter>
 		</receiver>
 	</application>
