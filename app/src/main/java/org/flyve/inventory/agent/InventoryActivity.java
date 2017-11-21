@@ -26,14 +26,15 @@
  */
 package org.flyve.inventory.agent;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
 import android.support.test.espresso.IdlingResource;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -88,10 +89,10 @@ public class InventoryActivity extends AppCompatActivity {
             FlyveLog.e(ex.getMessage());
         }
 
-        pb = (ProgressBar) findViewById(R.id.pb);
+        pb = findViewById(R.id.pb);
         pb.setVisibility(View.VISIBLE);
 
-        FloatingActionButton btnShare = (FloatingActionButton) findViewById(R.id.btnShare);
+        FloatingActionButton btnShare = findViewById(R.id.btnShare);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +100,7 @@ public class InventoryActivity extends AppCompatActivity {
             }
         });
 
-        lst = (RecyclerView)findViewById(R.id.lst);
+        lst = findViewById(R.id.lst);
 
         GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
         lst.setLayoutManager(llm);
