@@ -1,17 +1,8 @@
----
----
-@import
-  "404",
-  "contact",
-  "footer",
-  "general",
-  "header",
-  "home",
-  "post",
-  "products"
-;
-
-
-
-
-
+@import '404';
+@import 'contact';
+@import 'footer';
+@import 'general';
+@import 'header';
+@import 'home';
+@import 'post';
+@import 'products';
