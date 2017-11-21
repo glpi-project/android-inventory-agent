@@ -4,7 +4,7 @@ category: blog
 published: true
 title: Join us to the Testing Program
 redditURL: 'https://play.google.com/apps/testing/org.flyve.inventory.agent'
-hackerNewsURL: 'http://flyve.org/flyve-mdm-android-inventory-agent/blog/2017/10/19/join-us-to-the-testing-program.html'
+hackerNewsURL: 'http://flyve.org/android-inventory-agent/blog/2017/10/19/join-us-to-the-testing-program.html'
 ---
 **Teclib'** has invited you to a testing program for an unreleased version of the **Inventory Agent** app.
 
