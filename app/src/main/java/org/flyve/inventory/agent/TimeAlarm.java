@@ -46,8 +46,8 @@ public class TimeAlarm extends BroadcastReceiver {
 
     /**
      * If the success XML is created, it sends the inventory
-     * @param Context the context in which the receiver is running
-     * @param Intent the intent being received
+     * @param context in which the receiver is running
+     * @param intent being received
      */
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -84,10 +84,10 @@ public class TimeAlarm extends BroadcastReceiver {
 
     /**
      * Schedules the alarm
-     * @param Context the context
+     * @param context
      */
     public void setAlarm(Context context) {
-        AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, TimeAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
 
@@ -120,7 +120,7 @@ public class TimeAlarm extends BroadcastReceiver {
 
     /**
      * Removes the alarm with a matching argument
-     * @param Context the context
+     * @param context
      */
     public void cancelAlarm(Context context) {
         Intent intent = new Intent(context, TimeAlarm.class);
