@@ -73,10 +73,10 @@ prose:
           element: "text"
           label: "Permalink"
           value: ""
-      - name: "wiki"
+      - name: "howtos"
         field:
           element: "checkbox"
-          label: "wiki"
+          label: "howtos"
           value: false
       - name: "published"
         field:
@@ -98,14 +98,3 @@ prose:
           label: Reddit URL
           value: ""
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/

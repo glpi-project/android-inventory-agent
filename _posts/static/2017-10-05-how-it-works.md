@@ -1,7 +1,7 @@
 ---
 layout: post
-permalink: wiki/how-it-works
-wiki: true
+permalink: howtos/how-it-works
+howtos: true
 published: true
 title: How it works
 description: A brief introduction

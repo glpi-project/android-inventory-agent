@@ -1,9 +1,9 @@
 ---
 layout: post
-wiki: true
+howtos: true
 published: true
 title: Contributing
-permalink: wiki/contributing
+permalink: howtos/contributing
 description: The guidelines to start
 ---
 Welcome to our ever growing community! We are more than happy to accept external contributions to the [Android Inventory Agent](https://github.com/flyve-mdm/android-inventory-agent) project in the form of feedback, bug reports and even better, pull requests!
