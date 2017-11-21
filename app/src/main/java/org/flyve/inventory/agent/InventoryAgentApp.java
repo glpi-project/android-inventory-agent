@@ -49,9 +49,19 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     private String mPassword = null;
     private String mDeviceID = null;
 
+    private static InventoryAgentApp instance;
+
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    /**
+     * Get application instance
+     * @return InventoryAgentApp object
+     */
+    public static InventoryAgentApp getInstance(){
+        return instance;
     }
 
     /**
@@ -73,12 +83,12 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
 
         FlyveLog.log(this, deviceId, Log.VERBOSE);
              
-        if(deviceId == null) {
-           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-           prefs.edit()
-                .putString("device_id", String.format("%s-%s",mTM.getDeviceId(),DateFormat.format("yyyy-MM-dd-kk-mm-ss", System.currentTimeMillis())))
-                .commit();
-        }
+//        if(deviceId == null) {
+//           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//           prefs.edit()
+//                .putString("device_id", String.format("%s-%s",mTM.getDeviceId(),DateFormat.format("yyyy-MM-dd-kk-mm-ss", System.currentTimeMillis())))
+//                .commit();
+//        }
     }
 
     /**
