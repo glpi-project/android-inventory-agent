@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/flyve-mdm/android-inventory-agent/issues"
   },
-  "homepage": "https://github.com/flyve-mdm/android-inventory-agent#readme",
+  "homepage": "http://flyve.org/android-inventory-agent/",
   "devDependencies": {
     "standard-version": "^4.2.0"
   },
