@@ -8,25 +8,34 @@ body {
 }
 
 code {
-  white-space: pre !important;
+  white-space: pre;
 }
 
 hr {
-  margin: 20px 0 !important;
+  margin: 20px 0;
 }
 
 img {
-  max-width: 100% !important;
+  max-width: 100%;
 }
 
-.jumbotron.theme-default {
-    background-color: #fff;
-}
-.jumbotron.theme-dark {
-    h3 {
-        padding-top: 0;
+$white: #fff;
+
+div {
+
+  &.jumbotron {
+    &.theme-default {
+      background-color: $white;
     }
-}
-.article-howtos {
-  margin-left: 40px;
+
+    &.theme-dark {
+      h3 {
+        padding-top: 0;
+      }
+    }
+  }
+
+  &.article-howtos {
+    margin-left: 40px;
+  }
 }
