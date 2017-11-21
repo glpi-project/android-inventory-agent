@@ -26,12 +26,14 @@
  */
 package org.flyve.inventory.agent;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -42,8 +44,12 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
+
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.ConnectionHTTP;
 import org.flyve.inventory.agent.utils.FlyveLog;
@@ -115,7 +121,7 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
 
     /**
      * Called when the activity is starting, adds the preference hierarchy to the current preference hierarchy
-     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,6 +130,12 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
         addPreferencesFromResource(R.xml.accueil);
 
         doBindService();
+
+        if (!checkIfAlreadyhavePermission()) {
+            ActivityCompat.requestPermissions(FragmentAccueil.this,
+                    new String[]{Manifest.permission.CAMERA},
+                    1);
+        }
 
         // When the AutoInventory is checked or unchecked, it stops the service and then starts it again
         Preference autoStartInventory = findPreference("autoStartInventory");
@@ -195,7 +207,7 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
                             public void onTaskSuccess(String data) {
                                 //((MainActivity)FragmentAccueil.this).loading(false);
                                 Helpers.snackClose(FragmentAccueil.this, data, FragmentAccueil.this.getResources().getString(R.string.snackButton), false);
-                                sendAnonymousData(inventoryTask);
+                                sendAnonymousData(FragmentAccueil.this, inventoryTask);
                             }
 
                             @Override
@@ -260,9 +272,44 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
         preferenceScreen.removePreference(helpCenter);
     }
 
-    private void sendAnonymousData(InventoryTask inventoryTask) {
+    private boolean checkIfAlreadyhavePermission() {
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(FragmentAccueil.this, "Permission denied this app could fail", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    public static void sendAnonymousData(Context context, InventoryTask inventoryTask) {
         // Sending anonymous information
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAccueil.this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean val = sharedPreferences.getBoolean("anonymousData",false);
         if(val) {
             inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
@@ -278,8 +325,6 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
                 }
             });
         }
-
-
     }
 
     /**
@@ -294,8 +339,8 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
 
     /**
      * Called when a shared preference is changed, added, or removed
-     * @param SharedPreferences the SharedPreferences that received the change
-     * @param string the key of the preference that was changed, added or removed
+     * @param sharedPreferences that received the change
+     * @param key of the preference that was changed, added or removed
      */
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference pref = findPreference(key);
