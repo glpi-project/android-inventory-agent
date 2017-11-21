@@ -1,3 +1,7 @@
 {
-    "java.configuration.updateBuildConfiguration": "disabled"
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "sasslint.enable": true,
+    "sasslint.configFile": ".sass-lint.yml",
+    "sasslint.packageManager": "npm",
+    "sasslint.run": "onType"
 }
