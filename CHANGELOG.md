@@ -1,7 +1,3 @@
----
-layout: modal
-title: changelog
----
 # Change Log
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
@@ -20,6 +16,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **inventory:** validate http response ([7bd2f1f](https://github.com/flyve-mdm/android-inventory-agent/commit/7bd2f1f))
 * **package:** update conventional-github-releaser to version 2.0.0 ([f83cf33](https://github.com/flyve-mdm/android-inventory-agent/commit/f83cf33))
 * **toolbar:** fix toolbar nullpointerexception ([bf851df](https://github.com/flyve-mdm/android-inventory-agent/commit/bf851df))
+* remove modules file created by IntelliJ IDEA ([01d80be](https://github.com/flyve-mdm/android-inventory-agent/commit/01d80be))
 
 
 ### Features
