@@ -35,39 +35,41 @@ It features a complete inventory of your Android devices: both hardware and soft
 Inventory Agent for Android is running on Android 1.6 and higher.
 
 Inventory Agent for Android can send inventory to:
-- Inventory for GLPI 2.3.x and higher
-- OCSInventory NG (ocsng) 1.3.x and 2.x
-- Mandriva Pulse2
+
+* Inventory for GLPI 2.3.x and higher
+* OCSInventory NG (ocsng) 1.3.x and 2.x
+* Mandriva Pulse2
 
 The Inventory project is a free software project providing:
-- hardware and software inventory (multiplatform)
-- network discovery
-- network inventory for printers and switches
-- Wake On Lan (WOL)
-- Software deployment
-- total integration with the GLPI project (open source asset management software and helpdesk)
+
+* hardware and software inventory (multiplatform)
+* network discovery
+* network inventory for printers and switches
+* Wake On Lan (WOL)
+* Software deployment
+* total integration with the GLPI project (open source asset management software and helpdesk)
 
 Inventory agents can also be used with other open sources projects like Uranos or Rudder.
 
-#### Data collected:
+### Data collected
 
-- USB
-- Hardware
-- Sensors
-- Software
-- Memories
-- Cameras
-- Networks
-- Battery
-- CPUs
-- BIOS
-- Inputs
-- Drives
-- Accesslog
-- SIM Cards
-- Environments variables
-- JVM
-- Videos
+* USB
+* Hardware
+* Sensors
+* Software
+* Memories
+* Cameras
+* Networks
+* Battery
+* CPUs
+* BIOS
+* Inputs
+* Drives
+* Accesslog
+* SIM Cards
+* Environments variables
+* JVM
+* Videos
 
 Visit our [website](http://flyve.org/android-inventory-agent/) for more information.
 
@@ -79,10 +81,10 @@ Visit our [website](http://flyve.org/android-inventory-agent/) for more informat
 
 ## Compatibility Matrix
 
-|GLPI|9.1.1|9.1.2|9.1.3|9.1.4|9.1.5|9.1.6|9.2.0|
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|**Flyve MDM**||||1.0|||||
-|**FusionInventory**||||9.1+1.1|||||
+|GLPI|9.1|9.2|
+|:---|:---:|:---:|
+|**Flyve MDM**|1.0||
+|**FusionInventory**|9.1+1.1||
 
 ## Installation
 
