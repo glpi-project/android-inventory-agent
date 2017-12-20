@@ -12,7 +12,7 @@
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
 
-fastlane_version "2.45.0"
+fastlane_version "2.70.1"
 
 default_platform :android
 
@@ -24,35 +24,23 @@ platform :android do
 
     desc "Beta release app. Deploy a new version to the Google Play Store - Beta channel"
     lane :beta do |options|
-        sign_apk(
-            keystore_path: "ci/release.keystore",
-            alias: "InventoryAgent",
-            storepass: options[:storepass],
-            tsa: "http://timestamp.comodoca.com/rfc316",
-            keypass: options[:keypass]
-        )
-
-        zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/zipalign -v -p 4 ../app/build/outputs/apk/app-release-unsigned.apk ../app/build/outputs/apk/app-release-unsigned-aligned.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/apksigner sign --ks ../ci/release.keystore --ks-key-alias InventoryAgent --ks-pass pass:"+ options[:storepass] +" --key-pass pass:"+ options[:keypass] +"  --out ../app/build/outputs/apk/app-ready.apk ../app/build/outputs/apk/app-release-unsigned-aligned.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/apksigner verify ../app/build/outputs/apk/app-ready.apk", log: true)
 
         supply(
             track: 'beta',
-            apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
+            apk: "app/build/outputs/apk/app-ready.apk"
         )
     end
     lane :playstore do |options|
-        sign_apk(
-            keystore_path: "ci/release.keystore",
-            alias: "InventoryAgent",
-            storepass: options[:storepass],
-            tsa: "http://timestamp.comodoca.com/rfc316",
-            keypass: options[:keypass]
-        )
-
-        zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/zipalign -v -p 4 ../app/build/outputs/apk/app-release-unsigned.apk ../app/build/outputs/apk/app-release-unsigned-aligned.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/apksigner sign --ks ../ci/release.keystore --ks-key-alias InventoryAgent --ks-pass pass:"+ options[:storepass] +" --key-pass pass:"+ options[:keypass] +"  --out ../app/build/outputs/apk/app-ready.apk ../app/build/outputs/apk/app-release-unsigned-aligned.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/apksigner verify ../app/build/outputs/apk/app-ready.apk", log: true)
 
         supply(
             track: 'production',
-            apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
+            apk: "app/build/outputs/apk/app-ready.apk"
         )
     end
 end
