@@ -168,7 +168,7 @@ jobs:
           command: source ci/scripts/ci_transifex.sh
       - run:
           name: Create apk
-          command: ./gradlew assemble
+          command: ./gradlew assembleRelease
       - run:
           name: Deploy to Google Play
           command: source ci/scripts/ci_fastlane.sh "beta"
