@@ -16,4 +16,4 @@ From the **Release** page on Github
 
 Or from **F-Droid**
 
-![Download from F-Droid](https://camo.githubusercontent.com/f9574a79e3fe61202392c44e55f0bdab261a9561/68747470733a2f2f662d64726f69642e6f72672f62616467652f6765742d69742d6f6e2e706e67 "Available soon")
+[![Download from F-Droid](https://camo.githubusercontent.com/f9574a79e3fe61202392c44e55f0bdab261a9561/68747470733a2f2f662d64726f69642e6f72672f62616467652f6765742d69742d6f6e2e706e67)](https://f-droid.org/packages/org.flyve.inventory.agent/)
