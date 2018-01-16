@@ -89,7 +89,7 @@ jobs:
             destination: reports
         - store_test_results:
             path: app/build/test-results
-  screenshot_api_25:
+  screenshot_api_16:
         working_directory: ~/flyve_mdm
         docker:
             - image: circleci/android:api-26-alpha
@@ -110,7 +110,7 @@ jobs:
               command: source ci/scripts/ci_about.sh
           - run:
               name: Setup emulator
-              command: sdkmanager "system-images;android-25;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-25;default;armeabi-v7a"
+              command: sdkmanager "system-images;android-16;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-16;default;armeabi-v7a"
           - run:
               name: Launch emulator
               command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
@@ -272,13 +272,9 @@ workflows:
       - test_api_v16:
           requires:
             - build
-      - test_api_v25:
-          requires:
-            - build
       - deploy_beta:
           requires:
             - test_api_v16
-            - test_api_v25
           filters:
             branches:
               only:
@@ -286,15 +282,13 @@ workflows:
       - documentation:
           requires:
             - test_api_v16
-            - test_api_v25
           filters:
             branches:
               only:
                 - develop
-      - screenshot_api_25:
+      - screenshot_api_16:
           requires:
             - test_api_v16
-            - test_api_v25
           filters:
             branches:
               only:
