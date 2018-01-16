@@ -307,7 +307,7 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean val = sharedPreferences.getBoolean("anonymousData",false);
         if(val) {
-            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
+            inventoryTask.getJSONWithoutPrivateData(new InventoryTask.OnTaskCompleted() {
                 @Override
                 public void onTaskSuccess(String s) {
                     FlyveLog.d(s);
