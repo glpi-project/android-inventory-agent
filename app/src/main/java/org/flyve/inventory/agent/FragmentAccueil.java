@@ -194,8 +194,6 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
             public boolean onPreferenceClick(Preference preference) {
                 final InventoryTask inventoryTask = new InventoryTask(FragmentAccueil.this, Helpers.getAgentDescription(FragmentAccueil.this));
 
-                //((MainActivity)FragmentAccueil.this).loading(true);
-
                 // Sending anonymous information
                 inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
@@ -205,14 +203,12 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
                         httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
-                                //((MainActivity)FragmentAccueil.this).loading(false);
                                 Helpers.snackClose(FragmentAccueil.this, data, FragmentAccueil.this.getResources().getString(R.string.snackButton), false);
                                 sendAnonymousData(FragmentAccueil.this, inventoryTask);
                             }
 
                             @Override
                             public void onTaskError(String error) {
-                                //((MainActivity)FragmentAccueil.this).loading(false);
                                 Helpers.snackClose(FragmentAccueil.this, error, FragmentAccueil.this.getResources().getString(R.string.snackButton), true);
 
                             }
@@ -222,7 +218,6 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
                     @Override
                     public void onTaskError(Throwable error) {
                         FlyveLog.e(error.getMessage());
-                        //((MainActivity)FragmentAccueil.this).loading(false);
                         Helpers.snackClose(FragmentAccueil.this, error.getMessage(), FragmentAccueil.this.getResources().getString(R.string.snackButton), true);
                     }
                 });
