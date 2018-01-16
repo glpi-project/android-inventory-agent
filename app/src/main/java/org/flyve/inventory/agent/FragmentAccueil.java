@@ -316,7 +316,7 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
                 @Override
                 public void onTaskSuccess(String s) {
                     FlyveLog.d(s);
-                    ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001061475099/", s);
+                    ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001180163835/", s);
                 }
 
                 @Override
