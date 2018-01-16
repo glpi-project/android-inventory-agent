@@ -1,13 +1,9 @@
----
-layout: modal
-title: changelog
----
 # Change Log
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="1.1.0"></a>
-# 1.1.0 (2017-12-20)
+# 1.1.0 (2018-01-16)
 
 
 ### Bug Fixes
@@ -44,6 +40,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **library:** update inventory library ([5186052](https://github.com/flyve-mdm/android-inventory-agent/commit/5186052))
 * **notification:** send message to notification bar ([97b19fb](https://github.com/flyve-mdm/android-inventory-agent/commit/97b19fb))
 * **privacy:** add privacy functionality ([c372bc8](https://github.com/flyve-mdm/android-inventory-agent/commit/c372bc8))
+* **privacy:** add privacy on anonymous data ([faea7e6](https://github.com/flyve-mdm/android-inventory-agent/commit/faea7e6))
 * **share:** add share button ([f4220e0](https://github.com/flyve-mdm/android-inventory-agent/commit/f4220e0))
 * **show:** add inventory activity and adapter ([45ec95c](https://github.com/flyve-mdm/android-inventory-agent/commit/45ec95c))
 
