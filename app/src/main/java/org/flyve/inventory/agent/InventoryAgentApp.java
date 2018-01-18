@@ -128,8 +128,8 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
 
     /**
      * Called when a shared preference is changed, added, or removed
-     * @param SharedPreferences the SharedPreferences that received the change
-     * @param string the key of the preference that was changed, added or removed
+     * @param sharedPreferences that received the change
+     * @param key of the preference that was changed, added or removed
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
