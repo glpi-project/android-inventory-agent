@@ -27,6 +27,8 @@ package org.flyve.inventory.agent.utils;
 
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
+
 /**
  * This is a Log wrapper
  */
@@ -42,69 +44,69 @@ public class FlyveLog {
 
     /**
      * Sends a DEBUG log message
-     * @param string the message to log
+     * @param message to log
      */
     public static void d(String message) {
         if(message != null) {
-            Log.d(TAG, message);
+            Logger.d(TAG, message);
         }
     }
 
     /**
      * Sends a VERBOSE log message
-     * @param string the message to log
+     * @param message to log
      */
     public static void v(String message) {
         if(message != null) {
-            Log.v(TAG, message);
+            Logger.v(TAG, message);
         }
     }
 
     /**
      * Sends an INFO log message
-     * @param string the message to log
+     * @param message to log
      */
     public static void i(String message) {
         if(message != null) {
-            Log.i(TAG, message);
+            Logger.i(TAG, message);
         }
     }
 
     /**
      * Sends an ERROR log message
-     * @param string the message to log
+     * @param message to log
      */
     public static void e(String message) {
         if(message != null) {
-            Log.e(TAG, message);
+            Logger.e(TAG, message);
         }
     }
 
     /**
      * Sends a WARN log message
-     * @param string the message to log
+     * @param message to log
      */
     public static void w(String message) {
         if(message != null) {
-            Log.w(TAG, message);
+            Logger.w(TAG, message);
         }
     }
 
     /**
      * Reports a condition that should never happen, wts (What a Terrible Failure)
-     * @param string the message to log  
+     * @param message to log
      */
     public static void wtf(String message) {
         if(message != null) {
-            Log.wtf(TAG, message);
+            Logger.wtf(TAG, message);
         }
     }
 
     /**
      * Sends a low level calling log
-     * @param Object the name of the class
-     * @param string the log message
-     * @param int the priority/type of the log message
+     * @param obj the name of the class
+     * @param msg the log message
+     * @param level the priority/type of the log message
      */
     public static void log(Object obj, String msg, int level) {
         String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
