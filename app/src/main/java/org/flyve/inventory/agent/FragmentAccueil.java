@@ -141,8 +141,12 @@ public class FragmentAccueil extends PreferenceActivity implements OnSharedPrefe
         Preference autoStartInventory = findPreference("autoStartInventory");
         autoStartInventory.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference arg0, Object arg1) {
-                FragmentAccueil.this.stopService( mServiceIntent );
-                doBindService();
+                if(!(Boolean) arg1) {
+                    FlyveLog.d("Stop the service");
+                    FragmentAccueil.this.stopService(mServiceIntent);
+                } else {
+                    doBindService();
+                }
                 return true;
             }
 
