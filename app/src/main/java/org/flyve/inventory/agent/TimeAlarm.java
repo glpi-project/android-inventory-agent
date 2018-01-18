@@ -51,6 +51,8 @@ public class TimeAlarm extends BroadcastReceiver {
      */
     @Override
     public void onReceive(final Context context, Intent intent) {
+        FlyveLog.d("Launch inventory from alarm");
+
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
@@ -64,7 +66,6 @@ public class TimeAlarm extends BroadcastReceiver {
                     @Override
                     public void onTaskSuccess(String data) {
                         Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
-                        FlyveLog.d(data);
                         FragmentAccueil.sendAnonymousData(context.getApplicationContext(), inventory);
                     }
 
@@ -91,6 +92,9 @@ public class TimeAlarm extends BroadcastReceiver {
      * @param context
      */
     public void setAlarm(Context context) {
+
+        FlyveLog.d("Set Alarm");
+
         AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, TimeAlarm.class);
         i.setAction("org.flyve.inventory.agent.ALARM");
@@ -105,12 +109,14 @@ public class TimeAlarm extends BroadcastReceiver {
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
+            FlyveLog.d("Alarm Daily");
         } else if(timeInventory.equals("Week")) {
             cal.set(Calendar.DAY_OF_WEEK, 1);
             cal.set(Calendar.HOUR_OF_DAY, 18);
             cal.set(Calendar.MINUTE, 33);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
+            FlyveLog.d("Alarm Weekly");
         } else if(timeInventory.equals("Month")) {
             cal.set(Calendar.WEEK_OF_MONTH, 1);
             cal.set(Calendar.DAY_OF_WEEK, 1);
@@ -118,10 +124,11 @@ public class TimeAlarm extends BroadcastReceiver {
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
+            FlyveLog.d("Alarm Monthly");
         }
 
         try {
-            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), cal.getTimeInMillis(), pi);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_DAY, pi);
         } catch (NullPointerException ex) {
             FlyveLog.e(ex.getMessage());
         }
