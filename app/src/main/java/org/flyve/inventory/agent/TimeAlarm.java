@@ -51,6 +51,15 @@ public class TimeAlarm extends BroadcastReceiver {
      */
     @Override
     public void onReceive(final Context context, Intent intent) {
+
+        // check if is deactivated
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Boolean val = sharedPreferences.getBoolean("autoStartInventory",false);
+        if(!val) {
+            FlyveLog.d("The inventory will not be send, is deactivated");
+            return;
+        }
+
         FlyveLog.d("Launch inventory from alarm");
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
