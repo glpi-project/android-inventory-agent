@@ -4,7 +4,7 @@ app_package_name 'org.flyve.inventory.agent'
 use_tests_in_packages ['org.flyve.inventory.agent']
 
 app_apk_path '/home/circleci/flyve_mdm/app/build/outputs/apk/debug/app-debug.apk'
-tests_apk_path '/home/circleci/flyve_mdm/app/build/outputs/apk/debug/app-debug.apk'
+tests_apk_path '/home/circleci/flyve_mdm/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
 
 locales ['en-US', 'en-GB', 'fr-FR', 'es-ES', 'ko-KR', 'ru-RU']
 
