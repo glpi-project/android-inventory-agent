@@ -1,26 +1,25 @@
----
-layout: modal
-title: changelog
----
 # Change Log
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="1.1.0"></a>
-# 1.1.0 (2018-01-16)
+# 1.1.0 (2018-01-19)
 
 
 ### Bug Fixes
 
 * **about:** close link tag on last commit link ([09ba4e0](https://github.com/flyve-mdm/android-inventory-agent/commit/09ba4e0))
+* **alarm:** check if execute the inventory ([e23e5ff](https://github.com/flyve-mdm/android-inventory-agent/commit/e23e5ff))
+* **alarm:** set repeting with interval day ([2b26632](https://github.com/flyve-mdm/android-inventory-agent/commit/2b26632))
 * **anonymous:** add application json on request property ([7d27710](https://github.com/flyve-mdm/android-inventory-agent/commit/7d27710))
 * **connection:** allow work on main thread ([7fee1b7](https://github.com/flyve-mdm/android-inventory-agent/commit/7fee1b7))
 * **data:** fix anonymous data summary text ([f1a4467](https://github.com/flyve-mdm/android-inventory-agent/commit/f1a4467))
+* **inventory:** add log messages ([449c245](https://github.com/flyve-mdm/android-inventory-agent/commit/449c245))
+* remove modules file created by IntelliJ IDEA ([01d80be](https://github.com/flyve-mdm/android-inventory-agent/commit/01d80be))
 * **inventory:** validate headers response ([dc978dd](https://github.com/flyve-mdm/android-inventory-agent/commit/dc978dd))
 * **inventory:** validate http response ([7bd2f1f](https://github.com/flyve-mdm/android-inventory-agent/commit/7bd2f1f))
 * **package:** update conventional-github-releaser to version 2.0.0 ([f83cf33](https://github.com/flyve-mdm/android-inventory-agent/commit/f83cf33))
 * **toolbar:** fix toolbar nullpointerexception ([bf851df](https://github.com/flyve-mdm/android-inventory-agent/commit/bf851df))
-* remove modules file created by IntelliJ IDEA ([01d80be](https://github.com/flyve-mdm/android-inventory-agent/commit/01d80be))
 
 
 ### Features
