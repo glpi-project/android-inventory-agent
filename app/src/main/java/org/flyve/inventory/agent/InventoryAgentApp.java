@@ -32,9 +32,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.support.multidex.MultiDex;
-import android.telephony.TelephonyManager;
-import android.text.format.DateFormat;
 import android.util.Log;
+
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.UtilsCrash;
@@ -82,13 +85,15 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         String deviceId = prefs.getString("device_id", null);
 
         FlyveLog.log(this, deviceId, Log.VERBOSE);
-             
-//        if(deviceId == null) {
-//           TelephonyManager mTM= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//           prefs.edit()
-//                .putString("device_id", String.format("%s-%s",mTM.getDeviceId(),DateFormat.format("yyyy-MM-dd-kk-mm-ss", System.currentTimeMillis())))
-//                .commit();
-//        }
+
+        try {
+            FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                    .tag(getPackageName())   // (Optional) Global tag for every log.
+                    .build();
+            Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        } catch (Exception ex) {
+            ex.getStackTrace();
+        }
     }
 
     /**
