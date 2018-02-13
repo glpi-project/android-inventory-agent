@@ -1,6 +1,4 @@
-# Inventory Agent for Android
-
-![Flyve MDM banner](https://user-images.githubusercontent.com/663460/26935464-54267e9c-4c6c-11e7-86df-8cfa6658133e.png)
+![Flyve](/images/flyve-hero.png)
 
 [![License](https://img.shields.io/github/license/flyve-mdm/android-inventory-agent.svg?&label=License)](https://github.com/flyve-mdm/android-inventory-agent/blob/develop/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/FlyveMDM.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/FlyveMDM)
@@ -9,108 +7,88 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/android-inventory-agent.svg)](https://greenkeeper.io/)
 [![GitHub release](https://img.shields.io/github/release/flyve-mdm/android-inventory-agent.svg)](https://github.com/flyve-mdm/android-inventory-agent/releases)
 
-Flyve MDM is a Mobile device management software that enables you to secure and manage all the mobile devices of your business or family via a web-based console.
+# Flyve MDM - Inventory Agent for Android
+Flyve MDM is an award-winning mobile device management software (MDM) that enables organizations to manage their entire mobile fleet with ease. Give your IT security team a broader visibility to proactively work on security weaknesses and manage risk on Apple® iOS and Google Android™ mobile devices.
 
 To get started, check out [Flyve MDM Website](https://flyve-mdm.com/)!
 
-## Table of contents
+# Table of contents
 
-* [Synopsis](#synopsis)
-* [Build Status](#build-status)
-* [Compatibility Matrix](#compatibility-matrix)
-* [Installation](#installation)
-* [Documentation](#documentation)
-* [Versioning](#versioning)
-* [Contribute](#contribute)
-* [Contact](#contact)
-* [Copying](#copying)
+* [1. Synopsis](#synopsis)
+* [2. Features](#features)
+* [3. Build Status](#build-status)
+* [4. Compatibility Matrix](#compatibility-matrix)
+* [5. Installation](#installation)
+* [6. Documentation](#documentation)
+* [7. Versioning](#versioning)
+* [8. Contribute](#contribute)
+* [9. Contact](#contact)
+* [10. Copying](#copying)
 
-## Synopsis
+# 1. Synopsis
 
-This application is the Android inventory agent of the Inventory project.
+This application is the Android Inventory Agent for the Inventory Project.
 
-It features a complete inventory of your Android devices: both hardware and software informations are collected. You get the data about processor, memory, drives, sensors, the list and description of installed application (apk) and [more](#data-collected).
-
-Inventory Agent for Android is running on Android 1.6 and higher.
+It features a complete inventory of your Android devices: both hardware and software pieces of information are collected. You get the data about processor, memory, drives, sensors, the list, and description of the installed application (APK) and [more](#data-collected). It can be used with open sources projects like Uranos or Rudder. The Inventory Agent for Google Android™ is compatible with **Google Android™ Donut 1.6** and higher.
 
 Inventory Agent for Android can send inventory to:
 
-* Inventory for GLPI 2.3.x and higher
-* OCSInventory NG (ocsng) 1.3.x and 2.x
-* Mandriva Pulse2
+* Inventory for GLPI 2.3.x and higher.
+* OCSInventory NG (ocsng) 1.3.x and 2.x.
+* Mandriva Pulse2.
 
-The Inventory project is a free software project providing:
+# 2. Features
 
-* hardware and software inventory (multiplatform)
-* network discovery
-* network inventory for printers and switches
-* Wake On Lan (WOL)
-* Software deployment
-* total integration with the GLPI project (open source asset management software and helpdesk)
+Flyve MDM offers a range of powerful security features in an intuitive web interface that allows you to monitor unauthorized behavior and prevent damage of your organization’s employees, image, brand and public reputation. Check all the data that Flyve MDM can collect:
 
-Inventory agents can also be used with other open sources projects like Uranos or Rudder.
+* Ability to control and configure every device.* Activate remotely encryption.* Real-time geolocation.* Bluetooth® and Wi-Fi connectivity control.* Control camera both front and facing.* Install and uninstall applications remotely.* Set the level of complexity of your passwords.* Remotely lock terminals.
+* Hardware and software inventory (multiplatform).
+* Network discovery.
+* Network inventory for printers and switches.
+* Wake On Lan (WOL).
+* Software deployment.
+* Total integration with the GLPI project.
+* USB, Sensors, Memories, Networks, Battery, CPUs, BIOS, Inputs, Drives, Accesslog, SIM Cards, Environments variables, JVM.
 
-### Data collected
+# 3. Build Status
 
-* USB
-* Hardware
-* Sensors
-* Software
-* Memories
-* Cameras
-* Networks
-* Battery
-* CPUs
-* BIOS
-* Inputs
-* Drives
-* Accesslog
-* SIM Cards
-* Environments variables
-* JVM
-* Videos
-
-Visit our [website](http://flyve.org/android-inventory-agent/) for more information.
-
-## Build Status
-
-| **Release channel** | **Beta channel** |
-|:---:|:---:|
+|           **Release Channel**            |             **Beta Channel**             |
+| :--------------------------------------: | :--------------------------------------: |
 | [![Build Status](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/master.svg?style=svg)](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/master) | [![Build Status](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/develop.svg?style=svg)](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/develop) |
 
-## Compatibility Matrix
+# 4. Compatibility Matrix
 
-|GLPI|9.1|9.2|
-|:---|:---:|:---:|
-|**Flyve MDM**|1.0||
-|**FusionInventory**|9.1+1.1||
+| GLPI                |   9.1   | 9.2  |
+| :------------------ | :-----: | :--: |
+| **Flyve MDM**       |   1.0   |      |
+| **FusionInventory** | 9.1+1.1 |      |
 
-## Installation
+# 5. Installation
 
 [<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.flyve.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.flyve.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/flyve-mdm/android-inventory-agent/releases/latest)
 
-## Documentation
+# 6. Documentation
 
 We maintain a detailed documentation of the project on its [website](http://flyve.org/android-inventory-agent/).
 
-## Versioning
+# 7. Versioning
 
 In order to provide transparency on our release cycle and to maintain backward compatibility, Flyve MDM is maintained under [the Semantic Versioning guidelines](http://semver.org/). We are committed to following and complying with the rules, the best we can.
 
 See [the tags section of our GitHub project](http://github.com/flyve-mdm/android-inventory-agent/tags) for changelogs for each release version of Flyve MDM. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
 
-## Contribute
+# 8. Contribute
 
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
 guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/flyve-mdm/android-inventory-agent/issues).
 
-## Contact
+# 9. Contact
 
 For notices about major changes and general discussion of Flyve MDM development, subscribe to the [/r/FlyveMDM](http://www.reddit.com/r/FlyveMDM) subreddit.
 You can also chat with us via IRC in [#flyve-mdm on freenode](http://webchat.freenode.net/?channels=flyve-mdm).
 Ping me @rafaelje in the IRC chatroom if you get stuck.
 
-## Copying
+# 10. Copying
 
 * **Name**: [Flyve MDM](https://flyve-mdm.com/) is a registered trademark of [Teclib'](http://www.teclib-edition.com/en/).
 * **Code**: you can redistribute it and/or modify
