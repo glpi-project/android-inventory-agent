@@ -1,13 +1,21 @@
 package org.flyve.inventory.agent;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import org.flyve.inventory.agent.adapter.DrawerAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  *   Copyright © 2017 Teclib. All rights reserved.
@@ -38,37 +46,103 @@ import org.flyve.inventory.agent.utils.FlyveLog;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String FLAG_COMMIT_FRAGMENT = "commitFragment";
-    private ProgressDialog pd;
-
+    private DrawerLayout mDrawerLayout;
+    private FragmentManager mFragmentManager;
+    private ListView lstDrawer;
+    private ArrayList<HashMap<String, String>> arrDrawer;
+    private HashMap<String, String> selectedItem;
+    private TextView txtToolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        // Setup the DrawerLayout and NavigationView
+        txtToolbarTitle = findViewById(R.id.txtToolbarTitle);
+        mDrawerLayout = findViewById(R.id.drawerLayout);
 
-        try {
-            toolbar.setTitle(getResources().getString(R.string.app_name));
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setIcon(R.drawable.icon);
-        } catch (Exception ex) {
-            FlyveLog.e(ex.getMessage());
+        lstDrawer = findViewById(R.id.lstNV);
+        lstDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDrawerLayout.closeDrawers();
+                selectedItem = arrDrawer.get(position);
+                loadFragment(selectedItem);
+            }
+        });
+
+        mFragmentManager = getSupportFragmentManager();
+
+        // Setup Drawer Toggle of the Toolbar
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
+                R.string.app_name);
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerToggle.syncState();
+
+        loadListDrawer();
+
+    }
+
+    /**
+     * Loads the Fragment
+     * @param item
+     */
+    private void loadFragment(HashMap<String, String> item) {
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+        txtToolbarTitle.setText(item.get("name").toUpperCase());
+
+        // Home
+        if (item.get("id").equals("1")) {
+            FragmentHome f = new FragmentHome();
+            fragmentTransaction.replace(R.id.containerView, f).commit();
+            return;
         }
     }
 
-    public static Intent getStartIntent(Context context, boolean commitFragment) {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(FLAG_COMMIT_FRAGMENT, commitFragment);
-        return intent;
-    }
+    /**
+     * Load the list drawer
+     */
+    public void loadListDrawer() {
 
-    public void loading(Boolean visible) {
-        if(visible) {
-            pd = ProgressDialog.show(MainActivity.this, "", getResources().getString(R.string.loading));
-        } else {
-            pd.dismiss();
+        arrDrawer = new ArrayList<>();
+
+        // Information
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", "1");
+        map.put("name", getResources().getString(R.string.drawer_inventory));
+        map.put("img", "ic_info");
+        arrDrawer.add(map);
+
+        // Help
+        map = new HashMap<>();
+        map.put("id", "4");
+        map.put("name", getResources().getString(R.string.drawer_help));
+        map.put("img", "ic_help");
+        arrDrawer.add(map);
+
+        // About
+        map = new HashMap<>();
+        map.put("id", "5");
+        map.put("name", getResources().getString(R.string.drawer_about));
+        map.put("img", "ic_about");
+        arrDrawer.add(map);
+
+        try {
+            // lad adapter
+            DrawerAdapter adapter = new DrawerAdapter(this, arrDrawer);
+            lstDrawer.setAdapter(adapter);
+
+            // Select Information on load //
+            selectedItem = arrDrawer.get(0);
+            loadFragment(selectedItem);
+        } catch(Exception ex) {
+            FlyveLog.e(ex.getMessage());
         }
     }
 }
