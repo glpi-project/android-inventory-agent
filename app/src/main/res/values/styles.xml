@@ -15,4 +15,49 @@
         <item name="android:layout_height">1dp</item>
     </style>
 
+    <style name="regularText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/grayDark</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="titleText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/grayDark</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="titleTextWhite">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="bigText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/grayDark</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="linkText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="registerFormEditText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/grayDark</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
 </resources>
