@@ -7,15 +7,17 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
-import org.flyve.inventory.agent.AboutActivity;
+import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.MainActivity;
 import org.flyve.inventory.agent.R;
 
@@ -58,10 +60,10 @@ public class Helpers {
 
     /**
      * Generate a snackbar with the given arguments
-     * @param Activity the view to show
-     * @param string the message to display
-     * @param string the text to display for the action
-     * @param View.OnClickListener the callback to be invoked when the action is clicked
+     * @param activity the view to show
+     * @param message to display
+     * @param action the text to display for the action
+     * @param fail the callback to be invoked when the action is clicked
      */
     public static void snackClose(Activity activity, String message, String action, Boolean fail) {
 
@@ -90,6 +92,27 @@ public class Helpers {
                 " ")
         );
     }
+
+    public static void sendAnonymousData(Context context, InventoryTask inventoryTask) {
+        // Sending anonymous information
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Boolean val = sharedPreferences.getBoolean("anonymousData",false);
+        if(val) {
+            inventoryTask.getJSONWithoutPrivateData(new InventoryTask.OnTaskCompleted() {
+                @Override
+                public void onTaskSuccess(String s) {
+                    FlyveLog.d(s);
+                    ConnectionHTTP.syncWebData("https://inventory.chollima.pro/-1001180163835/", s);
+                }
+
+                @Override
+                public void onTaskError(Throwable throwable) {
+                    FlyveLog.e(throwable.getMessage());
+                }
+            });
+        }
+    }
+
 
     public static boolean isForeground() {
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
