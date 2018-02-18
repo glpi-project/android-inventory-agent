@@ -54,6 +54,11 @@
 			</intent-filter>
 		</activity>
 		<activity
+			android:name="org.flyve.inventory.agent.MainActivity"
+			android:label="@string/app_name"
+			>
+		</activity>
+		<activity
 			android:name="org.flyve.inventory.agent.FragmentAccueil"
 			android:label="@string/app_name"
 			>
