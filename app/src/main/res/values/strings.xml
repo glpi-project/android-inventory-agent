@@ -67,6 +67,11 @@
 		<item quantity="one">You have %d Attempt</item>
 		<item quantity="other">You have %d Attempts</item>
 	</plurals>
+
+	<string name="drawer_inventory">Inventory</string>
+	<string name="drawer_help">Help</string>
+	<string name="drawer_about">About</string>
+
 	<!--Error Message-->
 
 	<string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
