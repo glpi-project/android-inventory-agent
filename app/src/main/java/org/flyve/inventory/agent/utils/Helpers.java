@@ -135,7 +135,7 @@ public class Helpers {
         } else {
             intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/FlyveMDM/Inventory.xml"));
         }
-        context.startActivity(Intent.createChooser(intent, "Send Email"));
+        context.startActivity(Intent.createChooser(intent, "Share your inventory"));
     }
 
     public static String capitalize(String str) {
