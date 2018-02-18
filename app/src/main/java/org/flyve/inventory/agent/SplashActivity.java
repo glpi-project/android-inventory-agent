@@ -41,7 +41,7 @@ public class SplashActivity extends Activity {
 
     /**
      * Called when the activity is starting, inflates the activity's UI
-     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class SplashActivity extends Activity {
      * Starts the activity
      */
     private void openActivity() {
-        Intent miIntent = new Intent(SplashActivity.this, FragmentAccueil.class);
+        Intent miIntent = new Intent(SplashActivity.this, MainActivity.class);
         SplashActivity.this.startActivity(miIntent);
         SplashActivity.this.finish();
     }
