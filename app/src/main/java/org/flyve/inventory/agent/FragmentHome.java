@@ -1,8 +1,12 @@
 package org.flyve.inventory.agent;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,15 +51,55 @@ import java.util.ArrayList;
 public class FragmentHome extends Fragment {
 
     private ArrayList<HomeSchema> arrHome;
+    private Intent mServiceIntent;
+
+    private void doBindService() {
+        // Establish a connection with the service. We use an explicit
+        // class name because we want a specific service implementation that
+        // we know will be running in our own process (and thus won't be
+        // supporting component replacement by other applications).
+        InventoryService inventoryService = new InventoryService();
+        mServiceIntent = new Intent(FragmentHome.this.getContext(), inventoryService.getClass());
+
+        if (!isMyServiceRunning(inventoryService.getClass())) {
+            ComponentName result = FragmentHome.this.getActivity().startService(mServiceIntent);
+
+            if (result != null) {
+                FlyveLog.log(this, " Agent started ", Log.INFO);
+            } else {
+                FlyveLog.log(this, " Agent fail", Log.ERROR);
+            }
+        } else {
+            FlyveLog.log(this, " Agent already started ", Log.ERROR);
+        }
+    }
+
+    /**
+     * Check if the service is running
+     * @param serviceClass Class
+     * @return boolean
+     */
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) FragmentHome.this.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, null);
 
+        doBindService();
+
         arrHome = new ArrayList<>();
 
         arrHome.add(new HomeSchema("1", getString(R.string.AccueilInventoryTitle)));
-        arrHome.add(new HomeSchema("2", getString(R.string.AccueilInventoryTitle), getString(R.string.AccueilInventorySummaryOn), false));
         arrHome.add(new HomeSchema("3", getString(R.string.AccueilInventoryRun), getString(R.string.AccueilInventoryRunSummary)));
         arrHome.add(new HomeSchema("4", getString(R.string.AccueilInventoryShow), getString(R.string.AccueilInventoryShowSummary)));
         arrHome.add(new HomeSchema("5", getString(R.string.AccueilInventoryParam), getString(R.string.AccueilInventoryParamSummary)));
@@ -67,6 +111,16 @@ public class FragmentHome extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 HomeSchema homeSchema = arrHome.get(i);
+
+                if(homeSchema.getId().equals("7")) {
+                    Intent miIntent = new Intent(FragmentHome.this.getContext(), GlobalParametersPreference.class);
+                    FragmentHome.this.startActivity(miIntent);
+                }
+
+                if(homeSchema.getId().equals("5")) {
+                    Intent miIntent = new Intent(FragmentHome.this.getContext(), InventoryParametersPreference.class);
+                    FragmentHome.this.startActivity(miIntent);
+                }
 
                 // Show my inventory
                 if(homeSchema.getId().equals("4")) {
