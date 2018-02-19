@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/AccueilGlobalParam"
+    android:summary="@string/AccueilGlobalParamSummary">
+
+    <PreferenceCategory android:title="@string/GlobalCat"/>
+
+    <CheckBoxPreference
+        android:summary="CheckBox summary"
+        android:title="@string/GlobalBoot"
+        android:summaryOn="@string/GlobalBootSummaryOn"
+        android:summaryOff="@string/GlobalBootSummaryOff"
+        android:key="boot" android:defaultValue="true"
+        />
+
+    <CheckBoxPreference
+        android:summary="CheckBox summary"
+        android:title="@string/GlobalNotif"
+        android:summaryOn="@string/GlobalNotifSummaryOn"
+        android:summaryOff="@string/GlobalNotifSummaryOff"
+        android:key="notif" android:defaultValue="false"
+        />
+
+    <PreferenceCategory android:title="@string/GlobalCatSet"/>
+
+    <EditTextPreference
+        android:title="@string/GlobalServer"
+        android:key="url"
+        android:defaultValue="https://dev.flyve.org/glpi/plugins/fusioninventory/"
+        android:summary="@string/GlobalServerSummary"
+        android:persistent="true"
+        />
+    <EditTextPreference
+        android:dialogMessage="@string/tag"
+        android:persistent="true"
+        android:enabled="true"
+        android:selectable="true"
+        android:dialogTitle="@string/tag"
+        android:summary="@string/tagSummary"
+        android:title="@string/tag"
+        android:key="tag">
+    </EditTextPreference>
+
+    <PreferenceCategory
+        android:title="@string/authentication_credentials">
+        <EditTextPreference
+            android:dialogMessage="@string/login"
+            android:enabled="true"
+            android:persistent="true"
+            android:title="@string/login"
+            android:key="login">
+        </EditTextPreference>
+
+        <EditTextPreference
+            android:dialogMessage="@string/password"
+            android:persistent="true"
+            android:title="@string/password"
+            android:key="password"
+            android:enabled="true">
+        </EditTextPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/AccueilPrivacyTitle"/>
+
+    <CheckBoxPreference
+        android:summary="CheckBox summary"
+        android:title="@string/AccueilCrashReportTitle"
+        android:key="crashReport"
+        android:summaryOn="@string/AccueilCrashReportSummaryOn"
+        android:summaryOff="@string/AccueilCrashReportSummaryOff"
+        android:defaultValue="true"
+        />
+
+    <CheckBoxPreference
+        android:summary="CheckBox summary"
+        android:title="@string/AccueilAnonymousDataTitle"
+        android:summaryOn="@string/AccueilAnonymousDataSummaryOn"
+        android:summaryOff="@string/AccueilAnonymousDataSummaryOff"
+        android:key="anonymousData"
+        android:defaultValue="true"
+        />
+</PreferenceScreen>
