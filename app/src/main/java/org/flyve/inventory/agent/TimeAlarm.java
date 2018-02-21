@@ -40,8 +40,6 @@ import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
 
-import java.util.Calendar;
-
 public class TimeAlarm extends BroadcastReceiver {
 
     /**
@@ -112,32 +110,21 @@ public class TimeAlarm extends BroadcastReceiver {
         SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
         String timeInventory = customSharedPreference.getString("timeInventory", "Week");
 
-        Calendar cal = Calendar.getInstance();
+        int time = 60 * 1000;
+
         if (timeInventory.equals("Day")) {
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            cal.set(Calendar.MINUTE, 0);
-            cal.set(Calendar.SECOND, 0);
-            cal.set(Calendar.MILLISECOND, 0);
+            time = 24 * 60 * 60 * 1000;
             FlyveLog.d("Alarm Daily");
         } else if(timeInventory.equals("Week")) {
-            cal.set(Calendar.DAY_OF_WEEK, 1);
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            cal.set(Calendar.MINUTE, 33);
-            cal.set(Calendar.SECOND, 0);
-            cal.set(Calendar.MILLISECOND, 0);
+            time = 7 * 24 * 60 * 60 * 1000;
             FlyveLog.d("Alarm Weekly");
         } else if(timeInventory.equals("Month")) {
-            cal.set(Calendar.WEEK_OF_MONTH, 1);
-            cal.set(Calendar.DAY_OF_WEEK, 1);
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            cal.set(Calendar.MINUTE, 0);
-            cal.set(Calendar.SECOND, 0);
-            cal.set(Calendar.MILLISECOND, 0);
+            time = 30 * 24 * 60 * 60 * 1000;
             FlyveLog.d("Alarm Monthly");
         }
 
         try {
-            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_DAY, pi);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), time, pi);
         } catch (NullPointerException ex) {
             FlyveLog.e(ex.getMessage());
         }
