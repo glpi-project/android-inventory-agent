@@ -4,7 +4,7 @@ howtos: true
 published: true
 title: Installation
 permalink: howtos/installation
-description: Get it know
+description: Get it now
 ---
 You can install the application by downloading it from the **Play Store**
 
