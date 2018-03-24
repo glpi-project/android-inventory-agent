@@ -1,5 +1,3 @@
-package org.flyve.inventory.agent.utils;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,6 +17,8 @@ package org.flyve.inventory.agent.utils;
  * under the License.
  * @author olamy
  */
+
+package org.flyve.inventory.agent.utils;
 
 import android.util.Log;
 

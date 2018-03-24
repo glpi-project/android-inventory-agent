@@ -1,5 +1,3 @@
-package org.flyve.inventory.agent.utils;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,6 +17,8 @@ package org.flyve.inventory.agent.utils;
  * under the License.
  * @author olamy
  */
+
+package org.flyve.inventory.agent.utils;
 
 import android.util.Log;
 
@@ -50,7 +50,6 @@ public class EasySSLSocketFactory implements SocketFactory,
     /**
      * Create the context of the Easy SSL
      * @return string the context
-     * @throws string IOExceptions signals that an I/O exception has occurred
      */
     private static SSLContext createEasySSLContext() throws IOException {
         FlyveLog.log(EasySSLSocketFactory.class,
@@ -67,8 +66,7 @@ public class EasySSLSocketFactory implements SocketFactory,
 
     /**
      * Gets the Context of the SSL
-     * @return string the context 
-     * @throws string IOException signals that an I/O exception has occurred
+     * @return string the context
      */
     private SSLContext getSSLContext() throws IOException {
         if (this.sslcontext == null) {
@@ -142,7 +140,7 @@ public class EasySSLSocketFactory implements SocketFactory,
 
     /**
      * Indicates whether some other object is "equal to" this one
-     * @param Object obj the reference object with which to compare
+     * @param obj the reference object with which to compare
      * @return boolean true if the object is the same as the one given in argument
      */
     @Override
