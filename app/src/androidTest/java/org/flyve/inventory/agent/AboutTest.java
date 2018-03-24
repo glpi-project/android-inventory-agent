@@ -47,11 +47,11 @@ public class AboutTest {
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
     @Rule
-    public ActivityTestRule<AboutActivity> activityRule = new ActivityTestRule<>(AboutActivity.class);
+    public ActivityTestRule<FragmentAbout> activityRule = new ActivityTestRule<>(FragmentAbout.class);
 
     @Before
     public void unlockScreen() {
-        final AboutActivity activity = activityRule.getActivity();
+        final FragmentAbout activity = activityRule.getActivity();
         Runnable wakeUpDevice = new Runnable() {
             public void run() {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
