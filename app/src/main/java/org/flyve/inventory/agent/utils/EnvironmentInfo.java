@@ -1,18 +1,7 @@
-package org.flyve.inventory.agent.utils;
-
-import android.content.Context;
-import android.content.res.AssetManager;
-
-import java.io.InputStream;
-import java.util.Properties;
-
 /*
- *   Copyright © 2017 Teclib. All rights reserved.
+ * Copyright Teclib. All rights reserved.
  *
- *   This file is part of android-inventory-agent
- *
- * android-inventory-agent is a subproject of Flyve MDM. Flyve MDM is a mobile
- * device management software.
+ * Flyve MDM is a mobile device management software.
  *
  * Flyve MDM is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,13 +14,21 @@ import java.util.Properties;
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
  * @author    Rafael Hernandez
- * @date      2/10/17
- * @copyright Copyright © 2017 Teclib. All rights reserved.
+ * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
  * @link      https://flyve-mdm.com
  * ------------------------------------------------------------------------------
  */
+
+package org.flyve.inventory.agent.utils;
+
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import java.io.InputStream;
+import java.util.Properties;
+
 public class EnvironmentInfo {
     private Properties properties = new Properties();
 
