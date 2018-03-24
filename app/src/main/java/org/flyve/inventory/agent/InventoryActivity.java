@@ -26,15 +26,9 @@
  */
 package org.flyve.inventory.agent;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
-import android.support.test.espresso.IdlingResource;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -44,7 +38,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import org.flyve.inventory.InventoryTask;
-import org.flyve.inventory.agent.IdlingResource.RecycleViewIdlingResource;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
@@ -60,13 +53,9 @@ public class InventoryActivity extends AppCompatActivity {
     private RecyclerView lst;
     private ProgressBar pb;
 
-    // The Idling Resource which will be null in production.
-    @Nullable
-    private RecycleViewIdlingResource mIdlingResource;
-
     /**
      * Called when the activity is starting, inflates the activity's UI
-     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +93,6 @@ public class InventoryActivity extends AppCompatActivity {
 
         GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
         lst.setLayoutManager(llm);
-
-        // this is just for testing
-        if (mIdlingResource != null) {
-            mIdlingResource.setIdleState(false);
-        }
 
         final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, Helpers.getAgentDescription(InventoryActivity.this), true);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
@@ -181,18 +165,9 @@ public class InventoryActivity extends AppCompatActivity {
             InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);
             lst.setAdapter(mAdapter);
 
-            // this is just for testing
-            if (mIdlingResource != null) {
-                mIdlingResource.setIdleState(true);
-            }
         } catch (Exception ex) {
             pb.setVisibility(View.GONE);
             FlyveLog.e(ex.getMessage());
-
-            // this is just for testing
-            if (mIdlingResource != null) {
-                mIdlingResource.setIdleState(true);
-            }
         }
     }
 
@@ -234,18 +209,5 @@ public class InventoryActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         // display dialog
         dialog.show();
-    }
-
-
-    /**
-     * Only called from test, creates and returns a new {@link RecycleViewIdlingResource}.
-     */
-    @VisibleForTesting
-    @NonNull
-    public IdlingResource getIdlingResource() {
-        if (mIdlingResource == null) {
-            mIdlingResource = new RecycleViewIdlingResource();
-        }
-        return mIdlingResource;
     }
 }
