@@ -1,8 +1,12 @@
 package org.flyve.inventory.agent;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.flyve.inventory.agent.adapter.DrawerAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
@@ -58,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (!checkIfAlreadyhavePermission()) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.CAMERA},
+                    1);
+        }
+
         // Setup the DrawerLayout and NavigationView
         txtToolbarTitle = findViewById(R.id.txtToolbarTitle);
         mDrawerLayout = findViewById(R.id.drawerLayout);
@@ -104,6 +115,33 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
     }
+
+    private boolean checkIfAlreadyhavePermission() {
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        return (result == PackageManager.PERMISSION_GRANTED);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(MainActivity.this, "Permission denied this app could fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
 
     /**
      * Load the list drawer
