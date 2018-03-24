@@ -66,18 +66,6 @@
 			android:name="org.flyve.inventory.agent.GlobalParametersPreference"
 			android:label="@string/app_name">
 		</activity>
-
-		<activity
-			android:name="org.flyve.inventory.agent.FragmentAccueil"
-			android:label="@string/app_name">
-		</activity>
-		<activity
-			android:name="org.flyve.inventory.agent.FragmentAbout"
-			android:label="@string/app_name"
-			android:launchMode="standard"
-			android:theme="@style/NoActionBar"
-			>
-		</activity>
 		<activity
 			android:name="org.flyve.inventory.agent.InventoryActivity"
 			android:label="@string/app_name"
@@ -85,6 +73,7 @@
 			android:theme="@style/NoActionBar"
 			>
 		</activity>
+
 		<service
 			android:enabled="true"
 			android:label="Inventory Agent"
