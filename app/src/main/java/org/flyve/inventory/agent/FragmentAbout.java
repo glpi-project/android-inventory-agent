@@ -50,7 +50,7 @@ public class FragmentAbout extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_about, null);
+        View v = inflater.inflate(R.layout.fragment_about, null);
 
         TextView txtAbout = v.findViewById(R.id.txtAbout);
 
