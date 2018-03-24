@@ -29,11 +29,12 @@ package org.flyve.inventory.agent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,63 +42,40 @@ import android.widget.Toast;
 import com.bugsnag.android.Bugsnag;
 
 import org.flyve.inventory.agent.utils.EnvironmentInfo;
-import org.flyve.inventory.agent.utils.FlyveLog;
 
-public class AboutActivity extends AppCompatActivity {
+public class FragmentAbout extends Fragment {
 
     private int countEasterEgg;
 
-    /**
-     * Called when the activity is starting, inflates the activity's UI
-     * @param Bundle savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
-     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setContentView(R.layout.activity_about);
+        View v = inflater.inflate(R.layout.activity_about, null);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView txtAbout = v.findViewById(R.id.txtAbout);
 
-        try {
-            toolbar.setTitle(getResources().getString(R.string.menu_about));
-
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-        } catch(Exception ex) {
-            FlyveLog.e(ex.getMessage());
-        }
-
-        TextView txtAbout = (TextView) findViewById(R.id.txtAbout);
-
-        ImageView imgInventory = (ImageView) findViewById(R.id.imgInventory);
+        ImageView imgInventory = v.findViewById(R.id.imgInventory);
         imgInventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 countEasterEgg++;
                 if (countEasterEgg > 6 && countEasterEgg <= 10) {
-                    Toast.makeText(AboutActivity.this, getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FragmentAbout.this.getContext(), getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();
                 }
                 if (countEasterEgg == 10) {
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AboutActivity.this);
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAbout.this.getContext());
                     Boolean val = sharedPreferences.getBoolean("crashReport",false);
 
                     if(val) {
-                        Bugsnag.notify(new RuntimeException("Easter Egg Fail on" + AboutActivity.this.getResources().getString(R.string.app_name)));
+                        Bugsnag.notify(new RuntimeException("Easter Egg Fail on" + FragmentAbout.this.getResources().getString(R.string.app_name)));
                     } else {
-                        Toast.makeText(AboutActivity.this, getResources().getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FragmentAbout.this.getContext(), getResources().getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
-        EnvironmentInfo enviromentInfo = new EnvironmentInfo(AboutActivity.this);
+        EnvironmentInfo enviromentInfo = new EnvironmentInfo(FragmentAbout.this.getContext());
 
         if(enviromentInfo.getIsLoaded()) {
             txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));
@@ -105,6 +83,8 @@ public class AboutActivity extends AppCompatActivity {
         } else {
             txtAbout.setVisibility(View.GONE);
         }
+
+        return v;
     }
 
     private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {

@@ -72,7 +72,7 @@
 			android:label="@string/app_name">
 		</activity>
 		<activity
-			android:name="org.flyve.inventory.agent.AboutActivity"
+			android:name="org.flyve.inventory.agent.FragmentAbout"
 			android:label="@string/app_name"
 			android:launchMode="standard"
 			android:theme="@style/NoActionBar"
