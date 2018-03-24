@@ -21,23 +21,32 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.broadcast;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 
-public class GlobalParametersPreference extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class BootStartAgent extends BroadcastReceiver {
 
+    TimeAlarm alarm = new TimeAlarm();
+
+    /**
+     * It sets an alarm after the user has finished booting
+     * @param context in which the receiver is running
+     * @param intent being received
+     */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onReceive(Context context, Intent intent) {
 
-        addPreferencesFromResource(R.xml.global_parameters);
-    }
+        String action = intent.getAction();
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if(action==null) {
+            return;
+        }
 
+        if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+            alarm.setAlarm(context);
+        }
     }
 }

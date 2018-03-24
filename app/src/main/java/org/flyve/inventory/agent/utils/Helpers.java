@@ -41,7 +41,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
 import org.flyve.inventory.InventoryTask;
-import org.flyve.inventory.agent.MainActivity;
+import org.flyve.inventory.agent.ui.ActivityMain;
 import org.flyve.inventory.agent.R;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
@@ -118,7 +118,7 @@ public class Helpers {
     }
 
     public static void sendToNotificationBar(Context context, String message) {
-        Intent resultIntent = new Intent(context, MainActivity.class);
+        Intent resultIntent = new Intent(context, ActivityMain.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);
 

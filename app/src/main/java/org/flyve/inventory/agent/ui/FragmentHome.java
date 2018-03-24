@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.ui;
 
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
@@ -38,8 +38,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.HomeAdapter;
 import org.flyve.inventory.agent.core.home.HomeSchema;
+import org.flyve.inventory.agent.preference.GlobalParametersPreference;
+import org.flyve.inventory.agent.preference.InventoryParametersPreference;
+import org.flyve.inventory.agent.service.InventoryService;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
@@ -122,7 +126,7 @@ public class FragmentHome extends Fragment {
 
                 // Show my inventory
                 if(homeSchema.getId().equals("4")) {
-                    Intent miIntent = new Intent(FragmentHome.this.getContext(), InventoryActivity.class);
+                    Intent miIntent = new Intent(FragmentHome.this.getContext(), ActivityInventory.class);
                     FragmentHome.this.startActivity(miIntent);
                 }
 

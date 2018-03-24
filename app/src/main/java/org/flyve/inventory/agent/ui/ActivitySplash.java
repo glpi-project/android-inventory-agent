@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,9 +30,10 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.LocalStorage;
 
-public class SplashActivity extends Activity {
+public class ActivitySplash extends Activity {
 
     private static final int SPLASH_TIME = 3000;
 
@@ -49,7 +50,7 @@ public class SplashActivity extends Activity {
 
         setContentView(R.layout.activity_splash);
 
-        LocalStorage localStorage = new LocalStorage(SplashActivity.this);
+        LocalStorage localStorage = new LocalStorage(ActivitySplash.this);
 
         String crashReport = localStorage.getData("crashReport");
         if(crashReport==null) {
@@ -75,8 +76,8 @@ public class SplashActivity extends Activity {
      * Starts the activity
      */
     private void openActivity() {
-        Intent miIntent = new Intent(SplashActivity.this, MainActivity.class);
-        SplashActivity.this.startActivity(miIntent);
-        SplashActivity.this.finish();
+        Intent miIntent = new Intent(ActivitySplash.this, ActivityMain.class);
+        ActivitySplash.this.startActivity(miIntent);
+        ActivitySplash.this.finish();
     }
 }

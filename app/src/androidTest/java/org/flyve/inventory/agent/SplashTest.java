@@ -28,6 +28,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.WindowManager;
 
+import org.flyve.inventory.agent.ui.ActivitySplash;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -43,11 +44,11 @@ public class SplashTest {
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
     @Rule
-    public ActivityTestRule<SplashActivity> activityRule = new ActivityTestRule<>(SplashActivity.class);
+    public ActivityTestRule<ActivitySplash> activityRule = new ActivityTestRule<>(ActivitySplash.class);
 
     @Before
     public void unlockScreen() {
-        final SplashActivity activity = activityRule.getActivity();
+        final ActivitySplash activity = activityRule.getActivity();
         Runnable wakeUpDevice = new Runnable() {
             public void run() {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |

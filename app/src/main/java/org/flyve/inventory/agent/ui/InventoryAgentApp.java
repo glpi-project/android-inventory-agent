@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.ui;
 
 import android.app.Application;
 import android.content.Context;

@@ -21,22 +21,24 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.preference;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class InventoryParametersPreference extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+import org.flyve.inventory.agent.R;
+
+public class GlobalParametersPreference extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.inventory_parameters);
+        addPreferencesFromResource(R.xml.global_parameters);
     }
 
-        @Override
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
 
     }

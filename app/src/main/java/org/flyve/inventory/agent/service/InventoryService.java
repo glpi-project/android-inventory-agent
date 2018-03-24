@@ -21,13 +21,14 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import org.flyve.inventory.agent.broadcast.TimeAlarm;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
 public class InventoryService extends Service {
