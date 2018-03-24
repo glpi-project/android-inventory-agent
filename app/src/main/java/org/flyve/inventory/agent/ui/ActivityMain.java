@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -39,13 +39,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.DrawerAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private FragmentManager mFragmentManager;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (!checkIfAlreadyhavePermission()) {
-            ActivityCompat.requestPermissions(MainActivity.this,
+            ActivityCompat.requestPermissions(ActivityMain.this,
                     new String[]{Manifest.permission.CAMERA},
                     1);
         }
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(MainActivity.this, "Permission denied this app could fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityMain.this, "Permission denied this app could fail", Toast.LENGTH_SHORT).show();
                 }
             }
         }

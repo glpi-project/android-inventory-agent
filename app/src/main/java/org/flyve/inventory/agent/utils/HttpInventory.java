@@ -26,7 +26,6 @@ package org.flyve.inventory.agent.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.StrictMode;
 import android.util.Log;
 
 import org.apache.http.Header;
@@ -53,7 +52,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.flyve.inventory.agent.InventoryAgentApp;
+import org.flyve.inventory.agent.ui.InventoryAgentApp;
 import org.flyve.inventory.agent.R;
 
 import java.io.BufferedReader;

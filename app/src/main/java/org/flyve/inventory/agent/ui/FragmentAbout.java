@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.bugsnag.android.Bugsnag;
 
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.EnvironmentInfo;
 
 public class FragmentAbout extends Fragment {

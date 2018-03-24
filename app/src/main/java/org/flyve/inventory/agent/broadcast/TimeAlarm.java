@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.broadcast;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -33,6 +33,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;

@@ -21,7 +21,7 @@
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent;
+package org.flyve.inventory.agent.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -35,6 +35,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class InventoryActivity extends AppCompatActivity {
+public class ActivityInventory extends AppCompatActivity {
 
     private RecyclerView lst;
     private ProgressBar pb;
@@ -88,10 +89,10 @@ public class InventoryActivity extends AppCompatActivity {
 
         lst = findViewById(R.id.lst);
 
-        GridLayoutManager llm = new GridLayoutManager(InventoryActivity.this, 1);
+        GridLayoutManager llm = new GridLayoutManager(ActivityInventory.this, 1);
         lst.setLayoutManager(llm);
 
-        final InventoryTask inventoryTask = new InventoryTask(InventoryActivity.this, Helpers.getAgentDescription(InventoryActivity.this), true);
+        final InventoryTask inventoryTask = new InventoryTask(ActivityInventory.this, Helpers.getAgentDescription(ActivityInventory.this), true);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(final String s) {
@@ -159,7 +160,7 @@ public class InventoryActivity extends AppCompatActivity {
             }
             pb.setVisibility(View.GONE);
 
-            InventoryAdapter mAdapter = new InventoryAdapter(InventoryActivity.this, data);
+            InventoryAdapter mAdapter = new InventoryAdapter(ActivityInventory.this, data);
             lst.setAdapter(mAdapter);
 
         } catch (Exception ex) {
@@ -169,7 +170,7 @@ public class InventoryActivity extends AppCompatActivity {
     }
 
     public void showDialogShare() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityInventory.this);
         builder.setTitle(R.string.dialog_share_title);
 
         final int[] type = new int[1];
@@ -190,7 +191,7 @@ public class InventoryActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // positive button logic
-                        Helpers.share( InventoryActivity.this, "Inventory Agent File", type[0] );
+                        Helpers.share( ActivityInventory.this, "Inventory Agent File", type[0] );
                     }
                 });
 

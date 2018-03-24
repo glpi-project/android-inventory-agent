@@ -31,6 +31,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.view.WindowManager;
 
+import org.flyve.inventory.agent.ui.ActivityInventory;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -49,11 +50,11 @@ public class InventoryTest {
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
     @Rule
-    public ActivityTestRule<InventoryActivity> activityRule = new ActivityTestRule<>(InventoryActivity.class);
+    public ActivityTestRule<ActivityInventory> activityRule = new ActivityTestRule<>(ActivityInventory.class);
 
     @Before
     public void unlockScreen() {
-        final InventoryActivity activity = activityRule.getActivity();
+        final ActivityInventory activity = activityRule.getActivity();
         Runnable wakeUpDevice = new Runnable() {
             public void run() {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
