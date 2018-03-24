@@ -1,6 +1,7 @@
 package org.flyve.inventory.agent;
 
 import android.app.ActivityManager;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -130,6 +131,8 @@ public class FragmentHome extends Fragment {
 
                 // Sent inventory
                 if(homeSchema.getId().equals("3")) {
+                    final ProgressDialog progressBar = ProgressDialog.show(FragmentHome.this.getActivity(), "Sending inventory", getResources().getString(R.string.loading));
+
                     final InventoryTask inventoryTask = new InventoryTask(FragmentHome.this.getContext(), Helpers.getAgentDescription(FragmentHome.this.getContext()));
 
                     // Sending anonymous information
@@ -141,14 +144,15 @@ public class FragmentHome extends Fragment {
                             httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
                                 @Override
                                 public void onTaskSuccess(String data) {
+                                    progressBar.dismiss();
                                     Helpers.snackClose(FragmentHome.this.getActivity(), data, FragmentHome.this.getResources().getString(R.string.snackButton), false);
                                     Helpers.sendAnonymousData(FragmentHome.this.getContext(), inventoryTask);
                                 }
 
                                 @Override
                                 public void onTaskError(String error) {
+                                    progressBar.dismiss();
                                     Helpers.snackClose(FragmentHome.this.getActivity(), error, FragmentHome.this.getResources().getString(R.string.snackButton), true);
-
                                 }
                             });
                         }
