@@ -102,8 +102,8 @@ public class FragmentHome extends Fragment {
         arrHome = new ArrayList<>();
 
         arrHome.add(new HomeSchema("1", getString(R.string.AccueilInventoryTitle)));
-        arrHome.add(new HomeSchema("3", getString(R.string.AccueilInventoryRun), getString(R.string.AccueilInventoryRunSummary)));
         arrHome.add(new HomeSchema("4", getString(R.string.AccueilInventoryShow), getString(R.string.AccueilInventoryShowSummary)));
+        arrHome.add(new HomeSchema("3", getString(R.string.AccueilInventoryRun), getString(R.string.AccueilInventoryRunSummary)));
         arrHome.add(new HomeSchema("5", getString(R.string.AccueilInventoryParam), getString(R.string.AccueilInventoryParamSummary)));
         arrHome.add(new HomeSchema("6", getString(R.string.AccueilGlobalTitle)));
         arrHome.add(new HomeSchema("7", getString(R.string.AccueilGlobalParam), getString(R.string.AccueilGlobalParamSummary)));
