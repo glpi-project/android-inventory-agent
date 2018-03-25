@@ -36,7 +36,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.flyve.inventory.agent.R;
@@ -53,7 +52,7 @@ public class ActivityMain extends AppCompatActivity {
     private ListView lstDrawer;
     private ArrayList<HashMap<String, String>> arrDrawer;
     private HashMap<String, String> selectedItem;
-    private TextView txtToolbarTitle;
+    private android.support.v7.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,6 @@ public class ActivityMain extends AppCompatActivity {
         }
 
         // Setup the DrawerLayout and NavigationView
-        txtToolbarTitle = findViewById(R.id.txtToolbarTitle);
         mDrawerLayout = findViewById(R.id.drawerLayout);
 
         lstDrawer = findViewById(R.id.lstNV);
@@ -83,7 +81,11 @@ public class ActivityMain extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
 
         // Setup Drawer Toggle of the Toolbar
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setTitle(R.string.app_name);
+
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
                 R.string.app_name);
 
@@ -103,7 +105,7 @@ public class ActivityMain extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
-        txtToolbarTitle.setText(item.get("name").toUpperCase());
+        toolbar.setTitle(item.get("name"));
 
         // Home
         if (item.get("id").equals("1")) {
