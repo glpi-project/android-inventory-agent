@@ -16,23 +16,19 @@
  * @author    Rafael Hernandez
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://github.com/flyve-mdm/android-mdm-agent
  * @link      https://flyve-mdm.com
  * ------------------------------------------------------------------------------
  */
 
-package org.flyve.inventory.agent.ui;
+package org.flyve.inventory.agent.core.report;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
@@ -46,71 +42,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class ActivityInventory extends AppCompatActivity {
+public class ReportModel implements Report.Model {
 
-    private RecyclerView lst;
-    private ProgressBar pb;
+    private Report.Presenter presenter;
 
-    /**
-     * Called when the activity is starting, inflates the activity's UI
-     * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public ReportModel(Report.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
-        setContentView(R.layout.activity_inventory);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        try {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-        } catch (Exception ex) {
-            FlyveLog.e(ex.getMessage());
-        }
-
-        pb = findViewById(R.id.pb);
-        pb.setVisibility(View.VISIBLE);
-
-        FloatingActionButton btnShare = findViewById(R.id.btnShare);
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogShare();
-            }
-        });
-
-        lst = findViewById(R.id.lst);
-
-        GridLayoutManager llm = new GridLayoutManager(ActivityInventory.this, 1);
-        lst.setLayoutManager(llm);
-
-        final InventoryTask inventoryTask = new InventoryTask(ActivityInventory.this, Helpers.getAgentDescription(ActivityInventory.this), true);
+    public void generateReport(final Activity activity, final RecyclerView lst) {
+        final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity), true);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
-            public void onTaskSuccess(final String s) {
-                load(s);
+            public void onTaskSuccess(String s) {
+                load(activity, lst, s);
                 inventoryTask.getXMLSyn();
             }
 
             @Override
             public void onTaskError(Throwable throwable) {
-                pb.setVisibility(View.GONE);
-                FlyveLog.e(throwable.getMessage());
+                presenter.showError(throwable.getMessage());
             }
         });
     }
 
-    private void load(String jsonStr) {
-
-        ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
+    private void load(Activity activity, RecyclerView lst, String jsonStr) {
+        ProgressDialog progressBar = ProgressDialog.show(activity, "Creating inventory", activity.getResources().getString(R.string.loading));
+        ArrayList<HashMap<String, String>> data = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(jsonStr);
@@ -122,7 +80,7 @@ public class ActivityInventory extends AppCompatActivity {
             while( keys.hasNext() ) {
                 String key = (String)keys.next();
 
-                if ( jsonContent.get(key) instanceof JSONArray ) {
+                if ( jsonContent.get(key) instanceof JSONArray) {
                     // add header
                     FlyveLog.d("----------- Header: " + key);
 
@@ -158,25 +116,25 @@ public class ActivityInventory extends AppCompatActivity {
                     }
                 }
             }
-            pb.setVisibility(View.GONE);
+            progressBar.dismiss();
 
-            InventoryAdapter mAdapter = new InventoryAdapter(ActivityInventory.this, data);
+            InventoryAdapter mAdapter = new InventoryAdapter(activity, data);
             lst.setAdapter(mAdapter);
-
         } catch (Exception ex) {
-            pb.setVisibility(View.GONE);
+            progressBar.dismiss();
+            presenter.showError(ex.getMessage());
             FlyveLog.e(ex.getMessage());
         }
     }
 
-    public void showDialogShare() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityInventory.this);
+    public void showDialogShare(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.dialog_share_title);
 
         final int[] type = new int[1];
 
         //list of items
-        String[] items = getResources().getStringArray(R.array.export_list);
+        String[] items = context.getResources().getStringArray(R.array.export_list);
         builder.setSingleChoiceItems(items, 0,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -185,17 +143,17 @@ public class ActivityInventory extends AppCompatActivity {
                     }
                 });
 
-        String positiveText = getString(android.R.string.ok);
+        String positiveText = context.getString(android.R.string.ok);
         builder.setPositiveButton(positiveText,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // positive button logic
-                        Helpers.share( ActivityInventory.this, "Inventory Agent File", type[0] );
+                        Helpers.share( context, "Inventory Agent File", type[0] );
                     }
                 });
 
-        String negativeText = getString(android.R.string.cancel);
+        String negativeText = context.getString(android.R.string.cancel);
         builder.setNegativeButton(negativeText,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -208,4 +166,5 @@ public class ActivityInventory extends AppCompatActivity {
         // display dialog
         dialog.show();
     }
+
 }

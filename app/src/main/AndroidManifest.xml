@@ -67,7 +67,7 @@
 			android:label="@string/app_name">
 		</activity>
 		<activity
-			android:name="org.flyve.inventory.agent.ui.ActivityInventory"
+			android:name="org.flyve.inventory.agent.ui.ActivityInventoryReport"
 			android:label="@string/app_name"
 			android:launchMode="standard"
 			android:theme="@style/NoActionBar"
