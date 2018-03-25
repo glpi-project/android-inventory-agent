@@ -23,23 +23,21 @@
 
 package org.flyve.inventory.agent.ui;
 
-import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.main.Main;
 import org.flyve.inventory.agent.core.main.MainPresenter;
+import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.Map;
 
@@ -71,10 +69,8 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
         Map<String, String> menuItem = presenter.setupDrawer(ActivityMain.this, lst);
         presenter.loadFragment(fragmentManager, toolbar, menuItem);
 
-        if (!checkIfAlreadyhavePermission()) {
-            ActivityCompat.requestPermissions(ActivityMain.this,
-                    new String[]{Manifest.permission.CAMERA},
-                    1);
+        if(Build.VERSION.SDK_INT >= 23) {
+            presenter.requestPermission(ActivityMain.this);
         }
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,11 +91,6 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
         mDrawerToggle.syncState();
     }
 
-    private boolean checkIfAlreadyhavePermission() {
-        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-        return (result == PackageManager.PERMISSION_GRANTED);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -107,17 +98,18 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    Helpers.snackClose(ActivityMain.this, getString(R.string.permission_success_result), getString(R.string.permission_snack_ok), false);
                 } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(ActivityMain.this, "Permission denied this app could fail", Toast.LENGTH_SHORT).show();
+                    presenter.showError(getString(R.string.permission_error_result));
                 }
             }
         }
+    }
+
+    @Override
+    public void showError(String message) {
+        Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);
     }
 }

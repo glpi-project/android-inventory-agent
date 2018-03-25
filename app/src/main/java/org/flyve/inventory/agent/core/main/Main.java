@@ -34,21 +34,24 @@ import java.util.Map;
 public interface Main {
 
     interface View {
-
+        void showError(String message);
     }
 
     interface Presenter {
         // Views
+        void showError(String message);
 
         // Models
         Map<String, String> setupDrawer(Activity activity, ListView lst);
         void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> item);
         List<HashMap<String, String>> getMenuItem();
+        void requestPermission(Activity activity);
     }
 
     interface Model {
         Map<String, String> setupDrawer(Activity activity, ListView lst);
         void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> item);
         List<HashMap<String, String>> getMenuItem();
+        void requestPermission(Activity activity);
     }
 }

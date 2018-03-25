@@ -23,7 +23,9 @@
 
 package org.flyve.inventory.agent.core.main;
 
+import android.Manifest;
 import android.app.Activity;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.ListView;
@@ -46,6 +48,14 @@ public class MainModel implements Main.Model {
 
     public MainModel(Main.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    public void requestPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
+                },
+                1);
     }
 
     public void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> menuItem) {

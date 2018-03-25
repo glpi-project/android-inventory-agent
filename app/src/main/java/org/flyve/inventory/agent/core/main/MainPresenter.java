@@ -43,6 +43,13 @@ public class MainPresenter implements Main.Presenter {
     }
 
     @Override
+    public void showError(String message) {
+        if(view!=null) {
+            view.showError(message);
+        }
+    }
+
+    @Override
     public Map<String, String> setupDrawer(Activity activity, ListView lst) {
         return model.setupDrawer(activity, lst);
     }
@@ -55,5 +62,10 @@ public class MainPresenter implements Main.Presenter {
     @Override
     public List<HashMap<String, String>> getMenuItem() {
         return model.getMenuItem();
+    }
+
+    @Override
+    public void requestPermission(Activity activity) {
+        model.requestPermission(activity);
     }
 }
