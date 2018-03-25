@@ -133,7 +133,7 @@ public class Helpers {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(context.getResources().getString(R.string.app_name))
                 .setContentText(message)
                 .setSound(defaultSoundUri)
@@ -144,7 +144,7 @@ public class Helpers {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setSmallIcon(R.drawable.ic_notification_white);
         } else {
-            builder.setSmallIcon(R.drawable.icon);
+            builder.setSmallIcon(R.mipmap.ic_launcher);
         }
 
 
