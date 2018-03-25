@@ -24,18 +24,18 @@
 package org.flyve.inventory.agent.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.utils.LocalStorage;
+import org.flyve.inventory.agent.core.splash.Splash;
+import org.flyve.inventory.agent.core.splash.SplashPresenter;
+import org.flyve.inventory.agent.utils.Helpers;
 
-public class ActivitySplash extends Activity {
+public class ActivitySplash extends Activity implements Splash.View {
 
-    private static final int SPLASH_TIME = 3000;
+    private static final int DELAY = 3000;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -50,34 +50,13 @@ public class ActivitySplash extends Activity {
 
         setContentView(R.layout.activity_splash);
 
-        LocalStorage localStorage = new LocalStorage(ActivitySplash.this);
-
-        String crashReport = localStorage.getData("crashReport");
-        if(crashReport==null) {
-            localStorage.setData("crashReport", "true");
-        }
-
-        String anonymousData = localStorage.getData("anonymousData");
-        if(anonymousData==null) {
-            localStorage.setData("anonymousData", "true");
-        }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                openActivity();
-
-            }
-        }, SPLASH_TIME);
+        Splash.Presenter presenter = new SplashPresenter(this);
+        presenter.setupStorage(ActivitySplash.this);
+        presenter.nextActivityWithDelay(DELAY, ActivitySplash.this, ActivityMain.class);
     }
 
-    /**
-     * Starts the activity
-     */
-    private void openActivity() {
-        Intent miIntent = new Intent(ActivitySplash.this, ActivityMain.class);
-        ActivitySplash.this.startActivity(miIntent);
-        ActivitySplash.this.finish();
+    @Override
+    public void showError(String message) {
+        Helpers.snackClose(ActivitySplash.this, message, getString(R.string.permission_snack_ok), true);
     }
 }

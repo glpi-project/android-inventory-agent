@@ -55,6 +55,14 @@ public class Helpers {
     private Helpers() {
     }
 
+    public static void openActivity(Activity activity, Class<?> classToOpen, boolean closeThisActivity) {
+        Intent miIntent = new Intent(activity, classToOpen);
+        activity.startActivity(miIntent);
+        if(closeThisActivity) {
+            activity.finish();
+        }
+    }
+
     /**
      * Generate a snackbar with the given arguments
      * @param activity the view to show
