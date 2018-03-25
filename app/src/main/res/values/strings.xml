@@ -68,6 +68,10 @@
 		<item quantity="other">You have %d Attempts</item>
 	</plurals>
 
+	<string name="permission_error_result">Some permissions are denied, this app could fail</string>
+	<string name="permission_success_result">Thanks all permissions success</string>
+	<string name="permission_snack_ok">Ok</string>
+
 	<string name="drawer_inventory">Inventory</string>
 	<string name="drawer_help">Help</string>
 	<string name="drawer_about">About</string>
