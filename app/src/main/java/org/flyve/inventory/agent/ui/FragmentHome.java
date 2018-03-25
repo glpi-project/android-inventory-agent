@@ -126,7 +126,7 @@ public class FragmentHome extends Fragment {
 
                 // Show my inventory
                 if(homeSchema.getId().equals("4")) {
-                    Intent miIntent = new Intent(FragmentHome.this.getContext(), ActivityInventory.class);
+                    Intent miIntent = new Intent(FragmentHome.this.getContext(), ActivityInventoryReport.class);
                     FragmentHome.this.startActivity(miIntent);
                 }
 
