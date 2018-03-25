@@ -57,7 +57,7 @@
 				/>
 
 			<ListView
-				android:id="@+id/lstNV"
+				android:id="@+id/lst"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:dividerHeight="0dp"
