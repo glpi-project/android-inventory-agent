@@ -25,9 +25,11 @@ package org.flyve.inventory.agent.core.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.widget.ListView;
 
 import org.flyve.inventory.agent.R;
@@ -51,11 +53,24 @@ public class MainModel implements Main.Model {
     }
 
     public void requestPermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA,
-                },
-                1);
+        boolean isGranted = true;
+        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        if(result != PackageManager.PERMISSION_GRANTED) {
+            isGranted = false;
+        }
+
+        result = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if(result != PackageManager.PERMISSION_GRANTED) {
+            isGranted = false;
+        }
+
+        if(!isGranted) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA,
+                    },
+                    1);
+        }
     }
 
     public void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> menuItem) {
