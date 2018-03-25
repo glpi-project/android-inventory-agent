@@ -28,7 +28,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,19 +38,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.adapter.DrawerAdapter;
-import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.core.main.Main;
+import org.flyve.inventory.agent.core.main.MainPresenter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity implements Main.View {
 
-    private DrawerLayout mDrawerLayout;
-    private FragmentManager mFragmentManager;
-    private ListView lstDrawer;
-    private ArrayList<HashMap<String, String>> arrDrawer;
-    private HashMap<String, String> selectedItem;
+    private Main.Presenter presenter;
+    private DrawerLayout drawerLayout;
+    private FragmentManager fragmentManager;
     private android.support.v7.widget.Toolbar toolbar;
 
     @Override
@@ -59,68 +55,44 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Menu list
+        ListView lst = findViewById(R.id.lst);
+
+        // Setup the DrawerLayout and NavigationView
+        drawerLayout = findViewById(R.id.drawerLayout);
+
+        // layout
+        fragmentManager = getSupportFragmentManager();
+
+        // Setup Drawer Toggle of the Toolbar
+        toolbar = findViewById(R.id.toolbar);
+
+        presenter = new MainPresenter(this);
+        Map<String, String> menuItem = presenter.setupDrawer(ActivityMain.this, lst);
+        presenter.loadFragment(fragmentManager, toolbar, menuItem);
+
         if (!checkIfAlreadyhavePermission()) {
             ActivityCompat.requestPermissions(ActivityMain.this,
                     new String[]{Manifest.permission.CAMERA},
                     1);
         }
 
-        // Setup the DrawerLayout and NavigationView
-        mDrawerLayout = findViewById(R.id.drawerLayout);
-
-        lstDrawer = findViewById(R.id.lstNV);
-        lstDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mDrawerLayout.closeDrawers();
-                selectedItem = arrDrawer.get(position);
-                loadFragment(selectedItem);
+                drawerLayout.closeDrawers();
+                presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));
             }
         });
 
-        mFragmentManager = getSupportFragmentManager();
-
-        // Setup Drawer Toggle of the Toolbar
-        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         toolbar.setTitle(R.string.app_name);
 
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,
                 R.string.app_name);
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-
-        loadListDrawer();
-
-    }
-
-    /**
-     * Loads the Fragment
-     * @param item
-     */
-    private void loadFragment(HashMap<String, String> item) {
-
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-
-        toolbar.setTitle(item.get("name"));
-
-        // Home
-        if (item.get("id").equals("1")) {
-            FragmentHome f = new FragmentHome();
-            fragmentTransaction.replace(R.id.containerView, f).commit();
-            return;
-        }
-
-        // About
-        if (item.get("id").equals("5")) {
-            FragmentAbout f = new FragmentAbout();
-            fragmentTransaction.replace(R.id.containerView, f).commit();
-            return;
-        }
-
     }
 
     private boolean checkIfAlreadyhavePermission() {
@@ -146,48 +118,6 @@ public class ActivityMain extends AppCompatActivity {
                     Toast.makeText(ActivityMain.this, "Permission denied this app could fail", Toast.LENGTH_SHORT).show();
                 }
             }
-        }
-    }
-
-
-    /**
-     * Load the list drawer
-     */
-    public void loadListDrawer() {
-
-        arrDrawer = new ArrayList<>();
-
-        // Information
-        HashMap<String, String> map = new HashMap<>();
-        map.put("id", "1");
-        map.put("name", getResources().getString(R.string.drawer_inventory));
-        map.put("img", "ic_info");
-        arrDrawer.add(map);
-
-        // Help
-        map = new HashMap<>();
-        map.put("id", "4");
-        map.put("name", getResources().getString(R.string.drawer_help));
-        map.put("img", "ic_help");
-        arrDrawer.add(map);
-
-        // About
-        map = new HashMap<>();
-        map.put("id", "5");
-        map.put("name", getResources().getString(R.string.drawer_about));
-        map.put("img", "ic_about");
-        arrDrawer.add(map);
-
-        try {
-            // lad adapter
-            DrawerAdapter adapter = new DrawerAdapter(this, arrDrawer);
-            lstDrawer.setAdapter(adapter);
-
-            // Select Information on load //
-            selectedItem = arrDrawer.get(0);
-            loadFragment(selectedItem);
-        } catch(Exception ex) {
-            FlyveLog.e(ex.getMessage());
         }
     }
 }
