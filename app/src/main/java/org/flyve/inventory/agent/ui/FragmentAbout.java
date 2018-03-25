@@ -23,73 +23,55 @@
 
 package org.flyve.inventory.agent.ui;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bugsnag.android.Bugsnag;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.utils.EnvironmentInfo;
+import org.flyve.inventory.agent.core.about.About;
+import org.flyve.inventory.agent.core.about.AboutPresenter;
 
-public class FragmentAbout extends Fragment {
+public class FragmentAbout extends Fragment implements About.View {
 
-    private int countEasterEgg;
+    private About.Presenter presenter;
+    private TextView txtAbout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_about, null);
 
-        TextView txtAbout = v.findViewById(R.id.txtAbout);
+        presenter = new AboutPresenter(this);
+
+        txtAbout = v.findViewById(R.id.txtAbout);
 
         ImageView imgInventory = v.findViewById(R.id.imgInventory);
         imgInventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countEasterEgg++;
-                if (countEasterEgg > 6 && countEasterEgg <= 10) {
-                    Toast.makeText(FragmentAbout.this.getContext(), getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();
-                }
-                if (countEasterEgg == 10) {
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FragmentAbout.this.getContext());
-                    Boolean val = sharedPreferences.getBoolean("crashReport",false);
-
-                    if(val) {
-                        Bugsnag.notify(new RuntimeException("Easter Egg Fail on" + FragmentAbout.this.getResources().getString(R.string.app_name)));
-                    } else {
-                        Toast.makeText(FragmentAbout.this.getContext(), getResources().getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();
-                    }
-                }
+                presenter.crashTestEasterEgg(FragmentAbout.this.getContext());
             }
         });
 
-        EnvironmentInfo enviromentInfo = new EnvironmentInfo(FragmentAbout.this.getContext());
-
-        if(enviromentInfo.getIsLoaded()) {
-            txtAbout.setText(Html.fromHtml(aboutStr(enviromentInfo.getVersion(), enviromentInfo.getBuild(), enviromentInfo.getDate(), enviromentInfo.getCommit(), enviromentInfo.getCommitFull(), enviromentInfo.getGithub())));
-            txtAbout.setMovementMethod(LinkMovementMethod.getInstance());
-        } else {
-            txtAbout.setVisibility(View.GONE);
-        }
+        presenter.loadAbout(FragmentAbout.this.getContext());
 
         return v;
     }
 
-    private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {
-        String str = "Inventory Agent, version "+ version +", build "+ build +".<br />";
-        str += "Built on "+ date +". Last commit <a href='"+github+"/commit/"+commitFull+"'>"+ commit +"</a>.<br />";
-        str += "© <a href='http://teclib-edition.com/'>Teclib'</a> 2017. Licensed under <a href='https://www.gnu.org/licenses/gpl-3.0.en.html'>GPLv3</a>. <a href='https://flyve-mdm.com/'>Flyve MDM</a>®";
+    @Override
+    public void showAboutSuccess(String message) {
+        txtAbout.setVisibility(View.VISIBLE);
+        txtAbout.setText(message);
+        txtAbout.setMovementMethod(LinkMovementMethod.getInstance());
+    }
 
-        return str;
+    @Override
+    public void showAboutFail() {
+        txtAbout.setVisibility(View.GONE);
     }
 }
