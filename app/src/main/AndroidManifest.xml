@@ -38,7 +38,7 @@
 		android:name="org.flyve.inventory.agent.ui.InventoryAgentApp"
 		android:vmSafeMode="true"
 		android:theme="@style/AppTheme"
-		android:icon="@drawable/icon">
+		android:icon="@mipmap/ic_launcher">
 
 		<meta-data
 			android:name="com.bugsnag.android.API_KEY"
@@ -78,7 +78,7 @@
 			android:enabled="true"
 			android:label="Inventory Agent"
 			android:description="@string/agent_description"
-			android:icon="@drawable/icon"
+			android:icon="@mipmap/ic_launcher"
 			android:name="org.flyve.inventory.agent.service.InventoryService"
 			tools:ignore="ExportedService">
 			<intent-filter>
