@@ -72,6 +72,8 @@
 	<string name="permission_success_result">Thanks all permissions success</string>
 	<string name="permission_snack_ok">Ok</string>
 
+	<string name="help">help</string>
+
 	<string name="drawer_inventory">Inventory</string>
 	<string name="drawer_help">Help</string>
 	<string name="drawer_about">About</string>

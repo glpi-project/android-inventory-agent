@@ -35,6 +35,7 @@ import android.widget.ListView;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.DrawerAdapter;
 import org.flyve.inventory.agent.ui.FragmentAbout;
+import org.flyve.inventory.agent.ui.FragmentHelp;
 import org.flyve.inventory.agent.ui.FragmentHome;
 import org.flyve.inventory.agent.utils.FlyveLog;
 
@@ -82,6 +83,13 @@ public class MainModel implements Main.Model {
         // Home
         if (menuItem.get("id").equals("1")) {
             FragmentHome f = new FragmentHome();
+            fragmentTransaction.replace(R.id.containerView, f).commit();
+            return;
+        }
+
+        // Help
+        if (menuItem.get("id").equals("4")) {
+            FragmentHelp f = new FragmentHelp();
             fragmentTransaction.replace(R.id.containerView, f).commit();
             return;
         }
