@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InventoryAgentApp.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.ui</a> &gt; <span class="el_source">InventoryAgentApp.java</span></div><h1>InventoryAgentApp.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
+package org.flyve.inventory.agent.ui;
+
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
+import android.util.Log;
+
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
+
+import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.UtilsCrash;
+
+<span class="fc" id="L42">public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {</span>
+
+    private SharedPreferences prefs;
+
+<span class="fc" id="L46">    private Boolean mShouldAutoStart = null;</span>
+<span class="fc" id="L47">    private String mUrl = null;</span>
+<span class="fc" id="L48">    private String mLogin = null;</span>
+<span class="fc" id="L49">    private String mPassword = null;</span>
+<span class="fc" id="L50">    private String mDeviceID = null;</span>
+
+    private static InventoryAgentApp instance;
+
+    protected void attachBaseContext(Context base) {
+<span class="fc" id="L55">        super.attachBaseContext(base);</span>
+<span class="fc" id="L56">        MultiDex.install(this);</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Get application instance
+     * @return InventoryAgentApp object
+     */
+    public static InventoryAgentApp getInstance(){
+<span class="nc" id="L64">        return instance;</span>
+    }
+
+    /**
+     * This method is called when the application is starting, it gets the default Shared Preferences
+     */
+    @Override
+    public void onCreate() {
+<span class="fc" id="L72">        super.onCreate();</span>
+
+<span class="fc" id="L74">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span>
+<span class="fc" id="L75">        Boolean val = sharedPreferences.getBoolean(&quot;crashReport&quot;,false);</span>
+
+<span class="fc" id="L77">        UtilsCrash.configCrash(this, val);</span>
+
+<span class="fc" id="L79">        prefs = PreferenceManager.getDefaultSharedPreferences(this);</span>
+<span class="fc" id="L80">        prefs.registerOnSharedPreferenceChangeListener(this);</span>
+        
+<span class="fc" id="L82">        String deviceId = prefs.getString(&quot;device_id&quot;, null);</span>
+
+<span class="fc" id="L84">        FlyveLog.log(this, deviceId, Log.VERBOSE);</span>
+
+        try {
+<span class="fc" id="L87">            FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()</span>
+<span class="fc" id="L88">                    .tag(getPackageName())   // (Optional) Global tag for every log.</span>
+<span class="fc" id="L89">                    .build();</span>
+<span class="fc" id="L90">            Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));</span>
+<span class="nc" id="L91">        } catch (Exception ex) {</span>
+<span class="nc" id="L92">            ex.getStackTrace();</span>
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">    }</span>
+
+    /**
+     * Gets the ID of the device
+     * @return string the device ID
+     */
+    public String getDeviceID(){
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (mDeviceID == null) {</span>
+<span class="nc" id="L102">            mDeviceID = prefs.getString(&quot;device_id&quot;,&quot;&lt;not set&gt;&quot;);</span>
+        }
+<span class="nc" id="L104">        return mDeviceID;</span>
+    }
+    
+    /**
+     * Gets if it should auto start
+     * @return boolean true if it should, false otherwise
+     */
+    public Boolean getShouldAutoStart() {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (mShouldAutoStart == null) {</span>
+<span class="nc" id="L113">            mShouldAutoStart = prefs.getBoolean(&quot;boot&quot;, false);</span>
+        }
+<span class="nc" id="L115">        return mShouldAutoStart;</span>
+
+    }
+
+    /**
+     * Gets the URL
+     * @return string the URL 
+     */
+    public String getUrl() {
+        // This variable is preset for instrumented test
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        if (mUrl == null) {</span>
+<span class="fc" id="L126">            mUrl = prefs.getString(&quot;url&quot;,&quot;https://dev.flyve.org/glpi/plugins/fusioninventory/&quot;);</span>
+        }
+<span class="fc" id="L128">        return mUrl;</span>
+    }
+
+    /**
+     * Called when a shared preference is changed, added, or removed
+     * @param sharedPreferences that received the change
+     * @param key of the preference that was changed, added or removed
+     */
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+<span class="nc" id="L138">        mUrl = null;</span>
+<span class="nc" id="L139">        mShouldAutoStart = null;</span>
+<span class="nc" id="L140">        FlyveLog.log(this, &quot;InventoryAgentApp = &quot; + this.toString(), Log.VERBOSE);</span>
+<span class="nc" id="L141">    }</span>
+
+    /**
+     * Gets the credentials login
+     * @return string the login
+     */
+    public String getCredentialsLogin() {
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        if (mLogin == null) {</span>
+<span class="fc" id="L149">        	mLogin = prefs.getString(&quot;login&quot;, &quot;&quot;);</span>
+        }
+<span class="fc" id="L151">        return mLogin;</span>
+    }
+
+    /**
+     * Gets the credentials password
+     * @return string the password
+     */
+    public String getCredentialsPassword() {
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (mPassword == null) {</span>
+<span class="nc" id="L160">        	mPassword = prefs.getString(&quot;password&quot;, &quot;&quot;);</span>
+        }
+<span class="nc" id="L162">        return mPassword;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>

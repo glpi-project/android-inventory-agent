@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ActivityInventoryReport.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.ui</a> &gt; <span class="el_source">ActivityInventoryReport.java</span></div><h1>ActivityInventoryReport.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
+package org.flyve.inventory.agent.ui;
+
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+
+import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.core.report.Report;
+import org.flyve.inventory.agent.core.report.ReportPresenter;
+import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.Helpers;
+
+<span class="fc" id="L40">public class ActivityInventoryReport extends AppCompatActivity implements Report.View {</span>
+
+    private Report.Presenter presenter;
+
+    /**
+     * Called when the activity is starting, inflates the activity's UI
+     * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="fc" id="L50">        super.onCreate(savedInstanceState);</span>
+
+<span class="fc" id="L52">        setContentView(R.layout.activity_inventory_report);</span>
+
+<span class="fc" id="L54">        presenter = new ReportPresenter(this);</span>
+
+<span class="fc" id="L56">        Toolbar toolbar = findViewById(R.id.toolbar);</span>
+
+        try {
+<span class="fc" id="L59">            setSupportActionBar(toolbar);</span>
+<span class="fc" id="L60">            getSupportActionBar().setDisplayHomeAsUpEnabled(true);</span>
+<span class="fc" id="L61">            toolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+                @Override
+                public void onClick(View v) {
+<span class="nc" id="L64">                    onBackPressed();</span>
+<span class="nc" id="L65">                }</span>
+            });
+<span class="nc" id="L67">        } catch (Exception ex) {</span>
+<span class="nc" id="L68">            FlyveLog.e(ex.getMessage());</span>
+<span class="fc" id="L69">        }</span>
+
+<span class="fc" id="L71">        FloatingActionButton btnShare = findViewById(R.id.btnShare);</span>
+<span class="fc" id="L72">        btnShare.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L75">                presenter.showDialogShare(ActivityInventoryReport.this);</span>
+<span class="nc" id="L76">            }</span>
+        });
+
+<span class="fc" id="L79">        RecyclerView lst = findViewById(R.id.lst);</span>
+
+<span class="fc" id="L81">        GridLayoutManager llm = new GridLayoutManager(ActivityInventoryReport.this, 1);</span>
+<span class="fc" id="L82">        lst.setLayoutManager(llm);</span>
+
+<span class="fc" id="L84">        presenter.generateReport(ActivityInventoryReport.this, lst);</span>
+<span class="fc" id="L85">    }</span>
+
+
+    @Override
+    public void showError(String message) {
+<span class="nc" id="L90">        Helpers.snackClose(ActivityInventoryReport.this, message, getString(R.string.permission_snack_ok), true);</span>
+<span class="nc" id="L91">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>

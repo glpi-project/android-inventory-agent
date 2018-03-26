@@ -1,13 +1,7 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>LocalStorage.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">LocalStorage.java</span></div><h1>LocalStorage.java</h1><pre class="source lang-java linenums">/*
- *   Copyright © 2017 Teclib. All rights reserved.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LocalStorage.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">LocalStorage.java</span></div><h1>LocalStorage.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
  *
- * This file is part of flyve-mdm-android-agent
- *
- * flyve-mdm-android-agent is a subproject of Flyve MDM. Flyve MDM is a mobile
- * device management software.
+ * Flyve MDM is a mobile device management software.
  *
  * Flyve MDM is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,13 +14,13 @@ layout: coverage
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
  * @author    Rafael Hernandez
- * @date      02/06/2017
- * @copyright Copyright © 2017 Teclib. All rights reserved.
+ * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * @link      https://github.com/flyve-mdm/flyve-mdm-android-agent
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
  * @link      https://flyve-mdm.com
  * ------------------------------------------------------------------------------
  */
+
 
 package org.flyve.inventory.agent.utils;
 
@@ -42,19 +36,19 @@ public class LocalStorage {
 	 * Constructor
 	 * @param context
 	 */
-<span class="fc" id="L42">	public LocalStorage(Context context){</span>
-<span class="fc" id="L43">		mContext = context;</span>
-<span class="fc" id="L44">	}</span>
+<span class="fc" id="L39">	public LocalStorage(Context context){</span>
+<span class="fc" id="L40">		mContext = context;</span>
+<span class="fc" id="L41">	}</span>
 
 	/**
 	 * Get preference from setting
 	 * @return SharedPreferences
 	 */
 	private SharedPreferences getSettings(){
-<span class="pc bpc" id="L51" title="1 of 2 branches missed.">		if (mContext != null) {</span>
-<span class="fc" id="L52">		return mContext.getSharedPreferences(SHARED_PREFS_FILE, 0);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">		if (mContext != null) {</span>
+<span class="fc" id="L49">		return mContext.getSharedPreferences(SHARED_PREFS_FILE, 0);</span>
 		} else {
-<span class="nc" id="L54">			return null;</span>
+<span class="nc" id="L51">			return null;</span>
 		}
 	}
 
@@ -64,12 +58,12 @@ public class LocalStorage {
 	 * @return string the data
 	 */
 	public String getData(String key){
-<span class="fc" id="L64">		String data = &quot;&quot;;</span>
-<span class="fc" id="L65">		SharedPreferences sp = getSettings();</span>
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">		if(sp != null) {</span>
-<span class="fc" id="L67">			data = sp.getString(key, null);</span>
+<span class="fc" id="L61">		String data = &quot;&quot;;</span>
+<span class="fc" id="L62">		SharedPreferences sp = getSettings();</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">		if(sp != null) {</span>
+<span class="fc" id="L64">			data = sp.getString(key, null);</span>
 		}
-<span class="fc" id="L69">		return data;</span>
+<span class="fc" id="L66">		return data;</span>
 	}
 
 	/**
@@ -78,37 +72,37 @@ public class LocalStorage {
 	 * @param string the value
 	 */
 	public void setData(String key, String value) {
-<span class="fc" id="L78">		SharedPreferences sp = getSettings();</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">		if(sp != null) {</span>
-<span class="fc" id="L80">			SharedPreferences.Editor editor = sp.edit();</span>
-<span class="fc" id="L81">			editor.putString(key, value );</span>
-<span class="fc" id="L82">			editor.apply();</span>
+<span class="fc" id="L75">		SharedPreferences sp = getSettings();</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">		if(sp != null) {</span>
+<span class="fc" id="L77">			SharedPreferences.Editor editor = sp.edit();</span>
+<span class="fc" id="L78">			editor.putString(key, value );</span>
+<span class="fc" id="L79">			editor.apply();</span>
 		}
-<span class="fc" id="L84">	}</span>
+<span class="fc" id="L81">	}</span>
 
 	/**
 	 * Remove all the values from the preferences
 	 */
 	public void clearSettings(){
-<span class="nc" id="L90">		SharedPreferences sp = getSettings();</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">		if(sp != null) {</span>
-<span class="nc" id="L92">			SharedPreferences.Editor editor = sp.edit();</span>
-<span class="nc" id="L93">			editor.clear();</span>
-<span class="nc" id="L94">			editor.apply();</span>
+<span class="nc" id="L87">		SharedPreferences sp = getSettings();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		if(sp != null) {</span>
+<span class="nc" id="L89">			SharedPreferences.Editor editor = sp.edit();</span>
+<span class="nc" id="L90">			editor.clear();</span>
+<span class="nc" id="L91">			editor.apply();</span>
 		}
-<span class="nc" id="L96">	}</span>
+<span class="nc" id="L93">	}</span>
 
 	/**
 	 * Remove the key cache
 	 * @param string the key value to remove
 	 */
 	public void deleteKeyCache(String llave){
-<span class="nc" id="L103">		SharedPreferences sp = getSettings();</span>
-<span class="nc bnc" id="L104" title="All 2 branches missed.">		if(sp != null) {</span>
-<span class="nc" id="L105">			SharedPreferences.Editor editor = sp.edit();</span>
-<span class="nc" id="L106">			editor.remove(llave);</span>
-<span class="nc" id="L107">			editor.apply();</span>
+<span class="nc" id="L100">		SharedPreferences sp = getSettings();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">		if(sp != null) {</span>
+<span class="nc" id="L102">			SharedPreferences.Editor editor = sp.edit();</span>
+<span class="nc" id="L103">			editor.remove(llave);</span>
+<span class="nc" id="L104">			editor.apply();</span>
 		}
-<span class="nc" id="L109">	}</span>
+<span class="nc" id="L106">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>

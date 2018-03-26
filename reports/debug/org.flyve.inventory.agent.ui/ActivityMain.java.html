@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ActivityMain.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.ui</a> &gt; <span class="el_source">ActivityMain.java</span></div><h1>ActivityMain.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
+package org.flyve.inventory.agent.ui;
+
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.core.main.Main;
+import org.flyve.inventory.agent.core.main.MainPresenter;
+import org.flyve.inventory.agent.utils.Helpers;
+
+import java.util.Map;
+
+<span class="nc" id="L44">public class ActivityMain extends AppCompatActivity implements Main.View {</span>
+
+    private Main.Presenter presenter;
+    private DrawerLayout drawerLayout;
+    private FragmentManager fragmentManager;
+    private android.support.v7.widget.Toolbar toolbar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L53">        super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L54">        setContentView(R.layout.activity_main);</span>
+
+        // Menu list
+<span class="nc" id="L57">        ListView lst = findViewById(R.id.lst);</span>
+
+        // Setup the DrawerLayout and NavigationView
+<span class="nc" id="L60">        drawerLayout = findViewById(R.id.drawerLayout);</span>
+
+        // layout
+<span class="nc" id="L63">        fragmentManager = getSupportFragmentManager();</span>
+
+        // Setup Drawer Toggle of the Toolbar
+<span class="nc" id="L66">        toolbar = findViewById(R.id.toolbar);</span>
+
+<span class="nc" id="L68">        presenter = new MainPresenter(this);</span>
+<span class="nc" id="L69">        Map&lt;String, String&gt; menuItem = presenter.setupDrawer(ActivityMain.this, lst);</span>
+<span class="nc" id="L70">        presenter.loadFragment(fragmentManager, toolbar, menuItem);</span>
+
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if(Build.VERSION.SDK_INT &gt;= 23) {</span>
+<span class="nc" id="L73">            presenter.requestPermission(ActivityMain.this);</span>
+        }
+
+<span class="nc" id="L76">        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {</span>
+            @Override
+            public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+<span class="nc" id="L79">                drawerLayout.closeDrawers();</span>
+<span class="nc" id="L80">                presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));</span>
+<span class="nc" id="L81">            }</span>
+        });
+
+<span class="nc" id="L84">        setSupportActionBar(toolbar);</span>
+<span class="nc" id="L85">        toolbar.setTitle(R.string.app_name);</span>
+
+<span class="nc" id="L87">        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,</span>
+                R.string.app_name);
+
+<span class="nc" id="L90">        drawerLayout.setDrawerListener(mDrawerToggle);</span>
+<span class="nc" id="L91">        mDrawerToggle.syncState();</span>
+<span class="nc" id="L92">    }</span>
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        switch (requestCode) {</span>
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+<span class="nc bnc" id="L100" title="All 6 branches missed.">                if (grantResults.length &gt; 0</span>
+                        &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        &amp;&amp; grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+<span class="nc" id="L103">                    Helpers.snackClose(ActivityMain.this, getString(R.string.permission_success_result), getString(R.string.permission_snack_ok), false);</span>
+                } else {
+<span class="nc" id="L105">                    presenter.showError(getString(R.string.permission_error_result));</span>
+                }
+            }
+        }
+<span class="nc" id="L109">    }</span>
+
+    @Override
+    public void showError(String message) {
+<span class="nc" id="L113">        Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);</span>
+<span class="nc" id="L114">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>

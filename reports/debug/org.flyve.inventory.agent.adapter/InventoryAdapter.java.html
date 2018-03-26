@@ -1,7 +1,27 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>InventoryAdapter.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.adapter</a> &gt; <span class="el_source">InventoryAdapter.java</span></div><h1>InventoryAdapter.java</h1><pre class="source lang-java linenums">package org.flyve.inventory.agent.adapter;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InventoryAdapter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.adapter</a> &gt; <span class="el_source">InventoryAdapter.java</span></div><h1>InventoryAdapter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
+package org.flyve.inventory.agent.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -25,17 +45,17 @@ public class InventoryAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewH
     private static final int ITEM_TYPE_DATA = 0;
     private static final int ITEM_TYPE_HEADER = 1;
 
-<span class="fc" id="L25">    public InventoryAdapter(Activity activity, ArrayList&lt;HashMap&lt;String, String&gt;&gt; data) {</span>
-<span class="fc" id="L26">        this.data = data;</span>
-<span class="fc" id="L27">        this.activity = activity;</span>
-<span class="fc" id="L28">    }</span>
+<span class="fc" id="L48">    public InventoryAdapter(Activity activity, ArrayList&lt;HashMap&lt;String, String&gt;&gt; data) {</span>
+<span class="fc" id="L49">        this.data = data;</span>
+<span class="fc" id="L50">        this.activity = activity;</span>
+<span class="fc" id="L51">    }</span>
 
     @Override
     public int getItemViewType(int position) {
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        if((data.get(position)).get(&quot;type&quot;).equals(&quot;header&quot;)) {</span>
-<span class="fc" id="L33">            return ITEM_TYPE_HEADER;</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if((data.get(position)).get(&quot;type&quot;).equals(&quot;header&quot;)) {</span>
+<span class="fc" id="L56">            return ITEM_TYPE_HEADER;</span>
         } else {
-<span class="fc" id="L35">            return ITEM_TYPE_DATA;</span>
+<span class="fc" id="L58">            return ITEM_TYPE_DATA;</span>
         }
     }
 
@@ -43,72 +63,72 @@ public class InventoryAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         // Vista por defecto
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(viewType == ITEM_TYPE_DATA) {</span>
-<span class="fc" id="L44">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory, viewGroup, false);</span>
-<span class="fc" id="L45">            return new DataViewHolder(v);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if(viewType == ITEM_TYPE_DATA) {</span>
+<span class="fc" id="L67">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory, viewGroup, false);</span>
+<span class="fc" id="L68">            return new DataViewHolder(v);</span>
         }
 
         // Vista alternativa
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        else if (viewType == ITEM_TYPE_HEADER) {</span>
-<span class="fc" id="L50">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_header, viewGroup, false);</span>
-<span class="fc" id="L51">            return new HeaderViewHolder(v);</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        else if (viewType == ITEM_TYPE_HEADER) {</span>
+<span class="fc" id="L73">            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_header, viewGroup, false);</span>
+<span class="fc" id="L74">            return new HeaderViewHolder(v);</span>
         }
 
-<span class="nc" id="L54">        return null;</span>
+<span class="nc" id="L77">        return null;</span>
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-<span class="fc" id="L59">        HashMap&lt;String, String&gt; response = data.get(position);</span>
+<span class="fc" id="L82">        HashMap&lt;String, String&gt; response = data.get(position);</span>
 
-<span class="fc" id="L61">        final int itemType = getItemViewType(position);</span>
+<span class="fc" id="L84">        final int itemType = getItemViewType(position);</span>
 
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        if(itemType == ITEM_TYPE_DATA) {</span>
-<span class="fc" id="L64">            ((DataViewHolder)holder).bindData( response );</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if(itemType == ITEM_TYPE_DATA) {</span>
+<span class="fc" id="L87">            ((DataViewHolder)holder).bindData( response );</span>
         }
 
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        if(itemType == ITEM_TYPE_HEADER) {</span>
-<span class="fc" id="L68">            ((HeaderViewHolder)holder).bindData( response );</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if(itemType == ITEM_TYPE_HEADER) {</span>
+<span class="fc" id="L91">            ((HeaderViewHolder)holder).bindData( response );</span>
         }
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L93">    }</span>
 
     @Override
     public int getItemCount() {
-<span class="fc" id="L74">        return data.size();</span>
+<span class="fc" id="L97">        return data.size();</span>
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-<span class="fc" id="L79">        super.onAttachedToRecyclerView(recyclerView);</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L102">        super.onAttachedToRecyclerView(recyclerView);</span>
+<span class="fc" id="L103">    }</span>
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView description;
 
-<span class="fc" id="L86">        DataViewHolder(View itemView) {</span>
-<span class="fc" id="L87">            super(itemView);</span>
-<span class="fc" id="L88">            title = (TextView)itemView.findViewById(R.id.title);</span>
-<span class="fc" id="L89">            description = (TextView)itemView.findViewById(R.id.description);</span>
-<span class="fc" id="L90">        }</span>
+<span class="fc" id="L109">        DataViewHolder(View itemView) {</span>
+<span class="fc" id="L110">            super(itemView);</span>
+<span class="fc" id="L111">            title = (TextView)itemView.findViewById(R.id.title);</span>
+<span class="fc" id="L112">            description = (TextView)itemView.findViewById(R.id.description);</span>
+<span class="fc" id="L113">        }</span>
 
         public void bindData(HashMap&lt;String, String&gt; model) {
-<span class="fc" id="L93">            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get(&quot;title&quot;)) ));</span>
-<span class="fc" id="L94">            description.setText( Html.fromHtml( model.get(&quot;description&quot;) ));</span>
-<span class="fc" id="L95">        }</span>
+<span class="fc" id="L116">            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get(&quot;title&quot;)) ));</span>
+<span class="fc" id="L117">            description.setText( Html.fromHtml( model.get(&quot;description&quot;) ));</span>
+<span class="fc" id="L118">        }</span>
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView title;
 
-<span class="fc" id="L101">        HeaderViewHolder(View itemView) {</span>
-<span class="fc" id="L102">            super(itemView);</span>
-<span class="fc" id="L103">            title = (TextView)itemView.findViewById(R.id.title);</span>
-<span class="fc" id="L104">        }</span>
+<span class="fc" id="L124">        HeaderViewHolder(View itemView) {</span>
+<span class="fc" id="L125">            super(itemView);</span>
+<span class="fc" id="L126">            title = (TextView)itemView.findViewById(R.id.title);</span>
+<span class="fc" id="L127">        }</span>
 
         public void bindData(HashMap&lt;String, String&gt; model) {
-<span class="fc" id="L107">            title.setText( Html.fromHtml( model.get(&quot;title&quot;) ));</span>
-<span class="fc" id="L108">        }</span>
+<span class="fc" id="L130">            title.setText( Html.fromHtml( model.get(&quot;title&quot;) ));</span>
+<span class="fc" id="L131">        }</span>
     }
 
 

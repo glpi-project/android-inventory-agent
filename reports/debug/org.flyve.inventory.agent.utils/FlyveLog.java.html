@@ -1,31 +1,26 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>FlyveLog.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">FlyveLog.java</span></div><h1>FlyveLog.java</h1><pre class="source lang-java linenums">/*
- * Copyright (C) 2017 Teclib'
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FlyveLog.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">FlyveLog.java</span></div><h1>FlyveLog.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
  *
- * This file is part of Flyve MDM Inventory Agent Android.
+ * Flyve MDM is a mobile device management software.
  *
- * Flyve MDM Inventory Agent Android is a subproject of Flyve MDM. Flyve MDM is a mobile
- * device management software.
- *
- * Flyve MDM Android is free software: you can redistribute it and/or
+ * Flyve MDM is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
- * Flyve MDM Inventory Agent Android is distributed in the hope that it will be useful,
+ * Flyve MDM is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez - rafaelje
- * @copyright Copyright (c) 2017 Flyve MDM
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * @link      https://github.com/flyvemdm/android-inventory-agent
- * @link      http://www.glpi-project.org/
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
  * ------------------------------------------------------------------------------
  */
+
 package org.flyve.inventory.agent.utils;
 
 import android.util.Log;
@@ -42,68 +37,68 @@ public class FlyveLog {
     /**
      * private constructor to prevent instances of this class
      */
-<span class="nc" id="L42">    private FlyveLog() {</span>
-<span class="nc" id="L43">    }</span>
+<span class="nc" id="L40">    private FlyveLog() {</span>
+<span class="nc" id="L41">    }</span>
 
     /**
      * Sends a DEBUG log message
      * @param message to log
      */
     public static void d(String message) {
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if(message != null) {</span>
-<span class="fc" id="L51">            Logger.d(TAG, message);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if(message != null) {</span>
+<span class="fc" id="L49">            Logger.d(TAG, message);</span>
         }
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L51">    }</span>
 
     /**
      * Sends a VERBOSE log message
      * @param message to log
      */
     public static void v(String message) {
-<span class="nc bnc" id="L60" title="All 2 branches missed.">        if(message != null) {</span>
-<span class="nc" id="L61">            Logger.v(TAG, message);</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if(message != null) {</span>
+<span class="nc" id="L59">            Logger.v(TAG, message);</span>
         }
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Sends an INFO log message
      * @param message to log
      */
     public static void i(String message) {
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        if(message != null) {</span>
-<span class="nc" id="L71">            Logger.i(TAG, message);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if(message != null) {</span>
+<span class="nc" id="L69">            Logger.i(TAG, message);</span>
         }
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L71">    }</span>
 
     /**
      * Sends an ERROR log message
      * @param message to log
      */
     public static void e(String message) {
-<span class="nc bnc" id="L80" title="All 2 branches missed.">        if(message != null) {</span>
-<span class="nc" id="L81">            Logger.e(TAG, message);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if(message != null) {</span>
+<span class="nc" id="L79">            Logger.e(TAG, message);</span>
         }
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L81">    }</span>
 
     /**
      * Sends a WARN log message
      * @param message to log
      */
     public static void w(String message) {
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(message != null) {</span>
-<span class="nc" id="L91">            Logger.w(TAG, message);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if(message != null) {</span>
+<span class="nc" id="L89">            Logger.w(TAG, message);</span>
         }
-<span class="nc" id="L93">    }</span>
+<span class="nc" id="L91">    }</span>
 
     /**
      * Reports a condition that should never happen, wts (What a Terrible Failure)
      * @param message to log
      */
     public static void wtf(String message) {
-<span class="nc bnc" id="L100" title="All 2 branches missed.">        if(message != null) {</span>
-<span class="nc" id="L101">            Logger.wtf(TAG, message);</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if(message != null) {</span>
+<span class="nc" id="L99">            Logger.wtf(TAG, message);</span>
         }
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L101">    }</span>
 
     /**
      * Sends a low level calling log
@@ -112,8 +107,8 @@ public class FlyveLog {
      * @param level the priority/type of the log message
      */
     public static void log(Object obj, String msg, int level) {
-<span class="fc" id="L112">        String final_msg = String.format(&quot;[%s] %s&quot;, obj.getClass().getName(), msg);</span>
-<span class="fc" id="L113">        Log.println(level, &quot;InventoryAgent&quot;, final_msg);</span>
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L110">        String final_msg = String.format(&quot;[%s] %s&quot;, obj.getClass().getName(), msg);</span>
+<span class="fc" id="L111">        Log.println(level, &quot;InventoryAgent&quot;, final_msg);</span>
+<span class="fc" id="L112">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>
