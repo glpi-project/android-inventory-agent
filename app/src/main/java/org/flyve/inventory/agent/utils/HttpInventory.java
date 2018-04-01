@@ -154,16 +154,23 @@ public class HttpInventory {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
 
-                HttpPost post = new HttpPost(url.toExternalForm());
-                httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
+                HttpPost post;
+                try {
+                    post = new HttpPost(url.toExternalForm());
+                    httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
 
-                    @Override
-                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                    for( Header h : request.getAllHeaders()) {
-                        FlyveLog.log(this, "HEADER : "+ h.getName() + "=" + h.getValue(), Log.VERBOSE);
-                    }
-                    }
-                });
+                        @Override
+                        public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                            for (Header h : request.getAllHeaders()) {
+                                FlyveLog.log(this, "HEADER : " + h.getName() + "=" + h.getValue(), Log.VERBOSE);
+                            }
+                        }
+                    });
+                } catch (Exception ex) {
+                    FlyveLog.e(ex.getMessage());
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
+                    return;
+                }
 
                 try {
                     post.setEntity(new StringEntity(lastXMLResult));
