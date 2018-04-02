@@ -25,7 +25,10 @@ package org.flyve.inventory.agent.core.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -38,8 +41,10 @@ import org.flyve.inventory.agent.ui.FragmentAbout;
 import org.flyve.inventory.agent.ui.FragmentHelp;
 import org.flyve.inventory.agent.ui.FragmentHome;
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.LocalStorage;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +76,32 @@ public class MainModel implements Main.Model {
                             Manifest.permission.CAMERA,
                     },
                     1);
+        }
+    }
+
+    @Override
+    public void setupInventoryAlarm(Context context) {
+        Calendar calendar = Calendar.getInstance();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String timeInventory = sharedPreferences.getString("timeInventory", "week");
+
+        // week by default
+        calendar.add(Calendar.DATE, 7);
+
+        if(timeInventory.equalsIgnoreCase("day")) {
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        if(timeInventory.equalsIgnoreCase("month")) {
+            calendar.add(Calendar.DATE, 30);
+        }
+
+        long dateTime = calendar.getTime().getTime();
+
+        LocalStorage cache = new LocalStorage(context);
+        if(cache.getDataLong("data")==0) {
+            cache.setDataLong("data", dateTime);
         }
     }
 

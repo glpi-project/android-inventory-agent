@@ -24,6 +24,7 @@
 package org.flyve.inventory.agent.core.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
@@ -67,5 +68,10 @@ public class MainPresenter implements Main.Presenter {
     @Override
     public void requestPermission(Activity activity) {
         model.requestPermission(activity);
+    }
+
+    @Override
+    public void setupInventoryAlarm(Context context) {
+        model.setupInventoryAlarm(context);
     }
 }
