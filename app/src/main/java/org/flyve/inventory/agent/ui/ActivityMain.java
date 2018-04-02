@@ -23,6 +23,10 @@
 
 package org.flyve.inventory.agent.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +41,7 @@ import android.widget.ListView;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.main.Main;
 import org.flyve.inventory.agent.core.main.MainPresenter;
+import org.flyve.inventory.agent.service.InventoryService;
 import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.Map;
@@ -47,6 +52,26 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
     private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
     private android.support.v7.widget.Toolbar toolbar;
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String strTime = intent.getStringExtra("time");
+            toolbar.setSubtitle(strTime);
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +105,8 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
                 presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));
             }
         });
+
+        presenter.setupInventoryAlarm(ActivityMain.this);
 
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);

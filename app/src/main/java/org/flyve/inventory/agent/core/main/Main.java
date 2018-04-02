@@ -24,6 +24,7 @@
 package org.flyve.inventory.agent.core.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.widget.ListView;
 
@@ -46,6 +47,7 @@ public interface Main {
         void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> item);
         List<HashMap<String, String>> getMenuItem();
         void requestPermission(Activity activity);
+        void setupInventoryAlarm(Context context);
     }
 
     interface Model {
@@ -53,5 +55,6 @@ public interface Main {
         void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> item);
         List<HashMap<String, String>> getMenuItem();
         void requestPermission(Activity activity);
+        void setupInventoryAlarm(Context context);
     }
 }
