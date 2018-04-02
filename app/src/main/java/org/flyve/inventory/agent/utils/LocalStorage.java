@@ -54,7 +54,7 @@ public class LocalStorage {
 
 	/**
 	 * Get the data matching the given argument
-	 * @param string the key
+	 * @param key
 	 * @return string the data
 	 */
 	public String getData(String key){
@@ -62,14 +62,17 @@ public class LocalStorage {
 		SharedPreferences sp = getSettings();
 		if(sp != null) {
 			data = sp.getString(key, null);
+			if(data == null) {
+				data = "";
+			}
 		}
 		return data;
 	}
 
 	/**
 	 * Set the data given in the argument to the Shared Preferences
-	 * @param string the key
-	 * @param string the value
+	 * @param key
+	 * @param value
 	 */
 	public void setData(String key, String value) {
 		SharedPreferences sp = getSettings();
@@ -79,6 +82,47 @@ public class LocalStorage {
 			editor.apply();
 		}
 	}
+
+	public void setDataBoolean(String key, Boolean value) {
+		SharedPreferences sp = getSettings();
+		if(sp != null) {
+			SharedPreferences.Editor editor = sp.edit();
+			editor.putBoolean(key, value);
+			editor.apply();
+		}
+	}
+
+	public Boolean getDataBoolean(String key){
+		Boolean data = false;
+		SharedPreferences sp = getSettings();
+
+		if(sp != null) {
+			data = sp.getBoolean(key, false);
+		}
+
+		return data;
+	}
+
+	public void setDataLong(String key, long value) {
+		SharedPreferences sp = getSettings();
+		if(sp != null) {
+			SharedPreferences.Editor editor = sp.edit();
+			editor.putLong(key, value);
+			editor.apply();
+		}
+	}
+
+	public Long getDataLong(String key){
+		Long data = null;
+		SharedPreferences sp = getSettings();
+
+		if(sp != null) {
+			data = sp.getLong(key, 0);
+		}
+
+		return data;
+	}
+
 
 	/**
 	 * Remove all the values from the preferences
@@ -94,13 +138,13 @@ public class LocalStorage {
 
 	/**
 	 * Remove the key cache
-	 * @param string the key value to remove
+	 * @param key value to remove
 	 */
-	public void deleteKeyCache(String llave){
+	public void deleteKeyCache(String key){
 		SharedPreferences sp = getSettings();
 		if(sp != null) {
 			SharedPreferences.Editor editor = sp.edit();
-			editor.remove(llave);
+			editor.remove(key);
 			editor.apply();
 		}
 	}
