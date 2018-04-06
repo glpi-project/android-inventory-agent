@@ -5,6 +5,7 @@ published: true
 title: Contribute Translating
 permalink: howtos/contribute-translating
 description: We translate with Transifex
+category: contributing
 ---
 ### I know a lof of languages
 
