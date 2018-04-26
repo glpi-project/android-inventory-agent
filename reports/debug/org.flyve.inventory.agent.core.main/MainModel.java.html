@@ -1,7 +1,4 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>MainModel.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.core.main</a> &gt; <span class="el_source">MainModel.java</span></div><h1>MainModel.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MainModel.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.core.main</a> &gt; <span class="el_source">MainModel.java</span></div><h1>MainModel.java</h1><pre class="source lang-java linenums">/*
  * Copyright Teclib. All rights reserved.
  *
  * Flyve MDM is a mobile device management software.
@@ -28,7 +25,10 @@ package org.flyve.inventory.agent.core.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -41,8 +41,10 @@ import org.flyve.inventory.agent.ui.FragmentAbout;
 import org.flyve.inventory.agent.ui.FragmentHelp;
 import org.flyve.inventory.agent.ui.FragmentHome;
 import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.LocalStorage;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,99 +54,125 @@ public class MainModel implements Main.Model {
     private Main.Presenter presenter;
     private ArrayList&lt;HashMap&lt;String, String&gt;&gt; arrDrawer;
 
-<span class="nc" id="L52">    public MainModel(Main.Presenter presenter) {</span>
-<span class="nc" id="L53">        this.presenter = presenter;</span>
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L57">    public MainModel(Main.Presenter presenter) {</span>
+<span class="nc" id="L58">        this.presenter = presenter;</span>
+<span class="nc" id="L59">    }</span>
 
     public void requestPermission(Activity activity) {
-<span class="nc" id="L57">        boolean isGranted = true;</span>
-<span class="nc" id="L58">        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if(result != PackageManager.PERMISSION_GRANTED) {</span>
-<span class="nc" id="L60">            isGranted = false;</span>
-        }
-
-<span class="nc" id="L63">        result = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);</span>
+<span class="nc" id="L62">        boolean isGranted = true;</span>
+<span class="nc" id="L63">        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);</span>
 <span class="nc bnc" id="L64" title="All 2 branches missed.">        if(result != PackageManager.PERMISSION_GRANTED) {</span>
 <span class="nc" id="L65">            isGranted = false;</span>
         }
 
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if(!isGranted) {</span>
-<span class="nc" id="L69">            ActivityCompat.requestPermissions(activity,</span>
+<span class="nc" id="L68">        result = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if(result != PackageManager.PERMISSION_GRANTED) {</span>
+<span class="nc" id="L70">            isGranted = false;</span>
+        }
+
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if(!isGranted) {</span>
+<span class="nc" id="L74">            ActivityCompat.requestPermissions(activity,</span>
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.CAMERA,
                     },
                     1);
         }
-<span class="nc" id="L75">    }</span>
+<span class="nc" id="L80">    }</span>
+
+    @Override
+    public void setupInventoryAlarm(Context context) {
+<span class="nc" id="L84">        Calendar calendar = Calendar.getInstance();</span>
+
+<span class="nc" id="L86">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);</span>
+<span class="nc" id="L87">        String timeInventory = sharedPreferences.getString(&quot;timeInventory&quot;, &quot;week&quot;);</span>
+
+        // week by default
+<span class="nc" id="L90">        calendar.add(Calendar.DATE, 7);</span>
+
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if(timeInventory.equalsIgnoreCase(&quot;day&quot;)) {</span>
+<span class="nc" id="L93">            calendar.add(Calendar.DATE, 1);</span>
+        }
+
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if(timeInventory.equalsIgnoreCase(&quot;month&quot;)) {</span>
+<span class="nc" id="L97">            calendar.add(Calendar.DATE, 30);</span>
+        }
+
+<span class="nc" id="L100">        long dateTime = calendar.getTime().getTime();</span>
+
+<span class="nc" id="L102">        LocalStorage cache = new LocalStorage(context);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(cache.getDataLong(&quot;data&quot;)==0) {</span>
+<span class="nc" id="L104">            cache.setDataLong(&quot;data&quot;, dateTime);</span>
+        }
+<span class="nc" id="L106">    }</span>
 
     public void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map&lt;String, String&gt; menuItem) {
 
-<span class="nc" id="L79">        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();</span>
+<span class="nc" id="L110">        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();</span>
 
-<span class="nc" id="L81">        toolbar.setTitle(menuItem.get(&quot;name&quot;));</span>
+<span class="nc" id="L112">        toolbar.setTitle(menuItem.get(&quot;name&quot;));</span>
 
         // Home
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (menuItem.get(&quot;id&quot;).equals(&quot;1&quot;)) {</span>
-<span class="nc" id="L85">            FragmentHome f = new FragmentHome();</span>
-<span class="nc" id="L86">            fragmentTransaction.replace(R.id.containerView, f).commit();</span>
-<span class="nc" id="L87">            return;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (menuItem.get(&quot;id&quot;).equals(&quot;1&quot;)) {</span>
+<span class="nc" id="L116">            FragmentHome f = new FragmentHome();</span>
+<span class="nc" id="L117">            fragmentTransaction.replace(R.id.containerView, f).commit();</span>
+<span class="nc" id="L118">            return;</span>
         }
 
         // Help
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (menuItem.get(&quot;id&quot;).equals(&quot;4&quot;)) {</span>
-<span class="nc" id="L92">            FragmentHelp f = new FragmentHelp();</span>
-<span class="nc" id="L93">            fragmentTransaction.replace(R.id.containerView, f).commit();</span>
-<span class="nc" id="L94">            return;</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (menuItem.get(&quot;id&quot;).equals(&quot;4&quot;)) {</span>
+<span class="nc" id="L123">            FragmentHelp f = new FragmentHelp();</span>
+<span class="nc" id="L124">            fragmentTransaction.replace(R.id.containerView, f).commit();</span>
+<span class="nc" id="L125">            return;</span>
         }
 
         // About
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (menuItem.get(&quot;id&quot;).equals(&quot;5&quot;)) {</span>
-<span class="nc" id="L99">            FragmentAbout f = new FragmentAbout();</span>
-<span class="nc" id="L100">            fragmentTransaction.replace(R.id.containerView, f).commit();</span>
-<span class="nc" id="L101">            return;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (menuItem.get(&quot;id&quot;).equals(&quot;5&quot;)) {</span>
+<span class="nc" id="L130">            FragmentAbout f = new FragmentAbout();</span>
+<span class="nc" id="L131">            fragmentTransaction.replace(R.id.containerView, f).commit();</span>
+<span class="nc" id="L132">            return;</span>
         }
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L134">    }</span>
 
     public List&lt;HashMap&lt;String, String&gt;&gt; getMenuItem() {
-<span class="nc" id="L106">        return arrDrawer;</span>
+<span class="nc" id="L137">        return arrDrawer;</span>
     }
 
     public Map&lt;String, String&gt; setupDrawer(Activity activity, ListView lst) {
-<span class="nc" id="L110">        arrDrawer = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L141">        arrDrawer = new ArrayList&lt;&gt;();</span>
 
         // Information
-<span class="nc" id="L113">        HashMap&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L114">        map.put(&quot;id&quot;, &quot;1&quot;);</span>
-<span class="nc" id="L115">        map.put(&quot;name&quot;, activity.getResources().getString(R.string.drawer_inventory));</span>
-<span class="nc" id="L116">        map.put(&quot;img&quot;, &quot;ic_info&quot;);</span>
-<span class="nc" id="L117">        arrDrawer.add(map);</span>
+<span class="nc" id="L144">        HashMap&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L145">        map.put(&quot;id&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L146">        map.put(&quot;name&quot;, activity.getResources().getString(R.string.drawer_inventory));</span>
+<span class="nc" id="L147">        map.put(&quot;img&quot;, &quot;ic_info&quot;);</span>
+<span class="nc" id="L148">        arrDrawer.add(map);</span>
 
         // Help
-<span class="nc" id="L120">        map = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L121">        map.put(&quot;id&quot;, &quot;4&quot;);</span>
-<span class="nc" id="L122">        map.put(&quot;name&quot;, activity.getResources().getString(R.string.drawer_help));</span>
-<span class="nc" id="L123">        map.put(&quot;img&quot;, &quot;ic_help&quot;);</span>
-<span class="nc" id="L124">        arrDrawer.add(map);</span>
+<span class="nc" id="L151">        map = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L152">        map.put(&quot;id&quot;, &quot;4&quot;);</span>
+<span class="nc" id="L153">        map.put(&quot;name&quot;, activity.getResources().getString(R.string.drawer_help));</span>
+<span class="nc" id="L154">        map.put(&quot;img&quot;, &quot;ic_help&quot;);</span>
+<span class="nc" id="L155">        arrDrawer.add(map);</span>
 
         // About
-<span class="nc" id="L127">        map = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L128">        map.put(&quot;id&quot;, &quot;5&quot;);</span>
-<span class="nc" id="L129">        map.put(&quot;name&quot;, activity.getResources().getString(R.string.drawer_about));</span>
-<span class="nc" id="L130">        map.put(&quot;img&quot;, &quot;ic_about&quot;);</span>
-<span class="nc" id="L131">        arrDrawer.add(map);</span>
+<span class="nc" id="L158">        map = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L159">        map.put(&quot;id&quot;, &quot;5&quot;);</span>
+<span class="nc" id="L160">        map.put(&quot;name&quot;, activity.getResources().getString(R.string.drawer_about));</span>
+<span class="nc" id="L161">        map.put(&quot;img&quot;, &quot;ic_about&quot;);</span>
+<span class="nc" id="L162">        arrDrawer.add(map);</span>
 
         try {
             // load adapter
-<span class="nc" id="L135">            DrawerAdapter adapter = new DrawerAdapter(activity, arrDrawer);</span>
-<span class="nc" id="L136">            lst.setAdapter(adapter);</span>
+<span class="nc" id="L166">            DrawerAdapter adapter = new DrawerAdapter(activity, arrDrawer);</span>
+<span class="nc" id="L167">            lst.setAdapter(adapter);</span>
 
             // Select Information on load //
-<span class="nc" id="L139">            return arrDrawer.get(0);</span>
-<span class="nc" id="L140">        } catch(Exception ex) {</span>
-<span class="nc" id="L141">            FlyveLog.e(ex.getMessage());</span>
+<span class="nc" id="L170">            return arrDrawer.get(0);</span>
+<span class="nc" id="L171">        } catch(Exception ex) {</span>
+<span class="nc" id="L172">            FlyveLog.e(ex.getMessage());</span>
         }
 
-<span class="nc" id="L144">        return null;</span>
+<span class="nc" id="L175">        return null;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>

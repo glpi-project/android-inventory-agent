@@ -1,7 +1,4 @@
----
-layout: coverage
----
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>HttpInventory.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">HttpInventory.java</span></div><h1>HttpInventory.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HttpInventory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">HttpInventory.java</span></div><h1>HttpInventory.java</h1><pre class="source lang-java linenums">/*
  * Copyright Teclib. All rights reserved.
  *
  * Flyve MDM is a mobile device management software.
@@ -157,83 +154,90 @@ public class HttpInventory {
 
 <span class="fc" id="L155">                DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);</span>
 
-<span class="fc" id="L157">                HttpPost post = new HttpPost(url.toExternalForm());</span>
-<span class="fc" id="L158">                httpclient.addRequestInterceptor(new HttpRequestInterceptor() {</span>
+                HttpPost post;
+                try {
+<span class="fc" id="L159">                    post = new HttpPost(url.toExternalForm());</span>
+<span class="fc" id="L160">                    httpclient.addRequestInterceptor(new HttpRequestInterceptor() {</span>
 
-                    @Override
-                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-<span class="fc bfc" id="L162" title="All 2 branches covered.">                    for( Header h : request.getAllHeaders()) {</span>
-<span class="fc" id="L163">                        FlyveLog.log(this, &quot;HEADER : &quot;+ h.getName() + &quot;=&quot; + h.getValue(), Log.VERBOSE);</span>
-                    }
-<span class="fc" id="L165">                    }</span>
-                });
+                        @Override
+                        public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+<span class="fc bfc" id="L164" title="All 2 branches covered.">                            for (Header h : request.getAllHeaders()) {</span>
+<span class="fc" id="L165">                                FlyveLog.log(this, &quot;HEADER : &quot; + h.getName() + &quot;=&quot; + h.getValue(), Log.VERBOSE);</span>
+                            }
+<span class="fc" id="L167">                        }</span>
+                    });
+<span class="nc" id="L169">                } catch (Exception ex) {</span>
+<span class="nc" id="L170">                    FlyveLog.e(ex.getMessage());</span>
+<span class="nc" id="L171">                    callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
+<span class="nc" id="L172">                    return;</span>
+<span class="fc" id="L173">                }</span>
 
                 try {
-<span class="fc" id="L169">                    post.setEntity(new StringEntity(lastXMLResult));</span>
-<span class="nc" id="L170">                } catch (UnsupportedEncodingException e1) {</span>
-<span class="nc" id="L171">                    FlyveLog.e(e1.getMessage());</span>
-<span class="fc" id="L172">                }</span>
-<span class="fc" id="L173">                HttpResponse response = null;</span>
+<span class="fc" id="L176">                    post.setEntity(new StringEntity(lastXMLResult));</span>
+<span class="nc" id="L177">                } catch (UnsupportedEncodingException e1) {</span>
+<span class="nc" id="L178">                    FlyveLog.e(e1.getMessage());</span>
+<span class="fc" id="L179">                }</span>
+<span class="fc" id="L180">                HttpResponse response = null;</span>
                 try {
-<span class="fc" id="L175">                    response = httpclient.execute(post, context);</span>
-<span class="nc" id="L176">                } catch (ClientProtocolException e) {</span>
-<span class="nc" id="L177">                    FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);</span>
-<span class="nc" id="L178">                    callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));</span>
-<span class="nc" id="L179">                    FlyveLog.e(e.getMessage());</span>
-<span class="nc" id="L180">                } catch (IOException e) {</span>
-<span class="nc" id="L181">                    FlyveLog.log(this, &quot;IO error : &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
-<span class="nc" id="L182">                    FlyveLog.log(this, &quot;IO error : &quot; + url.toExternalForm(), Log.ERROR);</span>
-<span class="nc" id="L183">                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
-<span class="nc" id="L184">                    FlyveLog.e(e.getMessage());</span>
-<span class="nc" id="L185">                } catch (Exception e) {</span>
-<span class="nc" id="L186">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
-<span class="nc" id="L187">                    FlyveLog.e(e.getLocalizedMessage());</span>
-<span class="pc" id="L188">                }</span>
-<span class="pc bpc" id="L189" title="1 of 2 branches missed.">                if (response == null) {</span>
-<span class="nc" id="L190">                    FlyveLog.log(this, &quot;No HTTP response &quot;, Log.ERROR);</span>
-<span class="nc" id="L191">                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
+<span class="fc" id="L182">                    response = httpclient.execute(post, context);</span>
+<span class="nc" id="L183">                } catch (ClientProtocolException e) {</span>
+<span class="nc" id="L184">                    FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L185">                    callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));</span>
+<span class="nc" id="L186">                    FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L187">                } catch (IOException e) {</span>
+<span class="nc" id="L188">                    FlyveLog.log(this, &quot;IO error : &quot; + e.getLocalizedMessage(), Log.ERROR);</span>
+<span class="nc" id="L189">                    FlyveLog.log(this, &quot;IO error : &quot; + url.toExternalForm(), Log.ERROR);</span>
+<span class="nc" id="L190">                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
+<span class="nc" id="L191">                    FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L192">                } catch (Exception e) {</span>
+<span class="nc" id="L193">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
+<span class="nc" id="L194">                    FlyveLog.e(e.getLocalizedMessage());</span>
+<span class="pc" id="L195">                }</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">                if (response == null) {</span>
+<span class="nc" id="L197">                    FlyveLog.log(this, &quot;No HTTP response &quot;, Log.ERROR);</span>
+<span class="nc" id="L198">                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
                 }
 
                 try {
-<span class="fc" id="L195">                    Header[] headers = response.getAllHeaders();</span>
-<span class="fc bfc" id="L196" title="All 2 branches covered.">                    for (Header header : headers) {</span>
-<span class="fc" id="L197">                        FlyveLog.log(this, header.getName() + &quot; -&gt; &quot; + header.getValue(), Log.INFO);</span>
+<span class="fc" id="L202">                    Header[] headers = response.getAllHeaders();</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">                    for (Header header : headers) {</span>
+<span class="fc" id="L204">                        FlyveLog.log(this, header.getName() + &quot; -&gt; &quot; + header.getValue(), Log.INFO);</span>
                     }
-<span class="nc" id="L199">                } catch (Exception ex) {</span>
-<span class="nc" id="L200">                    FlyveLog.e(ex.getMessage());</span>
-<span class="fc" id="L201">                }</span>
+<span class="nc" id="L206">                } catch (Exception ex) {</span>
+<span class="nc" id="L207">                    FlyveLog.e(ex.getMessage());</span>
+<span class="fc" id="L208">                }</span>
 
                 try {
-<span class="fc" id="L204">                    InputStream mIS = response.getEntity().getContent();</span>
-<span class="fc" id="L205">                    BufferedReader r = new BufferedReader(new InputStreamReader(mIS));</span>
+<span class="fc" id="L211">                    InputStream mIS = response.getEntity().getContent();</span>
+<span class="fc" id="L212">                    BufferedReader r = new BufferedReader(new InputStreamReader(mIS));</span>
                     String line;
-<span class="fc" id="L207">                    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L214">                    StringBuilder sb = new StringBuilder();</span>
 
-<span class="fc bfc" id="L209" title="All 2 branches covered.">                    while ((line = r.readLine()) != null) {</span>
-<span class="fc" id="L210">                        FlyveLog.log(this, line, Log.VERBOSE);</span>
-<span class="fc" id="L211">                        sb.append(line + &quot;\n&quot;);</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">                    while ((line = r.readLine()) != null) {</span>
+<span class="fc" id="L217">                        FlyveLog.log(this, line, Log.VERBOSE);</span>
+<span class="fc" id="L218">                        sb.append(line + &quot;\n&quot;);</span>
                     }
 
-<span class="pc bpc" id="L214" title="1 of 2 branches missed.">                    if(sb.toString().toLowerCase().contains(&quot;&lt;reply&gt;&quot;)) {</span>
-<span class="fc" id="L215">                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">                    if(sb.toString().toLowerCase().contains(&quot;&lt;reply&gt;&quot;)) {</span>
+<span class="fc" id="L222">                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));</span>
                     } else {
-<span class="nc bnc" id="L217" title="All 2 branches missed.">                        if(sb.toString().toLowerCase().contains(&quot;404 not found&quot;)) {</span>
-<span class="nc" id="L218">                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">                        if(sb.toString().toLowerCase().contains(&quot;404 not found&quot;)) {</span>
+<span class="nc" id="L225">                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));</span>
                         } else {
-<span class="nc" id="L220">                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
+<span class="nc" id="L227">                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));</span>
                         }
                     }
 
-<span class="fc" id="L224">                    FlyveLog.d(sb.toString());</span>
-<span class="nc" id="L225">                } catch (Exception e) {</span>
-<span class="nc" id="L226">                    FlyveLog.e(e.getMessage());</span>
-<span class="nc" id="L227">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
-<span class="fc" id="L228">                }</span>
+<span class="fc" id="L231">                    FlyveLog.d(sb.toString());</span>
+<span class="nc" id="L232">                } catch (Exception e) {</span>
+<span class="nc" id="L233">                    FlyveLog.e(e.getMessage());</span>
+<span class="nc" id="L234">                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));</span>
+<span class="fc" id="L235">                }</span>
 
-<span class="fc" id="L230">            }</span>
+<span class="fc" id="L237">            }</span>
         });
-<span class="fc" id="L232">        t.start();</span>
-<span class="fc" id="L233">    }</span>
+<span class="fc" id="L239">        t.start();</span>
+<span class="fc" id="L240">    }</span>
 
     /**
      * This is the interface of return data
