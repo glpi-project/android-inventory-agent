@@ -1,13 +1,9 @@
----
-layout: modal
-title: changelog
----
 # Change Log
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="1.1.0"></a>
-# 1.1.0 (2018-03-26)
+# 1.1.0 (2018-04-26)
 
 
 ### Bug Fixes
@@ -19,17 +15,18 @@ All notable changes to this project will be documented in this file. See [standa
 * **anonymous:** add application json on request property ([7d27710](https://github.com/flyve-mdm/android-inventory-agent/commit/7d27710))
 * **connection:** allow work on main thread ([7fee1b7](https://github.com/flyve-mdm/android-inventory-agent/commit/7fee1b7))
 * **data:** fix anonymous data summary text ([f1a4467](https://github.com/flyve-mdm/android-inventory-agent/commit/f1a4467))
-* remove modules file created by IntelliJ IDEA ([01d80be](https://github.com/flyve-mdm/android-inventory-agent/commit/01d80be))
 * **inventory:** add log messages ([449c245](https://github.com/flyve-mdm/android-inventory-agent/commit/449c245))
+* **inventory:** catch empty url exception ([3a53517](https://github.com/flyve-mdm/android-inventory-agent/commit/3a53517))
 * **inventory:** validate headers response ([dc978dd](https://github.com/flyve-mdm/android-inventory-agent/commit/dc978dd))
 * **inventory:** validate http response ([7bd2f1f](https://github.com/flyve-mdm/android-inventory-agent/commit/7bd2f1f))
+* remove modules file created by IntelliJ IDEA ([01d80be](https://github.com/flyve-mdm/android-inventory-agent/commit/01d80be))
 * **package:** update conventional-github-releaser to version 2.0.0 ([f83cf33](https://github.com/flyve-mdm/android-inventory-agent/commit/f83cf33))
 * **toolbar:** fix toolbar nullpointerexception ([bf851df](https://github.com/flyve-mdm/android-inventory-agent/commit/bf851df))
 
 
 ### Features
 
-* **design:** add drawer menu adapter ([65ddf88](https://github.com/flyve-mdm/android-inventory-agent/commit/65ddf88))
+* **design:** add icons resources ([dc92041](https://github.com/flyve-mdm/android-inventory-agent/commit/dc92041))
 * Add the inventory engine as dependency ([#3](https://github.com/flyve-mdm/android-inventory-agent/issues/3)) ([a22641d](https://github.com/flyve-mdm/android-inventory-agent/commit/a22641d))
 * **about:** add about screen ([4c98590](https://github.com/flyve-mdm/android-inventory-agent/commit/4c98590))
 * **about:** add html and properties information ([2461095](https://github.com/flyve-mdm/android-inventory-agent/commit/2461095))
@@ -42,13 +39,14 @@ All notable changes to this project will be documented in this file. See [standa
 * **assets:** add graphic resources and translations  ([#16](https://github.com/flyve-mdm/android-inventory-agent/issues/16)) ([83f0afd](https://github.com/flyve-mdm/android-inventory-agent/commit/83f0afd))
 * **bugsnag:** add custom endpoint ([37f92da](https://github.com/flyve-mdm/android-inventory-agent/commit/37f92da))
 * **bugsnag:** implement basic bugsnag feature ([4ffa59b](https://github.com/flyve-mdm/android-inventory-agent/commit/4ffa59b))
+* **cache:** add long and boolean cache method ([d65afb2](https://github.com/flyve-mdm/android-inventory-agent/commit/d65afb2))
 * **design:** add check type item layout for home list ([84fe481](https://github.com/flyve-mdm/android-inventory-agent/commit/84fe481))
 * **design:** add default item layout for home list ([407634c](https://github.com/flyve-mdm/android-inventory-agent/commit/407634c))
+* **design:** add drawer menu adapter ([65ddf88](https://github.com/flyve-mdm/android-inventory-agent/commit/65ddf88))
 * **design:** add drawer menu titles ([b1d4398](https://github.com/flyve-mdm/android-inventory-agent/commit/b1d4398))
 * **design:** add global parameters layout ([f53ba44](https://github.com/flyve-mdm/android-inventory-agent/commit/f53ba44))
 * **design:** add global parameters preference ([268d7f9](https://github.com/flyve-mdm/android-inventory-agent/commit/268d7f9))
 * **design:** add header type item layout for home list ([96e5bf3](https://github.com/flyve-mdm/android-inventory-agent/commit/96e5bf3))
-* **design:** add icons resources ([dc92041](https://github.com/flyve-mdm/android-inventory-agent/commit/dc92041))
 * **design:** add inventory options ([3ae6986](https://github.com/flyve-mdm/android-inventory-agent/commit/3ae6986))
 * **design:** add inventory parameters layout ([1f517a7](https://github.com/flyve-mdm/android-inventory-agent/commit/1f517a7))
 * **design:** add inventory parameters preference ([28dd850](https://github.com/flyve-mdm/android-inventory-agent/commit/28dd850))
@@ -67,8 +65,10 @@ All notable changes to this project will be documented in this file. See [standa
 * **design:** update main activity layout ([e7dfa7c](https://github.com/flyve-mdm/android-inventory-agent/commit/e7dfa7c))
 * **easteregg:** add easter egg crash report ([266444b](https://github.com/flyve-mdm/android-inventory-agent/commit/266444b))
 * **help:** add help implementation ([39f2793](https://github.com/flyve-mdm/android-inventory-agent/commit/39f2793))
+* **inventory:** add count down on the service ([da2e70f](https://github.com/flyve-mdm/android-inventory-agent/commit/da2e70f))
 * **inventory:** add description information on version client ([bf4b793](https://github.com/flyve-mdm/android-inventory-agent/commit/bf4b793))
 * **inventory:** add progress dialog running inventory ([b418b50](https://github.com/flyve-mdm/android-inventory-agent/commit/b418b50))
+* **inventory:** implement count down ([a3224de](https://github.com/flyve-mdm/android-inventory-agent/commit/a3224de))
 * **inventory:** send inventory on thread ([6da1a06](https://github.com/flyve-mdm/android-inventory-agent/commit/6da1a06))
 * **library:** update inventory library ([5186052](https://github.com/flyve-mdm/android-inventory-agent/commit/5186052))
 * **menu:** update inventory icon ([d5ec4af](https://github.com/flyve-mdm/android-inventory-agent/commit/d5ec4af))
