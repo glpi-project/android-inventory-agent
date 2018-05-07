@@ -103,7 +103,8 @@ public class Helpers {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean val = sharedPreferences.getBoolean("anonymousData",false);
         if(val) {
-            inventoryTask.getJSONWithoutPrivateData(new InventoryTask.OnTaskCompleted() {
+            inventoryTask.setPrivateData(true);
+            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
                 @Override
                 public void onTaskSuccess(String s) {
                     FlyveLog.d(s);
