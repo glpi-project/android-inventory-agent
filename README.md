@@ -23,6 +23,7 @@ To get started, check out [Flyve MDM Website](https://flyve-mdm.com/)!
 * [Versioning](#versioning)
 * [Contribute](#contribute)
 * [Contact](#contact)
+* [Professional Services](#professional-services)
 * [Copying](#copying)
 
 ## Synopsis
@@ -74,7 +75,7 @@ Visit our [website](http://flyve.org/android-inventory-agent/) for more informat
 
 ## Build Status
 
-| **Release channel** | **Beta channel** |
+| **LTS** | **Bleeding Edge** |
 |:---:|:---:|
 | [![Build Status](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/master.svg?style=svg)](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/master) | [![Build Status](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/develop.svg?style=svg)](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/develop) |
 
@@ -91,7 +92,7 @@ Visit our [website](http://flyve.org/android-inventory-agent/) for more informat
 
 ## Documentation
 
-We maintain a detailed documentation of the project on its [website](http://flyve.org/android-inventory-agent/).
+We maintain a detailed documentation of the project on the website, check the [How-tos](http://flyve.org/android-inventory-agent/howtos/) and [Development](http://flyve.org/android-inventory-agent/) section.
 
 ## Versioning
 
@@ -107,8 +108,14 @@ guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our i
 ## Contact
 
 For notices about major changes and general discussion of Flyve MDM development, subscribe to the [/r/FlyveMDM](http://www.reddit.com/r/FlyveMDM) subreddit.
-You can also chat with us via IRC in [#flyve-mdm on freenode](http://webchat.freenode.net/?channels=flyve-mdm).
+You can also chat with us via IRC in [#flyve-mdm on freenode](http://webchat.freenode.net/?channels=flyve-mdm) or [@flyvemdm on Telegram](https://t.me/flyvemdm).
 Ping me @rafaelje in the IRC chatroom if you get stuck.
+
+## Professional Services
+
+The Flyve MDM and GLPI Network services are available through our [Partner's Network](http://www.teclib-edition.com/en/partners/). We provide special training, bug fixes with editor subscription, contributions for new features, and more.
+
+Obtain a personalized service experience, associated with benefits and opportunities.
 
 ## Copying
 
