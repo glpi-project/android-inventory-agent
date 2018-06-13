@@ -28,6 +28,7 @@
     "standard-version": "^4.2.0"
   },
   "dependencies": {
-    "conventional-github-releaser": "^3.0.0"
+    "conventional-github-releaser": "^3.0.0",
+    "node-github-release": "^0.1.1"
   }
 }
