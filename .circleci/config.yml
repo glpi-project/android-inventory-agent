@@ -15,6 +15,9 @@ jobs:
           name: Accept licenses
           command: yes | sdkmanager --licenses || true
       - run:
+          name: Validate workflow
+          command: source ci/scripts/ci_validate_workflow.sh
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
@@ -103,9 +106,6 @@ jobs:
               name: Setup environment
               command: source ci/scripts/ci_setup.sh
           - run:
-              name: Update version and code
-              command: source ci/scripts/ci_updateversion.sh
-          - run:
               name: Update about information
               command: source ci/scripts/ci_about.sh
           - run:
@@ -152,9 +152,6 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Validate workflow
-          command: source ci/scripts/ci_validate_workflow.sh
-      - run:
           name: Setup environment
           command: source ci/scripts/ci_setup.sh
       - run:
@@ -188,9 +185,6 @@ jobs:
         - restore_cache:
             key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
         - run:
-            name: Validate workflow
-            command: source ci/scripts/ci_validate_workflow.sh
-        - run:
             name: Setup environment
             command: source ci/scripts/ci_setup.sh
         - run:
@@ -199,6 +193,9 @@ jobs:
         - run:
             name: Update about information
             command: source ci/scripts/ci_about.sh
+        - run:
+            name: Commit changelog to gh-pages
+            command: source ci/scripts/ci_changelog.sh
         - run:
             name: Create apk
             command: ./gradlew assembleRelease
@@ -230,9 +227,6 @@ jobs:
             name: Setup environment
             command: source ci/scripts/ci_setup.sh
         - run:
-            name: Update version and code
-            command: source ci/scripts/ci_updateversion.sh
-        - run:
             name: Setup emulator
             command: sdkmanager "system-images;android-16;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-16;default;armeabi-v7a"
         - run:
@@ -251,14 +245,8 @@ jobs:
             name: Coverage
             command: source ci/scripts/ci_coverage.sh
         - run:
-            name: Commit changelog to gh-page
-            command: source ci/scripts/ci_changelog.sh
-        - run:
             name: Javadoc
             command: source ci/scripts/ci_javadoc.sh
-        - run:
-            name: Push to gh-pages
-            command: source ci/scripts/ci_git_push.sh
         - save_cache:
             paths:
               - ~/.gradle
@@ -272,6 +260,10 @@ workflows:
       - test_api_v16:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - develop
       - deploy_beta:
           requires:
             - test_api_v16
@@ -294,6 +286,8 @@ workflows:
               only:
                 - develop
       - deploy_production:
+          requires:
+            - build
           filters:
             branches:
               only:
