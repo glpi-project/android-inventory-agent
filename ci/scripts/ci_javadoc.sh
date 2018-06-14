@@ -26,19 +26,19 @@
 #  ------------------------------------------------------------------------------
 #
 # Generate javadoc this folder must be on .gitignore
-javadoc -d ./reports/javadoc -sourcepath ./app/src/main/java -subpackages . -nonavbar
+javadoc -d ./development/code-documentation -sourcepath ./app/src/main/java -subpackages . -nonavbar
 
 # delete the index.html file
-sudo rm ./reports/javadoc/index.html
+sudo rm ./development/code-documentation/index.html
 
 # rename the overview-summary.html file toindex.html
-mv ./reports/javadoc/overview-summary.html ./reports/javadoc/index.html
+mv ./development/code-documentation/overview-summary.html ./development/code-documentation/index.html
 
 # add reports
-git add reports -f
+git add development -f
 
 # create commit with temporary report folder
-git commit -m "tmp report commit"
+git commit -m "tmp documentation commit"
 
 # get gh-pages branch
 git fetch origin gh-pages
@@ -47,25 +47,25 @@ git fetch origin gh-pages
 git checkout gh-pages
 
 # delete old javadoc folder
-sudo rm -R reports/javadoc
+sudo rm -R development/code-documentation
 
 # get fresh javadoc folder
-git checkout $CIRCLE_BRANCH reports/javadoc
+git checkout $CIRCLE_BRANCH development/code-documentation
 
 # remove default stylesheet.css
-sudo rm ./reports/javadoc/stylesheet.css
+sudo rm ./development/code-documentation/stylesheet.css
 
 # add new css
-cp ./css/javadoc.css ./reports/javadoc/stylesheet.css
+cp ./css/codeDocumentation.css ./development/code-documentation/stylesheet.css
 
-# git add javadoc folder
-git add reports/javadoc
+# git add code-documentation folder
+git add development/code-documentation
 
 # git add
-git add ./reports/javadoc/stylesheet.css
+git add ./development/code-documentation/stylesheet.css
 
 # create commit for documentation
-git commit -m "docs(javadoc): update JavaDoc"
+git commit -m "docs(development): update code documentation"
 
 # change headers
 ruby ci/add_header.rb
@@ -75,6 +75,9 @@ git add .
 
 # git commit
 git commit -m "docs(headers): update headers"
+
+# push to branch
+git push origin gh-pages
 
 # got back to original branch
 git checkout $CIRCLE_BRANCH

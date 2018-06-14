@@ -30,22 +30,26 @@
 ./gradlew createDebugCoverageReport
 
 # move code coverage
-mv -v app/build/reports/coverage reports
+mv -v app/build/reports/coverage development
 
 #move Android test
-mv -v app/build/reports/androidTests reports
+mv -v app/build/reports/androidTests development
+
+# rename folders to match development section in project site
+sudo mv development/debug development/coverage
+sudo mv development/androidTests development/test-reports
 
 # replace .resources with resource because github don't support folders with "_" or "." at the beginning
-mv reports/debug/.resources reports/debug/resources
+mv development/coverage/.resources development/coverage/resources
 
 # replace .sessions
-mv reports/debug/.sessions.html reports/debug/sessions.html
+mv development/coverage/.sessions.html development/coverage/sessions.html
 
 # add code coverage and test result
-git add reports -f
+git add development -f
 
 # temporal commit
-git commit -m "tmp reports"
+git commit -m "tmp development"
 
 # get gh-pages branch
 git fetch origin gh-pages
@@ -56,29 +60,32 @@ git checkout gh-pages
 # clean
 sudo git clean -fdx
 
-# remove report folder
-sudo rm -R reports
+# remove old development folder
+sudo rm -R development
 
 # get documentation folder
-git checkout $CIRCLE_BRANCH reports
+git checkout $CIRCLE_BRANCH development
 
 # remove css
-sudo rm ./reports/debug/resources/report.css
-sudo rm ./reports/androidTests/connected/css/base-style.css
-sudo rm ./reports/androidTests/connected/css/style.css
+sudo rm ./development/coverage/resources/report.css
+sudo rm ./development/test-reports/connected/css/base-style.css
+sudo rm ./development/test-reports/connected/css/style.css
 
 # add new css
-cp ./css/coverage.css ./reports/debug/resources/report.css
-cp ./css/androidTests.css ./reports/androidTests/connected/css/style.css
-touch ./reports/androidTests/connected/css/base-style.css
+cp ./css/coverage.css ./development/coverage/resources/report.css
+cp ./css/testReports.css ./development/test-reports/connected/css/style.css
+touch ./development/test-reports/connected/css/base-style.css
 
 # add
-git add ./reports/debug/resources/report.css
-git add ./reports/androidTests/connected/css/style.css
-git add ./reports/androidTests/connected/css/base-style.css
+git add ./development/coverage/resources/report.css
+git add ./development/test-reports/connected/css/style.css
+git add ./development/test-reports/connected/css/base-style.css
 
 # create commit
-git commit -m "docs(coverage): update code coverage and test result"
+git commit -m "docs(coverage): update code coverage and test reports"
+
+# push to branch
+git push origin gh-pages
 
 # got back to original branch
 git checkout $CIRCLE_BRANCH
