@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # push tag to github
-conventional-github-releaser -p angular -t $GH_TOKEN -r 0 2> /dev/null || true
+conventional-github-releaser -p angular -t $GITHUB_TOKEN -r 0 2> /dev/null || true
 
 GIT_TAG=$(jq -r ".version" package.json)
 
