@@ -4,6 +4,7 @@
 conventional-github-releaser -p angular -t $GITHUB_TOKEN -r 0 2> /dev/null || true
 
 GIT_TAG=$(jq -r ".version" package.json)
+FILE=$(find ./app/build/outputs/apk -name '*.apk')
 
 # Update release name
 github-release edit \
@@ -18,4 +19,4 @@ github-release upload \
 --repo $CIRCLE_PROJECT_REPONAME \
 --tag ${GIT_TAG} \
 --name "InventoryAgent-${GIT_TAG}.apk" \
---file app/build/outputs/apk/app-release.apk
+--file ${FILE}
