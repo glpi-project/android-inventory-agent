@@ -84,5 +84,6 @@ build
 /fastlane/metadata/
 
 #javadoc and reports
+/development
 /reports
 /reports-beta
