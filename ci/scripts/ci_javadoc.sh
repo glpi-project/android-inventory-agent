@@ -1,43 +1,44 @@
 #!/bin/bash
 #
-#  Copyright (C) 2017 Teclib'
+#  LICENSE
 #
-#  This file is part of Flyve MDM Inventory Android.
+#  This file is part of Flyve MDM Inventory Agent for Android.
 #
-#  Flyve MDM Inventory Android is a subproject of Flyve MDM. Flyve MDM is a mobile
-#  device management software.
+#  Inventory Agent for Android is a subproject of Flyve MDM. Flyve MDM is a 
+#  mobile device management software.
 #
-#  Flyve MDM Android is free software: you can redistribute it and/or
-#  modify it under the terms of the GNU General Public License
+#  Flyve MDM Inventory Agent for Android is free software: you can redistribute 
+#  it and/or modify it under the terms of the GNU General Public License
 #  as published by the Free Software Foundation; either version 3
 #  of the License, or (at your option) any later version.
 #
-#  Flyve MDM Inventory Android is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  Flyve MDM Inventory Agent for Android is distributed in the hope that it will be 
+#  useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
 #  ------------------------------------------------------------------------------
-#  @author    Rafael Hernandez - rafaelje
-#  @copyright Copyright (c) 2017 Flyve MDM
+#  @author    Rafael Hernandez - <rhernandez@teclib.com>
+#  @copyright Copyright (c) 2017 - 2018 Flyve MDM
 #  @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
 #  @link      https://github.com/flyve-mdm/android-inventory-agent
-#  @link      http://www.glpi-project.org/
+#  @link      http://flyve.org/android-inventory-agent
 #  @link      https://flyve-mdm.com/
 #  ------------------------------------------------------------------------------
 #
+
 # Generate javadoc this folder must be on .gitignore
 javadoc -d ./development/code-documentation -sourcepath ./app/src/main/java -subpackages . -nonavbar
 
 # delete the index.html file
 sudo rm ./development/code-documentation/index.html
 
-# rename the overview-summary.html file toindex.html
+# rename the overview-summary.html file to index.html
 mv ./development/code-documentation/overview-summary.html ./development/code-documentation/index.html
 
 # add reports
 git add development -f
 
-# create commit with temporary report folder
+# create commit with temporary documentation folder
 git commit -m "tmp documentation commit"
 
 # get gh-pages branch
@@ -46,10 +47,10 @@ git fetch origin gh-pages
 # move to gh-pages
 git checkout gh-pages
 
-# delete old javadoc folder
+# delete old documentation folder
 sudo rm -R development/code-documentation
 
-# get fresh javadoc folder
+# get fresh documentation folder
 git checkout $CIRCLE_BRANCH development/code-documentation
 
 # remove default stylesheet.css
