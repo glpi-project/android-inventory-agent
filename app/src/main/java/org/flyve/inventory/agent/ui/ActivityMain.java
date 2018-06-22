@@ -27,9 +27,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,20 +48,29 @@ import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.Map;
 
-public class ActivityMain extends AppCompatActivity implements Main.View {
+public class ActivityMain extends AppCompatActivity implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Main.Presenter presenter;
     private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
     private android.support.v7.widget.Toolbar toolbar;
+    private SharedPreferences sharedPreferences;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String strTime = intent.getStringExtra("time");
-            toolbar.setSubtitle(strTime);
+                String strTime = intent.getStringExtra("time");
+                setCountDown(strTime);
         }
     };
+
+    private void setCountDown(String strTime){
+        if (sharedPreferences.getBoolean("autoStartInventory", false)) {
+            toolbar.setSubtitle(strTime);
+        } else {
+            toolbar.setSubtitle("");
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -90,6 +101,10 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
         // Setup Drawer Toggle of the Toolbar
         toolbar = findViewById(R.id.toolbar);
 
+        // setup shared preference
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
         presenter = new MainPresenter(this);
         Map<String, String> menuItem = presenter.setupDrawer(ActivityMain.this, lst);
         presenter.loadFragment(fragmentManager, toolbar, menuItem);
@@ -119,6 +134,12 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
@@ -138,5 +159,14 @@ public class ActivityMain extends AppCompatActivity implements Main.View {
     @Override
     public void showError(String message) {
         Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals("autoStartInventory")) {
+            if (!sharedPreferences.getBoolean("autoStartInventory", false)) {
+                setCountDown("");
+            }
+        }
     }
 }
