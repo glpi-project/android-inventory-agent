@@ -33,6 +33,7 @@ import com.bugsnag.android.Bugsnag;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.EnvironmentInfo;
+import org.flyve.inventory.agent.utils.FlyveLog;
 
 public class AboutModel implements About.Model {
 
@@ -67,16 +68,24 @@ public class AboutModel implements About.Model {
         EnvironmentInfo environmentInfo = new EnvironmentInfo(context);
 
         if(environmentInfo.getIsLoaded()) {
-            presenter.showAboutSuccess(Html.fromHtml(
-                    aboutStr(
-                        environmentInfo.getVersion(),
-                        environmentInfo.getBuild(),
-                        environmentInfo.getDate(),
-                        environmentInfo.getCommit(),
-                        environmentInfo.getCommitFull(),
-                        environmentInfo.getGithub()
-                    )
-            ).toString());
+            String about = "";
+
+            try {
+                about = Html.fromHtml(
+                        aboutStr(
+                                environmentInfo.getVersion(),
+                                environmentInfo.getBuild(),
+                                environmentInfo.getDate(),
+                                environmentInfo.getCommit(),
+                                environmentInfo.getCommitFull(),
+                                environmentInfo.getGithub()
+                        )
+                ).toString();
+            } catch (Exception ex) {
+                FlyveLog.e(ex.getMessage());
+            }
+
+            presenter.showAboutSuccess(about);
         } else {
             presenter.showAboutFail();
         }
