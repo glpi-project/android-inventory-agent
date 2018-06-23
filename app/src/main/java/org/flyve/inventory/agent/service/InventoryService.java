@@ -51,7 +51,7 @@ public class InventoryService extends Service {
 
     public static final String TIMER_RECEIVER = "org.flyve.inventory.service.timer";
 
-    private Handler mHandler = new Handler();
+    private Handler mHandler;
     Calendar calendar;
     long longDate;
     Date dateCurrent, dateDiff;
@@ -70,6 +70,8 @@ public class InventoryService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mHandler = new Handler();
 
         cache = new LocalStorage(getApplicationContext());
         calendar = Calendar.getInstance();
