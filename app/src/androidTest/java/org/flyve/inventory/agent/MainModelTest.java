@@ -2,6 +2,7 @@ package org.flyve.inventory.agent;
 
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
 import android.widget.ListView;
 
@@ -10,6 +11,7 @@ import org.flyve.inventory.agent.core.main.MainModel;
 import org.flyve.inventory.agent.ui.ActivityMain;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.HashMap;
 
@@ -40,7 +42,10 @@ import static org.mockito.Mockito.mock;
  * @link      https://github.com/flyve-mdm/flyve-mdm-android
  * @link      https://flyve-mdm.com
  * ------------------------------------------------------------------------------
- */public class MainModelTest {
+ */
+
+@RunWith(AndroidJUnit4.class)
+public class MainModelTest {
 
     @Rule
     public ActivityTestRule<ActivityMain> rule  = new ActivityTestRule<>(ActivityMain.class);
