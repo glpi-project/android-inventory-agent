@@ -30,6 +30,7 @@ package org.flyve.inventory.agent;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.KeyEvent;
 import android.widget.ListView;
 
 import org.flyve.inventory.agent.core.home.Home;
@@ -40,7 +41,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 @RunWith(AndroidJUnit4.class)
@@ -49,15 +49,15 @@ public class HomeModelTest {
     @Rule
     public ActivityTestRule<ActivityMain> rule  = new ActivityTestRule<>(ActivityMain.class);
 
-    @Test
-    public void doBindService() {
-        Home.Presenter presenter = mock(Home.Presenter.class);
-        HomeModel homeModel = new HomeModel(presenter);
-
-        Activity activity = mock(Activity.class);
-        homeModel.doBindService(activity);
-        assertTrue(true);
-    }
+//    @Test
+//    public void doBindService() {
+//        Home.Presenter presenter = mock(Home.Presenter.class);
+//        HomeModel homeModel = new HomeModel(presenter);
+//
+//        Activity activity = rule.getActivity();
+//        homeModel.doBindService(activity);
+//        assertTrue(true);
+//    }
 
     @Test
     public void setupList() {
@@ -67,6 +67,8 @@ public class HomeModelTest {
 
         Activity activity = rule.getActivity();
         homeModel.setupList(activity, lst);
+
+        //homeModel.getListItems();
     }
 
     @Test
@@ -74,35 +76,11 @@ public class HomeModelTest {
         Home.Presenter presenter = mock(Home.Presenter.class);
         HomeModel homeModel = new HomeModel(presenter);
 
+        KeyEvent kdown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+
         Activity activity = rule.getActivity();
         HomeSchema homeSchema = new HomeSchema("1", "");
         homeModel.clickItem(activity, homeSchema);
-
-        homeSchema = new HomeSchema("2", "");
-        homeModel.clickItem(activity, homeSchema);
-
-        // TODO fix the handler on the inventory library
-//        homeSchema = new HomeSchema("3", "");
-//        homeModel.clickItem(activity, homeSchema);
-
-        homeSchema = new HomeSchema("4", "");
-        homeModel.clickItem(activity, homeSchema);
-
-        homeSchema = new HomeSchema("5", "");
-        homeModel.clickItem(activity, homeSchema);
-
-        homeSchema = new HomeSchema("6", "");
-        homeModel.clickItem(activity, homeSchema);
-
-        homeSchema = new HomeSchema("7", "");
-        homeModel.clickItem(activity, homeSchema);
-    }
-
-    @Test
-    public void getListItems() {
-        Home.Presenter presenter = mock(Home.Presenter.class);
-        HomeModel homeModel = new HomeModel(presenter);
-
-        homeModel.getListItems();
+        rule.getActivity().dispatchKeyEvent(kdown);
     }
 }
