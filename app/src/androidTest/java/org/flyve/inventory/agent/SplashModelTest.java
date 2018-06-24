@@ -1,17 +1,16 @@
-package org.flyve.inventory.agent.core.report;
+package org.flyve.inventory.agent;
 
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
 
+import org.flyve.inventory.agent.core.splash.Splash;
+import org.flyve.inventory.agent.core.splash.SplashModel;
 import org.flyve.inventory.agent.ui.ActivityMain;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 /*
@@ -42,33 +41,25 @@ import static org.mockito.Mockito.mock;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class ReportModelTest {
+public class SplashModelTest {
 
     @Rule
     public ActivityTestRule<ActivityMain> rule  = new ActivityTestRule<>(ActivityMain.class);
 
+
     @Test
-    public void generateReport() {
+    public void setupStorage() {
         Activity activity = rule.getActivity();
-        Report.Presenter presenter = mock(Report.Presenter.class);
-        ReportModel reportModel = new ReportModel(presenter);
-        RecyclerView lst = mock(RecyclerView.class);
-        reportModel.generateReport(activity, lst);
+        Splash.Presenter presenter = mock(Splash.Presenter.class);
+        SplashModel splashModel = new SplashModel(presenter);
+        splashModel.setupStorage(activity);
     }
 
     @Test
-    public void showDialogShare() {
-        final Activity activity = rule.getActivity();
-        Report.Presenter presenter = mock(Report.Presenter.class);
-        final ReportModel reportModel = new ReportModel(presenter);
-
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                reportModel.showDialogShare(activity);
-            }
-        });
-
-        assertTrue(true);
+    public void nextActivityWithDelay() {
+        Activity activity = rule.getActivity();
+        Splash.Presenter presenter = mock(Splash.Presenter.class);
+        SplashModel splashModel = new SplashModel(presenter);
+        splashModel.nextActivityWithDelay(1, activity, ActivityMain.class);
     }
 }
