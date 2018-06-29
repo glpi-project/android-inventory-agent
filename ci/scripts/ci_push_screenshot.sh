@@ -26,15 +26,12 @@
 #  ------------------------------------------------------------------------------
 #
 
-# move screenshots
+# move to screenshots, it must be on gitignore
 sudo mv ./fastlane/metadata/android ./screenshots
 sudo mv ./screenshots/screenshots.html ./screenshots/index.html
 
-# add
-git add .
-
-# temporal commit
-git commit -m "ci(tmp): temporal commit"
+# send to gh-pages
+yarn gh-pages --dist ./screenshots/ --dest ./screenshots/ --add -m "ci(screenshot): update screenshots"
 
 # fetch
 git fetch origin gh-pages
@@ -45,9 +42,6 @@ git checkout gh-pages
 # clean workspace
 sudo git clean -fdx
 
-# git get screenshots
-git checkout $CIRCLE_BRANCH ./screenshots
-
 # add header
 ruby ./ci/add_header_screenshot.rb
 
@@ -55,7 +49,7 @@ ruby ./ci/add_header_screenshot.rb
 git add ./screenshots
 
 # commit
-git commit -m "ci(screenshot): update screenshots"
+git commit -m "ci(screenshot): add headers"
 
 # push to branch
 git push origin gh-pages
