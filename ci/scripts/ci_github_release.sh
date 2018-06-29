@@ -33,7 +33,7 @@ yarn conventional-github-releaser -p angular -t $GITHUB_TOKEN -r 0 2> /dev/null 
 GIT_TAG=$(jq -r ".version" package.json)
 
 # get apk path
-FILE=$(find ./app/build/outputs/apk -name '*.apk')
+FILE=$(find ./app/build/outputs/apk/release -name '*.apk')
 
 # Update release name
 yarn github-release edit \
