@@ -36,6 +36,9 @@ git tag | xargs git tag -d
 yarn run release -m "ci(release): generate ChangeLog for version %s"
 
 if [[ $CIRCLE_BRANCH == *"master"* ]]; then
+    # send changelog to gh-pages
+    yarn gh-pages --dist ./ --src CHANGELOG.md --dest ./_includes/ --add -m "docs(changelog): update changelog$1 with version ${GIT_TAG}"
+
     # Get version number from package.json
     export GIT_TAG=$(jq -r ".version" package.json)
 
@@ -49,5 +52,7 @@ git add app/src/main/AndroidManifest.xml
 # commit this change
 git commit -m "ci(release): update version on android manifest"
 
+if [[ $CIRCLE_BRANCH == *"master"* ]]; then
 ## push to the branch
 git push origin $CIRCLE_BRANCH
+fi
