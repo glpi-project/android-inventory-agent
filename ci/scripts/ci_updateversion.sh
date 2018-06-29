@@ -33,7 +33,7 @@
 git tag | xargs git tag -d
 
 # increment version on package.json, create tag and commit with changelog
-npm run release -- -m "ci(release): generate ChangeLog for version %s"
+yarn run release -m "ci(release): generate ChangeLog for version %s"
 
 if [[ $CIRCLE_BRANCH == *"master"* ]]; then
     # Get version number from package.json
