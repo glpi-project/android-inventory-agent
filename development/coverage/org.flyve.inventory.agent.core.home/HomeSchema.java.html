@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>HomeSchema.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.core.home</a> &gt; <span class="el_source">HomeSchema.java</span></div><h1>HomeSchema.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
+package org.flyve.inventory.agent.core.home;
+
+public class HomeSchema {
+
+    private String id;
+    private String title;
+    private String subTitle;
+    private Boolean hasCheck;
+    private Boolean checkValue;
+    private Boolean isHeader;
+
+<span class="nc" id="L35">    public HomeSchema(String id, String title) {</span>
+<span class="nc" id="L36">        this.id = id;</span>
+<span class="nc" id="L37">        this.title = title;</span>
+<span class="nc" id="L38">        this.hasCheck = false;</span>
+<span class="nc" id="L39">        this.isHeader = true;</span>
+<span class="nc" id="L40">    }</span>
+
+<span class="nc" id="L42">    public HomeSchema(String id, String title, String subTitle) {</span>
+<span class="nc" id="L43">        this.id = id;</span>
+<span class="nc" id="L44">        this.title = title;</span>
+<span class="nc" id="L45">        this.subTitle = subTitle;</span>
+<span class="nc" id="L46">        this.hasCheck = false;</span>
+<span class="nc" id="L47">        this.isHeader = false;</span>
+<span class="nc" id="L48">    }</span>
+
+<span class="nc" id="L50">    public HomeSchema(String id, String title, String subTitle, Boolean checkValue) {</span>
+<span class="nc" id="L51">        this.id = id;</span>
+<span class="nc" id="L52">        this.title = title;</span>
+<span class="nc" id="L53">        this.subTitle = subTitle;</span>
+<span class="nc" id="L54">        this.hasCheck = true;</span>
+<span class="nc" id="L55">        this.isHeader = false;</span>
+<span class="nc" id="L56">        this.checkValue = checkValue;</span>
+<span class="nc" id="L57">    }</span>
+
+    public String getId() {
+<span class="nc" id="L60">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="nc" id="L64">        this.id = id;</span>
+<span class="nc" id="L65">    }</span>
+
+    public String getTitle() {
+<span class="nc" id="L68">        return title;</span>
+    }
+
+    public void setTitle(String title) {
+<span class="nc" id="L72">        this.title = title;</span>
+<span class="nc" id="L73">    }</span>
+
+    public String getSubTitle() {
+<span class="nc" id="L76">        return subTitle;</span>
+    }
+
+    public void setSubTitle(String subTitle) {
+<span class="nc" id="L80">        this.subTitle = subTitle;</span>
+<span class="nc" id="L81">    }</span>
+
+    public Boolean getHasCheck() {
+<span class="nc" id="L84">        return hasCheck;</span>
+    }
+
+    public void setHasCheck(Boolean hasCheck) {
+<span class="nc" id="L88">        this.hasCheck = hasCheck;</span>
+<span class="nc" id="L89">    }</span>
+
+    public Boolean getCheckValue() {
+<span class="nc" id="L92">        return checkValue;</span>
+    }
+
+    public void setCheckValue(Boolean checkValue) {
+<span class="nc" id="L96">        this.checkValue = checkValue;</span>
+<span class="nc" id="L97">    }</span>
+
+    public Boolean getHeader() {
+<span class="nc" id="L100">        return isHeader;</span>
+    }
+
+    public void setHeader(Boolean header) {
+<span class="nc" id="L104">        isHeader = header;</span>
+<span class="nc" id="L105">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>
