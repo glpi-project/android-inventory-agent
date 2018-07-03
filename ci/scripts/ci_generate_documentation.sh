@@ -64,7 +64,7 @@ mv ./development/code-documentation/overview-summary.html ./development/code-doc
 # find and replace links to the old name of file
 grep -rl overview-summary.html development/code-documentation/ | xargs sed -i 's|overview-summary.html|index.html|g'
 
-# send development folder to project site with the documentation updated
+# send development folder to project site with the documentation updated, also removes old documentation
 yarn gh-pages --dist ./development/ --dest ./development/ -m "docs(development): update documentation
 
 update coverage and test reports
