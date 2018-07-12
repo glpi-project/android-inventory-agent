@@ -26,6 +26,7 @@ package org.flyve.inventory.agent.core.splash;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.LocalStorage;
@@ -62,7 +63,9 @@ public class SplashModel implements Splash.Model {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Helpers.openActivity(activity, classToOpen, true);
+                    if(!activity.isFinishing()) {
+                        Helpers.openActivity(activity, classToOpen, true);
+                    }
                 }
             }, delay);
         } catch (Exception ex) {

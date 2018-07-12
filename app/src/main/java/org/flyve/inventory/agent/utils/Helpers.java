@@ -155,16 +155,19 @@ public class Helpers {
         notificationManager.notify(121, builder.build());
     }
 
-    public static void share(Context context, String message, int type){
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, message);
-        if(type==1) {
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/FlyveMDM/Inventory.json"));
-        } else {
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/FlyveMDM/Inventory.xml"));
-        }
-        context.startActivity(Intent.createChooser(intent, "Share your inventory"));
+    public static void share(Context context, String message, final int type){
+        final InventoryTask inventoryTask = new InventoryTask(context, "", true);
+        inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
+            @Override
+            public void onTaskSuccess(String s) {
+                inventoryTask.shareInventory(type);
+            }
+
+            @Override
+            public void onTaskError(Throwable throwable) {
+                FlyveLog.e(throwable.getMessage());
+            }
+        });
     }
 
     public static String capitalize(String str) {
