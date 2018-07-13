@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -58,7 +59,7 @@ public class MainModel implements Main.Model {
         this.presenter = presenter;
     }
 
-    public void requestPermission(Activity activity) {
+    public void requestPermission(final Activity activity) {
         boolean isGranted = true;
         int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
         if(result != PackageManager.PERMISSION_GRANTED) {
@@ -71,11 +72,17 @@ public class MainModel implements Main.Model {
         }
 
         if(!isGranted) {
-            ActivityCompat.requestPermissions(activity,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA,
-                    },
-                    1);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.CAMERA,
+                            },
+                            1);
+                }
+            }, 5000);
+
         }
     }
 
