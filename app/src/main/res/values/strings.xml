@@ -1,204 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Inventory</string>
-	<string name="agent_started">Inventory Agent is started</string>
-	<string name="agent_stopped">Inventory Agent is stopped</string>
-	<string name="agent_reboot">Inventory Agent is restarted</string>
-	<string name="agent_description">Agent is running in background</string>
-	<string name="button_start_inventory">Start Inventory</string>
-	<string name="menu_about">About</string>
-	<string name="menu_show_inventory">My device inventory</string>
-	<string name="menu_settings">Settings</string>
-	<string name="menu_clearlog">Clear Log</string>
-	<string name="menu_send">Send</string>
-	<string name="menu_getinv">Get Inventory</string>
-	<string name="all_permissions">Grant all possible permissions</string>
-	<string name="agent_connected">Connected to Agent Service</string>
-	<string name="agent_disconnected">Disconnected from Agent Service</string>
-	<string name="inventory_started">Starting inventory...</string>
-	<string name="inventory_sended">Sending inventory...</string>
-	<string name="inventory_ended">End of inventory.</string>
-	<string name="button_connect_agent">Connect Agent</string>
-	<string name="button_disconnect_agent">Disconnect Agent</string>
+    <string name="app_name">Inventory</string>
+    <string name="agent_started">Inventory Agent is started</string>
+    <string name="agent_stopped">Inventory Agent is stopped</string>
+    <string name="agent_reboot">Inventory Agent is restarted</string>
+    <string name="agent_description">Agent is running in background</string>
+    <string name="button_start_inventory">Start Inventory</string>
+    <string name="menu_about">About</string>
+    <string name="menu_show_inventory">My device inventory</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_clearlog">Clear Log</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_getinv">Get Inventory</string>
+    <string name="all_permissions">Grant all possible permissions</string>
+    <string name="agent_connected">Connected to Agent Service</string>
+    <string name="agent_disconnected">Disconnected from Agent Service</string>
+    <string name="inventory_started">Starting inventory...</string>
+    <string name="inventory_sended">Sending inventory...</string>
+    <string name="inventory_ended">End of inventory.</string>
+    <string name="button_connect_agent">Connect Agent</string>
+    <string name="button_disconnect_agent">Disconnect Agent</string>
     <string name="error_inventory">Inventory not complet</string>
     <string name="ok_inventory">Inventory complet</string>
     <string name="error_send_inventoryi">Inventory not send</string>
     <string name="ok_send_inventory">Inventory send</string>
-	<string name="service_notif_id">Inventory Agent</string>
-	<string-array name="agent_status">
-		<item>Agent is waiting an order ...</item>
-		<item>Agent is performing an inventory ...</item>
-	</string-array>
-	<string name="agent_settings">Agent settings</string>
-	<string name="phone_boot">Agent must be launched at phone boot</string>
-	<string name="manual_launch">Agent must be launched manually</string>
-	<string name="boot_options">Boot options</string>
-	<string name="inventory_server">Inventory server</string>
-	<string name="log_text">Server response</string>
-	<string name="authentication_credentials">HTTP authentication credentials</string>
-	<string name="login">Login</string>
-	<string name="password">Password</string>
-	<string name="tag">Tag</string>
-	<string name="tagSummary">Custom asset tag</string>
-	<string name="week">Week</string>
-	<string name="snackButton">Done</string>
-	<string name="loading">Processing...</string>
-	<string name="inventory_sent">Inventory sent</string>
-	<string name="inventory_notification_sent">Inventory scheduled shipped</string>
-	<string name="inventory_notification_fail">Inventory scheduled fail</string>
-	<string name="crashreport_disable">Crash report is disable, please enable to test it</string>
-	<string name="dialog_share_title">Select the format to share</string>
-	<string-array name="export_list">
-		<item>XML</item>
-		<item>JSON</item>
-	</string-array>
-	<string-array name="Time">
-		<item>day</item>
-		<item>week</item>
-		<item>month</item>
-	</string-array>
-	<string-array name="TimeValue">
-		<item>Day</item>
-		<item>Week</item>
-		<item>Month</item>
-	</string-array>
-	<plurals name="easter_egg_attempts">
-		<item quantity="one">You have %d Attempt</item>
-		<item quantity="other">You have %d Attempts</item>
-	</plurals>
+    <string name="service_notif_id">Inventory Agent</string>
+    <string-array name="agent_status">
+        <item>Agent is waiting an order ...</item>
+        <item>Agent is performing an inventory ...</item>
+    </string-array>
+    <string name="agent_settings">Agent settings</string>
+    <string name="phone_boot">Agent must be launched at phone boot</string>
+    <string name="manual_launch">Agent must be launched manually</string>
+    <string name="boot_options">Boot options</string>
+    <string name="inventory_server">Inventory server</string>
+    <string name="log_text">Server response</string>
+    <string name="authentication_credentials">HTTP authentication credentials</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="tag">Tag</string>
+    <string name="tagSummary">Custom asset tag</string>
+    <string name="week">Week</string>
+    <string name="snackButton">Done</string>
+    <string name="loading">Processing...</string>
+    <string name="inventory_sent">Inventory sent</string>
+    <string name="inventory_notification_sent">Inventory scheduled shipped</string>
+    <string name="inventory_notification_fail">Inventory scheduled fail</string>
+    <string name="crashreport_disable">Crash report is disable, please enable to test it</string>
+    <string name="dialog_share_title">Select the format to share</string>
+    <string-array name="export_list">
+        <item>XML</item>
+        <item>JSON</item>
+    </string-array>
+    <string-array name="Time">
+        <item>day</item>
+        <item>week</item>
+        <item>month</item>
+    </string-array>
+    <string-array name="TimeValue">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+    <plurals name="easter_egg_attempts">
+        <item quantity="one">You have %d Attempt</item>
+        <item quantity="other">You have %d Attempts</item>
+    </plurals>
 
-	<string name="permission_error_result">Some permissions are denied, this app could fail</string>
-	<string name="permission_success_result">Thanks all permissions success</string>
-	<string name="permission_snack_ok">Ok</string>
+    <string name="permission_error_result">Some permissions are denied, this app could fail</string>
+    <string name="permission_success_result">Thanks all permissions success</string>
+    <string name="permission_snack_ok">Ok</string>
 
-	<string name="help">help</string>
+    <string name="help">help</string>
 
-	<string name="drawer_inventory">Inventory</string>
-	<string name="drawer_help">Help</string>
-	<string name="drawer_about">About</string>
+    <string name="drawer_inventory">Inventory</string>
+    <string name="drawer_help">Help</string>
+    <string name="drawer_about">About</string>
 
-	<!--Error Message-->
+    <!--Error Message-->
 
-	<string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
-	<string name="error_url_is_not_found">The requested URL is not found, please check it</string>
-	<string name="error_protocol">Protocol exception, please check your url</string>
-	<string name="error_server_not_response">Server doesn\'t reply, please check your url</string>
-	<string name="error_send_fail">Can\'t send the inventory, please check your connection</string>
+    <string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
+    <string name="error_url_is_not_found">The requested URL is not found, please check it</string>
+    <string name="error_protocol">Protocol exception, please check your url</string>
+    <string name="error_server_not_response">Server doesn\'t reply, please check your url</string>
+    <string name="error_send_fail">Can\'t send the inventory, please check your connection</string>
 
-	<!--About-->
+    <!--About-->
 
-	<string name="AboutTitle">About</string>
-	<string name="AboutSummary">License and build information</string>
+    <string name="AboutTitle">About</string>
+    <string name="AboutSummary">License and build information</string>
 
-	<!--Help Center-->
+    <!--Help Center-->
 
-	<string name="HelpTitle">Help</string>
-	<string name="HelpSummary">Articles of the help center</string>
+    <string name="HelpTitle">Help</string>
+    <string name="HelpSummary">Articles of the help center</string>
 
-	<!--Privacy-->
+    <!--Privacy-->
 
-	<string name="AccueilPrivacyTitle">Privacy</string>
-	<string name="AccueilCrashReportTitle">Health Report</string>
-	<string name="AccueilCrashReportSummaryOn">Send crash reports</string>
-	<string name="AccueilCrashReportSummaryOff">Send crash reports</string>
-	<string name="AccueilAnonymousDataTitle">Usage Data</string>
-	<string name="AccueilAnonymousDataSummaryOn">Send anonymous usage data</string>
-	<string name="AccueilAnonymousDataSummaryOff">Send anonymous usage data</string>
+    <string name="AccueilPrivacyTitle">Privacy</string>
+    <string name="AccueilCrashReportTitle">Health Report</string>
+    <string name="AccueilCrashReportSummaryOn">Send crash reports</string>
+    <string name="AccueilCrashReportSummaryOff">Send crash reports</string>
+    <string name="AccueilAnonymousDataTitle">Usage Data</string>
+    <string name="AccueilAnonymousDataSummaryOn">Send anonymous usage data</string>
+    <string name="AccueilAnonymousDataSummaryOff">Send anonymous usage data</string>
 
-	<!-- FragmentAccueil Preferences -->
+    <!-- FragmentAccueil Preferences -->
 
-	<string name="AccueilTitle">Inventory Agent Settings</string>
+    <string name="AccueilTitle">Inventory Agent Settings</string>
 
-	<!-- Inventory part -->
+    <!-- Inventory part -->
 
-	<string name="AccueilInventoryTitle">Inventory</string>
-	<string name="AccueilInventorySummaryOn">Disable inventory</string>
-	<string name="AccueilInventorySummaryOff">Enable inventory</string>
-	<string name="AccueilInventoryRun">Run inventory now</string>
-	<string name="AccueilInventoryRunSummary">Send inventory report</string>
-	<string name="AccueilInventoryParam">Inventory parameters</string>
-	<string name="AccueilInventoryParamSummary">Schedule the inventory task</string>
-	<string name="AccueilInventoryShow">Show my inventory</string>
-	<string name="AccueilInventoryShowSummary">Display inventory report</string>
+    <string name="AccueilInventoryTitle">Inventory</string>
+    <string name="AccueilInventorySummaryOn">Disable inventory</string>
+    <string name="AccueilInventorySummaryOff">Enable inventory</string>
+    <string name="AccueilInventoryRun">Run inventory now</string>
+    <string name="AccueilInventoryRunSummary">Send inventory report</string>
+    <string name="AccueilInventoryParam">Inventory parameters</string>
+    <string name="AccueilInventoryParamSummary">Schedule the inventory task</string>
+    <string name="AccueilInventoryShow">Show my inventory</string>
+    <string name="AccueilInventoryShowSummary">Display inventory report</string>
 
-	<!-- Remote view part -->
+    <!-- Remote view part -->
 
-	<string name="AccueilRemoteTitle">Remote view</string>
-	<string name="AccueilRemoteSummaryOn">Click to disable remote view</string>
-	<string name="AccueilRemoteSummaryOff">Click to enable remote view</string>
-	<string name="AccueilRemoteParam">Parameters remote view</string>
-	<string name="AccueilRemoteParamSummary">Setup remote view settings</string>
+    <string name="AccueilRemoteTitle">Remote view</string>
+    <string name="AccueilRemoteSummaryOn">Click to disable remote view</string>
+    <string name="AccueilRemoteSummaryOff">Click to enable remote view</string>
+    <string name="AccueilRemoteParam">Parameters remote view</string>
+    <string name="AccueilRemoteParamSummary">Setup remote view settings</string>
 
-	<!-- SSH part -->
+    <!-- SSH part -->
 
-	<string name="AccueilSshTitle">Secure Shell</string>
-	<string name="AccueilSshSummaryOn">Click to disable SSH</string>
-	<string name="AccueilSshSummaryOff">Click to enable SSH</string>
+    <string name="AccueilSshTitle">Secure Shell</string>
+    <string name="AccueilSshSummaryOn">Click to disable SSH</string>
+    <string name="AccueilSshSummaryOff">Click to enable SSH</string>
 
-	<!-- global part -->
+    <!-- global part -->
 
-	<string name="AccueilGlobalTitle">Global</string>
-	<string name="AccueilGlobalParam">Global settings</string>
-	<string name="AccueilGlobalParamSummary">Setup certificates, server ...</string>
+    <string name="AccueilGlobalTitle">Global</string>
+    <string name="AccueilGlobalParam">Global settings</string>
+    <string name="AccueilGlobalParamSummary">Setup certificates, server ...</string>
 
-	<!-- Advanced settings part -->
+    <!-- Advanced settings part -->
 
-	<string name="AdvancedCatDebug">Debug tools</string>
-	<string name="AdvancedDaemon">Run daemon as root</string>
-	<string name="AdvancedDaemonSummaryOff">Click to run daemon as user</string>
-	<string name="AdvancedDaemonSummaryOn">Click to run daemon as root</string>
-	<string name="AdvancedNotify">Notify clients connected</string>
-	<string name="AdvancedNotifySummaryOff">Click to enable notifications</string>
-	<string name="AdvancedNotifySummaryOn">Click to disable notifications</string>
-	<string name="AdvancedDebug">Debug messages</string>
-	<string name="AdvancedDebugSummaryOff">Click to enable debug messages</string>
-	<string name="AdvancedDebugSummaryOn">Click to disable debug messages</string>
-	<string name="AdvancedCatBin">Path to binaries</string>
-	<string name="AdvancedSU">Path to SU</string>
-	<string name="AdvancedSUSummary">Define path to SU binarie</string>
-	<string name="AdvancedSH">Path to SH</string>
-	<string name="AdvancedSHSummary">Define path to SH binarie</string>
+    <string name="AdvancedCatDebug">Debug tools</string>
+    <string name="AdvancedDaemon">Run daemon as root</string>
+    <string name="AdvancedDaemonSummaryOff">Click to run daemon as user</string>
+    <string name="AdvancedDaemonSummaryOn">Click to run daemon as root</string>
+    <string name="AdvancedNotify">Notify clients connected</string>
+    <string name="AdvancedNotifySummaryOff">Click to enable notifications</string>
+    <string name="AdvancedNotifySummaryOn">Click to disable notifications</string>
+    <string name="AdvancedDebug">Debug messages</string>
+    <string name="AdvancedDebugSummaryOff">Click to enable debug messages</string>
+    <string name="AdvancedDebugSummaryOn">Click to disable debug messages</string>
+    <string name="AdvancedCatBin">Path to binaries</string>
+    <string name="AdvancedSU">Path to SU</string>
+    <string name="AdvancedSUSummary">Define path to SU binarie</string>
+    <string name="AdvancedSH">Path to SH</string>
+    <string name="AdvancedSHSummary">Define path to SH binarie</string>
 
-	<!-- Auth settings part -->
+    <!-- Auth settings part -->
 
-	<string name="AuthCatCertif">Certificate</string>
-	<string name="AuthCertif">User certificate</string>
-	<string name="AuthCertifSummary">Define path to user certificate</string>
-	<string name="AuthCA">CA certificate</string>
-	<string name="AuthCASummary">Define path to CA certificate</string>
-	<string name="AuthCatPass">Passwords and keys</string>
-	<string name="AuthPrivateKey">Private key</string>
-	<string name="AuthPrivateKeySummary">Define path to private key</string>
-	<string name="AuthPrivatePass">Private key password</string>
-	<string name="AuthPrivatePassSummary">Define the private key password</string>
+    <string name="AuthCatCertif">Certificate</string>
+    <string name="AuthCertif">User certificate</string>
+    <string name="AuthCertifSummary">Define path to user certificate</string>
+    <string name="AuthCA">CA certificate</string>
+    <string name="AuthCASummary">Define path to CA certificate</string>
+    <string name="AuthCatPass">Passwords and keys</string>
+    <string name="AuthPrivateKey">Private key</string>
+    <string name="AuthPrivateKeySummary">Define path to private key</string>
+    <string name="AuthPrivatePass">Private key password</string>
+    <string name="AuthPrivatePassSummary">Define the private key password</string>
 
-	<!-- Global settings part -->
+    <!-- Global settings part -->
 
-	<string name="GlobalCat">Global</string>
-	<string name="GlobalBoot">Boot options</string>
-	<string name="GlobalBootSummaryOn">Startup from system boot</string>
-	<string name="GlobalBootSummaryOff">Startup from system boot</string>
-	<string name="GlobalNotif">Notifications</string>
-	<string name="GlobalNotifSummaryOn">Disable notifications</string>
-	<string name="GlobalNotifSummaryOff">Enable notifications</string>
-	<string name="GlobalCatSet">Server settings</string>
-	<string name="GlobalServer">Server address</string>
-	<string name="GlobalServerSummary">Define server address</string>
-	<string name="GlobalService">Authentication</string>
-	<string name="GlobalServiceSummary">Setup password, public keys ...</string>
-	<string name="GlobalCatAdvanced">Advanced settings</string>
-	<string name="GlobalAdvanced">Advanced Settings</string>
-	<string name="GlobalAdvancedSummary">Setup daemon settings, path to binaries ...</string>
+    <string name="GlobalCat">Global</string>
+    <string name="GlobalBoot">Boot options</string>
+    <string name="GlobalBootSummaryOn">Startup from system boot</string>
+    <string name="GlobalBootSummaryOff">Startup from system boot</string>
+    <string name="GlobalNotif">Notifications</string>
+    <string name="GlobalNotifSummaryOn">Disable notifications</string>
+    <string name="GlobalNotifSummaryOff">Enable notifications</string>
+    <string name="GlobalCatSet">Server settings</string>
+    <string name="GlobalServer">Server address</string>
+    <string name="GlobalServerSummary">Define server address</string>
+    <string name="GlobalService">Authentication</string>
+    <string name="GlobalServiceSummary">Setup password, public keys ...</string>
+    <string name="GlobalCatAdvanced">Advanced settings</string>
+    <string name="GlobalAdvanced">Advanced Settings</string>
+    <string name="GlobalAdvancedSummary">Setup daemon settings, path to binaries ...</string>
 
-	<!-- Inventory Preferences -->
+    <!-- Inventory Preferences -->
 
-	<string name="InventoryCat">Inventory</string>
-	<string name="InventoryAuto">Automatic inventory</string>
-	<string name="InventoryAutoSummaryOn">Disable automatic inventory</string>
-	<string name="InventoryAutoSummaryOff">Enable automatic inventory</string>
-	<string name="InventoryFrequency">Frequency</string>
-	<string name="InventoryFrequencyDialog">Every :</string>
-	<string name="InventoryFrequencySummary">Define frequency</string>
+    <string name="InventoryCat">Inventory</string>
+    <string name="InventoryAuto">Automatic inventory</string>
+    <string name="InventoryAutoSummaryOn">Disable automatic inventory</string>
+    <string name="InventoryAutoSummaryOff">Enable automatic inventory</string>
+    <string name="InventoryFrequency">Frequency</string>
+    <string name="InventoryFrequencyDialog">Every :</string>
+    <string name="InventoryFrequencySummary">Define frequency</string>
+
+    <!--Permission-->
+    <string name="request_permission">Request Permission</string>
+    <string name="permission_message">This application requires special permits to work properly</string>
 
 </resources>
