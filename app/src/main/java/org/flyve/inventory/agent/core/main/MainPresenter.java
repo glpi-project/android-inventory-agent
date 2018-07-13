@@ -66,11 +66,6 @@ public class MainPresenter implements Main.Presenter {
     }
 
     @Override
-    public void requestPermission(Activity activity) {
-        model.requestPermission(activity);
-    }
-
-    @Override
     public void setupInventoryAlarm(Context context) {
         model.setupInventoryAlarm(context);
     }
