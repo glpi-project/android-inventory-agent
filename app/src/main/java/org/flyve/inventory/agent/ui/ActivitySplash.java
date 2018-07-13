@@ -52,7 +52,7 @@ public class ActivitySplash extends Activity implements Splash.View {
 
         Splash.Presenter presenter = new SplashPresenter(this);
         presenter.setupStorage(ActivitySplash.this);
-        presenter.nextActivityWithDelay(DELAY, ActivitySplash.this, ActivityMain.class);
+        presenter.nextActivityWithDelay(DELAY, ActivitySplash.this, PermissionActivity.class);
     }
 
     @Override
