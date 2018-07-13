@@ -1,6 +1,3 @@
----
-layout: coverage
----
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>SplashModel.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.core.splash</a> &gt; <span class="el_source">SplashModel.java</span></div><h1>SplashModel.java</h1><pre class="source lang-java linenums">/*
  * Copyright Teclib. All rights reserved.
  *
@@ -29,6 +26,7 @@ package org.flyve.inventory.agent.core.splash;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.LocalStorage;
@@ -37,41 +35,43 @@ public class SplashModel implements Splash.Model {
 
     private Splash.Presenter presenter;
 
-<span class="fc" id="L37">    public SplashModel(Splash.Presenter presenter) {</span>
-<span class="fc" id="L38">        this.presenter = presenter;</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L38">    public SplashModel(Splash.Presenter presenter) {</span>
+<span class="fc" id="L39">        this.presenter = presenter;</span>
+<span class="fc" id="L40">    }</span>
 
     public void setupStorage(Context context) {
         try {
-<span class="fc" id="L43">            LocalStorage localStorage = new LocalStorage(context);</span>
+<span class="fc" id="L44">            LocalStorage localStorage = new LocalStorage(context);</span>
 
-<span class="fc" id="L45">            String crashReport = localStorage.getData(&quot;crashReport&quot;);</span>
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            if (crashReport == null) {</span>
-<span class="nc" id="L47">                localStorage.setData(&quot;crashReport&quot;, &quot;true&quot;);</span>
+<span class="fc" id="L46">            String crashReport = localStorage.getData(&quot;crashReport&quot;);</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">            if (crashReport == null) {</span>
+<span class="nc" id="L48">                localStorage.setData(&quot;crashReport&quot;, &quot;true&quot;);</span>
             }
 
-<span class="fc" id="L50">            String anonymousData = localStorage.getData(&quot;anonymousData&quot;);</span>
-<span class="pc bpc" id="L51" title="1 of 2 branches missed.">            if (anonymousData == null) {</span>
-<span class="nc" id="L52">                localStorage.setData(&quot;anonymousData&quot;, &quot;true&quot;);</span>
+<span class="fc" id="L51">            String anonymousData = localStorage.getData(&quot;anonymousData&quot;);</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            if (anonymousData == null) {</span>
+<span class="nc" id="L53">                localStorage.setData(&quot;anonymousData&quot;, &quot;true&quot;);</span>
             }
-<span class="nc" id="L54">        } catch (Exception ex) {</span>
-<span class="nc" id="L55">            FlyveLog.e(ex.getMessage());</span>
-<span class="nc" id="L56">            presenter.showError(ex.getMessage());</span>
-<span class="fc" id="L57">        }</span>
-<span class="fc" id="L58">    }</span>
+<span class="nc" id="L55">        } catch (Exception ex) {</span>
+<span class="nc" id="L56">            FlyveLog.e(ex.getMessage());</span>
+<span class="nc" id="L57">            presenter.showError(ex.getMessage());</span>
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">    }</span>
 
     public void nextActivityWithDelay(int delay, final Activity activity, final Class&lt;?&gt; classToOpen) {
         try {
-<span class="fc" id="L62">            new Handler().postDelayed(new Runnable() {</span>
+<span class="fc" id="L63">            new Handler().postDelayed(new Runnable() {</span>
                 @Override
                 public void run() {
-<span class="nc" id="L65">                    Helpers.openActivity(activity, classToOpen, true);</span>
-<span class="nc" id="L66">                }</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                    if(!activity.isFinishing()) {</span>
+<span class="nc" id="L67">                        Helpers.openActivity(activity, classToOpen, true);</span>
+                    }
+<span class="nc" id="L69">                }</span>
             }, delay);
-<span class="nc" id="L68">        } catch (Exception ex) {</span>
-<span class="nc" id="L69">            FlyveLog.e(ex.getMessage());</span>
-<span class="nc" id="L70">            presenter.showError(ex.getMessage());</span>
-<span class="fc" id="L71">        }</span>
-<span class="fc" id="L72">    }</span>
+<span class="nc" id="L71">        } catch (Exception ex) {</span>
+<span class="nc" id="L72">            FlyveLog.e(ex.getMessage());</span>
+<span class="nc" id="L73">            presenter.showError(ex.getMessage());</span>
+<span class="fc" id="L74">        }</span>
+<span class="fc" id="L75">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>
