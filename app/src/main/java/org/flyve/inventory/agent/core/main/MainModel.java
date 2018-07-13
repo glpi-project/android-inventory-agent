@@ -23,17 +23,12 @@
 
 package org.flyve.inventory.agent.core.main;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.widget.ListView;
 
 import org.flyve.inventory.agent.R;
@@ -57,33 +52,6 @@ public class MainModel implements Main.Model {
 
     public MainModel(Main.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    public void requestPermission(final Activity activity) {
-        boolean isGranted = true;
-        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
-        if(result != PackageManager.PERMISSION_GRANTED) {
-            isGranted = false;
-        }
-
-        result = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if(result != PackageManager.PERMISSION_GRANTED) {
-            isGranted = false;
-        }
-
-        if(!isGranted) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ActivityCompat.requestPermissions(activity,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.CAMERA,
-                            },
-                            1);
-                }
-            }, 5000);
-
-        }
     }
 
     @Override

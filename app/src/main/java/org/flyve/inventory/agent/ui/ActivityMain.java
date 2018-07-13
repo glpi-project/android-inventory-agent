@@ -28,8 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
@@ -109,10 +107,6 @@ public class ActivityMain extends AppCompatActivity implements Main.View, Shared
         Map<String, String> menuItem = presenter.setupDrawer(ActivityMain.this, lst);
         presenter.loadFragment(fragmentManager, toolbar, menuItem);
 
-        if(Build.VERSION.SDK_INT >= 23) {
-            presenter.requestPermission(ActivityMain.this);
-        }
-
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -137,23 +131,6 @@ public class ActivityMain extends AppCompatActivity implements Main.View, Shared
     protected void onDestroy() {
         super.onDestroy();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    Helpers.snackClose(ActivityMain.this, getString(R.string.permission_success_result), getString(R.string.permission_snack_ok), false);
-                } else {
-                    presenter.showError(getString(R.string.permission_error_result));
-                }
-            }
-        }
     }
 
     @Override
