@@ -56,10 +56,12 @@ public class Helpers {
     }
 
     public static void openActivity(Activity activity, Class<?> classToOpen, boolean closeThisActivity) {
-        Intent miIntent = new Intent(activity, classToOpen);
-        activity.startActivity(miIntent);
-        if(closeThisActivity) {
-            activity.finish();
+        if(!activity.isFinishing()) {
+            Intent miIntent = new Intent(activity, classToOpen);
+            activity.startActivity(miIntent);
+            if (closeThisActivity) {
+                activity.finish();
+            }
         }
     }
 
