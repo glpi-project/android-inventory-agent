@@ -63,9 +63,7 @@ public class SplashModel implements Splash.Model {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(!activity.isFinishing()) {
-                        Helpers.openActivity(activity, classToOpen, true);
-                    }
+                    Helpers.openActivity(activity, classToOpen, true);
                 }
             }, delay);
         } catch (Exception ex) {
