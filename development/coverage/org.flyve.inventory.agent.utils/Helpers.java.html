@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>Helpers.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">Helpers.java</span></div><h1>Helpers.java</h1><pre class="source lang-java linenums">/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Rafael Hernandez
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
+package org.flyve.inventory.agent.utils;
+
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
+import android.view.View;
+
+import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.ui.ActivityMain;
+import org.flyve.inventory.agent.R;
+
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
+
+public class Helpers {
+
+    /**
+     * private constructor
+     */
+<span class="nc" id="L55">    private Helpers() {</span>
+<span class="nc" id="L56">    }</span>
+
+    public static void openActivity(Activity activity, Class&lt;?&gt; classToOpen, boolean closeThisActivity) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if(!activity.isFinishing()) {</span>
+<span class="nc" id="L60">            Intent miIntent = new Intent(activity, classToOpen);</span>
+<span class="nc" id="L61">            activity.startActivity(miIntent);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">            if (closeThisActivity) {</span>
+<span class="nc" id="L63">                activity.finish();</span>
+            }
+        }
+<span class="nc" id="L66">    }</span>
+
+    /**
+     * Generate a snackbar with the given arguments
+     * @param activity the view to show
+     * @param message to display
+     * @param action the text to display for the action
+     * @param fail the callback to be invoked when the action is clicked
+     */
+    public static void snackClose(Activity activity, String message, String action, Boolean fail) {
+
+<span class="nc" id="L77">        int color = activity.getResources().getColor(R.color.snackbar_action_good);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if(fail) {</span>
+<span class="nc" id="L79">            color = activity.getResources().getColor(R.color.snackbar_action_fail);</span>
+        }
+
+<span class="nc" id="L82">        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)</span>
+<span class="nc" id="L83">                .setActionTextColor(color)</span>
+<span class="nc" id="L84">                .setAction(action, new View.OnClickListener() {</span>
+                    @Override
+                    public void onClick(View v) {
+<span class="nc" id="L87">                    }</span>
+                })
+<span class="nc" id="L89">                .show();</span>
+<span class="nc" id="L90">    }</span>
+
+    public static String splitCamelCase(String s) {
+<span class="nc" id="L93">        return capitalize(s.replaceAll(</span>
+<span class="nc" id="L94">                String.format(&quot;%s|%s|%s&quot;,</span>
+                        &quot;(?&lt;=[A-Z])(?=[A-Z][a-z])&quot;,
+                        &quot;(?&lt;=[^A-Z])(?=[A-Z])&quot;,
+                        &quot;(?&lt;=[A-Za-z])(?=[^A-Za-z])&quot;
+                ),
+                &quot; &quot;)
+        );
+    }
+
+    public static void sendAnonymousData(Context context, InventoryTask inventoryTask) {
+        // Sending anonymous information
+<span class="nc" id="L105">        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);</span>
+<span class="nc" id="L106">        Boolean val = sharedPreferences.getBoolean(&quot;anonymousData&quot;,false);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if(val) {</span>
+<span class="nc" id="L108">            inventoryTask.setPrivateData(true);</span>
+<span class="nc" id="L109">            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {</span>
+                @Override
+                public void onTaskSuccess(String s) {
+<span class="nc" id="L112">                    FlyveLog.d(s);</span>
+<span class="nc" id="L113">                    ConnectionHTTP.syncWebData(&quot;https://inventory.chollima.pro/-1001180163835/&quot;, s);</span>
+<span class="nc" id="L114">                }</span>
+
+                @Override
+                public void onTaskError(Throwable throwable) {
+<span class="nc" id="L118">                    FlyveLog.e(throwable.getMessage());</span>
+<span class="nc" id="L119">                }</span>
+            });
+        }
+<span class="nc" id="L122">    }</span>
+
+
+    public static boolean isForeground() {
+<span class="nc" id="L126">        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();</span>
+<span class="nc" id="L127">        ActivityManager.getMyMemoryState(appProcessInfo);</span>
+<span class="nc bnc" id="L128" title="All 4 branches missed.">        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);</span>
+    }
+
+    public static void sendToNotificationBar(Context context, String message) {
+<span class="nc" id="L132">        Intent resultIntent = new Intent(context, ActivityMain.class);</span>
+<span class="nc" id="L133">        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);</span>
+<span class="nc" id="L134">        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);</span>
+
+<span class="nc" id="L136">        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);</span>
+
+<span class="nc" id="L138">        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)</span>
+<span class="nc" id="L139">                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))</span>
+<span class="nc" id="L140">                .setContentTitle(context.getResources().getString(R.string.app_name))</span>
+<span class="nc" id="L141">                .setContentText(message)</span>
+<span class="nc" id="L142">                .setSound(defaultSoundUri)</span>
+<span class="nc" id="L143">                .setAutoCancel(true)</span>
+<span class="nc" id="L144">                .setContentIntent(piResult)</span>
+<span class="nc" id="L145">                .setPriority(Notification.PRIORITY_HIGH);</span>
+
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (android.os.Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span>
+<span class="nc" id="L148">            builder.setSmallIcon(R.drawable.ic_notification_white);</span>
+        } else {
+<span class="nc" id="L150">            builder.setSmallIcon(R.mipmap.ic_launcher);</span>
+        }
+
+
+<span class="nc" id="L154">        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));</span>
+
+<span class="nc" id="L156">        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);</span>
+<span class="nc" id="L157">        notificationManager.notify(121, builder.build());</span>
+<span class="nc" id="L158">    }</span>
+
+    public static void share(Context context, String message, final int type){
+<span class="nc" id="L161">        final InventoryTask inventoryTask = new InventoryTask(context, &quot;&quot;, true);</span>
+<span class="nc" id="L162">        inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {</span>
+            @Override
+            public void onTaskSuccess(String s) {
+<span class="nc" id="L165">                inventoryTask.shareInventory(type);</span>
+<span class="nc" id="L166">            }</span>
+
+            @Override
+            public void onTaskError(Throwable throwable) {
+<span class="nc" id="L170">                FlyveLog.e(throwable.getMessage());</span>
+<span class="nc" id="L171">            }</span>
+        });
+<span class="nc" id="L173">    }</span>
+
+    public static String capitalize(String str) {
+<span class="nc" id="L176">        StringBuilder sb = new StringBuilder(str.toLowerCase());</span>
+<span class="nc" id="L177">        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));</span>
+<span class="nc" id="L178">        return sb.toString();</span>
+    }
+
+    public static String getAgentDescription(Context context) {
+
+<span class="fc" id="L183">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(context);</span>
+
+<span class="fc" id="L185">        String name = &quot;Inventory Agent/&quot;;</span>
+<span class="fc" id="L186">        String versionApp = enviromentInfo.getVersion();</span>
+<span class="fc" id="L187">        String type = &quot;Linux&quot;;</span>
+<span class="fc" id="L188">        String versionAndroid = &quot;Android &quot; + Build.VERSION.RELEASE;</span>
+<span class="fc" id="L189">        String app = &quot;Flyve MDM&quot;;</span>
+
+        // Inventory Agent/0.2.0[568] (Linux; Android 4.0.4; Flyve MDM)
+<span class="fc" id="L192">        return name + versionApp + &quot; (&quot; + type + &quot;; &quot; + versionAndroid + &quot;; &quot; + app + &quot;)&quot;;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.1</div></body></html>
