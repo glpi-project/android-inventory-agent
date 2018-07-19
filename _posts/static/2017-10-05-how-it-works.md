@@ -15,9 +15,9 @@ The Inventory Agent will scan your device and gather all the hardware and softwa
 <br />
 
 <div>
-<img src="https://github.com/Naylin15/Screenshots/blob/master/A-I-A/main.png?raw=true" alt="Inventory Agent Main" height="500">
+<img src="https://git.io/fNcfC" alt="Inventory Agent Main" height="500">
 
-<img src="https://github.com/Naylin15/Screenshots/blob/master/A-I-A/show.png?raw=true" alt="Show my inventory" height="500">
+<img src="https://git.io/fNcf0" alt="Show my inventory" height="500">
 </div>
 
 ## Send
