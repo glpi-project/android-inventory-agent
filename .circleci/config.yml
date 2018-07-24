@@ -9,6 +9,7 @@ jobs:
     branches:
       only:
         - gh-pages
+        - /feature/.*/
     steps:
       - checkout
       - restore_cache:
