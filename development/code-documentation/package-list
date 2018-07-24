@@ -4,7 +4,6 @@ org.flyve.inventory.agent.core.about
 org.flyve.inventory.agent.core.help
 org.flyve.inventory.agent.core.home
 org.flyve.inventory.agent.core.main
-org.flyve.inventory.agent.core.permission
 org.flyve.inventory.agent.core.report
 org.flyve.inventory.agent.core.splash
 org.flyve.inventory.agent.preference

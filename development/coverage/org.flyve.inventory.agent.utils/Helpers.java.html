@@ -1,6 +1,3 @@
----
-layout: coverage
----
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../resources/report.css" type="text/css"/><link rel="shortcut icon" href="../resources/report.gif" type="image/gif"/><title>Helpers.java</title><link rel="stylesheet" href="../resources/prettify.css" type="text/css"/><script type="text/javascript" src="../resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">org.flyve.inventory.agent.utils</a> &gt; <span class="el_source">Helpers.java</span></div><h1>Helpers.java</h1><pre class="source lang-java linenums">/*
  * Copyright Teclib. All rights reserved.
  *
@@ -158,39 +155,36 @@ public class Helpers {
 <span class="nc" id="L155">        notificationManager.notify(121, builder.build());</span>
 <span class="nc" id="L156">    }</span>
 
-    public static void share(Context context, String message, final int type){
-<span class="nc" id="L159">        final InventoryTask inventoryTask = new InventoryTask(context, &quot;&quot;, true);</span>
-<span class="nc" id="L160">        inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {</span>
-            @Override
-            public void onTaskSuccess(String s) {
-<span class="nc" id="L163">                inventoryTask.shareInventory(type);</span>
-<span class="nc" id="L164">            }</span>
-
-            @Override
-            public void onTaskError(Throwable throwable) {
-<span class="nc" id="L168">                FlyveLog.e(throwable.getMessage());</span>
-<span class="nc" id="L169">            }</span>
-        });
-<span class="nc" id="L171">    }</span>
+    public static void share(Context context, String message, int type){
+<span class="nc" id="L159">        Intent intent = new Intent(Intent.ACTION_SEND);</span>
+<span class="nc" id="L160">        intent.setType(&quot;text/plain&quot;);</span>
+<span class="nc" id="L161">        intent.putExtra(Intent.EXTRA_TEXT, message);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if(type==1) {</span>
+<span class="nc" id="L163">            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;file:///sdcard/FlyveMDM/Inventory.json&quot;));</span>
+        } else {
+<span class="nc" id="L165">            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;file:///sdcard/FlyveMDM/Inventory.xml&quot;));</span>
+        }
+<span class="nc" id="L167">        context.startActivity(Intent.createChooser(intent, &quot;Share your inventory&quot;));</span>
+<span class="nc" id="L168">    }</span>
 
     public static String capitalize(String str) {
-<span class="nc" id="L174">        StringBuilder sb = new StringBuilder(str.toLowerCase());</span>
-<span class="nc" id="L175">        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));</span>
-<span class="nc" id="L176">        return sb.toString();</span>
+<span class="nc" id="L171">        StringBuilder sb = new StringBuilder(str.toLowerCase());</span>
+<span class="nc" id="L172">        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));</span>
+<span class="nc" id="L173">        return sb.toString();</span>
     }
 
     public static String getAgentDescription(Context context) {
 
-<span class="fc" id="L181">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(context);</span>
+<span class="fc" id="L178">        EnvironmentInfo enviromentInfo = new EnvironmentInfo(context);</span>
 
-<span class="fc" id="L183">        String name = &quot;Inventory Agent/&quot;;</span>
-<span class="fc" id="L184">        String versionApp = enviromentInfo.getVersion();</span>
-<span class="fc" id="L185">        String type = &quot;Linux&quot;;</span>
-<span class="fc" id="L186">        String versionAndroid = &quot;Android &quot; + Build.VERSION.RELEASE;</span>
-<span class="fc" id="L187">        String app = &quot;Flyve MDM&quot;;</span>
+<span class="fc" id="L180">        String name = &quot;Inventory Agent/&quot;;</span>
+<span class="fc" id="L181">        String versionApp = enviromentInfo.getVersion();</span>
+<span class="fc" id="L182">        String type = &quot;Linux&quot;;</span>
+<span class="fc" id="L183">        String versionAndroid = &quot;Android &quot; + Build.VERSION.RELEASE;</span>
+<span class="fc" id="L184">        String app = &quot;Flyve MDM&quot;;</span>
 
         // Inventory Agent/0.2.0[568] (Linux; Android 4.0.4; Flyve MDM)
-<span class="fc" id="L190">        return name + versionApp + &quot; (&quot; + type + &quot;; &quot; + versionAndroid + &quot;; &quot; + app + &quot;)&quot;;</span>
+<span class="fc" id="L187">        return name + versionApp + &quot; (&quot; + type + &quot;; &quot; + versionAndroid + &quot;; &quot; + app + &quot;)&quot;;</span>
     }
 
 }
