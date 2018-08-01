@@ -45,7 +45,6 @@ fi
 yarn gh-pages --dist ./ --src CHANGELOG.md --dest ./_includes/ --add -m "docs(changelog): update changelog with version ${GIT_TAG}"
 
 # remove from stash
-git checkout app/src/main/assets/setup.properties
 git checkout app/src/main/assets/about.properties
 
 # update manifest changes
@@ -71,7 +70,7 @@ if [[ $CIRCLE_BRANCH != "$IS_PRERELEASE" ]]; then
     --user "${CIRCLE_PROJECT_USERNAME}" \
     --repo "${CIRCLE_PROJECT_REPONAME}" \
     --tag "${GIT_TAG}" \
-    --name "MDMAgent-${GIT_TAG}.apk" \
+    --name "InventoryAgent-${GIT_TAG}.apk" \
     --file ${FILE}
 
 else
@@ -81,7 +80,7 @@ else
     --user "${CIRCLE_PROJECT_USERNAME}" \
     --repo "${CIRCLE_PROJECT_REPONAME}" \
     --tag "${GIT_TAG}" \
-    --name "MDMAgent-${GIT_TAG}.apk" \
+    --name "InventoryAgent-${GIT_TAG}.apk" \
     --file ${FILE} \
     --pre-release
 

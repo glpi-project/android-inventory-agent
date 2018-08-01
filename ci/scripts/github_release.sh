@@ -41,12 +41,12 @@ yarn github-release edit \
 --user $CIRCLE_PROJECT_USERNAME \
 --repo $CIRCLE_PROJECT_REPONAME \
 --tag ${GIT_TAG} \
---name "MDM Agent v${GIT_TAG}" \
+--name "Inventory Agent v${GIT_TAG}" \
 
 # Upload example code release
 yarn github-release upload \
 --user $CIRCLE_PROJECT_USERNAME \
 --repo $CIRCLE_PROJECT_REPONAME \
 --tag ${GIT_TAG} \
---name "MDMAgent-${GIT_TAG}.apk" \
+--name "InventoryAgent-${GIT_TAG}.apk" \
 --file ${FILE}
