@@ -2,17 +2,17 @@
 #
 #  LICENSE
 #
-#  This file is part of Flyve MDM Inventory Agent for Android.
+#  This file is part of Flyve MDM.
 #
-#  Inventory Agent for Android is a subproject of Flyve MDM. Flyve MDM is a 
+#  Admin Dashboard for Android is a subproject of Flyve MDM. Flyve MDM is a
 #  mobile device management software.
 #
-#  Flyve MDM Inventory Agent for Android is free software: you can redistribute 
+#  Flyve MDM Admin Dashboard for Android is free software: you can redistribute 
 #  it and/or modify it under the terms of the GNU General Public License
 #  as published by the Free Software Foundation; either version 3
 #  of the License, or (at your option) any later version.
 #
-#  Flyve MDM Inventory Agent for Android is distributed in the hope that it will 
+#  Flyve MDM Admin Dashboard for Android is distributed in the hope that it will 
 #  be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
@@ -27,17 +27,11 @@
 #  ------------------------------------------------------------------------------
 #
 
-# Push commits and tags to origin branch
-git push --follow-tags origin $CIRCLE_BRANCH
+GH_COMMIT_MESSAGE=$(git log --pretty=oneline -n 1 $CIRCLE_SHA1)
 
-# go to develop
-git checkout develop
+# validate commit message to avoid repeated builds and loops
+if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* && $GH_COMMIT_MESSAGE != *"build(properties): add new properties values"* && $GH_COMMIT_MESSAGE != *"ci(release): update version on android manifest"* ]]; then
 
-# rebase with master
-git merge master
+    fastlane android "beta"
 
-# push develop
-git push origin develop --force
-
-# return to master
-git checkout master
+fi
