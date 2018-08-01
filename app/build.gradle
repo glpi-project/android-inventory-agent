@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -60,19 +60,15 @@ import java.util.regex.Pattern
 
 task updateVersionCode {
     doLast {
-        if (project.hasProperty("vCode")) {
-            def manifestFile = file("src/main/AndroidManifest.xml")
-            def pattern = Pattern.compile("versionCode=\"(\\d+)\"")
-            def manifestText = manifestFile.getText()
-            def matcher = pattern.matcher(manifestText)
-            matcher.find()
-
-            def manifestContent = matcher.replaceAll("versionCode=\"" + vCode + "\"")
-            println "Version Code: " + vCode
-            manifestFile.write(manifestContent)
-        } else {
-            println "please run: updateVersionCode -P vCode="
-        }
+        def manifestFile = file("src/main/AndroidManifest.xml")
+        def pattern = Pattern.compile("versionCode=\"(\\d+)\"")
+        def manifestText = manifestFile.getText()
+        def matcher = pattern.matcher(manifestText)
+        matcher.find()
+        def versionCode = Integer.parseInt(matcher.group(1))
+        def manifestContent = matcher.replaceAll("versionCode=\"" + ++versionCode + "\"")
+        println "Version Code: " + versionCode
+        manifestFile.write(manifestContent)
     }
 }
 
