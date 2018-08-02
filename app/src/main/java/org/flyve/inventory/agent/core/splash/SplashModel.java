@@ -25,10 +25,8 @@ package org.flyve.inventory.agent.core.splash;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.LocalStorage;
 
 public class SplashModel implements Splash.Model {
@@ -52,20 +50,8 @@ public class SplashModel implements Splash.Model {
             if (anonymousData == null) {
                 localStorage.setData("anonymousData", "true");
             }
-        } catch (Exception ex) {
-            FlyveLog.e(ex.getMessage());
-            presenter.showError(ex.getMessage());
-        }
-    }
 
-    public void nextActivityWithDelay(int delay, final Activity activity, final Class<?> classToOpen) {
-        try {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Helpers.openActivity(activity, classToOpen, true);
-                }
-            }, delay);
+            presenter.setupStorageReady();
         } catch (Exception ex) {
             FlyveLog.e(ex.getMessage());
             presenter.showError(ex.getMessage());
