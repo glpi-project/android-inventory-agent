@@ -25,18 +25,20 @@ package org.flyve.inventory.agent.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.splash.Splash;
 import org.flyve.inventory.agent.core.splash.SplashPresenter;
+import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 
 public class ActivitySplash extends Activity implements Splash.View {
 
     private static final int DELAY = 3000;
-
+    private Splash.Presenter presenter;
     /**
      * Called when the activity is starting, inflates the activity's UI
      * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
@@ -50,13 +52,27 @@ public class ActivitySplash extends Activity implements Splash.View {
 
         setContentView(R.layout.activity_splash);
 
-        Splash.Presenter presenter = new SplashPresenter(this);
+        presenter = new SplashPresenter(this);
         presenter.setupStorage(ActivitySplash.this);
-        presenter.nextActivityWithDelay(DELAY, ActivitySplash.this, PermissionActivity.class);
     }
 
     @Override
     public void showError(String message) {
         Helpers.snackClose(ActivitySplash.this, message, getString(R.string.permission_snack_ok), true);
+    }
+
+    @Override
+    public void setupStorageReady() {
+        try {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Helpers.openActivity(ActivitySplash.this, ActivityMain.class, true);
+                }
+            }, DELAY);
+        } catch (Exception ex) {
+            FlyveLog.e(ex.getMessage());
+            presenter.showError(ex.getMessage());
+        }
     }
 }

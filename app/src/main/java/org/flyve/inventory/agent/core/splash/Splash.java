@@ -23,26 +23,25 @@
 
 package org.flyve.inventory.agent.core.splash;
 
-import android.app.Activity;
 import android.content.Context;
 
 public interface Splash {
 
     interface View {
         void showError(String message);
+        void setupStorageReady();
     }
 
     interface Presenter {
         // Views
         void showError(String message);
+        void setupStorageReady();
 
         // Models
         void setupStorage(Context context);
-        void nextActivityWithDelay(int delay, final Activity activity, final Class<?> classToOpen);
     }
 
     interface Model {
         void setupStorage(Context context);
-        void nextActivityWithDelay(int delay, final Activity activity, final Class<?> classToOpen);
     }
 }

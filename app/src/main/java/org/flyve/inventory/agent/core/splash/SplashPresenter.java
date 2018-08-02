@@ -23,7 +23,6 @@
 
 package org.flyve.inventory.agent.core.splash;
 
-import android.app.Activity;
 import android.content.Context;
 
 public class SplashPresenter implements Splash.Presenter {
@@ -45,13 +44,15 @@ public class SplashPresenter implements Splash.Presenter {
     }
 
     @Override
-    public void setupStorage(Context context) {
-        model.setupStorage(context);
+    public void setupStorageReady() {
+        if(view!=null) {
+            view.setupStorageReady();
+        }
     }
 
     @Override
-    public void nextActivityWithDelay(int delay, Activity activity, Class<?> classToOpen) {
-        model.nextActivityWithDelay(delay, activity, classToOpen);
+    public void setupStorage(Context context) {
+        model.setupStorage(context);
     }
 
 }
