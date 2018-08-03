@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.1"></a>
+# [1.0.0-rc.1](https://github.com/flyve-mdm/android-inventory-agent/compare/0.5.0...1.0.0-rc.1) (2018-08-03)
+
+
+### Bug Fixes
+
+* **alarm:** check if execute the inventory ([e23e5ff](https://github.com/flyve-mdm/android-inventory-agent/commit/e23e5ff))
+* **alarm:** set repeting with interval day ([2b26632](https://github.com/flyve-mdm/android-inventory-agent/commit/2b26632))
+* **alarm:** update alarm repeating time ([920a1bf](https://github.com/flyve-mdm/android-inventory-agent/commit/920a1bf))
+* **build:** implement inventory library 0.8.6 ([d954988](https://github.com/flyve-mdm/android-inventory-agent/commit/d954988))
+* **inventory:** add log messages ([449c245](https://github.com/flyve-mdm/android-inventory-agent/commit/449c245))
+* **inventory:** catch empty url exception ([3a53517](https://github.com/flyve-mdm/android-inventory-agent/commit/3a53517))
+* **main:** remove request permission ([6e61dd4](https://github.com/flyve-mdm/android-inventory-agent/commit/6e61dd4))
+* **package:** update conventional-github-releaser to version 3.0.0 ([63eb802](https://github.com/flyve-mdm/android-inventory-agent/commit/63eb802))
+* **permission:** move next screen from main to permission ([19c4538](https://github.com/flyve-mdm/android-inventory-agent/commit/19c4538))
+* **share:** implement the inventory library share method ([b474026](https://github.com/flyve-mdm/android-inventory-agent/commit/b474026))
+* **splash:** add postdelayed direct on splash activity ([ecd0881](https://github.com/flyve-mdm/android-inventory-agent/commit/ecd0881))
+* **ui:** add delay on request permission popup ([e4fade7](https://github.com/flyve-mdm/android-inventory-agent/commit/e4fade7))
+
+
+### Features
+
+* **cache:** add long and boolean cache method ([d65afb2](https://github.com/flyve-mdm/android-inventory-agent/commit/d65afb2))
+* **countdown:** check the auto inventory to show the countdown ([b44a47f](https://github.com/flyve-mdm/android-inventory-agent/commit/b44a47f))
+* **design:** add check type item layout for home list ([84fe481](https://github.com/flyve-mdm/android-inventory-agent/commit/84fe481))
+* **design:** add default item layout for home list ([407634c](https://github.com/flyve-mdm/android-inventory-agent/commit/407634c))
+* **design:** add drawer menu adapter ([65ddf88](https://github.com/flyve-mdm/android-inventory-agent/commit/65ddf88))
+* **design:** add drawer menu titles ([b1d4398](https://github.com/flyve-mdm/android-inventory-agent/commit/b1d4398))
+* **design:** add global parameters layout ([f53ba44](https://github.com/flyve-mdm/android-inventory-agent/commit/f53ba44))
+* **design:** add global parameters preference ([268d7f9](https://github.com/flyve-mdm/android-inventory-agent/commit/268d7f9))
+* **design:** add header type item layout for home list ([96e5bf3](https://github.com/flyve-mdm/android-inventory-agent/commit/96e5bf3))
+* **design:** add icons resources ([dc92041](https://github.com/flyve-mdm/android-inventory-agent/commit/dc92041))
+* **design:** add inventory options ([3ae6986](https://github.com/flyve-mdm/android-inventory-agent/commit/3ae6986))
+* **design:** add inventory parameters layout ([1f517a7](https://github.com/flyve-mdm/android-inventory-agent/commit/1f517a7))
+* **design:** add inventory parameters preference ([28dd850](https://github.com/flyve-mdm/android-inventory-agent/commit/28dd850))
+* **design:** add list item drawer layout ([38c21f9](https://github.com/flyve-mdm/android-inventory-agent/commit/38c21f9))
+* **design:** add list on layout ([6b06d36](https://github.com/flyve-mdm/android-inventory-agent/commit/6b06d36))
+* **design:** add main activity ([4703aec](https://github.com/flyve-mdm/android-inventory-agent/commit/4703aec))
+* **design:** add send anonymous data method ([1f6cd8f](https://github.com/flyve-mdm/android-inventory-agent/commit/1f6cd8f))
+* **design:** add service and options ([550a892](https://github.com/flyve-mdm/android-inventory-agent/commit/550a892))
+* **design:** add text styles ([1a780c9](https://github.com/flyve-mdm/android-inventory-agent/commit/1a780c9))
+* **design:** create home adapter ([70a1bea](https://github.com/flyve-mdm/android-inventory-agent/commit/70a1bea))
+* **design:** create home schema for list ([e9a1f13](https://github.com/flyve-mdm/android-inventory-agent/commit/e9a1f13))
+* **design:** implement about like fragment ([c26b568](https://github.com/flyve-mdm/android-inventory-agent/commit/c26b568))
+* **design:** launch main activity ([63cb23a](https://github.com/flyve-mdm/android-inventory-agent/commit/63cb23a))
+* **design:** request permission to the user ([bcbccae](https://github.com/flyve-mdm/android-inventory-agent/commit/bcbccae))
+* **design:** update design with drawer and toolbar ([4364b4c](https://github.com/flyve-mdm/android-inventory-agent/commit/4364b4c))
+* **design:** update main activity layout ([e7dfa7c](https://github.com/flyve-mdm/android-inventory-agent/commit/e7dfa7c))
+* **help:** add help implementation ([39f2793](https://github.com/flyve-mdm/android-inventory-agent/commit/39f2793))
+* **inventory:** add count down on the service ([da2e70f](https://github.com/flyve-mdm/android-inventory-agent/commit/da2e70f))
+* **inventory:** implement count down ([a3224de](https://github.com/flyve-mdm/android-inventory-agent/commit/a3224de))
+* **menu:** update inventory icon ([d5ec4af](https://github.com/flyve-mdm/android-inventory-agent/commit/d5ec4af))
+* **permission:** add request permission screen ([fcce741](https://github.com/flyve-mdm/android-inventory-agent/commit/fcce741))
+* **privacy:** add privacy on anonymous data ([faea7e6](https://github.com/flyve-mdm/android-inventory-agent/commit/faea7e6))
+
+
+
 <a name="1.3.0"></a>
 # 1.3.0 (2018-06-22)
 
