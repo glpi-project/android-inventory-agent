@@ -49,16 +49,6 @@ public class HomeModelTest {
     @Rule
     public ActivityTestRule<ActivityMain> rule  = new ActivityTestRule<>(ActivityMain.class);
 
-//    @Test
-//    public void doBindService() {
-//        Home.Presenter presenter = mock(Home.Presenter.class);
-//        HomeModel homeModel = new HomeModel(presenter);
-//
-//        Activity activity = rule.getActivity();
-//        homeModel.doBindService(activity);
-//        assertTrue(true);
-//    }
-
     @Test
     public void setupList() {
         Home.Presenter presenter = mock(Home.Presenter.class);
@@ -67,8 +57,6 @@ public class HomeModelTest {
 
         Activity activity = rule.getActivity();
         homeModel.setupList(activity, lst);
-
-        //homeModel.getListItems();
     }
 
     @Test
