@@ -54,12 +54,4 @@ public class SplashModelTest {
         SplashModel splashModel = new SplashModel(presenter);
         splashModel.setupStorage(activity);
     }
-
-    @Test
-    public void nextActivityWithDelay() {
-        Activity activity = rule.getActivity();
-        Splash.Presenter presenter = mock(Splash.Presenter.class);
-        SplashModel splashModel = new SplashModel(presenter);
-        splashModel.nextActivityWithDelay(1, activity, ActivityMain.class);
-    }
 }
