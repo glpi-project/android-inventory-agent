@@ -50,15 +50,6 @@ public class MainModelTest {
     @Rule
     public ActivityTestRule<ActivityMain> rule  = new ActivityTestRule<>(ActivityMain.class);
 
-
-    @Test
-    public void requestPermission() {
-        Activity activity = rule.getActivity();
-        Main.Presenter presenter = mock(Main.Presenter.class);
-        MainModel mainModel = new MainModel(presenter);
-        mainModel.requestPermission(activity);
-    }
-
     @Test
     public void setupInventoryAlarm() {
         Activity activity = rule.getActivity();
