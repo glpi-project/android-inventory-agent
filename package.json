@@ -26,7 +26,7 @@
   "homepage": "http://flyve.org/android-inventory-agent/",
   "devDependencies": {
     "conventional-github-releaser": "^3.0.0",
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^2.0.0",
     "node-github-release": "^0.1.1",
     "standard-version": "^4.2.0"
   }
