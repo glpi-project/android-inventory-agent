@@ -100,11 +100,6 @@ In order to provide transparency on our release cycle and to maintain backward c
 
 See [the tags section of our GitHub project](http://github.com/flyve-mdm/android-inventory-agent/tags) for changelogs for each release version of Flyve MDM. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
 
-## Contribute
-
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/flyve-mdm/android-inventory-agent/issues).
-
 ## Contact
 
 For notices about major changes and general discussion of Flyve MDM development, subscribe to the [/r/FlyveMDM](http://www.reddit.com/r/FlyveMDM) subreddit.
@@ -116,6 +111,11 @@ Ping me @rafaelje in the IRC chatroom if you get stuck.
 The Flyve MDM and GLPI Network services are available through our [Partner's Network](http://www.teclib-edition.com/en/partners/). We provide special training, bug fixes with editor subscription, contributions for new features, and more.
 
 Obtain a personalized service experience, associated with benefits and opportunities.
+
+## Contribute
+
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
+guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/flyve-mdm/android-inventory-agent/issues).
 
 ## Copying
 
