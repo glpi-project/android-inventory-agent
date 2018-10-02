@@ -25,7 +25,8 @@ package org.flyve.inventory.agent.core.report;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class ReportPresenter implements Report.Presenter {
 
@@ -39,14 +40,21 @@ public class ReportPresenter implements Report.Presenter {
 
     @Override
     public void showError(String message) {
-        if(view!=null) {
+        if (view != null) {
             view.showError(message);
         }
     }
 
     @Override
-    public void generateReport(Activity activity, RecyclerView lst) {
-        model.generateReport(activity, lst);
+    public void sendInventory(String data, ArrayList<String> load) {
+        if (view != null) {
+            view.sendInventory(data, load);
+        }
+    }
+
+    @Override
+    public void generateReport(Activity activity) {
+        model.generateReport(activity);
     }
 
     @Override
