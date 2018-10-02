@@ -38,6 +38,8 @@ import org.flyve.inventory.agent.core.report.ReportPresenter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 
+import java.util.ArrayList;
+
 public class ActivityInventoryReport extends AppCompatActivity implements Report.View {
 
     private Report.Presenter presenter;
@@ -77,23 +79,21 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
             }
         });
 
-        /*RecyclerView lst = findViewById(R.id.lst);
-
-        GridLayoutManager llm = new GridLayoutManager(ActivityInventoryReport.this, 1);
-        lst.setLayoutManager(llm);
-
-        presenter.generateReport(ActivityInventoryReport.this, lst);*/
-        // Find the view pager that will allow the user to swipe between fragments
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        presenter.generateReport(ActivityInventoryReport.this);
     }
 
 
     @Override
     public void showError(String message) {
         Helpers.snackClose(ActivityInventoryReport.this, message, getString(R.string.permission_snack_ok), true);
+    }
+
+    @Override
+    public void sendInventory(String data, ArrayList<String> load) {
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), data, load);
+        viewPager.setAdapter(viewPagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
