@@ -25,25 +25,28 @@ package org.flyve.inventory.agent.core.report;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public interface Report {
 
     interface View {
         void showError(String message);
+        void sendInventory(String data, ArrayList<String> load);
     }
 
     interface Presenter {
         // Views
         void showError(String message);
+        void sendInventory(String data, ArrayList<String> load);
 
         // Models
-        void generateReport(final Activity activity, final RecyclerView lst);
+        void generateReport(final Activity activity);
         void showDialogShare(final Context context);
     }
 
     interface Model {
-        void generateReport(final Activity activity, final RecyclerView lst);
+        void generateReport(final Activity activity);
         void showDialogShare(final Context context);
     }
 }

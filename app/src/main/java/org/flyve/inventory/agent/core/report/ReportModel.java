@@ -28,18 +28,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.adapter.InventoryAdapter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class ReportModel implements Report.Model {
@@ -50,12 +47,12 @@ public class ReportModel implements Report.Model {
         this.presenter = presenter;
     }
 
-    public void generateReport(final Activity activity, final RecyclerView lst) {
+    public void generateReport(final Activity activity) {
         final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity), true);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {
-                load(activity, lst, s);
+                presenter.sendInventory(s, load(activity, s));
                 inventoryTask.getXMLSyn();
             }
 
@@ -66,9 +63,9 @@ public class ReportModel implements Report.Model {
         });
     }
 
-    private void load(Activity activity, RecyclerView lst, String jsonStr) {
+    private ArrayList<String> load(Activity activity, String jsonStr) {
         ProgressDialog progressBar = ProgressDialog.show(activity, "Creating inventory", activity.getResources().getString(R.string.loading));
-        ArrayList<HashMap<String, String>> data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(jsonStr);
@@ -82,49 +79,17 @@ public class ReportModel implements Report.Model {
 
                 if ( jsonContent.get(key) instanceof JSONArray) {
                     // add header
-                    FlyveLog.d("----------- Header: " + key);
-
-                    HashMap<String, String> h = new HashMap<>();
-                    h.put("type", "header");
-                    h.put("title", key.toUpperCase());
-
-                    if(!key.trim().equals("")) {
-                        data.add(h);
-                    }
-
-                    if(!key.equals("")) {
-                        JSONArray category = jsonContent.getJSONArray(key);
-                        for (int y = 0; y < category.length(); y++) {
-
-
-                            JSONObject obj = category.getJSONObject(y);
-
-                            Iterator<?> keysObj = obj.keys();
-
-                            while (keysObj.hasNext()) {
-                                HashMap<String, String> c = new HashMap<>();
-
-                                String keyObj = (String) keysObj.next();
-                                c.put("type", "data");
-                                c.put("title", keyObj);
-                                c.put("description", obj.getString(keyObj));
-                                FlyveLog.d(keyObj);
-
-                                data.add(c);
-                            }
-                        }
-                    }
+                    data.add(key.toUpperCase());
                 }
             }
             progressBar.dismiss();
-
-            InventoryAdapter mAdapter = new InventoryAdapter(activity, data);
-            lst.setAdapter(mAdapter);
+            return data;
         } catch (Exception ex) {
             progressBar.dismiss();
             presenter.showError(ex.getMessage());
             FlyveLog.e(ex.getMessage());
         }
+        return data;
     }
 
     public void showDialogShare(final Context context) {

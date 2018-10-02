@@ -23,13 +23,14 @@
 
 package org.flyve.inventory.agent.adapter;
 
-import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.Helpers;
 
@@ -40,14 +41,12 @@ import java.util.HashMap;
 public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<HashMap<String, String>> data;
-    private Activity activity;
 
     private static final int ITEM_TYPE_DATA = 0;
     private static final int ITEM_TYPE_HEADER = 1;
 
-    public InventoryAdapter(Activity activity, ArrayList<HashMap<String, String>> data) {
+    public InventoryAdapter(ArrayList<HashMap<String, String>> data) {
         this.data = data;
-        this.activity = activity;
     }
 
     @Override
@@ -83,12 +82,12 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         final int itemType = getItemViewType(position);
 
-        if(itemType == ITEM_TYPE_DATA) {
-            ((DataViewHolder)holder).bindData( response );
+        if (itemType == ITEM_TYPE_DATA) {
+            ((DataViewHolder) holder).bindData(response);
         }
 
-        if(itemType == ITEM_TYPE_HEADER) {
-            ((HeaderViewHolder)holder).bindData( response );
+        if (itemType == ITEM_TYPE_HEADER) {
+            ((HeaderViewHolder) holder).bindData(response);
         }
     }
 
@@ -98,7 +97,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
@@ -108,11 +107,11 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         DataViewHolder(View itemView) {
             super(itemView);
-            title = (TextView)itemView.findViewById(R.id.title);
-            description = (TextView)itemView.findViewById(R.id.description);
+            title = itemView.findViewById(R.id.title);
+            description = itemView.findViewById(R.id.description);
         }
 
-        public void bindData(HashMap<String, String> model) {
+        void bindData(HashMap<String, String> model) {
             title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get("title")) ));
             description.setText( Html.fromHtml( model.get("description") ));
         }
@@ -123,10 +122,10 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         HeaderViewHolder(View itemView) {
             super(itemView);
-            title = (TextView)itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.title);
         }
 
-        public void bindData(HashMap<String, String> model) {
+        void bindData(HashMap<String, String> model) {
             title.setText( Html.fromHtml( model.get("title") ));
         }
     }
