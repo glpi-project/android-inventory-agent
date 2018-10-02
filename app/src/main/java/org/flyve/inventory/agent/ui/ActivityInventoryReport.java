@@ -25,13 +25,14 @@ package org.flyve.inventory.agent.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.adapter.ViewPagerAdapter;
 import org.flyve.inventory.agent.core.report.Report;
 import org.flyve.inventory.agent.core.report.ReportPresenter;
 import org.flyve.inventory.agent.utils.FlyveLog;
@@ -49,7 +50,7 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_inventory_report);
+        setContentView(R.layout.activity_inventory_new);
 
         presenter = new ReportPresenter(this);
 
@@ -76,12 +77,18 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
             }
         });
 
-        RecyclerView lst = findViewById(R.id.lst);
+        /*RecyclerView lst = findViewById(R.id.lst);
 
         GridLayoutManager llm = new GridLayoutManager(ActivityInventoryReport.this, 1);
         lst.setLayoutManager(llm);
 
-        presenter.generateReport(ActivityInventoryReport.this, lst);
+        presenter.generateReport(ActivityInventoryReport.this, lst);*/
+        // Find the view pager that will allow the user to swipe between fragments
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
