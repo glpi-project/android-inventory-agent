@@ -23,7 +23,6 @@
 
 package org.flyve.inventory.agent.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +33,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
@@ -52,6 +52,12 @@ public class FragmentInventoryList extends Fragment implements Report.View {
 
     private String data;
     private String key;
+
+    private RecyclerViewReadyCallback recyclerViewReadyCallback;
+
+    public interface RecyclerViewReadyCallback {
+        void onLayoutReady();
+    }
 
     public static FragmentInventoryList newInstance(String data, String key) {
         FragmentInventoryList fragmentFirst = new FragmentInventoryList();
@@ -84,17 +90,33 @@ public class FragmentInventoryList extends Fragment implements Report.View {
 
         Report.Presenter presenter = new ReportPresenter(this);
 
-        RecyclerView lst = view.findViewById(R.id.lst);
+        final RecyclerView lst = view.findViewById(R.id.lst);
+        lst.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (recyclerViewReadyCallback != null) {
+                    recyclerViewReadyCallback.onLayoutReady();
+                }
+                lst.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
         lst.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        InventoryAdapter mAdapter = new InventoryAdapter(load(requireActivity()));
+        InventoryAdapter mAdapter = new InventoryAdapter(load());
         lst.setAdapter(mAdapter);
+        String message = requireActivity().getResources().getString(R.string.loading);
+        final ProgressDialog progressBar = ProgressDialog.show(requireActivity(), "Creating inventory", message);
+
+        recyclerViewReadyCallback = new RecyclerViewReadyCallback() {
+            @Override
+            public void onLayoutReady() {
+                progressBar.dismiss();
+            }
+        };
 
         presenter.generateReport(getActivity());
     }
 
-    private ArrayList<HashMap<String, String>> load(Activity activity) {
-        String message = activity.getResources().getString(R.string.loading);
-        ProgressDialog progressBar = ProgressDialog.show(activity, "Creating inventory", message);
+    private ArrayList<HashMap<String, String>> load() {
         ArrayList<HashMap<String, String>> dataList = new ArrayList<>();
 
         try {
@@ -140,10 +162,8 @@ public class FragmentInventoryList extends Fragment implements Report.View {
                     break;
                 }
             }
-            progressBar.dismiss();
             return dataList;
         } catch (Exception ex) {
-            progressBar.dismiss();
             FlyveLog.e(ex.getMessage());
         }
         return dataList;

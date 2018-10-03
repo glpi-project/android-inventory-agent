@@ -41,8 +41,8 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/blue"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/snackbar_action_good" />
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/white"/>
 
     <ProgressBar
         android:id="@+id/pb"
