@@ -42,63 +42,20 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private ArrayList<HashMap<String, String>> data;
 
-    private static final int ITEM_TYPE_DATA = 0;
-    private static final int ITEM_TYPE_HEADER = 1;
-
     public InventoryAdapter(ArrayList<HashMap<String, String>> data) {
         this.data = data;
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if((data.get(position)).get("type").equals("header")) {
-            return ITEM_TYPE_HEADER;
-        } else {
-            return ITEM_TYPE_DATA;
-        }
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory, viewGroup, false);
+        return new DataViewHolder(v);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
-        // Vista por defecto
-        if(viewType == ITEM_TYPE_DATA) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory, viewGroup, false);
-            return new DataViewHolder(v);
-        }
-
-        // Vista alternativa
-        else if (viewType == ITEM_TYPE_HEADER) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_header, viewGroup, false);
-            return new HeaderViewHolder(v);
-        }
-
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HashMap<String, String> response = data.get(position);
-
-        final int itemType = getItemViewType(position);
-
-        if (itemType == ITEM_TYPE_DATA) {
-            ((DataViewHolder) holder).bindData(response);
-        }
-
-        if (itemType == ITEM_TYPE_HEADER) {
-            ((HeaderViewHolder) holder).bindData(response);
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
+        ((DataViewHolder) holder).bindData(response, position);
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
@@ -111,24 +68,25 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             description = itemView.findViewById(R.id.description);
         }
 
-        void bindData(HashMap<String, String> model) {
-            title.setText( Html.fromHtml( Helpers.splitCamelCase(model.get("title")) ));
-            description.setText( Html.fromHtml( model.get("description") ));
+        void bindData(HashMap<String, String> model, int position) {
+            if (position > 0) {
+                title.setText(Html.fromHtml(Helpers.splitCamelCase(model.get("title"))));
+                description.setText(Html.fromHtml(model.get("description")));
+            } else {
+                title.setVisibility(View.GONE);
+                description.setVisibility(View.GONE);
+            }
         }
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-
-        HeaderViewHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
-        }
-
-        void bindData(HashMap<String, String> model) {
-            title.setText( Html.fromHtml( model.get("title") ));
-        }
+    @Override
+    public int getItemCount() {
+        return data.size();
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
 
 }
