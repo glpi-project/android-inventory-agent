@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import org.flyve.inventory.agent.ui.FragmentInventoryList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -17,6 +18,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.data = data;
         this.load = load;
+        this.load.remove("");
     }
 
     @Override
@@ -26,7 +28,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return load.size();
+        return load.size() - Collections.frequency(load, "");
     }
 
     @Override
