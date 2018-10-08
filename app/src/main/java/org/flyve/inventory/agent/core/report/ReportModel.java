@@ -24,7 +24,6 @@
 package org.flyve.inventory.agent.core.report;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -52,7 +51,7 @@ public class ReportModel implements Report.Model {
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {
-                presenter.sendInventory(s, load(activity, s));
+                presenter.sendInventory(s, load(s));
                 inventoryTask.getXMLSyn();
             }
 
@@ -63,8 +62,7 @@ public class ReportModel implements Report.Model {
         });
     }
 
-    private ArrayList<String> load(Activity activity, String jsonStr) {
-        ProgressDialog progressBar = ProgressDialog.show(activity, "Creating inventory", activity.getResources().getString(R.string.loading));
+    private ArrayList<String> load(String jsonStr) {
         ArrayList<String> data = new ArrayList<>();
 
         try {
@@ -82,10 +80,8 @@ public class ReportModel implements Report.Model {
                     data.add(key.toUpperCase());
                 }
             }
-            progressBar.dismiss();
             return data;
         } catch (Exception ex) {
-            progressBar.dismiss();
             presenter.showError(ex.getMessage());
             FlyveLog.e(ex.getMessage());
         }
