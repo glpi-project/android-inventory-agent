@@ -23,7 +23,6 @@
 
 package org.flyve.inventory.agent.ui;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,14 +32,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
-import org.flyve.inventory.agent.core.report.Report;
-import org.flyve.inventory.agent.core.report.ReportPresenter;
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.Helpers;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -48,16 +43,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class FragmentInventoryList extends Fragment implements Report.View {
+public class FragmentInventoryList extends Fragment {
 
     private String data;
     private String key;
-
-    private RecyclerViewReadyCallback recyclerViewReadyCallback;
-
-    public interface RecyclerViewReadyCallback {
-        void onLayoutReady();
-    }
 
     public static FragmentInventoryList newInstance(String data, String key) {
         FragmentInventoryList fragmentFirst = new FragmentInventoryList();
@@ -88,32 +77,10 @@ public class FragmentInventoryList extends Fragment implements Report.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Report.Presenter presenter = new ReportPresenter(this);
-
         final RecyclerView lst = view.findViewById(R.id.lst);
-        lst.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (recyclerViewReadyCallback != null) {
-                    recyclerViewReadyCallback.onLayoutReady();
-                }
-                lst.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
         lst.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         InventoryAdapter mAdapter = new InventoryAdapter(load());
         lst.setAdapter(mAdapter);
-        String message = requireActivity().getResources().getString(R.string.loading);
-        final ProgressDialog progressBar = ProgressDialog.show(requireActivity(), "Creating inventory", message);
-
-        recyclerViewReadyCallback = new RecyclerViewReadyCallback() {
-            @Override
-            public void onLayoutReady() {
-                progressBar.dismiss();
-            }
-        };
-
-        presenter.generateReport(getActivity());
     }
 
     private ArrayList<HashMap<String, String>> load() {
@@ -167,15 +134,5 @@ public class FragmentInventoryList extends Fragment implements Report.View {
             FlyveLog.e(ex.getMessage());
         }
         return dataList;
-    }
-
-    @Override
-    public void showError(String message) {
-        Helpers.snackClose(getActivity(), message, getString(R.string.permission_snack_ok), true);
-    }
-
-    @Override
-    public void sendInventory(String data, ArrayList<String> load) {
-
     }
 }

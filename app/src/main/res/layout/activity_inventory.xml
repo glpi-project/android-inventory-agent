@@ -41,11 +41,11 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/blue"
         app:tabMode="scrollable"
-        app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/white"/>
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/white" />
 
     <ProgressBar
-        android:id="@+id/pb"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -56,7 +56,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
