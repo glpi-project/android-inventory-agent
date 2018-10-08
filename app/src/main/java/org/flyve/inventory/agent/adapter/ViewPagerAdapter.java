@@ -3,6 +3,8 @@ package org.flyve.inventory.agent.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.flyve.inventory.agent.ui.FragmentInventoryList;
 
@@ -14,11 +16,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private String data;
     private ArrayList<String> load;
 
-    public ViewPagerAdapter(FragmentManager fm, String data, ArrayList<String> load) {
+    public ViewPagerAdapter(FragmentManager fm, String data, ArrayList<String> load, ProgressBar progressBar) {
         super(fm);
         this.data = data;
         this.load = load;
         this.load.remove("");
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

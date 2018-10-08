@@ -30,6 +30,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.ViewPagerAdapter;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 public class ActivityInventoryReport extends AppCompatActivity implements Report.View {
 
     private Report.Presenter presenter;
+    private ProgressBar progressBar;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -51,13 +53,10 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_inventory_new);
-
+        setContentView(R.layout.activity_inventory);
+        progressBar = findViewById(R.id.progressBar);
         presenter = new ReportPresenter(this);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         try {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -91,7 +90,7 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
     @Override
     public void sendInventory(String data, ArrayList<String> load) {
         ViewPager viewPager = findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), data, load);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), data, load, progressBar);
         viewPager.setAdapter(viewPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
