@@ -50,26 +50,32 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_parent, viewGroup, false);
+        int resource = R.layout.list_item_inventory_parent;
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(resource, viewGroup, false);
         return new DataViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((DataViewHolder) holder).bindData(data.get(position));
+        ((DataViewHolder) holder).bindData(data.get(position), position);
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
+        View viewSeparator;
 
         DataViewHolder(View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.recyclerView);
+            viewSeparator = itemView.findViewById(R.id.viewSeparator);
         }
 
-        void bindData(ArrayList<ListInventory> model) {
+        void bindData(ArrayList<ListInventory> model, int position) {
+            if ((data.size() - 1) == position) {
+                viewSeparator.setVisibility(View.GONE);
+            }
             recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-            recyclerView.setAdapter(new InventoryAdapterChild(model));
+            recyclerView.setAdapter(new InventoryAdapterChild(model, activity));
         }
     }
 

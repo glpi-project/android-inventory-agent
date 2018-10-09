@@ -9,6 +9,7 @@
 	<color name="gray">#7E7E7E</color>
 	<color name="grayLight">#CCCCCC</color>
 	<color name="grayDark">#4C4C4C</color>
+	<color name="grayDarkList">#f1f1f1</color>
 	<color name="blue">#4073B9</color>
 	<color name="snackbar_action_fail">#ffff7663</color>
 	<color name="snackbar_action_good">#13988A</color>
