@@ -98,13 +98,10 @@ public class FragmentInventoryList extends Fragment {
 
                 if (key.equalsIgnoreCase(this.key)) {
                     if (jsonContent.get(key) instanceof JSONArray) {
-                        // add header
-                        FlyveLog.d("----------- Header: " + key);
-
                         if (!key.equals("")) {
                             JSONArray category = jsonContent.getJSONArray(key);
-                            ArrayList<ListInventory> list = new ArrayList<>();
                             for (int y = 0; y < category.length(); y++) {
+                                ArrayList<ListInventory> list = new ArrayList<>();
                                 JSONObject obj = category.getJSONObject(y);
                                 Iterator<?> keysObj = obj.keys();
                                 while (keysObj.hasNext()) {
@@ -116,8 +113,8 @@ public class FragmentInventoryList extends Fragment {
                                     list.add(listInventory);
                                     FlyveLog.d(keyObj);
                                 }
+                                dataList.add(list);
                             }
-                            dataList.add(list);
                         }
                     }
                     break;
