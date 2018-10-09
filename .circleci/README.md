@@ -8,7 +8,7 @@ A run is comprised of one or more named jobs. Jobs are specified in the jobs map
 
 ## build
 
-Each job consists of the job’s name as a key and a map as a value. A name should be unique within a current jobs
+Each job consists of the job’s name as a key and a map as a value. A title should be unique within a current jobs
 
 ## steps
 
