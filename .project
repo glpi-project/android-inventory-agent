@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>android-inventory-agent</name>
+	<name>android-inventory-agent</title>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
+			<name>org.eclipse.buildship.core.gradleprojectbuilder</title>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.android.ide.eclipse.adt.ResourceManagerBuilder</name>
+			<name>com.android.ide.eclipse.adt.ResourceManagerBuilder</title>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.android.ide.eclipse.adt.PreCompilerBuilder</name>
+			<name>com.android.ide.eclipse.adt.PreCompilerBuilder</title>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>org.eclipse.jdt.core.javabuilder</title>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.android.ide.eclipse.adt.ApkBuilder</name>
+			<name>com.android.ide.eclipse.adt.ApkBuilder</title>
 			<arguments>
 			</arguments>
 		</buildCommand>

@@ -23,53 +23,61 @@
 
 package org.flyve.inventory.agent.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.model.ListInventory;
+import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.ArrayList;
 
 
-public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class InventoryAdapterChild extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<ArrayList<ListInventory>> data;
-    private FragmentActivity activity;
+    private ArrayList<ListInventory> data;
 
-    public InventoryAdapter(ArrayList<ArrayList<ListInventory>> data, FragmentActivity fragmentActivity) {
+    InventoryAdapterChild(ArrayList<ListInventory> data) {
         this.data = data;
-        activity = fragmentActivity;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_parent, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_child, viewGroup, false);
         return new DataViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((DataViewHolder) holder).bindData(data.get(position));
+        ((DataViewHolder) holder).bindData(data.get(position), position);
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
-        RecyclerView recyclerView;
+        TextView title;
+        TextView description;
 
         DataViewHolder(View itemView) {
             super(itemView);
-            recyclerView = itemView.findViewById(R.id.recyclerView);
+            title = itemView.findViewById(R.id.title);
+            description = itemView.findViewById(R.id.description);
         }
 
-        void bindData(ArrayList<ListInventory> model) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-            recyclerView.setAdapter(new InventoryAdapterChild(model));
+        void bindData(ListInventory model, int position) {
+            if (position % 2 == 1) {
+                itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            } else {
+                itemView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
+            }
+
+            title.setText(Html.fromHtml(Helpers.splitCamelCase(model.getTitle())));
+            description.setText(Html.fromHtml(model.getDescription()));
         }
     }
 

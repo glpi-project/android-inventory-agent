@@ -27,7 +27,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,12 +35,12 @@ import android.view.ViewGroup;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
+import org.flyve.inventory.agent.model.ListInventory;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class FragmentInventoryList extends Fragment {
@@ -78,13 +78,13 @@ public class FragmentInventoryList extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final RecyclerView lst = view.findViewById(R.id.lst);
-        lst.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        InventoryAdapter mAdapter = new InventoryAdapter(load());
-        lst.setAdapter(mAdapter);
+        lst.setLayoutManager(new LinearLayoutManager(getActivity()));
+        lst.setAdapter(new InventoryAdapter(load(), requireActivity()));
+        lst.setNestedScrollingEnabled(false);
     }
 
-    private ArrayList<HashMap<String, String>> load() {
-        ArrayList<HashMap<String, String>> dataList = new ArrayList<>();
+    private ArrayList<ArrayList<ListInventory>> load() {
+        ArrayList<ArrayList<ListInventory>> dataList = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(data);
@@ -101,29 +101,23 @@ public class FragmentInventoryList extends Fragment {
                         // add header
                         FlyveLog.d("----------- Header: " + key);
 
-                        HashMap<String, String> h = new HashMap<>();
-                        h.put("type", "header");
-                        h.put("title", key.toUpperCase());
-
-                        if (!key.trim().equals("")) {
-                            dataList.add(h);
-                        }
-
                         if (!key.equals("")) {
                             JSONArray category = jsonContent.getJSONArray(key);
+                            ArrayList<ListInventory> list = new ArrayList<>();
                             for (int y = 0; y < category.length(); y++) {
                                 JSONObject obj = category.getJSONObject(y);
                                 Iterator<?> keysObj = obj.keys();
                                 while (keysObj.hasNext()) {
-                                    HashMap<String, String> c = new HashMap<>();
                                     String keyObj = (String) keysObj.next();
-                                    c.put("type", "data");
-                                    c.put("title", keyObj);
-                                    c.put("description", obj.getString(keyObj));
+                                    ListInventory listInventory = new ListInventory();
+                                    listInventory.setTitle(keyObj);
+                                    listInventory.setType("data");
+                                    listInventory.setDescription(obj.getString(keyObj));
+                                    list.add(listInventory);
                                     FlyveLog.d(keyObj);
-                                    dataList.add(c);
                                 }
                             }
+                            dataList.add(list);
                         }
                     }
                     break;
