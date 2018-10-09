@@ -23,8 +23,8 @@
 
 package org.flyve.inventory.agent.adapter;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -42,15 +42,18 @@ import java.util.ArrayList;
 public class InventoryAdapterChild extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<ListInventory> data;
+    private FragmentActivity activity;
 
-    InventoryAdapterChild(ArrayList<ListInventory> data) {
+    InventoryAdapterChild(ArrayList<ListInventory> data, FragmentActivity activity) {
         this.data = data;
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_inventory_child, viewGroup, false);
+        int resource = R.layout.list_item_inventory_child;
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(resource, viewGroup, false);
         return new DataViewHolder(v);
     }
 
@@ -62,22 +65,28 @@ public class InventoryAdapterChild extends RecyclerView.Adapter<RecyclerView.Vie
     public class DataViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView description;
+        View viewSeparatorBottom;
 
         DataViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
+            viewSeparatorBottom = itemView.findViewById(R.id.viewSeparatorBottom);
         }
 
         void bindData(ListInventory model, int position) {
             if (position % 2 == 1) {
-                itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                itemView.setBackgroundColor(activity.getResources().getColor(R.color.white));
             } else {
-                itemView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
+                itemView.setBackgroundColor(activity.getResources().getColor(R.color.grayDarkList));
             }
 
             title.setText(Html.fromHtml(Helpers.splitCamelCase(model.getTitle())));
             description.setText(Html.fromHtml(model.getDescription()));
+
+            if ((data.size() -1) == position) {
+                viewSeparatorBottom.setVisibility(View.VISIBLE);
+            }
         }
     }
 

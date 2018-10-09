@@ -3,15 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/viewSeparator"
+        style="@style/LineSeparator" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/viewSeparator"
+        android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-medium"
         android:text=""
         android:textColor="@color/grayDark"
@@ -22,10 +27,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="3dp"
         android:fontFamily="sans-serif"
@@ -34,7 +39,8 @@
         android:textSize="16sp" />
 
     <View
-        android:id="@+id/viewSeparator"
+        android:id="@+id/viewSeparatorBottom"
         style="@style/LineSeparator"
-        android:layout_below="@+id/description" />
+        android:layout_below="@+id/description"
+        android:visibility="gone"/>
 </RelativeLayout>
