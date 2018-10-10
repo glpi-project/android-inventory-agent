@@ -82,6 +82,8 @@
 
     <string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
     <string name="error_url_is_not_found">The requested URL is not found, please check it</string>
+    <string name="error_user_not_found">The requested user is not found, please check it</string>
+    <string name="error_password_not_found">The requested password is not found, please check it</string>
     <string name="error_protocol">Protocol exception, please check your url</string>
     <string name="error_server_not_response">Server doesn\'t reply, please check your url</string>
     <string name="error_send_fail">Can\'t send the inventory, please check your connection</string>
