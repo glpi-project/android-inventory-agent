@@ -146,7 +146,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
      */
     public String getCredentialsLogin() {
         if (mLogin == null) {
-        	mLogin = prefs.getString("login", "");
+        	mLogin = prefs.getString("login", "glpi");
         }
         return mLogin;
     }
@@ -157,7 +157,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
      */
     public String getCredentialsPassword() {
         if (mPassword == null) {
-        	mPassword = prefs.getString("password", "");
+        	mPassword = prefs.getString("password", "6b5CW#r2XzBzmr");
         }
         return mPassword;
     }

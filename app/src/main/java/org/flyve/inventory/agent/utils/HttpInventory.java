@@ -14,6 +14,7 @@
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
  * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
@@ -26,6 +27,7 @@ package org.flyve.inventory.agent.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Base64;
 import android.util.Log;
 
 import org.apache.http.Header;
@@ -39,10 +41,11 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -52,8 +55,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.flyve.inventory.agent.ui.InventoryAgentApp;
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.ui.InventoryAgentApp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -62,6 +65,12 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 public class HttpInventory {
 
@@ -113,130 +122,78 @@ public class HttpInventory {
             callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
         }
 
-        Thread t = new Thread(new Runnable()
-        {
-            public void run()
-            {
+        if (mFusionApp == null) {
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_send_fail), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
+        }
 
-                SchemeRegistry mSchemeRegistry = new SchemeRegistry();
-                mSchemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+        if (mFusionApp.getCredentialsLogin() == null || "".equals(mFusionApp.getCredentialsLogin())) {
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_user_not_found), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_user_not_found));
+        }
 
-                // https scheme
-                mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
+        if (mFusionApp.getCredentialsPassword() == null || "".equals(mFusionApp.getCredentialsPassword())) {
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_password_not_found), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_password_not_found));
+        }
 
-                HttpParams params = new BasicHttpParams();
-
-                HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-                HttpProtocolParams.setContentCharset(params, "UTF-8");
-                HttpProtocolParams.setUseExpectContinue(params, true);
-
-                //Send InventoryAgent specific user agent
-                EnvironmentInfo enviromentInfo = new EnvironmentInfo(appContext);
-                String version = "v0.0.0";
-                if(enviromentInfo.getIsLoaded()) {
-                    version = "v" + enviromentInfo.getVersion();
-                }
-                HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_" + version);
-
-                ClientConnectionManager clientConnectionManager = new SingleClientConnManager(params, mSchemeRegistry);
-                HttpContext context = new BasicHttpContext();
-
-                // ignore that the ssl cert is self signed
-                String login = mFusionApp.getCredentialsLogin();
-                if (!login.equals("")) {
-                    FlyveLog.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
-                    CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-                    credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
-                            new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(),
-                                    mFusionApp.getCredentialsPassword()));
-                    context.setAttribute("http.auth.credentials-provider", credentialsProvider);
-                }
-
-                DefaultHttpClient httpclient = new DefaultHttpClient(clientConnectionManager, params);
-
-                HttpPost post;
-                try {
-                    post = new HttpPost(url.toExternalForm());
-                    httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
-
-                        @Override
-                        public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                            for (Header h : request.getAllHeaders()) {
-                                FlyveLog.log(this, "HEADER : " + h.getName() + "=" + h.getValue(), Log.VERBOSE);
-                            }
-                        }
-                    });
-                } catch (Exception ex) {
-                    FlyveLog.e(ex.getMessage());
-                    callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
-                    return;
-                }
-
-                try {
-                    post.setEntity(new StringEntity(lastXMLResult));
-                } catch (UnsupportedEncodingException e1) {
-                    FlyveLog.e(e1.getMessage());
-                }
-                HttpResponse response = null;
-                try {
-                    response = httpclient.execute(post, context);
-                } catch (ClientProtocolException e) {
-                    FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);
-                    callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));
-                    FlyveLog.e(e.getMessage());
-                } catch (IOException e) {
-                    FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
-                    FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
-                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
-                    FlyveLog.e(e.getMessage());
-                } catch (Exception e) {
-                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
-                    FlyveLog.e(e.getLocalizedMessage());
-                }
-                if (response == null) {
-                    FlyveLog.log(this, "No HTTP response ", Log.ERROR);
-                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
-                }
-
-                try {
-                    Header[] headers = response.getAllHeaders();
-                    for (Header header : headers) {
-                        FlyveLog.log(this, header.getName() + " -> " + header.getValue(), Log.INFO);
-                    }
-                } catch (Exception ex) {
-                    FlyveLog.e(ex.getMessage());
-                }
-
-                try {
-                    InputStream mIS = response.getEntity().getContent();
-                    BufferedReader r = new BufferedReader(new InputStreamReader(mIS));
-                    String line;
-                    StringBuilder sb = new StringBuilder();
-
-                    while ((line = r.readLine()) != null) {
-                        FlyveLog.log(this, line, Log.VERBOSE);
-                        sb.append(line + "\n");
-                    }
-
-                    if(sb.toString().toLowerCase().contains("<reply>")) {
-                        callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));
-                    } else {
-                        if(sb.toString().toLowerCase().contains("404 not found")) {
-                            callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
-                        } else {
-                            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
-                        }
-                    }
-
-                    FlyveLog.d(sb.toString());
-                } catch (Exception e) {
-                    FlyveLog.e(e.getMessage());
-                    callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
-                }
-
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                connect(lastXMLResult, callback);
             }
         });
         t.start();
+    }
+
+    private void connect(String lastXMLResult, OnTaskCompleted callback){
+        try {
+            DataLoader dl = new DataLoader();
+            HttpResponse response = dl.secureLoadData(appContext, mFusionApp, lastXMLResult);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("HEADERS:\n\n");
+
+            Header[] headers = response.getAllHeaders();
+            for (Header h : headers) {
+                sb.append(h.getName()).append(":\t").append(h.getValue()).append("\n");
+            }
+
+            InputStream is = response.getEntity().getContent();
+            StringBuilder out = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            for (String line = br.readLine(); line != null; line = br.readLine()) {
+                FlyveLog.log(this, line, Log.VERBOSE);
+                out.append(line);
+            }
+            br.close();
+
+            sb.append("\n\nCONTENT:\n\n").append(out.toString());
+
+            if (sb.toString().toLowerCase().contains("<reply>")) {
+                callback.onTaskSuccess(appContext.getResources().getString(R.string.inventory_sent));
+            } else {
+                if (sb.toString().toLowerCase().contains("404 not found")) {
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
+                } else {
+                    callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
+                }
+            }
+
+            FlyveLog.d(sb.toString());
+
+        } catch (ClientProtocolException e) {
+            FlyveLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));
+            FlyveLog.e(e.getMessage());
+        } catch (IOException e) {
+            FlyveLog.log(this, "IO error : " + e.getLocalizedMessage(), Log.ERROR);
+            FlyveLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
+            callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
+            FlyveLog.e(e.getMessage());
+        } catch (Exception e) {
+            callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
+            FlyveLog.e(e.getLocalizedMessage());
+        }
     }
 
     /**
