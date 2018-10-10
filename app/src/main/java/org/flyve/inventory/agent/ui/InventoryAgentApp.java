@@ -45,23 +45,11 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
 
     private Boolean mShouldAutoStart = null;
     private String mUrl = null;
-    private String mLogin = null;
-    private String mPassword = null;
     private String mDeviceID = null;
-
-    private static InventoryAgentApp instance;
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
-    }
-
-    /**
-     * Get application instance
-     * @return InventoryAgentApp object
-     */
-    public static InventoryAgentApp getInstance(){
-        return instance;
     }
 
     /**
@@ -122,9 +110,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
      */
     public String getUrl() {
         // This variable is preset for instrumented test
-        if (mUrl == null) {
-            mUrl = prefs.getString("url","https://dev.flyve.org/glpi/plugins/fusioninventory/");
-        }
+        mUrl = prefs.getString("url","");
         return mUrl;
     }
 
@@ -145,10 +131,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
      * @return string the login
      */
     public String getCredentialsLogin() {
-        if (mLogin == null) {
-        	mLogin = prefs.getString("login", "glpi");
-        }
-        return mLogin;
+        return prefs.getString("login", "");
     }
 
     /**
@@ -156,10 +139,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
      * @return string the password
      */
     public String getCredentialsPassword() {
-        if (mPassword == null) {
-        	mPassword = prefs.getString("password", "6b5CW#r2XzBzmr");
-        }
-        return mPassword;
+        return prefs.getString("password", "");
     }
 
 }
