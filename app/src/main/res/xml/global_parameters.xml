@@ -27,7 +27,7 @@
     <EditTextPreference
         android:title="@string/GlobalServer"
         android:key="url"
-        android:defaultValue="https://dev.flyve.org/glpi/plugins/fusioninventory/"
+        android:defaultValue="https://demo-api.flyve.org/plugins/fusioninventory/"
         android:summary="@string/GlobalServerSummary"
         android:persistent="true"
         />
