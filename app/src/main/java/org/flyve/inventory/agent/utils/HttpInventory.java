@@ -107,6 +107,7 @@ public class HttpInventory {
         if (lastXMLResult == null) {
             FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_inventory));
+            return;
         }
 
         try {
@@ -115,26 +116,19 @@ public class HttpInventory {
         } catch (MalformedURLException e) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_malformed));
+            return;
         }
 
-        if (url == null) {
+        if (url == null || "".equals(mFusionApp.getUrl())) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_not_found), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
+            return;
         }
 
         if (mFusionApp == null) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_send_fail), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
-        }
-
-        if (mFusionApp.getCredentialsLogin() == null || "".equals(mFusionApp.getCredentialsLogin())) {
-            FlyveLog.log(this, appContext.getResources().getString(R.string.error_user_not_found), Log.ERROR);
-            callback.onTaskError(appContext.getResources().getString(R.string.error_user_not_found));
-        }
-
-        if (mFusionApp.getCredentialsPassword() == null || "".equals(mFusionApp.getCredentialsPassword())) {
-            FlyveLog.log(this, appContext.getResources().getString(R.string.error_password_not_found), Log.ERROR);
-            callback.onTaskError(appContext.getResources().getString(R.string.error_password_not_found));
+            return;
         }
 
         Thread t = new Thread(new Runnable() {
