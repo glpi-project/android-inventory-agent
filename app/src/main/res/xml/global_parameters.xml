@@ -24,7 +24,16 @@
 
     <PreferenceCategory android:title="@string/GlobalCatSet"/>
 
-    <EditTextPreference
+    <Preference android:title="Open List"
+        android:key="@string/buttonListServer"
+        android:summary="Open List Servers">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="org.flyve.inventory.agent"
+            android:targetClass="org.flyve.inventory.agent.ui.ActivityListServers" />
+    </Preference>
+
+    <!--<EditTextPreference
         android:title="@string/GlobalServer"
         android:key="url"
         android:defaultValue="https://demo-api.flyve.org/plugins/fusioninventory/"
@@ -59,7 +68,7 @@
             android:key="password"
             android:enabled="true">
         </EditTextPreference>
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 
     <PreferenceCategory android:title="@string/AccueilPrivacyTitle"/>
 
