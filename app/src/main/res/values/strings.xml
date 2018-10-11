@@ -26,6 +26,7 @@
     <string name="error_send_inventoryi">Inventory not send</string>
     <string name="ok_send_inventory">Inventory send</string>
     <string name="service_notif_id">Inventory Agent</string>
+    <string name="buttonListServer">buttonList</string>
     <string-array name="agent_status">
         <item>Agent is waiting an order ...</item>
         <item>Agent is performing an inventory ...</item>
@@ -206,5 +207,7 @@
     <!--Permission-->
     <string name="request_permission">Request Permission</string>
     <string name="permission_message">This application requires special permits to work properly</string>
+    <string name="list_servers">List Servers</string>
+    <string name="add_server">Add Server</string>
 
 </resources>

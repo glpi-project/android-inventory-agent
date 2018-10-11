@@ -91,6 +91,7 @@
         </receiver>
 
         <activity android:name=".ui.PermissionActivity" />
+        <activity android:name=".ui.ActivityListServers" />
     </application>
 
 </manifest>
