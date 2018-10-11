@@ -46,6 +46,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
     private Boolean mShouldAutoStart = null;
     private String mUrl = null;
     private String mDeviceID = null;
+    private String tag = null;
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -112,6 +113,16 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         // This variable is preset for instrumented test
         mUrl = prefs.getString("url","https://demo-api.flyve.org/plugins/fusioninventory/");
         return mUrl;
+    }
+
+    /**
+     * Gets the URL
+     * @return string the URL
+     */
+    public String getTag() {
+        // This variable is preset for instrumented test
+        tag = prefs.getString("tag","");
+        return tag;
     }
 
     /**
