@@ -39,6 +39,7 @@ import org.flyve.inventory.agent.preference.GlobalParametersPreference;
 import org.flyve.inventory.agent.preference.InventoryParametersPreference;
 import org.flyve.inventory.agent.service.InventoryService;
 import org.flyve.inventory.agent.ui.ActivityInventoryReport;
+import org.flyve.inventory.agent.ui.InventoryAgentApp;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
@@ -136,6 +137,9 @@ public class HomeModel implements Home.Model {
             final ProgressDialog progressBar = ProgressDialog.show(activity, "Sending inventory", activity.getResources().getString(R.string.loading));
 
             final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity));
+
+            InventoryAgentApp agentApp = (InventoryAgentApp) activity.getApplicationContext();
+            inventoryTask.setTag(agentApp.getTag());
 
             // Sending anonymous information
             inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
