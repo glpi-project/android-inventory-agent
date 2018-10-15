@@ -209,5 +209,8 @@
     <string name="permission_message">This application requires special permits to work properly</string>
     <string name="list_servers">List Servers</string>
     <string name="add_server">Add Server</string>
+    <string name="detail_server">Detail Server</string>
+    <string name="delete">Delete</string>
+    <string name="show">Show</string>
 
 </resources>

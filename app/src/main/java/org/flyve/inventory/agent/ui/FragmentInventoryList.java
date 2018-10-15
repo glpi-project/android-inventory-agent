@@ -35,7 +35,7 @@ import android.view.ViewGroup;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.InventoryAdapter;
-import org.flyve.inventory.agent.model.ListInventory;
+import org.flyve.inventory.agent.model.ListInventoryModel;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -83,8 +83,8 @@ public class FragmentInventoryList extends Fragment {
         lst.setNestedScrollingEnabled(false);
     }
 
-    private ArrayList<ArrayList<ListInventory>> load() {
-        ArrayList<ArrayList<ListInventory>> dataList = new ArrayList<>();
+    private ArrayList<ArrayList<ListInventoryModel>> load() {
+        ArrayList<ArrayList<ListInventoryModel>> dataList = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(data);
@@ -101,12 +101,12 @@ public class FragmentInventoryList extends Fragment {
                         if (!key.equals("")) {
                             JSONArray category = jsonContent.getJSONArray(key);
                             for (int y = 0; y < category.length(); y++) {
-                                ArrayList<ListInventory> list = new ArrayList<>();
+                                ArrayList<ListInventoryModel> list = new ArrayList<>();
                                 JSONObject obj = category.getJSONObject(y);
                                 Iterator<?> keysObj = obj.keys();
                                 while (keysObj.hasNext()) {
                                     String keyObj = (String) keysObj.next();
-                                    ListInventory listInventory = new ListInventory();
+                                    ListInventoryModel listInventory = new ListInventoryModel();
                                     listInventory.setTitle(keyObj);
                                     listInventory.setType("data");
                                     listInventory.setDescription(obj.getString(keyObj));
