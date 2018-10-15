@@ -36,8 +36,7 @@ public class ServersModel implements Servers.Model {
     }
 
     public void loadServers(final Activity activity) {
-        LocalPreferences preferences = new LocalPreferences(activity);
-        presenter.sendServers(preferences.loadServerArray());
+        presenter.showServers(new LocalPreferences(activity).loadServerArray());
     }
 
 }

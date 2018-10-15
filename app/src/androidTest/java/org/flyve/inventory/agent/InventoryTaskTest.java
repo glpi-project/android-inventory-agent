@@ -26,7 +26,9 @@ package org.flyve.inventory.agent;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+
 import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.model.ServerModel;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.HttpInventory;
 import org.junit.Test;
@@ -79,7 +81,12 @@ public class InventoryTaskTest {
 
         // Send xml to default route
         HttpInventory httpInventory = new HttpInventory(appContext);
-        httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
+        ServerModel serverModel = new ServerModel();
+        serverModel.setAddress("https://demo-api.flyve.org/plugins/fusioninventory/");
+        serverModel.setTag("");
+        serverModel.setLogin("");
+        serverModel.setPass("");
+        httpInventory.sendInventory(data, serverModel, new HttpInventory.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
                 FlyveLog.d(data);

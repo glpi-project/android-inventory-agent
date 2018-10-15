@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-mdm-agent
@@ -31,13 +31,13 @@ public interface Servers {
 
     interface View {
         void showError(String message);
-        void sendServers(ArrayList<String> load);
+        void showServer(ArrayList<String> load);
     }
 
     interface Presenter {
         // Views
         void showError(String message);
-        void sendServers(ArrayList<String> model);
+        void showServers(ArrayList<String> model);
 
         // Models
         void loadServers(final Activity activity);

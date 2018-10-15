@@ -8,6 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
         android:minHeight="?android:attr/actionBarSize">
 
         <RelativeLayout
@@ -22,8 +23,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:text="@string/detail_server"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/deleteServer"

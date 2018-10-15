@@ -34,6 +34,7 @@ import android.preference.PreferenceManager;
 
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.model.ServerModel;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
@@ -67,7 +68,12 @@ public class TimeAlarm extends BroadcastReceiver {
             @Override
             public void onTaskSuccess(String data) {
                 HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
-                httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
+                ServerModel serverModel = new ServerModel();
+                serverModel.setAddress("https://demo-api.flyve.org/plugins/fusioninventory/");
+                serverModel.setTag("");
+                serverModel.setLogin("");
+                serverModel.setPass("");
+                httpInventory.sendInventory(data, serverModel, new HttpInventory.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
                         Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));

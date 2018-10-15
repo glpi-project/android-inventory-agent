@@ -1,3 +1,26 @@
+/*
+ * Copyright Teclib. All rights reserved.
+ *
+ * Flyve MDM is a mobile device management software.
+ *
+ * Flyve MDM is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * Flyve MDM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * ------------------------------------------------------------------------------
+ * @author    Ivan Del Pino
+ * @copyright Copyright Teclib. All rights reserved.
+ * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link      https://github.com/flyve-mdm/android-inventory-agent
+ * @link      https://flyve-mdm.com
+ * ------------------------------------------------------------------------------
+ */
+
 package org.flyve.inventory.agent.utils;
 
 import android.content.Context;
@@ -36,6 +59,11 @@ public class LocalPreferences {
         editor.apply();
     }
 
+    public void deletePreferences(String key) {
+        SharedPreferences preferences = getSettings();
+        preferences.edit().remove(key).apply();
+    }
+
     /**
      * @return an Json Object
      */
@@ -46,7 +74,7 @@ public class LocalPreferences {
     public ArrayList<String> loadServerArray() {
         ArrayList<String> ids = new ArrayList<>();
         SharedPreferences mSharedPreference1 = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int size = mSharedPreference1.getInt("Status_size", 0);
+        int size = Integer.parseInt(mSharedPreference1.getString("Status_size", ""));
 
         for (int i = 0; i < size; i++) {
             ids.add(mSharedPreference1.getString("Status_" + i, ""));
@@ -54,7 +82,7 @@ public class LocalPreferences {
         return ids;
     }
 
-    public boolean saveServerArray(ArrayList<String> list) {
+    public void saveServerArray(ArrayList<String> list) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor mEdit1 = sp.edit();
         /* sKey is an array */
@@ -64,6 +92,6 @@ public class LocalPreferences {
             mEdit1.remove("Status_" + i);
             mEdit1.putString("Status_" + i, list.get(i));
         }
-        return mEdit1.commit();
+        mEdit1.apply();
     }
 }

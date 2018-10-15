@@ -25,24 +25,20 @@ package org.flyve.inventory.agent.core.home;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ListView;
 
-import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.HomeAdapter;
 import org.flyve.inventory.agent.preference.GlobalParametersPreference;
 import org.flyve.inventory.agent.preference.InventoryParametersPreference;
 import org.flyve.inventory.agent.service.InventoryService;
 import org.flyve.inventory.agent.ui.ActivityInventoryReport;
-import org.flyve.inventory.agent.ui.InventoryAgentApp;
+import org.flyve.inventory.agent.ui.DialogListServers;
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.Helpers;
-import org.flyve.inventory.agent.utils.HttpInventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +47,6 @@ public class HomeModel implements Home.Model {
 
     private Home.Presenter presenter;
     private ArrayList<HomeSchema> arrHome;
-    private Intent mServiceIntent;
 
     public HomeModel(Home.Presenter presenter) {
         this.presenter = presenter;
@@ -63,7 +58,7 @@ public class HomeModel implements Home.Model {
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
         InventoryService inventoryService = new InventoryService();
-        mServiceIntent = new Intent(activity, inventoryService.getClass());
+        Intent mServiceIntent = new Intent(activity, inventoryService.getClass());
 
         if (!isMyServiceRunning(activity, inventoryService.getClass())) {
             ComponentName result = activity.startService(mServiceIntent);
@@ -116,59 +111,26 @@ public class HomeModel implements Home.Model {
 
     @Override
     public void clickItem(final Activity activity, HomeSchema homeSchema) {
-        if(homeSchema.getId().equals("7")) {
+        if (homeSchema.getId().equals("7")) {
             Intent miIntent = new Intent(activity, GlobalParametersPreference.class);
             activity.startActivity(miIntent);
         }
 
-        if(homeSchema.getId().equals("5")) {
+        if (homeSchema.getId().equals("5")) {
             Intent miIntent = new Intent(activity, InventoryParametersPreference.class);
             activity.startActivity(miIntent);
         }
 
         // Show my inventory
-        if(homeSchema.getId().equals("4")) {
+        if (homeSchema.getId().equals("4")) {
             Intent miIntent = new Intent(activity, ActivityInventoryReport.class);
             activity.startActivity(miIntent);
         }
 
         // Sent inventory
-        if(homeSchema.getId().equals("3")) {
-            final ProgressDialog progressBar = ProgressDialog.show(activity, "Sending inventory", activity.getResources().getString(R.string.loading));
-
-            final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity));
-
-            InventoryAgentApp agentApp = (InventoryAgentApp) activity.getApplicationContext();
-            inventoryTask.setTag(agentApp.getTag());
-
-            // Sending anonymous information
-            inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
-                @Override
-                public void onTaskSuccess(String data) {
-                    FlyveLog.d(data);
-                    HttpInventory httpInventory = new HttpInventory(activity);
-                    httpInventory.sendInventory(data, new HttpInventory.OnTaskCompleted() {
-                        @Override
-                        public void onTaskSuccess(String data) {
-                            progressBar.dismiss();
-                            Helpers.snackClose(activity, data, activity.getResources().getString(R.string.snackButton), false);
-                            Helpers.sendAnonymousData(activity, inventoryTask);
-                        }
-
-                        @Override
-                        public void onTaskError(String error) {
-                            progressBar.dismiss();
-                            presenter.showError(error);
-                        }
-                    });
-                }
-
-                @Override
-                public void onTaskError(Throwable error) {
-                    FlyveLog.e(error.getMessage());
-                    presenter.showError(error.getMessage());
-                }
-            });
+        if (homeSchema.getId().equals("3")) {
+            DialogListServers alert = new DialogListServers();
+            alert.showDialog(activity, presenter);
         }
     }
 
