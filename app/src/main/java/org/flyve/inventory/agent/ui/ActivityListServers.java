@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
@@ -23,27 +23,28 @@
 
 package org.flyve.inventory.agent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.adapter.ViewPagerAdapter;
-import org.flyve.inventory.agent.core.report.Report;
-import org.flyve.inventory.agent.core.report.ReportPresenter;
+import org.flyve.inventory.agent.adapter.ListServersAdapter;
+import org.flyve.inventory.agent.core.servers.Servers;
+import org.flyve.inventory.agent.core.servers.ServersPresenter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.ArrayList;
 
-public class ActivityListServers extends AppCompatActivity implements Report.View {
+public class ActivityListServers extends AppCompatActivity implements Servers.View {
 
-    private Report.Presenter presenter;
+    private Servers.Presenter presenter;
     private ProgressBar progressBar;
 
     /**
@@ -55,11 +56,12 @@ public class ActivityListServers extends AppCompatActivity implements Report.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_servers);
         progressBar = findViewById(R.id.progressBar);
-        presenter = new ReportPresenter(this);
+        presenter = new ServersPresenter(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         try {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            if (getSupportActionBar() != null)
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -70,15 +72,15 @@ public class ActivityListServers extends AppCompatActivity implements Report.Vie
             FlyveLog.e(ex.getMessage());
         }
 
-        FloatingActionButton btnShare = findViewById(R.id.btnShare);
-        btnShare.setOnClickListener(new View.OnClickListener() {
+        Button addServer = toolbar.findViewById(R.id.addServer);
+        addServer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.showDialogShare(ActivityListServers.this);
+                startActivity(new Intent(getApplicationContext(), ActivityDetailServer.class));
             }
         });
 
-        presenter.generateReport(ActivityListServers.this);
+        presenter.loadServers(this);
     }
 
 
@@ -88,11 +90,10 @@ public class ActivityListServers extends AppCompatActivity implements Report.Vie
     }
 
     @Override
-    public void sendInventory(String data, ArrayList<String> load) {
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), data, load, progressBar);
-        viewPager.setAdapter(viewPagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+    public void sendServers(ArrayList<String> model) {
+        RecyclerView listServer = findViewById(R.id.recyclerListServer);
+        ListServersAdapter adapter = new ListServersAdapter(model, this);
+        listServer.setLayoutManager(new LinearLayoutManager(this));
+        listServer.setAdapter(adapter);
     }
 }
