@@ -103,12 +103,14 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
 
     @Override
     public void showServer(ArrayList<String> model) {
+        RelativeLayout containerNoServer = findViewById(R.id.containerNoServer);
+        RecyclerView listServer = findViewById(R.id.recyclerListServer);
         if (model.size() == 0) {
-            RelativeLayout containerNoServer = findViewById(R.id.containerNoServer);
             containerNoServer.setVisibility(View.VISIBLE);
+            listServer.setVisibility(View.GONE);
         } else {
-            RecyclerView listServer = findViewById(R.id.recyclerListServer);
             listServer.setVisibility(View.VISIBLE);
+            containerNoServer.setVisibility(View.GONE);
             ListServersAdapter adapter = new ListServersAdapter(model, this);
             listServer.setLayoutManager(new LinearLayoutManager(this));
             listServer.setAdapter(adapter);
