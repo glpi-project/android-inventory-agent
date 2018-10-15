@@ -79,6 +79,15 @@
     <string name="drawer_help">Help</string>
     <string name="drawer_about">About</string>
 
+    <!-- Servers -->
+    <string name="list_servers">List Servers</string>
+    <string name="add_server">Add Server</string>
+    <string name="detail_server">Detail Server</string>
+    <string name="delete">Delete</string>
+    <string name="show">Show</string>
+    <string name="update_server">Update Server</string>
+    <string name="send_inventory">Send</string>
+
     <!--Error Message-->
 
     <string name="error_url_is_malformed">Inventory server url is malformed, please check it</string>
@@ -207,10 +216,6 @@
     <!--Permission-->
     <string name="request_permission">Request Permission</string>
     <string name="permission_message">This application requires special permits to work properly</string>
-    <string name="list_servers">List Servers</string>
-    <string name="add_server">Add Server</string>
-    <string name="detail_server">Detail Server</string>
-    <string name="delete">Delete</string>
-    <string name="show">Show</string>
+    <string name="no_servers_added">No Servers \n Added</string>
 
 </resources>

@@ -50,7 +50,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.flyve.inventory.agent.ui.InventoryAgentApp;
+import org.flyve.inventory.agent.model.ServerModel;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -66,7 +66,7 @@ import javax.net.ssl.TrustManager;
 
 public class DataLoader {
 
-    public HttpResponse secureLoadData(Context appContext, InventoryAgentApp mFusionApp, String lastXML) throws
+    public HttpResponse secureLoadData(Context appContext, ServerModel mFusionApp, String lastXML) throws
             IOException, NoSuchAlgorithmException, KeyManagementException,
             KeyStoreException, UnrecoverableKeyException {
 
@@ -98,7 +98,7 @@ public class DataLoader {
         DefaultHttpClient sslClient = new DefaultHttpClient(ccm, client.getParams());
 
         HttpPost post;
-        post = new HttpPost(mFusionApp.getUrl());
+        post = new HttpPost(mFusionApp.getAddress());
         sslClient.addRequestInterceptor(new HttpRequestInterceptor() {
             @Override
             public void process(HttpRequest request, HttpContext context) {
@@ -115,15 +115,15 @@ public class DataLoader {
         }
 
         HttpContext context = new BasicHttpContext();
-        URL url = new URL(mFusionApp.getUrl());
+        URL url = new URL(mFusionApp.getAddress());
 
-        String login = mFusionApp.getCredentialsLogin();
+        String login = mFusionApp.getLogin();
         if (!login.equals("")) {
             FlyveLog.log(this, "HTTP credentials given : use it if necessary", Log.VERBOSE);
             CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             credentialsProvider.setCredentials(new AuthScope(url.getHost(), AuthScope.ANY_PORT),
-                    new UsernamePasswordCredentials(mFusionApp.getCredentialsLogin(),
-                            mFusionApp.getCredentialsPassword()));
+                    new UsernamePasswordCredentials(mFusionApp.getLogin(),
+                            mFusionApp.getPass()));
             context.setAttribute("http.auth.credentials-provider", credentialsProvider);
         }
 

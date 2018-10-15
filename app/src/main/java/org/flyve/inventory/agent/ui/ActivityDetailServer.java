@@ -23,7 +23,9 @@
 
 package org.flyve.inventory.agent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -33,8 +35,10 @@ import android.widget.EditText;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.detailserver.DetailServer;
 import org.flyve.inventory.agent.core.detailserver.DetailServerPresenter;
+import org.flyve.inventory.agent.model.ServerModel;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
+import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
 
     private DetailServer.Presenter presenter;
     private Button deleteServer;
+    private Button actionServer;
     private EditText editUrlAddress;
     private EditText editTag;
     private EditText editLogin;
@@ -51,6 +56,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
 
     /**
      * Called when the activity is starting, inflates the activity's UI
+     *
      * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
      */
     @Override
@@ -63,8 +69,13 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         setToolbar();
 
         serverName = getIntent().getStringExtra("serverName");
-        if (serverName == null)
+        if (serverName == null) {
+            actionServer.setText(R.string.add_server);
             deleteServer.setVisibility(View.GONE);
+        } else {
+            actionServer.setText(R.string.update_server);
+            presenter.loadServer(serverName, getApplicationContext());
+        }
     }
 
     private void setToolbar() {
@@ -86,10 +97,13 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     private void instanceObject() {
         toolbar = findViewById(R.id.toolbar);
         deleteServer = toolbar.findViewById(R.id.deleteServer);
+        actionServer = findViewById(R.id.actionServer);
         editUrlAddress = findViewById(R.id.editUrlAddress);
         editTag = findViewById(R.id.editTag);
         editLogin = findViewById(R.id.editLogin);
         editPassWord = findViewById(R.id.editPassWord);
+        actionServer.setOnClickListener(this);
+        deleteServer.setOnClickListener(this);
     }
 
 
@@ -103,13 +117,19 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                 serverInfo.add(editLogin.getText().toString());
                 serverInfo.add(editPassWord.getText().toString());
                 if (serverName == null) {
-                    presenter.saveServer(serverInfo);
+                    presenter.saveServer(serverInfo, getApplicationContext());
                 } else {
-                    presenter.updateServer(serverInfo, serverName);
+                    presenter.updateServer(serverInfo, serverName, getApplicationContext());
                 }
                 break;
             case R.id.deleteServer:
-                presenter.deleteServer(serverName);
+                String message = "You want delete this server";
+                Utils.showAlertDialog(message, this, new Utils.OnTaskCompleted() {
+                    @Override
+                    public void onTaskSuccess() {
+                        presenter.deleteServer(serverName, getApplicationContext());
+                    }
+                });
                 break;
         }
     }
@@ -121,6 +141,20 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
 
     @Override
     public void successful(String message) {
-        Helpers.snackClose(ActivityDetailServer.this, message, getString(R.string.permission_snack_ok), true);
+        onBackPressed();
+    }
+
+    @Override
+    public void modelServer(ServerModel model) {
+        editUrlAddress.setText(model.getAddress());
+        editTag.setText(model.getTag());
+        editLogin.setText(model.getLogin());
+        editPassWord.setText(model.getPass());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("reload-servers"));
     }
 }

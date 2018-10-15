@@ -23,15 +23,19 @@
 
 package org.flyve.inventory.agent.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.ListServersAdapter;
@@ -45,7 +49,13 @@ import java.util.ArrayList;
 public class ActivityListServers extends AppCompatActivity implements Servers.View {
 
     private Servers.Presenter presenter;
-    private ProgressBar progressBar;
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            presenter.loadServers(ActivityListServers.this);
+        }
+    };
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -55,7 +65,6 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_servers);
-        progressBar = findViewById(R.id.progressBar);
         presenter = new ServersPresenter(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         try {
@@ -81,6 +90,9 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
         });
 
         presenter.loadServers(this);
+
+        IntentFilter filter = new IntentFilter("reload-servers");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
     }
 
 
@@ -90,10 +102,22 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
     }
 
     @Override
-    public void sendServers(ArrayList<String> model) {
-        RecyclerView listServer = findViewById(R.id.recyclerListServer);
-        ListServersAdapter adapter = new ListServersAdapter(model, this);
-        listServer.setLayoutManager(new LinearLayoutManager(this));
-        listServer.setAdapter(adapter);
+    public void showServer(ArrayList<String> model) {
+        if (model.size() == 0) {
+            RelativeLayout containerNoServer = findViewById(R.id.containerNoServer);
+            containerNoServer.setVisibility(View.VISIBLE);
+        } else {
+            RecyclerView listServer = findViewById(R.id.recyclerListServer);
+            listServer.setVisibility(View.VISIBLE);
+            ListServersAdapter adapter = new ListServersAdapter(model, this);
+            listServer.setLayoutManager(new LinearLayoutManager(this));
+            listServer.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
     }
 }

@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-mdm-agent
@@ -22,6 +22,14 @@
  */
 
 package org.flyve.inventory.agent.core.detailserver;
+
+import android.content.Context;
+
+import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.utils.FlyveLog;
+import org.flyve.inventory.agent.utils.LocalPreferences;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,17 +42,94 @@ public class DetailServerModel implements DetailServer.Model {
     }
 
     @Override
-    public void saveServer(ArrayList<String> message) {
-        presenter.successful("Successful");
+    public void saveServer(ArrayList<String> modelServer, Context context) {
+        LocalPreferences preferences = new LocalPreferences(context);
+        if (modelServer.size() >= 4) {
+            if (!"".equals(modelServer.get(0))) {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("address", modelServer.get(0));
+                    jo.put("tag", modelServer.get(1));
+                    jo.put("login", modelServer.get(2));
+                    jo.put("pass", modelServer.get(3));
+                    ArrayList<String> serverArray = preferences.loadServerArray();
+                    serverArray.add(modelServer.get(0));
+                    preferences.saveServerArray(serverArray);
+                } catch (JSONException e) {
+                    FlyveLog.e(e.getMessage());
+                    presenter.showError("Error");
+                }
+                preferences.saveJSONObject(modelServer.get(0), jo);
+                presenter.successful("Successful");
+            } else {
+                presenter.showError("Missing server");
+            }
+        } else {
+            presenter.showError("Error");
+        }
     }
 
     @Override
-    public void deleteServer(String serverName) {
-        presenter.successful("Successful");
+    public void updateServer(ArrayList<String> modelServer, String serverName, Context context) {
+        LocalPreferences preferences = new LocalPreferences(context);
+        if (modelServer.size() >= 4) {
+            if (!"".equals(modelServer.get(0))) {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("address", modelServer.get(0));
+                    jo.put("tag", modelServer.get(1));
+                    jo.put("login", modelServer.get(2));
+                    jo.put("pass", modelServer.get(3));
+                    ArrayList<String> serverArray = preferences.loadServerArray();
+                    for (int i = 0; i < serverArray.size(); i++) {
+                        if (serverArray.get(i).equals(serverName)) {
+                            serverArray.set(i, modelServer.get(0));
+                            preferences.saveServerArray(serverArray);
+                        }
+                    }
+                } catch (JSONException e) {
+                    FlyveLog.e(e.getMessage());
+                    presenter.showError("Error");
+                }
+                preferences.deletePreferences(serverName);
+                preferences.saveJSONObject(modelServer.get(0), jo);
+                presenter.successful("Successful");
+            } else {
+                presenter.showError("Missing Server");
+            }
+        } else {
+            presenter.showError("Error");
+        }
     }
 
     @Override
-    public void updateServer(ArrayList<String> serverInfo, String serverName) {
-        presenter.successful("Successful");
+    public void loadServer(String serverName, Context context) {
+        LocalPreferences preferences = new LocalPreferences(context);
+        try {
+            JSONObject jo = preferences.loadJSONObject(serverName);
+            ServerModel serverModel = new ServerModel();
+            serverModel.setAddress(jo.getString("address"));
+            serverModel.setTag(jo.getString("tag"));
+            serverModel.setLogin(jo.getString("login"));
+            serverModel.setPass(jo.getString("pass"));
+            presenter.modelServer(serverModel);
+        } catch (JSONException e) {
+            FlyveLog.e(e.getMessage());
+            presenter.showError("Error");
+        }
+    }
+
+    @Override
+    public void deleteServer(String serverName, Context context) {
+        if (serverName != null && !"".equals(serverName)) {
+            LocalPreferences preferences = new LocalPreferences(context);
+            preferences.deletePreferences(serverName);
+            ArrayList<String> serverArray = preferences.loadServerArray();
+            serverArray.remove(serverName);
+            preferences.saveServerArray(serverArray);
+            presenter.successful("Successful Delete");
+        } else {
+            presenter.showError("Error");
+        }
     }
 }

@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
@@ -52,7 +52,7 @@ public class ListServersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        int resource = R.layout.list_item_inventory_child;
+        int resource = R.layout.list_item_servers;
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(resource, viewGroup, false);
         return new DataViewHolder(v);
     }
