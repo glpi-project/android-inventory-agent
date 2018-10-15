@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-mdm-agent
@@ -45,9 +45,9 @@ public class ServersPresenter implements Servers.Presenter {
     }
 
     @Override
-    public void sendServers(ArrayList<String> model) {
+    public void showServers(ArrayList<String> model) {
         if (view != null) {
-            view.sendServers(model);
+            view.showServer(model);
         }
     }
 

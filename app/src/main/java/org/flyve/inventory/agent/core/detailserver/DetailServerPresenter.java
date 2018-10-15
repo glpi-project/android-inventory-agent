@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
- * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-mdm-agent
@@ -22,6 +22,10 @@
  */
 
 package org.flyve.inventory.agent.core.detailserver;
+
+import android.content.Context;
+
+import org.flyve.inventory.agent.model.ServerModel;
 
 import java.util.ArrayList;
 
@@ -50,18 +54,30 @@ public class DetailServerPresenter implements DetailServer.Presenter {
     }
 
     @Override
-    public void saveServer(ArrayList<String> message) {
-        model.saveServer(message);
+    public void modelServer(ServerModel model) {
+        if (view != null) {
+            view.modelServer(model);
+        }
     }
 
     @Override
-    public void deleteServer(String serverName) {
-        model.deleteServer(serverName);
+    public void saveServer(ArrayList<String> message, Context applicationContext) {
+        model.saveServer(message, applicationContext);
     }
 
     @Override
-    public void updateServer(ArrayList<String> serverInfo, String serverName) {
-        model.updateServer(serverInfo, serverName);
+    public void deleteServer(String serverName, Context applicationContext) {
+        model.deleteServer(serverName, applicationContext);
+    }
+
+    @Override
+    public void updateServer(ArrayList<String> serverInfo, String serverName, Context applicationContext) {
+        model.updateServer(serverInfo, serverName, applicationContext);
+    }
+
+    @Override
+    public void loadServer(String serverName, Context applicationContext) {
+        model.loadServer(serverName, applicationContext);
     }
 
 }

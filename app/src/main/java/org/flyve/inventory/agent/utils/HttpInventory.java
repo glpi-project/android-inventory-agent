@@ -33,7 +33,10 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.model.ServerModel;
 import org.flyve.inventory.agent.ui.InventoryAgentApp;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,7 +48,6 @@ import java.net.URL;
 public class HttpInventory {
 
     private Context appContext;
-    private InventoryAgentApp mFusionApp;
     private URL url = null;
 
     private static Handler uiHandler;
@@ -53,6 +55,8 @@ public class HttpInventory {
     static {
         uiHandler = new Handler(Looper.getMainLooper());
     }
+
+    private ServerModel serverModel;
 
     private static void runOnUI(Runnable runnable) {
         uiHandler.post(runnable);
@@ -64,15 +68,31 @@ public class HttpInventory {
      */
     public HttpInventory(Context context) {
         this.appContext = context;
-        mFusionApp = (InventoryAgentApp) context.getApplicationContext();
+    }
+
+    public ServerModel setServerModel(String serverName) {
+        LocalPreferences preferences = new LocalPreferences(appContext);
+        ServerModel serverModel = new ServerModel();
+        try {
+            JSONObject jo = preferences.loadJSONObject(serverName);
+            serverModel.setAddress(jo.getString("address"));
+            serverModel.setTag(jo.getString("tag"));
+            serverModel.setLogin(jo.getString("login"));
+            serverModel.setPass(jo.getString("pass"));
+        } catch (JSONException e) {
+            FlyveLog.e(e.getMessage());
+        }
+        return serverModel;
     }
 
     /**
      * Sends the inventory
-     * @param string lastXMLResult the inventory information
+     * @param lastXMLResult lastXMLResult the inventory information
+     * @param callback
      * @return boolean true if succeed, false otherwise
      */
-    public void sendInventory(final String lastXMLResult, final OnTaskCompleted callback) {
+    public void sendInventory(final String lastXMLResult, ServerModel serverModel, final OnTaskCompleted callback) {
+        this.serverModel = serverModel;
 
         if (lastXMLResult == null) {
             FlyveLog.log(this, "No XML Inventory ", Log.ERROR);
@@ -81,7 +101,7 @@ public class HttpInventory {
         }
 
         try {
-            url = new URL(mFusionApp.getUrl());
+            url = new URL(serverModel.getAddress());
             FlyveLog.d(url.toString());
         } catch (MalformedURLException e) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_malformed) + e.getLocalizedMessage(), Log.ERROR);
@@ -89,13 +109,13 @@ public class HttpInventory {
             return;
         }
 
-        if (url == null || "".equals(mFusionApp.getUrl())) {
+        if (url == null || "".equals(serverModel.getAddress())) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_url_is_not_found), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_url_is_not_found));
             return;
         }
 
-        if (mFusionApp == null) {
+        if (this.serverModel == null) {
             FlyveLog.log(this, appContext.getResources().getString(R.string.error_send_fail), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
             return;
@@ -112,7 +132,7 @@ public class HttpInventory {
     private void connect(String lastXMLResult, OnTaskCompleted callback){
         try {
             DataLoader dl = new DataLoader();
-            HttpResponse response = dl.secureLoadData(appContext, mFusionApp, lastXMLResult);
+            HttpResponse response = dl.secureLoadData(appContext, serverModel, lastXMLResult);
 
             StringBuilder sb = new StringBuilder();
             sb.append("HEADERS:\n\n");
