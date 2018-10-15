@@ -23,34 +23,36 @@
 
 package org.flyve.inventory.agent.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.model.ListInventoryModel;
+import org.flyve.inventory.agent.ui.ActivityDetailServer;
 
 import java.util.ArrayList;
 
 
-public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ListServersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<ArrayList<ListInventoryModel>> data;
-    private FragmentActivity activity;
+    private ArrayList<String> data;
+    private Activity activity;
 
-    public InventoryAdapter(ArrayList<ArrayList<ListInventoryModel>> data, FragmentActivity fragmentActivity) {
+    public ListServersAdapter(ArrayList<String> data, Activity activity) {
         this.data = data;
-        activity = fragmentActivity;
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        int resource = R.layout.list_item_inventory_parent;
+        int resource = R.layout.list_item_inventory_child;
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(resource, viewGroup, false);
         return new DataViewHolder(v);
     }
@@ -61,21 +63,38 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
-        RecyclerView recyclerView;
-        View viewSeparator;
+        TextView title;
+        Button showServer;
+        View viewSeparatorBottom;
 
         DataViewHolder(View itemView) {
             super(itemView);
-            recyclerView = itemView.findViewById(R.id.recyclerView);
-            viewSeparator = itemView.findViewById(R.id.viewSeparator);
+            title = itemView.findViewById(R.id.title);
+            showServer = itemView.findViewById(R.id.showServer);
+            viewSeparatorBottom = itemView.findViewById(R.id.viewSeparatorBottom);
         }
 
-        void bindData(ArrayList<ListInventoryModel> model, int position) {
-            if ((data.size() - 1) == position) {
-                viewSeparator.setVisibility(View.GONE);
+        void bindData(final String model, int position) {
+            if (position % 2 == 1) {
+                itemView.setBackgroundColor(activity.getResources().getColor(R.color.white));
+            } else {
+                itemView.setBackgroundColor(activity.getResources().getColor(R.color.grayDarkList));
             }
-            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-            recyclerView.setAdapter(new InventoryChildAdapter(model, activity));
+
+            title.setText(model);
+
+            if ((data.size() -1) == position) {
+                viewSeparatorBottom.setVisibility(View.VISIBLE);
+            }
+
+            showServer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, ActivityDetailServer.class);
+                    intent.putExtra("serverName", model);
+                    activity.startActivity(intent);
+                }
+            });
         }
     }
 

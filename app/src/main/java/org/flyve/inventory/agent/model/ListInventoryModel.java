@@ -1,6 +1,6 @@
 package org.flyve.inventory.agent.model;
 
-public class ListInventory {
+public class ListInventoryModel {
 
     private String title;
     private String description;

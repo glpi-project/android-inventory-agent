@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/viewSeparator"
+        style="@style/LineSeparator" />
+
+    <RelativeLayout
+        android:id="@+id/containerServer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewSeparator"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="@color/grayDark"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/showServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif"
+            android:text="@string/show"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/viewSeparatorBottom"
+        style="@style/LineSeparator"
+        android:layout_below="@+id/containerServer"
+        android:visibility="gone" />
+</RelativeLayout>

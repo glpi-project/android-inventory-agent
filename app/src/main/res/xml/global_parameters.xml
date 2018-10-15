@@ -24,9 +24,9 @@
 
     <PreferenceCategory android:title="@string/GlobalCatSet"/>
 
-    <Preference android:title="Open List"
+    <Preference android:title="Open List Servers"
         android:key="@string/buttonListServer"
-        android:summary="Open List Servers">
+        android:summary="">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="org.flyve.inventory.agent"
