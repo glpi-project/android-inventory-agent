@@ -38,6 +38,9 @@ import org.flyve.inventory.agent.model.ServerModel;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
+import org.flyve.inventory.agent.utils.LocalPreferences;
+
+import java.util.ArrayList;
 
 public class TimeAlarm extends BroadcastReceiver {
 
@@ -68,24 +71,23 @@ public class TimeAlarm extends BroadcastReceiver {
             @Override
             public void onTaskSuccess(String data) {
                 HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
-                ServerModel serverModel = new ServerModel();
-                serverModel.setAddress("https://demo-api.flyve.org/plugins/fusioninventory/");
-                serverModel.setTag("");
-                serverModel.setLogin("");
-                serverModel.setPass("");
-                httpInventory.sendInventory(data, serverModel, new HttpInventory.OnTaskCompleted() {
-                    @Override
-                    public void onTaskSuccess(String data) {
-                        Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
-                        Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
-                    }
+                ArrayList<String> serverArray = new LocalPreferences(context).loadServerArray();
+                for (String serverName : serverArray) {
+                    ServerModel model = httpInventory.setServerModel(serverName);
+                    httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
+                        @Override
+                        public void onTaskSuccess(String data) {
+                            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
+                            Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
+                        }
 
-                    @Override
-                    public void onTaskError(String error) {
-                        Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
-                        FlyveLog.e(error);
-                    }
-                });
+                        @Override
+                        public void onTaskError(String error) {
+                            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
+                            FlyveLog.e(error);
+                        }
+                    });
+                }
             }
 
             @Override
