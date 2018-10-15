@@ -74,7 +74,7 @@ public class LocalPreferences {
     public ArrayList<String> loadServerArray() {
         ArrayList<String> ids = new ArrayList<>();
         SharedPreferences mSharedPreference1 = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int size = Integer.parseInt(mSharedPreference1.getString("Status_size", ""));
+        int size = Integer.parseInt(mSharedPreference1.getString("Status_size", "0"));
 
         for (int i = 0; i < size; i++) {
             ids.add(mSharedPreference1.getString("Status_" + i, ""));
