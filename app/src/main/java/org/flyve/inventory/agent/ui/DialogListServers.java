@@ -86,6 +86,12 @@ public class DialogListServers {
         } else {
             dialog.findViewById(R.id.containerNoServer).setVisibility(View.VISIBLE);
             dialog.findViewById(R.id.containerSpinner).setVisibility(View.GONE);
+            dialog.findViewById(R.id.btn_dismiss).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
         }
     }
 
