@@ -354,7 +354,6 @@
             <IPADDRESS>192.168.0.103</IPADDRESS>
             <IPMASK>0.0.0.0</IPMASK>
             <IPDHCP>192.168.0.1</IPDHCP>
-            <IPSUBNET>192.168.0.103</IPSUBNET>
             <STATUS>up</STATUS>
             <DESCRIPTION>N/A</DESCRIPTION>
             <IPADDRESS6>fe80::e22c:b2ff:fe39:520d%wlan0</IPADDRESS6>

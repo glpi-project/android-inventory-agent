@@ -87,6 +87,9 @@
     <string name="show">Show</string>
     <string name="update_server">Update Server</string>
     <string name="send_inventory">Send</string>
+    <string name="no_servers_added">No Servers \n Added</string>
+    <string name="no_added">No Added</string>
+    <string name="close">Close</string>
 
     <!--Error Message-->
 
@@ -216,6 +219,5 @@
     <!--Permission-->
     <string name="request_permission">Request Permission</string>
     <string name="permission_message">This application requires special permits to work properly</string>
-    <string name="no_servers_added">No Servers \n Added</string>
 
 </resources>

@@ -78,10 +78,15 @@ public class DialogListServers {
 
     private void setSpinner(Activity activity) {
         ArrayList<String> serverArray = new LocalPreferences(activity).loadServerArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, serverArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerServers = dialog.findViewById(R.id.spinnerServers);
-        spinnerServers.setAdapter(adapter);
+        if (!serverArray.isEmpty()) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, serverArray);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerServers = dialog.findViewById(R.id.spinnerServers);
+            spinnerServers.setAdapter(adapter);
+        } else {
+            dialog.findViewById(R.id.containerNoServer).setVisibility(View.VISIBLE);
+            dialog.findViewById(R.id.containerSpinner).setVisibility(View.GONE);
+        }
     }
 
     private void sendInventory(final Activity activity, final Home.Presenter presenter) {
