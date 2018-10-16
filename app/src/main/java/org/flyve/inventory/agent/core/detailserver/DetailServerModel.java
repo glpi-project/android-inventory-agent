@@ -25,7 +25,7 @@ package org.flyve.inventory.agent.core.detailserver;
 
 import android.content.Context;
 
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.LocalPreferences;
 import org.json.JSONException;
@@ -107,12 +107,12 @@ public class DetailServerModel implements DetailServer.Model {
         LocalPreferences preferences = new LocalPreferences(context);
         try {
             JSONObject jo = preferences.loadJSONObject(serverName);
-            ServerModel serverModel = new ServerModel();
-            serverModel.setAddress(jo.getString("address"));
-            serverModel.setTag(jo.getString("tag"));
-            serverModel.setLogin(jo.getString("login"));
-            serverModel.setPass(jo.getString("pass"));
-            presenter.modelServer(serverModel);
+            ServerSchema serverSchema = new ServerSchema();
+            serverSchema.setAddress(jo.getString("address"));
+            serverSchema.setTag(jo.getString("tag"));
+            serverSchema.setLogin(jo.getString("login"));
+            serverSchema.setPass(jo.getString("pass"));
+            presenter.modelServer(serverSchema);
         } catch (JSONException e) {
             FlyveLog.e(e.getMessage());
             presenter.showError("Error");

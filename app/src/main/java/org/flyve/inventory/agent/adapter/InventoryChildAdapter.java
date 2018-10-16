@@ -33,7 +33,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.model.ListInventoryModel;
+import org.flyve.inventory.agent.schema.ListInventorySchema;
 import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.ArrayList;
@@ -41,10 +41,10 @@ import java.util.ArrayList;
 
 public class InventoryChildAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<ListInventoryModel> data;
+    private ArrayList<ListInventorySchema> data;
     private FragmentActivity activity;
 
-    InventoryChildAdapter(ArrayList<ListInventoryModel> data, FragmentActivity activity) {
+    InventoryChildAdapter(ArrayList<ListInventorySchema> data, FragmentActivity activity) {
         this.data = data;
         this.activity = activity;
     }
@@ -74,7 +74,7 @@ public class InventoryChildAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             viewSeparatorBottom = itemView.findViewById(R.id.viewSeparatorBottom);
         }
 
-        void bindData(ListInventoryModel model, int position) {
+        void bindData(ListInventorySchema model, int position) {
             if (position % 2 == 1) {
                 itemView.setBackgroundColor(activity.getResources().getColor(R.color.white));
             } else {
