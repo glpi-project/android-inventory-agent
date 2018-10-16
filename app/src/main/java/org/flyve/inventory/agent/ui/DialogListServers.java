@@ -89,15 +89,16 @@ public class DialogListServers {
         final ProgressDialog progressBar = ProgressDialog.show(activity, "Sending inventory", message);
 
         final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity));
+        final HttpInventory httpInventory = new HttpInventory(activity);
+        final String serverName = spinnerServers.getSelectedItem().toString();
+        final ServerModel model = httpInventory.setServerModel(serverName);
+        inventoryTask.setTag(model.getTag());
 
         // Sending anonymous information
         inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
                 FlyveLog.d(data);
-                HttpInventory httpInventory = new HttpInventory(activity);
-                String serverName = spinnerServers.getSelectedItem().toString();
-                ServerModel model = httpInventory.setServerModel(serverName);
                 httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
