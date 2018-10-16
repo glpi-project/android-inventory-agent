@@ -69,34 +69,39 @@ public class TimeAlarm extends BroadcastReceiver {
         final InventoryTask inventory = new InventoryTask(context.getApplicationContext(), "Inventory-Agent-Android_v1.0");
         final HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
         ArrayList<String> serverArray = new LocalPreferences(context).loadServerArray();
-        for (final String serverName : serverArray) {
-            final ServerSchema model = httpInventory.setServerModel(serverName);
-            inventory.setTag(model.getTag());
-            inventory.getXML(new InventoryTask.OnTaskCompleted() {
-                @Override
-                public void onTaskSuccess(String data) {
-                    ServerSchema model = httpInventory.setServerModel(serverName);
-                    httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
-                        @Override
-                        public void onTaskSuccess(String data) {
-                            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
-                            Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
-                        }
+        if (!serverArray.isEmpty()) {
+            for (final String serverName : serverArray) {
+                final ServerSchema model = httpInventory.setServerModel(serverName);
+                inventory.setTag(model.getTag());
+                inventory.getXML(new InventoryTask.OnTaskCompleted() {
+                    @Override
+                    public void onTaskSuccess(String data) {
+                        ServerSchema model = httpInventory.setServerModel(serverName);
+                        httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
+                            @Override
+                            public void onTaskSuccess(String data) {
+                                Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
+                                Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
+                            }
 
-                        @Override
-                        public void onTaskError(String error) {
-                            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
-                            FlyveLog.e(error);
-                        }
-                    });
-                }
+                            @Override
+                            public void onTaskError(String error) {
+                                Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
+                                FlyveLog.e(error);
+                            }
+                        });
+                    }
 
-                @Override
-                public void onTaskError(Throwable error) {
-                    FlyveLog.e(error.getMessage());
-                    Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
-                }
-            });
+                    @Override
+                    public void onTaskError(Throwable error) {
+                        FlyveLog.e(error.getMessage());
+                        Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
+                    }
+                });
+            }
+        } else {
+            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
+            FlyveLog.e(context.getResources().getString(R.string.inventory_notification_fail));
         }
 
         wl.release();
