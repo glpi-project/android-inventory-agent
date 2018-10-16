@@ -179,13 +179,13 @@ public class InventoryService extends Service {
         wl.acquire();
 
         final InventoryTask inventory = new InventoryTask(context.getApplicationContext(), "Inventory-Agent-Android_v1.0");
-        inventory.getXML(new InventoryTask.OnTaskCompleted() {
-            @Override
-            public void onTaskSuccess(String data) {
-                HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
-                ArrayList<String> serverArray = new LocalPreferences(context).loadServerArray();
-                for (String serverName : serverArray) {
-                    ServerModel model = httpInventory.setServerModel(serverName);
+        final HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
+        ArrayList<String> serverArray = new LocalPreferences(context).loadServerArray();
+        for (String serverName : serverArray) {
+            final ServerModel model = httpInventory.setServerModel(serverName);
+            inventory.getXML(new InventoryTask.OnTaskCompleted() {
+                @Override
+                public void onTaskSuccess(String data) {
                     httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                         @Override
                         public void onTaskSuccess(String data) {
@@ -200,14 +200,14 @@ public class InventoryService extends Service {
                         }
                     });
                 }
-            }
 
-            @Override
-            public void onTaskError(Throwable error) {
-                FlyveLog.e(error.getMessage());
-                Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
-            }
-        });
+                @Override
+                public void onTaskError(Throwable error) {
+                    FlyveLog.e(error.getMessage());
+                    Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
+                }
+            });
+        }
 
         wl.release();
     }
