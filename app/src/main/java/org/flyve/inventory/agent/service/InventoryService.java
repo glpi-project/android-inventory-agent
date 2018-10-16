@@ -36,7 +36,7 @@ import android.util.Log;
 
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
@@ -182,7 +182,7 @@ public class InventoryService extends Service {
         final HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
         ArrayList<String> serverArray = new LocalPreferences(context).loadServerArray();
         for (String serverName : serverArray) {
-            final ServerModel model = httpInventory.setServerModel(serverName);
+            final ServerSchema model = httpInventory.setServerModel(serverName);
             inventory.getXML(new InventoryTask.OnTaskCompleted() {
                 @Override
                 public void onTaskSuccess(String data) {

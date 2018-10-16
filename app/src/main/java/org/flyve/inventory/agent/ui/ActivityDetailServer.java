@@ -35,7 +35,7 @@ import android.widget.EditText;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.detailserver.DetailServer;
 import org.flyve.inventory.agent.core.detailserver.DetailServerPresenter;
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.Utils;
@@ -145,7 +145,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     }
 
     @Override
-    public void modelServer(ServerModel model) {
+    public void modelServer(ServerSchema model) {
         editUrlAddress.setText(model.getAddress());
         editTag.setText(model.getTag());
         editLogin.setText(model.getLogin());

@@ -36,7 +36,7 @@ import android.widget.Spinner;
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.home.Home;
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.HttpInventory;
@@ -91,7 +91,7 @@ public class DialogListServers {
         final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity));
         final HttpInventory httpInventory = new HttpInventory(activity);
         final String serverName = spinnerServers.getSelectedItem().toString();
-        final ServerModel model = httpInventory.setServerModel(serverName);
+        final ServerSchema model = httpInventory.setServerModel(serverName);
         inventoryTask.setTag(model.getTag());
 
         // Sending anonymous information

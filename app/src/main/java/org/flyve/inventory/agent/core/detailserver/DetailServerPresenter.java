@@ -25,7 +25,7 @@ package org.flyve.inventory.agent.core.detailserver;
 
 import android.content.Context;
 
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class DetailServerPresenter implements DetailServer.Presenter {
     }
 
     @Override
-    public void modelServer(ServerModel model) {
+    public void modelServer(ServerSchema model) {
         if (view != null) {
             view.modelServer(model);
         }

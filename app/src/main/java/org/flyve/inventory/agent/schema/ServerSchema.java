@@ -1,6 +1,6 @@
-package org.flyve.inventory.agent.model;
+package org.flyve.inventory.agent.schema;
 
-public class ServerModel {
+public class ServerSchema {
 
     private String address;
     private String tag;

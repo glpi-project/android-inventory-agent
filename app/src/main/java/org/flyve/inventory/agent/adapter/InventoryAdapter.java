@@ -32,17 +32,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.model.ListInventoryModel;
+import org.flyve.inventory.agent.schema.ListInventorySchema;
 
 import java.util.ArrayList;
 
 
 public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<ArrayList<ListInventoryModel>> data;
+    private ArrayList<ArrayList<ListInventorySchema>> data;
     private FragmentActivity activity;
 
-    public InventoryAdapter(ArrayList<ArrayList<ListInventoryModel>> data, FragmentActivity fragmentActivity) {
+    public InventoryAdapter(ArrayList<ArrayList<ListInventorySchema>> data, FragmentActivity fragmentActivity) {
         this.data = data;
         activity = fragmentActivity;
     }
@@ -70,7 +70,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewSeparator = itemView.findViewById(R.id.viewSeparator);
         }
 
-        void bindData(ArrayList<ListInventoryModel> model, int position) {
+        void bindData(ArrayList<ListInventorySchema> model, int position) {
             if ((data.size() - 1) == position) {
                 viewSeparator.setVisibility(View.GONE);
             }
