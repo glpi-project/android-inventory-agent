@@ -50,7 +50,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -66,7 +66,7 @@ import javax.net.ssl.TrustManager;
 
 public class DataLoader {
 
-    public HttpResponse secureLoadData(Context appContext, ServerModel mFusionApp, String lastXML) throws
+    public HttpResponse secureLoadData(Context appContext, ServerSchema mFusionApp, String lastXML) throws
             IOException, NoSuchAlgorithmException, KeyManagementException,
             KeyStoreException, UnrecoverableKeyException {
 

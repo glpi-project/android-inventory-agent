@@ -25,7 +25,7 @@ package org.flyve.inventory.agent.core.detailserver;
 
 import android.content.Context;
 
-import org.flyve.inventory.agent.model.ServerModel;
+import org.flyve.inventory.agent.schema.ServerSchema;
 
 import java.util.ArrayList;
 
@@ -34,14 +34,14 @@ public interface DetailServer {
     interface View {
         void showError(String message);
         void successful(String message);
-        void modelServer(ServerModel model);
+        void modelServer(ServerSchema model);
     }
 
     interface Presenter {
         // Views
         void showError(String message);
         void successful(String message);
-        void modelServer(ServerModel model);
+        void modelServer(ServerSchema model);
 
         // Models
         void saveServer(ArrayList<String> message, Context applicationContext);
