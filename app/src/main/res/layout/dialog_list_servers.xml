@@ -24,12 +24,14 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/containerSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp">
+        android:layout_marginStart="10dp"
+        android:visibility="gone">
 
         <Spinner
             android:id="@+id/spinnerServers"
@@ -50,6 +52,33 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="20dp"
             android:text="@string/send_inventory" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/containerNoServer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/btn_dismiss"
+            android:layout_toStartOf="@+id/btn_dismiss"
+            android:text="@string/no_added"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="20dp"
+            android:text="@string/close" />
     </RelativeLayout>
 
 </LinearLayout>
