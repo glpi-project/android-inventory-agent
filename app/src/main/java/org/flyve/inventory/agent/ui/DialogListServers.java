@@ -48,6 +48,7 @@ public class DialogListServers {
 
     private Dialog dialog;
     private Spinner spinnerServers;
+    private final String TOALLSERVERS = "Send to all servers";
 
     public void showDialog(final Activity activity, final Home.Presenter presenter){
         dialog = new Dialog(activity);
@@ -79,6 +80,7 @@ public class DialogListServers {
     private void setSpinner(Activity activity) {
         ArrayList<String> serverArray = new LocalPreferences(activity).loadServerArray();
         if (!serverArray.isEmpty()) {
+            serverArray.add(0, TOALLSERVERS);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, serverArray);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerServers = dialog.findViewById(R.id.spinnerServers);
@@ -96,13 +98,24 @@ public class DialogListServers {
     }
 
     private void sendInventory(final Activity activity, final Home.Presenter presenter) {
+        final String serverName = spinnerServers.getSelectedItem().toString();
+        if (!TOALLSERVERS.equalsIgnoreCase(serverName)) {
+            sendInventory(activity, presenter, serverName);
+        } else {
+            ArrayList<String> serverArray = new LocalPreferences(activity).loadServerArray();
+            for (final String server : serverArray) {
+                sendInventory(activity, presenter, server);
+            }
+        }
+    }
+
+    private void sendInventory(final Activity activity, final Home.Presenter presenter, String server) {
         String message = activity.getResources().getString(R.string.loading);
         final ProgressDialog progressBar = ProgressDialog.show(activity, "Sending inventory", message);
 
         final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity));
         final HttpInventory httpInventory = new HttpInventory(activity);
-        final String serverName = spinnerServers.getSelectedItem().toString();
-        final ServerSchema model = httpInventory.setServerModel(serverName);
+        final ServerSchema model = httpInventory.setServerModel(server);
         inventoryTask.setTag(model.getTag());
 
         // Sending anonymous information
