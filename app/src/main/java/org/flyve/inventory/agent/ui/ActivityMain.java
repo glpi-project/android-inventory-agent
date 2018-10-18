@@ -45,6 +45,7 @@ import org.flyve.inventory.agent.core.main.Main;
 import org.flyve.inventory.agent.core.main.MainPresenter;
 import org.flyve.inventory.agent.service.InventoryService;
 import org.flyve.inventory.agent.utils.Helpers;
+import org.flyve.inventory.agent.utils.LocalStorage;
 
 import java.util.Map;
 
@@ -61,7 +62,7 @@ public class ActivityMain extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             String strTime = intent.getStringExtra("time");
-            if (sharedPreferences.getBoolean("autoStartInventory", false)) {
+            if (sharedPreferences.getBoolean("autoStartInventory", true)) {
                 toolbar.setSubtitle(strTime);
             } else {
                 toolbar.setSubtitle("");
@@ -72,6 +73,7 @@ public class ActivityMain extends AppCompatActivity
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            new LocalStorage(context).setDataBoolean("changeSchedule", true);
             presenter.setupInventoryAlarm(ActivityMain.this);
         }
     };
