@@ -62,7 +62,7 @@ public class ActivityMain extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             String strTime = intent.getStringExtra("time");
-            if (sharedPreferences.getBoolean("autoStartInventory", true)) {
+            if (sharedPreferences.getBoolean("autoStartInventory", false)) {
                 toolbar.setSubtitle(strTime);
             } else {
                 toolbar.setSubtitle("");
