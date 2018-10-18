@@ -14,6 +14,7 @@
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
  * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
@@ -23,23 +24,30 @@
 
 package org.flyve.inventory.agent.preference;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 
 import org.flyve.inventory.agent.R;
 
-public class InventoryParametersPreference extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class InventoryParametersPreference extends PreferenceActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addPreferencesFromResource(R.xml.inventory_parameters);
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
     }
 
-        @Override
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-
+        if ("timeInventory".equals(s)) {
+            Intent intent = new Intent("timeAlarmChanged");
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        }
     }
 }

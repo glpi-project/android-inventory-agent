@@ -101,7 +101,7 @@ public class InventoryService extends Service {
         }
     }
 
-    public String twoDatesBetweenTime() {
+    private void twoDatesBetweenTime() {
 
         try {
             dateCurrent = new Date(longDate);
@@ -110,7 +110,7 @@ public class InventoryService extends Service {
         }
 
         try {
-            dateDiff = new Date(cache.getDataLong(("data")));
+            dateDiff = new Date(cache.getDataLong("data"));
         } catch (Exception ex) {
             FlyveLog.e(ex.getMessage());
         }
@@ -129,8 +129,12 @@ public class InventoryService extends Service {
 
             long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
 
-            if (seconds+hours+minutes+days > 0) {
-                String strTesting = days + " days  " + hours + ":" + minutes + ":" + seconds;
+            if (seconds + hours + minutes + days > 0) {
+                String strTesting;
+                if (days != 0)
+                    strTesting = days + " days  " + hours + ":" + minutes + ":" + seconds;
+                else
+                    strTesting = hours + ":" + minutes + ":" + seconds;
                 updateTime(strTesting);
             } else {
                 sendInventory();
@@ -141,7 +145,6 @@ public class InventoryService extends Service {
             mTimer.purge();
         }
 
-        return "";
     }
 
     private void setupInventorySchedule() {
@@ -151,7 +154,9 @@ public class InventoryService extends Service {
         String timeInventory = sharedPreferences.getString("timeInventory", "week");
 
         // week by default
-        calendar.add(Calendar.DATE, 7);
+        if (timeInventory.equalsIgnoreCase("week")) {
+            calendar.add(Calendar.DATE, 7);
+        }
 
         if(timeInventory.equalsIgnoreCase("day")) {
             calendar.add(Calendar.DATE, 1);
@@ -196,7 +201,7 @@ public class InventoryService extends Service {
 
                             @Override
                             public void onTaskError(String error) {
-                                Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
+                                Helpers.sendToNotificationBar(context.getApplicationContext(), error);
                                 FlyveLog.e(error);
                             }
                         });
@@ -210,8 +215,8 @@ public class InventoryService extends Service {
                 });
             }
         } else {
-            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
-            FlyveLog.e(context.getResources().getString(R.string.inventory_notification_fail));
+            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.no_servers_added));
+            FlyveLog.e(context.getResources().getString(R.string.no_servers_added));
         }
 
         wl.release();
