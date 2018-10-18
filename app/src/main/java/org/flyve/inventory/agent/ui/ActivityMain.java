@@ -14,6 +14,7 @@
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
  * @author    Rafael Hernandez
+ * @author    Ivan Del Pino
  * @copyright Copyright Teclib. All rights reserved.
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
@@ -31,6 +32,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +48,8 @@ import org.flyve.inventory.agent.utils.Helpers;
 
 import java.util.Map;
 
-public class ActivityMain extends AppCompatActivity implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
+public class ActivityMain extends AppCompatActivity
+        implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Main.Presenter presenter;
     private DrawerLayout drawerLayout;
@@ -57,18 +60,22 @@ public class ActivityMain extends AppCompatActivity implements Main.View, Shared
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-                String strTime = intent.getStringExtra("time");
-                setCountDown(strTime);
+            String strTime = intent.getStringExtra("time");
+            if (sharedPreferences.getBoolean("autoStartInventory", false)) {
+                toolbar.setSubtitle(strTime);
+            } else {
+                toolbar.setSubtitle("");
+            }
         }
     };
 
-    private void setCountDown(String strTime){
-        if (sharedPreferences.getBoolean("autoStartInventory", false)) {
-            toolbar.setSubtitle(strTime);
-        } else {
-            toolbar.setSubtitle("");
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            presenter.setupInventoryAlarm(ActivityMain.this);
         }
-    }
+    };
+
 
     @Override
     protected void onResume() {
@@ -120,17 +127,20 @@ public class ActivityMain extends AppCompatActivity implements Main.View, Shared
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
 
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,
-                R.string.app_name);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar,R.string.app_name, R.string.app_name);
 
         drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+        IntentFilter timeAlarmChanged = new IntentFilter("timeAlarmChanged");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, timeAlarmChanged);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
     @Override
@@ -140,9 +150,13 @@ public class ActivityMain extends AppCompatActivity implements Main.View, Shared
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals("autoStartInventory")) {
+        if (key.equals("autoStartInventory")) {
             if (!sharedPreferences.getBoolean("autoStartInventory", false)) {
-                setCountDown("");
+                if (this.sharedPreferences.getBoolean("autoStartInventory", false)) {
+                    toolbar.setSubtitle("");
+                } else {
+                    toolbar.setSubtitle("");
+                }
             }
         }
     }

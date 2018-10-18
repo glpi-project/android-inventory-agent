@@ -62,7 +62,9 @@ public class MainModel implements Main.Model {
         String timeInventory = sharedPreferences.getString("timeInventory", "week");
 
         // week by default
-        calendar.add(Calendar.DATE, 7);
+        if (timeInventory.equalsIgnoreCase("week")) {
+            calendar.add(Calendar.DATE, 7);
+        }
 
         if(timeInventory.equalsIgnoreCase("day")) {
             calendar.add(Calendar.DATE, 1);
@@ -75,9 +77,7 @@ public class MainModel implements Main.Model {
         long dateTime = calendar.getTime().getTime();
 
         LocalStorage cache = new LocalStorage(context);
-        if(cache.getDataLong("data")==0) {
-            cache.setDataLong("data", dateTime);
-        }
+        cache.setDataLong("data", dateTime);
     }
 
     public void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> menuItem) {
