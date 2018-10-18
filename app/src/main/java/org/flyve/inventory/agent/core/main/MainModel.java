@@ -56,28 +56,31 @@ public class MainModel implements Main.Model {
 
     @Override
     public void setupInventoryAlarm(Context context) {
-        Calendar calendar = Calendar.getInstance();
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String timeInventory = sharedPreferences.getString("timeInventory", "week");
-
-        // week by default
-        if (timeInventory.equalsIgnoreCase("week")) {
-            calendar.add(Calendar.DATE, 7);
-        }
-
-        if(timeInventory.equalsIgnoreCase("day")) {
-            calendar.add(Calendar.DATE, 1);
-        }
-
-        if(timeInventory.equalsIgnoreCase("month")) {
-            calendar.add(Calendar.DATE, 30);
-        }
-
-        long dateTime = calendar.getTime().getTime();
-
         LocalStorage cache = new LocalStorage(context);
-        cache.setDataLong("data", dateTime);
+        if (cache.getDataBoolean("changeSchedule")) {
+            Calendar calendar = Calendar.getInstance();
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String timeInventory = sharedPreferences.getString("timeInventory", "week");
+
+            // week by default
+            if (timeInventory.equalsIgnoreCase("week")) {
+                calendar.add(Calendar.DATE, 7);
+            }
+
+            if (timeInventory.equalsIgnoreCase("day")) {
+                calendar.add(Calendar.DATE, 1);
+            }
+
+            if (timeInventory.equalsIgnoreCase("month")) {
+                calendar.add(Calendar.DATE, 30);
+            }
+
+            long dateTime = calendar.getTime().getTime();
+
+            cache.setDataLong("data", dateTime);
+            cache.setDataBoolean("changeSchedule", false);
+        }
     }
 
     public void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> menuItem) {
