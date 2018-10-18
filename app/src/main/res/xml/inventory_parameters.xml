@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/AccueilInventoryParam"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:summary="@string/AccueilInventoryParamSummary"
-    >
+    android:title="@string/AccueilInventoryParam">
 
-    <PreferenceCategory android:title="@string/InventoryCat"/>
+    <PreferenceCategory android:title="@string/InventoryCat" />
 
     <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="autoStartInventory"
         android:summary="CheckBox summary"
-        android:title="@string/InventoryAuto"
-        android:summaryOn="@string/InventoryAutoSummaryOn"
         android:summaryOff="@string/InventoryAutoSummaryOff"
-        android:key="autoStartInventory" android:defaultValue="true"
-        />
+        android:summaryOn="@string/InventoryAutoSummaryOn"
+        android:title="@string/InventoryAuto" />
+
     <ListPreference
-        android:key="timeInventory"
-        android:title="@string/InventoryFrequency"
-        android:dialogTitle="@string/InventoryFrequency"
+        android:defaultValue="@string/week"
         android:dependency="autoStartInventory"
+        android:dialogTitle="@string/InventoryFrequency"
         android:entries="@array/Time"
         android:entryValues="@array/TimeValue"
-        android:defaultValue="@string/week"
+        android:key="timeInventory"
         android:summary="@string/InventoryFrequencySummary"
-        />
+        android:title="@string/InventoryFrequency" />
 
 </PreferenceScreen>
