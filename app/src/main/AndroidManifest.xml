@@ -97,6 +97,7 @@
         <activity android:name=".ui.PermissionActivity" />
         <activity android:name=".ui.ActivityListServers" />
         <activity android:name=".ui.ActivityDetailServer" />
+        <activity android:name=".ui.ActivityCategories" />
     </application>
 
 </manifest>

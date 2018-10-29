@@ -1,55 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/AccueilGlobalParam"
-    android:summary="@string/AccueilGlobalParamSummary">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:summary="@string/AccueilGlobalParamSummary"
+    android:title="@string/AccueilGlobalParam">
 
-    <PreferenceCategory android:title="@string/GlobalCat"/>
+    <PreferenceCategory android:title="@string/GlobalCat" />
 
     <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="boot"
         android:summary="CheckBox summary"
-        android:title="@string/GlobalBoot"
-        android:summaryOn="@string/GlobalBootSummaryOn"
         android:summaryOff="@string/GlobalBootSummaryOff"
-        android:key="boot" android:defaultValue="true"
-        />
+        android:summaryOn="@string/GlobalBootSummaryOn"
+        android:title="@string/GlobalBoot" />
 
     <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="notif"
         android:summary="CheckBox summary"
-        android:title="@string/GlobalNotif"
-        android:summaryOn="@string/GlobalNotifSummaryOn"
         android:summaryOff="@string/GlobalNotifSummaryOff"
-        android:key="notif" android:defaultValue="false"
-        />
+        android:summaryOn="@string/GlobalNotifSummaryOn"
+        android:title="@string/GlobalNotif" />
 
-    <PreferenceCategory android:title="@string/GlobalCatSet"/>
+    <PreferenceCategory android:title="@string/GlobalCatSet" />
 
-    <Preference android:title="Open List Servers"
+    <Preference
         android:key="@string/buttonListServer"
-        android:summary="">
+        android:summary=""
+        android:title="Open List Servers">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="org.flyve.inventory.agent"
-            android:targetClass="org.flyve.inventory.agent.ui.ActivityListServers" />
+            android:targetClass="org.flyve.inventory.agent.ui.ActivityListServers"
+            android:targetPackage="org.flyve.inventory.agent" />
     </Preference>
 
-    <PreferenceCategory android:title="@string/AccueilPrivacyTitle"/>
+    <PreferenceCategory android:title="@string/AccueilPrivacyTitle" />
 
     <CheckBoxPreference
-        android:summary="CheckBox summary"
-        android:title="@string/AccueilCrashReportTitle"
+        android:defaultValue="true"
         android:key="crashReport"
-        android:summaryOn="@string/AccueilCrashReportSummaryOn"
+        android:summary="CheckBox summary"
         android:summaryOff="@string/AccueilCrashReportSummaryOff"
-        android:defaultValue="true"
-        />
+        android:summaryOn="@string/AccueilCrashReportSummaryOn"
+        android:title="@string/AccueilCrashReportTitle" />
 
     <CheckBoxPreference
-        android:summary="CheckBox summary"
-        android:title="@string/AccueilAnonymousDataTitle"
-        android:summaryOn="@string/AccueilAnonymousDataSummaryOn"
-        android:summaryOff="@string/AccueilAnonymousDataSummaryOff"
-        android:key="anonymousData"
         android:defaultValue="true"
-        />
+        android:key="anonymousData"
+        android:summary="CheckBox summary"
+        android:summaryOff="@string/AccueilAnonymousDataSummaryOff"
+        android:summaryOn="@string/AccueilAnonymousDataSummaryOn"
+        android:title="@string/AccueilAnonymousDataTitle" />
+
+    <PreferenceCategory android:title="@string/GlobalCategory" />
+
+    <Preference
+        android:key="@string/buttonListServer"
+        android:summary=""
+        android:title="@string/open_setting_categories">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="org.flyve.inventory.agent.ui.ActivityCategories"
+            android:targetPackage="org.flyve.inventory.agent" />
+    </Preference>
 </PreferenceScreen>
