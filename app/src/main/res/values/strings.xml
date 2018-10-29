@@ -198,6 +198,7 @@
     <string name="GlobalNotifSummaryOn">Disable notifications</string>
     <string name="GlobalNotifSummaryOff">Enable notifications</string>
     <string name="GlobalCatSet">Server settings</string>
+    <string name="GlobalCategory">Category global</string>
     <string name="GlobalServer">Server address</string>
     <string name="GlobalServerSummary">Define server address</string>
     <string name="GlobalService">Authentication</string>
@@ -219,5 +220,7 @@
     <!--Permission-->
     <string name="request_permission">Request Permission</string>
     <string name="permission_message">This application requires special permits to work properly</string>
+    <string name="open_setting_categories">Open setting categories</string>
+    <string name="list_categories">List Categories</string>
 
 </resources>
