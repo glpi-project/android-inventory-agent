@@ -25,11 +25,10 @@ package org.flyve.inventory.agent.core.categories;
 
 import android.content.Context;
 
-import org.flyve.inventory.agent.schema.ServerSchema;
+import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.LocalPreferences;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.flyve.inventory.agent.utils.Helpers;
+import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -42,93 +41,23 @@ public class CategoriesModel implements Categories.Model {
     }
 
     @Override
-    public void saveServer(ArrayList<String> modelServer, Context context) {
-        LocalPreferences preferences = new LocalPreferences(context);
-        if (modelServer.size() >= 4) {
-            if (!"".equals(modelServer.get(0))) {
-                JSONObject jo = new JSONObject();
-                try {
-                    jo.put("address", modelServer.get(0));
-                    jo.put("tag", modelServer.get(1));
-                    jo.put("login", modelServer.get(2));
-                    jo.put("pass", modelServer.get(3));
-                    ArrayList<String> serverArray = preferences.loadServerArray();
-                    serverArray.add(modelServer.get(0));
-                    preferences.saveServerArray(serverArray);
-                } catch (JSONException e) {
-                    FlyveLog.e(e.getMessage());
-                    presenter.showError("Error");
-                }
-                preferences.saveJSONObject(modelServer.get(0), jo);
-                presenter.successful("Successful");
-            } else {
-                presenter.showError("Missing server");
-            }
-        } else {
-            presenter.showError("Error");
-        }
-    }
-
-    @Override
-    public void updateServer(ArrayList<String> modelServer, String serverName, Context context) {
-        LocalPreferences preferences = new LocalPreferences(context);
-        if (modelServer.size() >= 4) {
-            if (!"".equals(modelServer.get(0))) {
-                JSONObject jo = new JSONObject();
-                try {
-                    jo.put("address", modelServer.get(0));
-                    jo.put("tag", modelServer.get(1));
-                    jo.put("login", modelServer.get(2));
-                    jo.put("pass", modelServer.get(3));
-                    ArrayList<String> serverArray = preferences.loadServerArray();
-                    for (int i = 0; i < serverArray.size(); i++) {
-                        if (serverArray.get(i).equals(serverName)) {
-                            serverArray.set(i, modelServer.get(0));
-                            preferences.saveServerArray(serverArray);
-                        }
-                    }
-                } catch (JSONException e) {
-                    FlyveLog.e(e.getMessage());
-                    presenter.showError("Error");
-                }
-                preferences.deletePreferences(serverName);
-                preferences.saveJSONObject(modelServer.get(0), jo);
-                presenter.successful("Successful");
-            } else {
-                presenter.showError("Missing Server");
-            }
-        } else {
-            presenter.showError("Error");
-        }
-    }
-
-    @Override
-    public void loadServer(String serverName, Context context) {
-        LocalPreferences preferences = new LocalPreferences(context);
+    public void loadCategory(Context context) {
         try {
-            JSONObject jo = preferences.loadJSONObject(serverName);
-            ServerSchema serverSchema = new ServerSchema();
-            serverSchema.setAddress(jo.getString("address"));
-            serverSchema.setTag(jo.getString("tag"));
-            serverSchema.setLogin(jo.getString("login"));
-            serverSchema.setPass(jo.getString("pass"));
-            presenter.modelServer(serverSchema);
-        } catch (JSONException e) {
-            FlyveLog.e(e.getMessage());
-            presenter.showError("Error");
-        }
-    }
+            final InventoryTask inventoryTask = new InventoryTask(context, Helpers.getAgentDescription(context), true);
+            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
+                @Override
+                public void onTaskSuccess(String s) {
+                    ArrayList<String> model = Utils.loadJsonHeader(s);
+                    presenter.showCategory(model);
+                }
 
-    @Override
-    public void deleteServer(String serverName, Context context) {
-        if (serverName != null && !"".equals(serverName)) {
-            LocalPreferences preferences = new LocalPreferences(context);
-            preferences.deletePreferences(serverName);
-            ArrayList<String> serverArray = preferences.loadServerArray();
-            serverArray.remove(serverName);
-            preferences.saveServerArray(serverArray);
-            presenter.successful("Successful Delete");
-        } else {
+                @Override
+                public void onTaskError(Throwable throwable) {
+                    presenter.showError(throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            FlyveLog.e(e.getMessage());
             presenter.showError("Error");
         }
     }

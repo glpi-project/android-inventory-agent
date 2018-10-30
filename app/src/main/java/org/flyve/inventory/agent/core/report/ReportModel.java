@@ -30,19 +30,14 @@ import android.support.v7.app.AlertDialog;
 
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
-import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Iterator;
+import org.flyve.inventory.agent.utils.Utils;
 
 public class ReportModel implements Report.Model {
 
     private Report.Presenter presenter;
 
-    public ReportModel(Report.Presenter presenter) {
+    ReportModel(Report.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -51,7 +46,7 @@ public class ReportModel implements Report.Model {
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {
-                presenter.sendInventory(s, load(s));
+                presenter.sendInventory(s, Utils.loadJsonHeader(s));
                 inventoryTask.getXMLSyn();
             }
 
@@ -60,32 +55,6 @@ public class ReportModel implements Report.Model {
                 presenter.showError(throwable.getMessage());
             }
         });
-    }
-
-    private ArrayList<String> load(String jsonStr) {
-        ArrayList<String> data = new ArrayList<>();
-
-        try {
-            JSONObject json = new JSONObject(jsonStr);
-            JSONObject jsonrequest = json.getJSONObject("request");
-            JSONObject jsonContent = jsonrequest.getJSONObject("content");
-
-            Iterator<?> keys = jsonContent.keys();
-
-            while( keys.hasNext() ) {
-                String key = (String)keys.next();
-
-                if ( jsonContent.get(key) instanceof JSONArray) {
-                    // add header
-                    data.add(key.toUpperCase());
-                }
-            }
-            return data;
-        } catch (Exception ex) {
-            presenter.showError(ex.getMessage());
-            FlyveLog.e(ex.getMessage());
-        }
-        return data;
     }
 
     public void showDialogShare(final Context context) {

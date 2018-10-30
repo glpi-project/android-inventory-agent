@@ -27,6 +27,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Utils {
 
     public static void showAlertDialog(String message, Context context, final OnTaskCompleted callback) {
@@ -59,6 +65,31 @@ public class Utils {
          * if everything is Ok
          */
         void onTaskSuccess();
+    }
+
+    public static ArrayList<String> loadJsonHeader(String inventoryJson) {
+        ArrayList<String> data = new ArrayList<>();
+
+        try {
+            JSONObject json = new JSONObject(inventoryJson);
+            JSONObject jsonRequest = json.getJSONObject("request");
+            JSONObject jsonContent = jsonRequest.getJSONObject("content");
+
+            Iterator<?> keys = jsonContent.keys();
+
+            while( keys.hasNext() ) {
+                String key = (String)keys.next();
+
+                if ( jsonContent.get(key) instanceof JSONArray) {
+                    // add header
+                    data.add(key.toUpperCase());
+                }
+            }
+            return data;
+        } catch (Exception ex) {
+            FlyveLog.e(ex.getMessage());
+        }
+        return data;
     }
 
 }
