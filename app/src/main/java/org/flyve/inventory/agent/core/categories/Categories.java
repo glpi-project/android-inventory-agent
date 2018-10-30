@@ -25,35 +25,25 @@ package org.flyve.inventory.agent.core.categories;
 
 import android.content.Context;
 
-import org.flyve.inventory.agent.schema.ServerSchema;
-
 import java.util.ArrayList;
 
 public interface Categories {
 
     interface View {
         void showError(String message);
-        void successful(String message);
-        void modelServer(ServerSchema model);
+        void showCategories(ArrayList<String> model);
     }
 
     interface Presenter {
         // Views
         void showError(String message);
-        void successful(String message);
-        void modelServer(ServerSchema model);
+        void showCategory(ArrayList<String> model);
 
         // Models
-        void saveServer(ArrayList<String> message, Context applicationContext);
-        void deleteServer(String serverName, Context applicationContext);
-        void updateServer(ArrayList<String> serverInfo, String serverName, Context applicationContext);
-        void loadServer(String serverName, Context applicationContext);
+        void loadCategory(Context applicationContext);
     }
 
     interface Model {
-        void saveServer(ArrayList<String> message, Context applicationContext);
-        void deleteServer(String serverName, Context applicationContext);
-        void updateServer(ArrayList<String> serverInfo, String serverName, Context applicationContext);
-        void loadServer(String serverName, Context applicationContext);
+        void loadCategory(Context applicationContext);
     }
 }

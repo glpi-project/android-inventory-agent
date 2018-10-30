@@ -25,8 +25,6 @@ package org.flyve.inventory.agent.core.categories;
 
 import android.content.Context;
 
-import org.flyve.inventory.agent.schema.ServerSchema;
-
 import java.util.ArrayList;
 
 public class CategoriesPresenter implements Categories.Presenter {
@@ -47,37 +45,17 @@ public class CategoriesPresenter implements Categories.Presenter {
     }
 
     @Override
-    public void successful(String message) {
+    public void showCategory(ArrayList<String> model) {
         if (view != null) {
-            view.successful(message);
+            view.showCategories(model);
         }
     }
 
     @Override
-    public void modelServer(ServerSchema model) {
-        if (view != null) {
-            view.modelServer(model);
+    public void loadCategory(Context applicationContext) {
+        if (model != null) {
+            model.loadCategory(applicationContext);
         }
-    }
-
-    @Override
-    public void saveServer(ArrayList<String> message, Context applicationContext) {
-        model.saveServer(message, applicationContext);
-    }
-
-    @Override
-    public void deleteServer(String serverName, Context applicationContext) {
-        model.deleteServer(serverName, applicationContext);
-    }
-
-    @Override
-    public void updateServer(ArrayList<String> serverInfo, String serverName, Context applicationContext) {
-        model.updateServer(serverInfo, serverName, applicationContext);
-    }
-
-    @Override
-    public void loadServer(String serverName, Context applicationContext) {
-        model.loadServer(serverName, applicationContext);
     }
 
 }

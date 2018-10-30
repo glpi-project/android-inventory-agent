@@ -93,6 +93,7 @@ public class InventoryService extends Service {
         mTimer = new Timer();
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 5, NOTIFY_INTERVAL);
         intent = new Intent(TIMER_RECEIVER);
+        startForeground(1, new Notification());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
