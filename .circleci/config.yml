@@ -114,7 +114,7 @@ jobs:
           name: Create debug apk
           command: ./gradlew assemble
 
-  deploy_beta:
+  deploy_alpha:
     <<: *android_config
     steps:
       - checkout
@@ -134,8 +134,8 @@ jobs:
           name: Generate certified apk
           command: source ci/scripts/app_certification.sh
       - run:
-          name: Deploy Beta
-          command: source ci/scripts/deploy_beta.sh
+          name: Deploy Alpha
+          command: source ci/scripts/deploy_alpha.sh
 
   deploy_production:
     <<: *android_config
@@ -228,7 +228,7 @@ workflows:
             branches:
               ignore:
                 - master
-      - deploy_beta:
+      - deploy_alpha:
           context: org-global
           requires:
             - test_instrumentation
@@ -238,6 +238,8 @@ workflows:
                 - develop
       - deploy_production:
           context: org-global
+          requires:
+            - build
           filters:
             branches:
               only:
