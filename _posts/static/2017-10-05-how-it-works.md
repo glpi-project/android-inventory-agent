@@ -10,17 +10,20 @@ category: user
 
 ## Scan
 
-The Inventory Agent will scan your device and gather all the hardware and software data, such as memory, applications, battery, etc., in a beautiful XML or JSON file.
+The Inventory Agent will scan your device and gather all the hardware and software data, such as memory, software, controllers, battery, etc., and send it to your GLPI server adress.
 
 <br />
 
 <div>
-<img src="{{ 'images/screenshots/main.png' | absolute_url }}" alt="Inventory Agent Main" height="500">
+<img src="{{ 'images/posts/inventory-main.png' | absolute_url }}" alt="Inventory Agent Main" height="500">
 
-<img src="{{ 'images/screenshots/show-inventory.png' | absolute_url }}" alt="Show my inventory" height="500">
+<img src="{{ 'images/posts/my-device-inventory.png' | absolute_url }}" alt="Show my inventory" height="500">
+
 </div>
 
-## Send
+## Server address
+
+Before running your inventory, you must define your server address and credentials, so the inventory can be sent to your instance.
 
 The inventory can be send to:
 
@@ -30,9 +33,18 @@ The inventory can be send to:
 
 It requires Android 1.6 or higher.
 
-## Server address
+<br />
 
-Before running your inventory, you must define your server address and credentials, so the inventory can be sent automatically to your account.
+<div>
+<img src="{{ 'images/posts/show-server.png' | absolute_url }}" alt="Inventory Agent Main" height="500">
+
+<img src="{{ 'images/posts/select-server.png' | absolute_url }}" alt="Show my inventory" height="500">
+
+</div>
+
+## Manage your inventory
+
+Before running your inventory, you must define your server address and credentials, so the inventory can be sent to your instance.
 
 You have several options to manage the inventory, some of the most important:
 
