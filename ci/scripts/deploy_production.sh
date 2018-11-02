@@ -19,6 +19,7 @@
 #  ------------------------------------------------------------------------------
 #  @author    Rafael Hernandez - <rhernandez@teclib.com>
 #  @author    Naylin Medina    - <nmedina@teclib.com>
+#  @author    Ivan Del Pino    - <idelpino@teclib.com>
 #  @copyright Copyright (c) Teclib'
 #  @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
 #  @link      https://github.com/flyve-mdm/android-mdm-dashboard/
