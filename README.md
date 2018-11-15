@@ -37,7 +37,7 @@ Inventory Agent for Android is running on Android 1.6 and higher.
 
 Inventory Agent for Android can send inventory to:
 
-* Inventory for GLPI 2.3.x and higher
+* FusionInventory for GLPI 2.3.x and higher
 * OCSInventory NG (ocsng) 1.3.x and 2.x
 * Mandriva Pulse2
 
@@ -87,10 +87,10 @@ Visit our [website](http://flyve.org/android-inventory-agent/) for more informat
 
 ## Compatibility Matrix
 
-|GLPI|9.1|9.2|
+|GLPI|9.1|9.2+|
 |:---|:---:|:---:|
-|**Flyve MDM**|1.0||
-|**FusionInventory**|9.1+1.1||
+|**Flyve MDM**|1.0|2.0|
+|**FusionInventory**|9.1+1.1|9.2+2.0+|
 
 ## Installation
 
