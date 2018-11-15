@@ -53,22 +53,27 @@ Inventory agents can also be used with other open sources projects like Uranos o
 
 ### Data collected
 
-* USB
+* Account Info
+* Accesslog
 * Hardware
-* Sensors
-* Software
+* User
+* Storages
+* Operating System
+* BIOS
 * Memories
+* Inputs
+* Sensors
+* Drives
+* CPUs
+* Videos
 * Cameras
 * Networks
-* Battery
-* CPUs
-* BIOS
-* Inputs
-* Drives
-* Accesslog
-* SIM Cards
 * Environments variables
-* JVM
+* JVMS
+* Softwares
+* USB
+* Battery
+* Controllers
 * Videos
 
 Visit our [website](http://flyve.org/android-inventory-agent/) for more information.
