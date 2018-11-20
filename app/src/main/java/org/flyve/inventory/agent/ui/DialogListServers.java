@@ -113,7 +113,7 @@ public class DialogListServers {
         String message = activity.getResources().getString(R.string.loading);
         final ProgressDialog progressBar = ProgressDialog.show(activity, "Sending inventory", message);
 
-        final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity));
+        final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity), true);
         final HttpInventory httpInventory = new HttpInventory(activity);
         final ServerSchema model = httpInventory.setServerModel(server);
         inventoryTask.setTag(model.getTag());
