@@ -28,6 +28,7 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -59,9 +60,14 @@ public class HomeModel implements Home.Model {
         // supporting component replacement by other applications).
         InventoryService inventoryService = new InventoryService();
         Intent mServiceIntent = new Intent(activity, inventoryService.getClass());
+        ComponentName result;
 
         if (!isMyServiceRunning(activity, inventoryService.getClass())) {
-            ComponentName result = activity.startService(mServiceIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                result = activity.startForegroundService(mServiceIntent);
+            } else {
+                result = activity.startService(mServiceIntent);
+            }
 
             if (result != null) {
                 FlyveLog.log(this, " Agent started ", Log.INFO);

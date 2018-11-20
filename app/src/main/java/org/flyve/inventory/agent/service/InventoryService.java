@@ -23,6 +23,7 @@
 
 package org.flyve.inventory.agent.service;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -73,6 +74,7 @@ public class InventoryService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        startForeground(1, new Notification());
 
         mHandler = new Handler();
 
