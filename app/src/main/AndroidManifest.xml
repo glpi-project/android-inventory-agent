@@ -32,6 +32,9 @@
     <!-- Allows changing locales -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
+    <!-- Apps wanting to use foreground services, API 28 higher -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:name=".ui.InventoryAgentApp"
         android:icon="@mipmap/ic_launcher"
