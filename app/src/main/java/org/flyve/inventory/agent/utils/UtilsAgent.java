@@ -1,6 +1,6 @@
 package org.flyve.inventory.agent.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.res.AssetManager;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class UtilsAgent {
      * @param context
      * @return string xml
      */
-    public static String getXml(String fileName, Activity context) {
+    public static String getXml(String fileName, Context context) {
         String xmlString = null;
         AssetManager am = context.getAssets();
         try {
