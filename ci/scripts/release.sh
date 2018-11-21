@@ -39,17 +39,17 @@ git commit -m "build(manifest): increase version value"
 if [[ $CIRCLE_BRANCH != "$IS_PRERELEASE" ]]; then
 
   PREFIX_PRERELEASE="$( cut -d '.' -f 1 <<< "$IS_PRERELEASE" )";
-  yarn release -m "ci(release): generate CHANGELOG.md for version %s" --prerelease "$PREFIX_PRERELEASE"
+  yarn release --skip.bump=true -m "ci(release): generate CHANGELOG.md for version %s" --prerelease "$PREFIX_PRERELEASE"
 
 else
 
   # create CHANGELOG and update the number on package.json
-  yarn release -m "ci(release): generate CHANGELOG.md for version %s"
+  yarn release --skip.bump=true -m "ci(release): generate CHANGELOG.md for version %s"
 
 fi
 
 # send changelog to gh-pages
-yarn gh-pages --dist ./ --src CHANGELOG.md --dest ./_includes/ --add -m "docs(changelog): update changelog with version ${GIT_TAG}"
+#yarn gh-pages --dist ./ --src CHANGELOG.md --dest ./_includes/ --add -m "docs(changelog): update changelog with version ${GIT_TAG}"
 
 # remove from stash
 git checkout app/src/main/assets/about.properties
@@ -90,18 +90,9 @@ else
 fi
 
 # Update develop branch
+git add .
+git stash
 git fetch origin develop
 git checkout develop
-git clean -d -x -f
 git merge $CIRCLE_BRANCH
-git push origin develop
-
-# Update master branch
-git fetch origin master
-git checkout master
-git clean -d -x -f
-git merge $CIRCLE_BRANCH
-git push origin master
-
-# Remove release branch
-git push origin :$CIRCLE_BRANCH
+git push origin develop --force
