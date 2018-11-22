@@ -1,0 +1,16 @@
+org.flyve.inventory.agent.adapter
+org.flyve.inventory.agent.broadcast
+org.flyve.inventory.agent.core.about
+org.flyve.inventory.agent.core.detailserver
+org.flyve.inventory.agent.core.help
+org.flyve.inventory.agent.core.home
+org.flyve.inventory.agent.core.main
+org.flyve.inventory.agent.core.permission
+org.flyve.inventory.agent.core.report
+org.flyve.inventory.agent.core.servers
+org.flyve.inventory.agent.core.splash
+org.flyve.inventory.agent.preference
+org.flyve.inventory.agent.schema
+org.flyve.inventory.agent.service
+org.flyve.inventory.agent.ui
+org.flyve.inventory.agent.utils
