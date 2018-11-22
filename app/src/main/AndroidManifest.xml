@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.flyve.inventory.agent"
-    android:versionCode="39162"
+    android:versionCode="39163"
     android:versionName="">
 
     <!-- Permissions -->
