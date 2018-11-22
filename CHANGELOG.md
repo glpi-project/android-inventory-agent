@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.2"></a>
+# [1.0.0-rc.2](https://github.com/flyve-mdm/android-inventory-agent/compare/1.0.0-rc.1...1.0.0-rc.2) (2018-11-22)
+
+
+### Bug Fixes
+
+* **apk:** changed version code in manifest ([a0584c0](https://github.com/flyve-mdm/android-inventory-agent/commit/a0584c0))
+* **connection:** add default value to URL ([2f3e3bd](https://github.com/flyve-mdm/android-inventory-agent/commit/2f3e3bd))
+* **connection:** return method when the validation is true ([f56db8f](https://github.com/flyve-mdm/android-inventory-agent/commit/f56db8f))
+* **connection:** validated https connection ([008371d](https://github.com/flyve-mdm/android-inventory-agent/commit/008371d))
+* **icon:** shown icon app with API below 26 ([f586b2d](https://github.com/flyve-mdm/android-inventory-agent/commit/f586b2d))
+* **progress:** change behavior progress bar ([c04f8a4](https://github.com/flyve-mdm/android-inventory-agent/commit/c04f8a4))
+* **schedule:** automatic inventory by default disable ([1c01f14](https://github.com/flyve-mdm/android-inventory-agent/commit/1c01f14))
+* **schedule:** change type schedule to send inventory ([3f4edee](https://github.com/flyve-mdm/android-inventory-agent/commit/3f4edee))
+* **schedule:** validated if change the schedule ([435e81a](https://github.com/flyve-mdm/android-inventory-agent/commit/435e81a))
+* **service:** add parameter to inventory task ([08b8b19](https://github.com/flyve-mdm/android-inventory-agent/commit/08b8b19))
+* **service:** add parameter to inventory task in dialog list ([4ed5240](https://github.com/flyve-mdm/android-inventory-agent/commit/4ed5240))
+* **service:** add parameter to inventory task in test ([26ba990](https://github.com/flyve-mdm/android-inventory-agent/commit/26ba990))
+* **service:** add parameter to inventory task in time alarm ([0af39bb](https://github.com/flyve-mdm/android-inventory-agent/commit/0af39bb))
+* **service:** added permission foreground service ([24a7a49](https://github.com/flyve-mdm/android-inventory-agent/commit/24a7a49))
+* **service:** improved xml to send in test ([73a80a0](https://github.com/flyve-mdm/android-inventory-agent/commit/73a80a0))
+* **service:** validated version Android to call service ([27bf739](https://github.com/flyve-mdm/android-inventory-agent/commit/27bf739))
+
+
+### Features
+
+* **icon:** add adaptive icon to android oreo ([03f2e32](https://github.com/flyve-mdm/android-inventory-agent/commit/03f2e32))
+* **inventory:** add line separate and background color list ([65790de](https://github.com/flyve-mdm/android-inventory-agent/commit/65790de))
+* **inventory:** add tablayout ([ddd4485](https://github.com/flyve-mdm/android-inventory-agent/commit/ddd4485))
+* **inventory:** add viewpager and show info ([11bfb5d](https://github.com/flyve-mdm/android-inventory-agent/commit/11bfb5d))
+* **inventory:** changed style tab information ([e3b0412](https://github.com/flyve-mdm/android-inventory-agent/commit/e3b0412))
+* **inventory:** remove header in specific tab ([dad9f30](https://github.com/flyve-mdm/android-inventory-agent/commit/dad9f30))
+* **inventory:** remove tab to empty information ([d680a61](https://github.com/flyve-mdm/android-inventory-agent/commit/d680a61))
+* **inventory:** Send inventory to all servers ([10b4478](https://github.com/flyve-mdm/android-inventory-agent/commit/10b4478))
+* **language:** add catalan language ([cefb6e0](https://github.com/flyve-mdm/android-inventory-agent/commit/cefb6e0))
+* **servers:** add button and list server activity ([24f8605](https://github.com/flyve-mdm/android-inventory-agent/commit/24f8605))
+* **servers:** add button close dialog ([9924c5e](https://github.com/flyve-mdm/android-inventory-agent/commit/9924c5e))
+* **servers:** add tag to time alarm and service ([ea9766c](https://github.com/flyve-mdm/android-inventory-agent/commit/ea9766c))
+* **servers:** added list view servers ([f333463](https://github.com/flyve-mdm/android-inventory-agent/commit/f333463))
+* **servers:** limit size name list server in dialog ([606e062](https://github.com/flyve-mdm/android-inventory-agent/commit/606e062))
+* **servers:** new dialog to list servers ([165d997](https://github.com/flyve-mdm/android-inventory-agent/commit/165d997))
+* **servers:** validate empty server and show message ([b655ede](https://github.com/flyve-mdm/android-inventory-agent/commit/b655ede))
+* **tag:** send tag to inventory ([2915b8b](https://github.com/flyve-mdm/android-inventory-agent/commit/2915b8b))
+
+
+
 <a name="1.0.0-rc.1"></a>
 # [1.0.0-rc.1](https://github.com/flyve-mdm/android-inventory-agent/compare/0.5.0...1.0.0-rc.1) (2018-08-03)
 
