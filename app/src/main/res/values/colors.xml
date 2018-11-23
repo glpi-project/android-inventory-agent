@@ -13,4 +13,5 @@
 	<color name="blue">#4073B9</color>
 	<color name="snackbar_action_fail">#ffff7663</color>
 	<color name="snackbar_action_good">#13988A</color>
+	<color name="icon_back_color">#2B8F8C</color>
 </resources>

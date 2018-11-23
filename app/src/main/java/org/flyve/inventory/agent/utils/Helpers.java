@@ -26,6 +26,7 @@ package org.flyve.inventory.agent.utils;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -41,8 +42,8 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
 import org.flyve.inventory.InventoryTask;
-import org.flyve.inventory.agent.ui.ActivityMain;
 import org.flyve.inventory.agent.R;
+import org.flyve.inventory.agent.ui.ActivityMain;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
@@ -150,10 +151,15 @@ public class Helpers {
             builder.setSmallIcon(R.mipmap.ic_launcher);
         }
 
-
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        assert notificationManager != null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("default", "Inventory Agent", importance);
+            channel.setDescription("Inventory Agent");
+        }
         notificationManager.notify(121, builder.build());
     }
 
