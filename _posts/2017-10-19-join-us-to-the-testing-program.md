@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: news
 category: blog
 published: true
 title: Join us to the Testing Program
