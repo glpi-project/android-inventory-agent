@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  * ------------------------------------------------------------------------------
  * @author    Ivan Del Pino - <idelpino@teclib.com>
- * @copyright Copyright Teclib. All rights reserved.
+ * @copyright Copyright © 2018 Teclib'
  * @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link      https://github.com/flyve-mdm/android-inventory-agent
  * @link      https://flyve-mdm.com
