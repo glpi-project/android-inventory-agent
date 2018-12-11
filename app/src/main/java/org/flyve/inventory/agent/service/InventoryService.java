@@ -218,7 +218,7 @@ public class InventoryService extends Service {
 
         final InventoryTask inventory = new InventoryTask(context.getApplicationContext(), Helpers.getAgentDescription(context), true);
         final HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
-        ArrayList<String> serverArray = new LocalPreferences(context).loadServerArray();
+        ArrayList<String> serverArray = new LocalPreferences(context).loadServer();
         if (!serverArray.isEmpty()) {
             for (String serverName : serverArray) {
                 final ServerSchema model = httpInventory.setServerModel(serverName);

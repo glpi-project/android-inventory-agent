@@ -36,7 +36,7 @@ public class ServersModel implements Servers.Model {
     }
 
     public void loadServers(final Activity activity) {
-        presenter.showServers(new LocalPreferences(activity).loadServerArray());
+        presenter.showServers(new LocalPreferences(activity).loadServer());
     }
 
 }

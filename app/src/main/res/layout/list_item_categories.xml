@@ -26,8 +26,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/showCategory"
-            android:layout_toRightOf="@+id/showCategory"
+            android:layout_toEndOf="@+id/checkShowCategory"
+            android:layout_toRightOf="@+id/checkShowCategory"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="2"
@@ -35,13 +35,13 @@
             android:textColor="@color/grayDark"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/showCategory"
+            app:layout_constraintEnd_toStartOf="@+id/checkShowCategory"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
-            android:id="@+id/showCategory"
+            android:id="@+id/checkShowCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

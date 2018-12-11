@@ -59,18 +59,19 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((DataViewHolder) holder).bindData(data.get(position), position);
+        if (!"".equals(data.get(position)))
+            ((DataViewHolder) holder).bindData(data.get(position), position);
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
         TextView title;
-        Button showCategory;
+        Button checkShowCategory;
         View viewSeparatorBottom;
 
         DataViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
-            showCategory = itemView.findViewById(R.id.showCategory);
+            checkShowCategory = itemView.findViewById(R.id.checkShowCategory);
             viewSeparatorBottom = itemView.findViewById(R.id.viewSeparatorBottom);
         }
 
@@ -87,7 +88,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 viewSeparatorBottom.setVisibility(View.VISIBLE);
             }
 
-            showCategory.setOnClickListener(new View.OnClickListener() {
+            checkShowCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, ActivityDetailServer.class);

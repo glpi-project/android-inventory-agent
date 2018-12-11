@@ -29,6 +29,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.adapter.CategoriesAdapter;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 
 public class ActivityCategories extends AppCompatActivity implements Categories.View {
 
+    private ProgressBar progressBar;
+
     /**
      * Called when the activity is starting, inflates the activity's UI
      * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
@@ -51,6 +54,7 @@ public class ActivityCategories extends AppCompatActivity implements Categories.
         setContentView(R.layout.activity_list_categories);
         Categories.Presenter presenter = new CategoriesPresenter(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.progressBar);
         try {
             setSupportActionBar(toolbar);
             if (getSupportActionBar() != null)
@@ -76,7 +80,9 @@ public class ActivityCategories extends AppCompatActivity implements Categories.
 
     @Override
     public void showCategories(ArrayList<String> model) {
+        progressBar.setVisibility(View.GONE);
         RecyclerView listServer = findViewById(R.id.recyclerListCategories);
+        listServer.setVisibility(View.VISIBLE);
         listServer.setLayoutManager(new LinearLayoutManager(this));
         listServer.setAdapter(new CategoriesAdapter(model, this));
     }

@@ -52,9 +52,9 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("tag", modelServer.get(1));
                     jo.put("login", modelServer.get(2));
                     jo.put("pass", modelServer.get(3));
-                    ArrayList<String> serverArray = preferences.loadServerArray();
+                    ArrayList<String> serverArray = preferences.loadServer();
                     serverArray.add(modelServer.get(0));
-                    preferences.saveServerArray(serverArray);
+                    preferences.saveServer(serverArray);
                 } catch (JSONException e) {
                     FlyveLog.e(e.getMessage());
                     presenter.showError("Error");
@@ -80,11 +80,11 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("tag", modelServer.get(1));
                     jo.put("login", modelServer.get(2));
                     jo.put("pass", modelServer.get(3));
-                    ArrayList<String> serverArray = preferences.loadServerArray();
+                    ArrayList<String> serverArray = preferences.loadServer();
                     for (int i = 0; i < serverArray.size(); i++) {
                         if (serverArray.get(i).equals(serverName)) {
                             serverArray.set(i, modelServer.get(0));
-                            preferences.saveServerArray(serverArray);
+                            preferences.saveServer(serverArray);
                         }
                     }
                 } catch (JSONException e) {
@@ -124,9 +124,9 @@ public class DetailServerModel implements DetailServer.Model {
         if (serverName != null && !"".equals(serverName)) {
             LocalPreferences preferences = new LocalPreferences(context);
             preferences.deletePreferences(serverName);
-            ArrayList<String> serverArray = preferences.loadServerArray();
+            ArrayList<String> serverArray = preferences.loadServer();
             serverArray.remove(serverName);
-            preferences.saveServerArray(serverArray);
+            preferences.saveServer(serverArray);
             presenter.successful("Successful Delete");
         } else {
             presenter.showError("Error");
