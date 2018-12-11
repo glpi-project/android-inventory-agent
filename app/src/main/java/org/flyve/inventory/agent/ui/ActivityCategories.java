@@ -81,6 +81,7 @@ public class ActivityCategories extends AppCompatActivity implements Categories.
     @Override
     public void showCategories(ArrayList<String> model) {
         progressBar.setVisibility(View.GONE);
+        model.remove("");
         RecyclerView listServer = findViewById(R.id.recyclerListCategories);
         listServer.setVisibility(View.VISIBLE);
         listServer.setLayoutManager(new LinearLayoutManager(this));

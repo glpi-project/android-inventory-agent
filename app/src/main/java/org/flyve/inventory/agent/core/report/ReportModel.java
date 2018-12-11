@@ -31,7 +31,10 @@ import android.support.v7.app.AlertDialog;
 import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.Helpers;
+import org.flyve.inventory.agent.utils.LocalPreferences;
 import org.flyve.inventory.agent.utils.Utils;
+
+import java.util.ArrayList;
 
 public class ReportModel implements Report.Model {
 
@@ -42,9 +45,17 @@ public class ReportModel implements Report.Model {
     }
 
     public void generateReport(final Activity activity) {
-        String[] categories = new String[0];
+        LocalPreferences preferences = new LocalPreferences(activity);
+        ArrayList<String> list = preferences.loadCategories();
         String description = Helpers.getAgentDescription(activity);
-        final InventoryTask inventoryTask = new InventoryTask(activity, description, true, categories);
+        final InventoryTask inventoryTask;
+        if (list.size() > 0) {
+            list.remove("");
+            String[] categories = list.toArray(new String[list.size()]);
+            inventoryTask = new InventoryTask(activity, description, true, categories);
+        } else {
+            inventoryTask = new InventoryTask(activity, description, true);
+        }
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {

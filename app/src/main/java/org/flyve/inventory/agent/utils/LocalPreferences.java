@@ -71,6 +71,14 @@ public class LocalPreferences {
         return new JSONObject(getSettings().getString(key, "{}"));
     }
 
+    public ArrayList<String> loadCategories() {
+        return loadArray("Status_size_categories", "Status_categories_");
+    }
+
+    public void saveCategories(ArrayList<String> list) {
+        saveArray(list, "Status_size_categories", "Status_categories_");
+    }
+
     public ArrayList<String> loadServer() {
         return loadArray("Status_size", "Status_");
     }
@@ -85,7 +93,7 @@ public class LocalPreferences {
         int size = Integer.parseInt(mSharedPreference1.getString(status_size, "0"));
 
         for (int i = 0; i < size; i++) {
-            ids.add(mSharedPreference1.getString(status_ + i, ""));
+             ids.add(mSharedPreference1.getString(status_ + i, ""));
         }
         return ids;
     }
@@ -98,7 +106,7 @@ public class LocalPreferences {
 
         for (int i = 0; i < list.size(); i++) {
             mEdit1.remove(status_ + i);
-            mEdit1.putString("Status_" + i, list.get(i));
+            mEdit1.putString(status_ + i, list.get(i));
         }
         mEdit1.apply();
     }
