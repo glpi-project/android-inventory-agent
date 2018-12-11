@@ -46,11 +46,43 @@ public class ReportModel implements Report.Model {
 
     public void generateReport(final Activity activity) {
         LocalPreferences preferences = new LocalPreferences(activity);
-        ArrayList<String> list = preferences.loadCategories();
+        ArrayList<String> listPreference = preferences.loadCategories();
         String description = Helpers.getAgentDescription(activity);
         final InventoryTask inventoryTask;
-        if (list.size() > 0) {
-            list.remove("");
+        if (listPreference.size() > 0) {
+            listPreference.remove("");
+            ArrayList<String> list = new ArrayList<>();
+            for (String s : listPreference) {
+                if (s.contains("STORAGES")) {
+                    list.add("Storage");
+                    continue;
+                }
+                if (s.contains("OPERATINGSYSTEM")) {
+                    list.add("OperatingSystem");
+                    continue;
+                }
+                if (s.contains("MEMORIES")) {
+                    list.add("Memory");
+                    continue;
+                }
+                if (s.contains("JVMS")) {
+                    list.add("Jvm");
+                    continue;
+                }
+                if (s.contains("SOFTWARES")) {
+                    list.add("Software");
+                    continue;
+                }
+                if (s.contains("USBDEVICES")) {
+                    list.add("Usb");
+                    continue;
+                }
+                if (s.contains("BATTERIES")) {
+                    list.add("Battery");
+                    continue;
+                }
+                list.add(s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase());
+            }
             String[] categories = list.toArray(new String[list.size()]);
             inventoryTask = new InventoryTask(activity, description, true, categories);
         } else {
