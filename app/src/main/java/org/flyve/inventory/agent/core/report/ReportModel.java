@@ -42,7 +42,9 @@ public class ReportModel implements Report.Model {
     }
 
     public void generateReport(final Activity activity) {
-        final InventoryTask inventoryTask = new InventoryTask(activity, Helpers.getAgentDescription(activity), true);
+        String[] categories = new String[0];
+        String description = Helpers.getAgentDescription(activity);
+        final InventoryTask inventoryTask = new InventoryTask(activity, description, true, categories);
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {

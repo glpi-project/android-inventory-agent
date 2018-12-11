@@ -71,25 +71,33 @@ public class LocalPreferences {
         return new JSONObject(getSettings().getString(key, "{}"));
     }
 
-    public ArrayList<String> loadServerArray() {
+    public ArrayList<String> loadServer() {
+        return loadArray("Status_size", "Status_");
+    }
+
+    public void saveServer(ArrayList<String> list) {
+        saveArray(list, "Status_size", "Status_");
+    }
+
+    private ArrayList<String> loadArray(String status_size, String status_) {
         ArrayList<String> ids = new ArrayList<>();
         SharedPreferences mSharedPreference1 = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int size = Integer.parseInt(mSharedPreference1.getString("Status_size", "0"));
+        int size = Integer.parseInt(mSharedPreference1.getString(status_size, "0"));
 
         for (int i = 0; i < size; i++) {
-            ids.add(mSharedPreference1.getString("Status_" + i, ""));
+            ids.add(mSharedPreference1.getString(status_ + i, ""));
         }
         return ids;
     }
 
-    public void saveServerArray(ArrayList<String> list) {
+    private void saveArray(ArrayList<String> list, String status_size, String status_) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor mEdit1 = sp.edit();
         /* sKey is an array */
-        mEdit1.putString("Status_size", String.valueOf(list.size()));
+        mEdit1.putString(status_size, String.valueOf(list.size()));
 
         for (int i = 0; i < list.size(); i++) {
-            mEdit1.remove("Status_" + i);
+            mEdit1.remove(status_ + i);
             mEdit1.putString("Status_" + i, list.get(i));
         }
         mEdit1.apply();

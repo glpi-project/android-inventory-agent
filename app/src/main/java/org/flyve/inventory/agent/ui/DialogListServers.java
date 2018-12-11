@@ -78,7 +78,7 @@ public class DialogListServers {
     }
 
     private void setSpinner(Activity activity) {
-        ArrayList<String> serverArray = new LocalPreferences(activity).loadServerArray();
+        ArrayList<String> serverArray = new LocalPreferences(activity).loadServer();
         if (!serverArray.isEmpty()) {
             serverArray.add(0, TOALLSERVERS);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, serverArray);
@@ -102,7 +102,7 @@ public class DialogListServers {
         if (!TOALLSERVERS.equalsIgnoreCase(serverName)) {
             sendInventory(activity, presenter, serverName);
         } else {
-            ArrayList<String> serverArray = new LocalPreferences(activity).loadServerArray();
+            ArrayList<String> serverArray = new LocalPreferences(activity).loadServer();
             for (final String server : serverArray) {
                 sendInventory(activity, presenter, server);
             }
