@@ -23,6 +23,7 @@
 
 package org.flyve.inventory.agent.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -90,6 +91,13 @@ public class Utils {
             FlyveLog.e(ex.getMessage());
         }
         return data;
+    }
+
+
+    public static String getStringResourceByName(String aString, Activity activity) {
+        String packageName = activity.getPackageName();
+        int resId = activity.getResources().getIdentifier(aString, "string", packageName);
+        return activity.getString(resId);
     }
 
 }

@@ -216,6 +216,27 @@
     <string name="InventoryFrequency">Frequency</string>
     <string name="InventoryFrequencyDialog">Every :</string>
     <string name="InventoryFrequencySummary">Define frequency</string>
+    <string name="Hardware">Hardware</string>
+    <string name="User">User</string>
+    <string name="Storage">Storage</string>
+    <string name="OperatingSystem">OperatingSystem</string>
+    <string name="Bios">Bios</string>
+    <string name="Memory">Memory</string>
+    <string name="Inputs">Inputs</string>
+    <string name="Sensors">Sensors</string>
+    <string name="Drives">Drives</string>
+    <string name="Cpus">Cpus</string>
+    <string name="Simcards">Simcards</string>
+    <string name="Videos">Videos</string>
+    <string name="Cameras">Cameras</string>
+    <string name="Networks">Networks</string>
+    <string name="Envs">Envs</string>
+    <string name="Jvm">Jvm</string>
+    <string name="Software">Software</string>
+    <string name="Usb">Usb</string>
+    <string name="Battery">Battery</string>
+    <string name="Controllers">Controllers</string>
+    <string name="Modems">Modems</string>
 
     <!--Permission-->
     <string name="request_permission">Request Permission</string>
