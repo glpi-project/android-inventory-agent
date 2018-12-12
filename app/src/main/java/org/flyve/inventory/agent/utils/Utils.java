@@ -26,6 +26,7 @@ package org.flyve.inventory.agent.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
 import org.json.JSONArray;
@@ -93,11 +94,48 @@ public class Utils {
         return data;
     }
 
+    @NonNull
+    public static String[] getFormatTitle(ArrayList<String> listPreference) {
+        listPreference.remove("");
+        ArrayList<String> list = new ArrayList<>();
+        for (String s : listPreference) {
+            if (s.contains("STORAGES")) {
+                list.add("Storage");
+                continue;
+            }
+            if (s.contains("OPERATINGSYSTEM")) {
+                list.add("OperatingSystem");
+                continue;
+            }
+            if (s.contains("MEMORIES")) {
+                list.add("Memory");
+                continue;
+            }
+            if (s.contains("JVMS")) {
+                list.add("Jvm");
+                continue;
+            }
+            if (s.contains("SOFTWARES")) {
+                list.add("Software");
+                continue;
+            }
+            if (s.contains("USBDEVICES")) {
+                list.add("Usb");
+                continue;
+            }
+            if (s.contains("BATTERIES")) {
+                list.add("Battery");
+                continue;
+            }
+            list.add(s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase());
+        }
+        return list.toArray(new String[list.size()]);
+    }
 
-    public static String getStringResourceByName(String aString, Activity activity) {
-        String packageName = activity.getPackageName();
-        int resId = activity.getResources().getIdentifier(aString, "string", packageName);
-        return activity.getString(resId);
+    public static String getStringResourceByName(String name, Activity context) {
+        String packageName = context.getPackageName();
+        int resId = context.getResources().getIdentifier(name, "string", packageName);
+        return resId == 0 ? name : context.getString(resId);
     }
 
 }
