@@ -38,8 +38,10 @@ import org.flyve.inventory.agent.core.report.Report;
 import org.flyve.inventory.agent.core.report.ReportPresenter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
+import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ActivityInventoryReport extends AppCompatActivity implements Report.View {
 
@@ -59,7 +61,9 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
         Toolbar toolbar = findViewById(R.id.toolbar);
         try {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -89,10 +93,22 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
 
     @Override
     public void sendInventory(String data, ArrayList<String> load) {
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), data, load, progressBar);
-        viewPager.setAdapter(viewPagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        try {
+            ArrayList<String> list = new ArrayList<>();
+            Collections.addAll(list, Utils.getFormatTitle(load));
+
+            ArrayList<String> listTitle = new ArrayList<>();
+            for (String value : list) {
+                String resource = Utils.getStringResourceByName(value, this);
+                listTitle.add(!resource.equals("") ? resource : value);
+            }
+            ViewPager viewPager = findViewById(R.id.viewPager);
+            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), data, load, listTitle, progressBar);
+            viewPager.setAdapter(viewPagerAdapter);
+            TabLayout tabLayout = findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+        } catch (Exception ex) {
+            FlyveLog.e(ex.getMessage());
+        }
     }
 }

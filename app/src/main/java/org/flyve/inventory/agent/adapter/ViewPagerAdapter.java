@@ -14,11 +14,13 @@ import java.util.Collections;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private String data;
+    private ArrayList<String> listInventory;
     private ArrayList<String> load;
 
-    public ViewPagerAdapter(FragmentManager fm, String data, ArrayList<String> load, ProgressBar progressBar) {
+    public ViewPagerAdapter(FragmentManager fm, String data, ArrayList<String> listInventory, ArrayList<String> load, ProgressBar progressBar) {
         super(fm);
         this.data = data;
+        this.listInventory = listInventory;
         this.load = load;
         this.load.remove("");
         progressBar.setVisibility(View.GONE);
@@ -26,12 +28,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return FragmentInventoryList.newInstance(data, load.get(position));
+        return FragmentInventoryList.newInstance(data, listInventory.get(position));
     }
 
     @Override
     public int getCount() {
-        return load.size() - Collections.frequency(load, "");
+        return listInventory.size() - Collections.frequency(listInventory, "");
     }
 
     @Override
