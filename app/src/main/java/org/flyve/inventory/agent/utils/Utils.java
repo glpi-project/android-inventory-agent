@@ -26,6 +26,9 @@ package org.flyve.inventory.agent.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
@@ -34,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 
 public class Utils {
 
@@ -135,7 +139,33 @@ public class Utils {
     public static String getStringResourceByName(String name, Activity context) {
         String packageName = context.getPackageName();
         int resId = context.getResources().getIdentifier(name, "string", packageName);
-        return resId == 0 ? name : context.getString(resId);
+        String language = Locale.getDefault().getLanguage();
+        return resId == 0 ? name : getLocaleStringResource(new Locale(language), resId, context);
+    }
+
+    private static String getLocaleStringResource(Locale requestedLocale, int resourceId, Context context) {
+        String result;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) { // use latest api
+            Configuration config = new Configuration(context.getResources().getConfiguration());
+            config.setLocale(requestedLocale);
+            result = context.createConfigurationContext(config).getText(resourceId).toString();
+        }
+        else { // support older android versions
+            Resources resources = context.getResources();
+            Configuration conf = resources.getConfiguration();
+            Locale savedLocale = conf.locale;
+            conf.locale = requestedLocale;
+            resources.updateConfiguration(conf, null);
+
+            // retrieve resources from desired locale
+            result = resources.getString(resourceId);
+
+            // restore original locale
+            conf.locale = savedLocale;
+            resources.updateConfiguration(conf, null);
+        }
+
+        return result;
     }
 
 }

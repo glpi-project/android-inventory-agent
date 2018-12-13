@@ -41,11 +41,13 @@ import java.util.ArrayList;
 public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<String> data;
+    private ArrayList<String> listTitle;
     private Activity activity;
     private LocalPreferences preferences;
 
-    public CategoriesAdapter(ArrayList<String> data, Activity activity) {
+    public CategoriesAdapter(ArrayList<String> data, ArrayList<String> listTitle, Activity activity) {
         this.data = data;
+        this.listTitle = listTitle;
         this.activity = activity;
     }
 
@@ -60,7 +62,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((DataViewHolder) holder).bindData(data.get(position), position);
+        ((DataViewHolder) holder).bindData(data.get(position), listTitle.get(position), position);
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +77,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewSeparatorBottom = itemView.findViewById(R.id.viewSeparatorBottom);
         }
 
-        void bindData(final String model, int position) {
+        void bindData(final String model, String title, int position) {
             if (position % 2 == 1) {
                 itemView.setBackgroundColor(activity.getResources().getColor(R.color.white));
             } else {
@@ -86,7 +88,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 viewSeparatorBottom.setVisibility(View.VISIBLE);
             }
 
-            title.setText(model);
+            this.title.setText(title);
             checkShowCategory.setChecked(preferences.loadCategories().contains(model));
             checkShowCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
