@@ -37,8 +37,10 @@ import org.flyve.inventory.agent.core.categories.Categories;
 import org.flyve.inventory.agent.core.categories.CategoriesPresenter;
 import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
+import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ActivityCategories extends AppCompatActivity implements Categories.View {
 
@@ -79,12 +81,20 @@ public class ActivityCategories extends AppCompatActivity implements Categories.
     }
 
     @Override
-    public void showCategories(ArrayList<String> model) {
+    public void showCategories(ArrayList<String> load) {
         progressBar.setVisibility(View.GONE);
-        model.remove("");
+        load.remove("");
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, Utils.getFormatTitle(load));
+
+        ArrayList<String> listTitle = new ArrayList<>();
+        for (String value : list) {
+            String resource = Utils.getStringResourceByName(value, this);
+            listTitle.add(!resource.equals("") ? resource : value);
+        }
         RecyclerView listServer = findViewById(R.id.recyclerListCategories);
         listServer.setVisibility(View.VISIBLE);
         listServer.setLayoutManager(new LinearLayoutManager(this));
-        listServer.setAdapter(new CategoriesAdapter(model, this));
+        listServer.setAdapter(new CategoriesAdapter(load, listTitle, this));
     }
 }
