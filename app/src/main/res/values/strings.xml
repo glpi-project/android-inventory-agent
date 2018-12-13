@@ -216,6 +216,8 @@
     <string name="InventoryFrequency">Frequency</string>
     <string name="InventoryFrequencyDialog">Every :</string>
     <string name="InventoryFrequencySummary">Define frequency</string>
+
+    <!-- Inventory -->
     <string name="Hardware">Hardware</string>
     <string name="User">User</string>
     <string name="Storage">Storage</string>
