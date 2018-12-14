@@ -33,8 +33,6 @@ This application is the Android inventory agent of the Inventory project.
 
 It features a complete inventory of your Android devices: both hardware and software informations are collected. You get the data about processor, memory, drives, sensors, the list and description of installed application (apk) and [more](#data-collected).
 
-Inventory Agent for Android is running on Android 1.6 and higher.
-
 Inventory Agent for Android can send inventory to:
 
 * FusionInventory for GLPI 2.3.x and higher
@@ -87,10 +85,16 @@ Visit our [website](http://flyve.org/android-inventory-agent/) for more informat
 
 ## Compatibility Matrix
 
+### Flyve MDM
+
 |GLPI|9.1|9.2+|
 |:---|:---:|:---:|
 |**Flyve MDM**|1.0|2.0|
 |**FusionInventory**|9.1+1.1|9.2+2.0+|
+
+### Inventory Agent & Android Versions
+
+Inventory Agent is compatible with Android 4.1 and higher.
 
 ## Installation
 
