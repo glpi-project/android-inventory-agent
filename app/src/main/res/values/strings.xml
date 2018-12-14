@@ -240,6 +240,28 @@
     <string name="Controllers">Controllers</string>
     <string name="Modems">Modems</string>
 
+    <string-array name="Inventory">
+        <item>Hardware</item>
+        <item>User</item>
+        <item>Storage</item>
+        <item>OperatingSystem</item>
+        <item>Bios</item>
+        <item>Memory</item>
+        <item>Inputs</item>
+        <item>Drives</item>
+        <item>Cpus</item>
+        <item>Simcards</item>
+        <item>Cameras</item>
+        <item>Networks</item>
+        <item>Envs</item>
+        <item>Jvm</item>
+        <item>Software</item>
+        <item>Usb</item>
+        <item>Battery</item>
+        <item>Controllers</item>
+        <item>Modems</item>
+    </string-array>
+
     <!--Permission-->
     <string name="request_permission">Request Permission</string>
     <string name="permission_message">This application requires special permits to work properly</string>

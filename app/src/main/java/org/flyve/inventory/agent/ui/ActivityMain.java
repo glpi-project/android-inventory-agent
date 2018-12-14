@@ -40,18 +40,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.flyve.inventory.InventoryTask;
 import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.core.main.Main;
 import org.flyve.inventory.agent.core.main.MainPresenter;
 import org.flyve.inventory.agent.service.InventoryService;
-import org.flyve.inventory.agent.utils.FlyveLog;
 import org.flyve.inventory.agent.utils.Helpers;
 import org.flyve.inventory.agent.utils.LocalPreferences;
 import org.flyve.inventory.agent.utils.LocalStorage;
-import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 public class ActivityMain extends AppCompatActivity
@@ -148,22 +146,11 @@ public class ActivityMain extends AppCompatActivity
     }
 
     private void loadCategories() {
-        final InventoryTask inventoryTask = new InventoryTask(this, Helpers.getAgentDescription(this), true);
-        inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
-            @Override
-            public void onTaskSuccess(String s) {
-                ArrayList<String> model = Utils.loadJsonHeader(s);
-                model.remove("");
-                LocalPreferences preferences = new LocalPreferences(ActivityMain.this);
-                preferences.saveCategories(model);
-                new LocalStorage(ActivityMain.this).setDataBoolean("isFirstTime", true);
-            }
-
-            @Override
-            public void onTaskError(Throwable throwable) {
-                FlyveLog.e("Error initial load categories" + throwable.getMessage());
-            }
-        });
+        String[] inventory = getResources().getStringArray(R.array.Inventory);
+        ArrayList<String> categories = new ArrayList<>();
+        Collections.addAll(categories, inventory);
+        new LocalPreferences(ActivityMain.this).saveCategories(categories);
+        new LocalStorage(ActivityMain.this).setDataBoolean("isFirstTime", true);
     }
 
     @Override

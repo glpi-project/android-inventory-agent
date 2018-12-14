@@ -25,12 +25,11 @@ package org.flyve.inventory.agent.core.categories;
 
 import android.content.Context;
 
-import org.flyve.inventory.InventoryTask;
+import org.flyve.inventory.agent.R;
 import org.flyve.inventory.agent.utils.FlyveLog;
-import org.flyve.inventory.agent.utils.Helpers;
-import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CategoriesModel implements Categories.Model {
 
@@ -41,21 +40,12 @@ public class CategoriesModel implements Categories.Model {
     }
 
     @Override
-    public void loadCategory(Context context) {
+    public void loadCategory(final Context context) {
         try {
-            final InventoryTask inventoryTask = new InventoryTask(context, Helpers.getAgentDescription(context), true);
-            inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
-                @Override
-                public void onTaskSuccess(String s) {
-                    ArrayList<String> model = Utils.loadJsonHeader(s);
-                    presenter.showCategory(model);
-                }
-
-                @Override
-                public void onTaskError(Throwable throwable) {
-                    presenter.showError(throwable.getMessage());
-                }
-            });
+            String[] inventory = context.getResources().getStringArray(R.array.Inventory);
+            ArrayList<String> categories = new ArrayList<>();
+            Collections.addAll(categories, inventory);
+            presenter.showCategory(categories);
         } catch (Exception e) {
             FlyveLog.e(e.getMessage());
             presenter.showError("Error");

@@ -35,7 +35,6 @@ import org.flyve.inventory.agent.utils.LocalPreferences;
 import org.flyve.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ReportModel implements Report.Model {
 
@@ -47,13 +46,13 @@ public class ReportModel implements Report.Model {
 
     public void generateReport(final Activity activity) {
         LocalPreferences preferences = new LocalPreferences(activity);
-        ArrayList<String> listPreference = preferences.loadCategories();
+        final ArrayList<String> listPreference = preferences.loadCategories();
         String description = Helpers.getAgentDescription(activity);
         final InventoryTask inventoryTask;
 
         if (listPreference.size() > 0) {
-            String[] formatTitle = Utils.getFormatTitle(listPreference);
-            inventoryTask = new InventoryTask(activity, description, true, formatTitle);
+            String[] categories = listPreference.toArray(new String[listPreference.size()]);
+            inventoryTask = new InventoryTask(activity, description, true, categories);
         } else {
             inventoryTask = new InventoryTask(activity, description, true);
         }
