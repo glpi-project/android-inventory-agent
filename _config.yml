@@ -21,7 +21,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-repository: flyve-mdm/web-mdm-dashboard
+repository: flyve-mdm/android-inventory-agent
 
 prose:
 
