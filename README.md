@@ -10,7 +10,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/android-inventory-agent.svg)](https://greenkeeper.io/)
 [![GitHub release](https://img.shields.io/github/release/flyve-mdm/android-inventory-agent.svg)](https://github.com/flyve-mdm/android-inventory-agent/releases)
 
-Flyve MDM is a Mobile device management software that enables you to secure and manage all the mobile devices of your business or family via a web-based console.
+Flyve MDM allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
 
 To get started, check out [Flyve MDM Website](https://flyve-mdm.com/)!
 
@@ -29,26 +29,20 @@ To get started, check out [Flyve MDM Website](https://flyve-mdm.com/)!
 
 ## Synopsis
 
-This application is the Android inventory agent of the Inventory project.
+The Inventory Agent for Android is part of Flyve MDM project. It allows you to collect a complete inventory of your Android device and sent it to your management software.
 
-It features a complete inventory of your Android devices: both hardware and software informations are collected. You get the data about processor, memory, drives, sensors, the list and description of installed application (apk) and [more](#data-collected).
+The Inventory project is a free software project providing:
+
+* Hardware and software inventory (multiplatform)
+* Network discovery
+* Network inventory for printers and switches
+* Wake On Lan (WOL)
+* Software deployment
+* Total integration with the GLPI project (open source asset management software and helpdesk)
 
 Inventory Agent for Android can send inventory to:
 
 * FusionInventory for GLPI 2.3.x and higher
-* OCSInventory NG (ocsng) 1.3.x and 2.x
-* Mandriva Pulse2
-
-The Inventory project is a free software project providing:
-
-* hardware and software inventory (multiplatform)
-* network discovery
-* network inventory for printers and switches
-* Wake On Lan (WOL)
-* Software deployment
-* total integration with the GLPI project (open source asset management software and helpdesk)
-
-Inventory agents can also be used with other open sources projects like Uranos or Rudder.
 
 ### Data collected
 
