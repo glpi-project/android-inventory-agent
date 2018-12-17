@@ -224,7 +224,7 @@ workflows:
       - documentation:
           context: org-global
           requires:
-            - test_instrumentation
+            - build
           filters:
             branches:
               only:
