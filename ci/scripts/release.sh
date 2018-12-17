@@ -61,7 +61,7 @@ git checkout . -f
 git push --follow-tags origin $CIRCLE_BRANCH
 
 # Create release with conventional-github-releaser
-yarn conventional-github-releaser -p angular -t $GITHUB_TOKEN
+yarn conventional-github-releaser -p angular -t $GH_TOKEN
 
 # get apk path
 export FILE="./app/build/outputs/apk/release/appCertified.apk"
