@@ -33,6 +33,9 @@ echo GIT_BRANCH=$CIRCLE_BRANCH >> .env
 # decrypt deploy on google play file
 openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KEY
 
+# Maintenance commands
+sudo apt-get update
+
 # install gems
 sudo apt-get install ruby-full build-essential
 
