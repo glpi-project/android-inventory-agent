@@ -51,8 +51,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    testImplementation 'org.mockito:mockito-core:2.9.0'
-    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+    testImplementation 'org.mockito:mockito-core:2.21.0'
+    androidTestImplementation 'org.mockito:mockito-android:2.21.0'
 
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
