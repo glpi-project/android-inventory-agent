@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logoinventory"
+        android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         />
 
     <TextView

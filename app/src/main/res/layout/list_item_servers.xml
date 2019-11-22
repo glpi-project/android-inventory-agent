@@ -43,15 +43,16 @@
         <Button
             android:id="@+id/showServer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:fontFamily="sans-serif"
             android:text="@string/show"
-            android:textColor="@color/gray"
+            android:textColor="@color/white"
             android:textSize="16sp"
+            android:background="@drawable/radius_btn_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
