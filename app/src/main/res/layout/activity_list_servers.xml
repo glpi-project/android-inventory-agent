@@ -28,10 +28,13 @@
             <Button
                 android:id="@+id/addServer"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="@string/add_server" />
+                android:layout_marginRight="20dp"
+                android:background="@drawable/radius_btn_yellow"
+                android:text="@string/add_server"
+                android:textColor="@color/black" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
