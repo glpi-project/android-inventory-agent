@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-    implementation 'org.flyve:inventory:0.12.0@aar'
+    implementation 'org.flyve:inventory:1.3.6@aar'
     implementation 'com.bugsnag:bugsnag-android:4.1.3'
     implementation 'com.orhanobut:logger:2.1.1'
     implementation 'com.android.support:multidex:1.0.2'
