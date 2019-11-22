@@ -2,16 +2,18 @@
 <resources>
 	<color name="colorPrimary">#767677</color>
 	<color name="colorPrimaryDark">#4C4C4C</color>
-	<color name="colorAccent">#13988A</color>
+	<color name="colorAccent">#00A6F4</color>
 	<color name="black">#000000</color>
+	<color name="colorYellow">#fec95c</color>
+	<color name="textColorYellow">#8f5a0a</color>
 	<color name="red">#EA1E31</color>
 	<color name="white">#FFF</color>
 	<color name="gray">#7E7E7E</color>
 	<color name="grayLight">#CCCCCC</color>
 	<color name="grayDark">#4C4C4C</color>
 	<color name="grayDarkList">#f1f1f1</color>
-	<color name="blue">#4073B9</color>
+	<color name="blue">#00a6f4</color>
 	<color name="snackbar_action_fail">#ffff7663</color>
-	<color name="snackbar_action_good">#13988A</color>
-	<color name="icon_back_color">#2B8F8C</color>
+	<color name="snackbar_action_good">#00a6f4</color>
+	<color name="icon_back_color">#00a6f4</color>
 </resources>
