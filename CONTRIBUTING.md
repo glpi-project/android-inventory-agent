@@ -1,6 +1,6 @@
-[![flyve hero](https://github.com/flyve-mdm/glpi-plugin/raw/develop/images/header.png)](https://flyve-mdm.com/)
+[![flyve hero](https://github.com/flyve-mdm/glpi-plugin/raw/develop/images/header.png)](https://glpi-project.org/fr/glpi-network/)
 
-# How to contribute to Flyve MDM Android MDM Agent
+# How to contribute to GLPI Inventory Agent
 
 Welcome to our ever-growing community :octocat:!
 
@@ -70,7 +70,7 @@ If you want to give us a hand solving issues then great, take a look at our [Pul
 # <a name="2"></a> 2. Assistance [:top:](#top)
 
 ## <a name="2.1"></a> 2.1 Live Support
-You can find us in [Telegram](https://t.me/flyvemdm), we'll help you as soon as possible.
+You can find us in [Telegram](https://t.me/glpien), we'll help you as soon as possible.
 
 ## <a name="2.2"></a> 2.2 Technical Questions
 For general technical questions, post an appropriately tagged question on [StackOverflow](http://stackoverflow.com/).
