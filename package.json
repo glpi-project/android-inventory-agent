@@ -1,14 +1,14 @@
 {
   "name": "@teclib/android-inventory-agent",
   "version": "1.0.0-rc.2",
-  "description": "Flyve MDM Inventory Agent for Android",
+  "description": "GLPI Android Inventory Agent",
   "main": "index.js",
   "scripts": {
     "release": "standard-version -t ''"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flyve-mdm/android-inventory-agent.git"
+    "url": "git+https://github.com/glpi-project/android-inventory-agent.git"
   },
   "keywords": [
     "Android",
@@ -21,7 +21,7 @@
   "author": "Rafael Hernandez <rhernandez@teclib.com> (https://flyve-mdm.com)",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/flyve-mdm/android-inventory-agent/issues"
+    "url": "https://github.com/glpi-project/android-inventory-agent/issues"
   },
   "homepage": "http://flyve.org/android-inventory-agent/",
   "devDependencies": {
