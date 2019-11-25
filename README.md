@@ -1,6 +1,6 @@
 # Inventory Agent for Android
 
-![GLPI Android Inventory Agent banner](https://user-images.githubusercontent.com/663460/26935464-54267e9c-4c6c-11e7-86df-8cfa6658133e.png)
+![GLPI Android Inventory Agent banner](/app/src/main/res/drawable/readme.png)
 
 [![License](https://img.shields.io/github/license/flyve-mdm/android-inventory-agent.svg?&label=License)](https://github.com/flyve-mdm/android-inventory-agent/blob/develop/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/Teclib.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/teclib)
