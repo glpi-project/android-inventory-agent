@@ -48,8 +48,17 @@ sudo apt-get update
 # install gems
 sudo apt-get install ruby-full build-essential
 
+# update Rubygems
+sudo gem update --system
+
 # install fastlane
-sudo gem install fastlane --no-rdoc --no-ri
+sudo gem install fastlane
+
+# update bundler
+sudo gem install bundler
+
+# update Gemfile.lock
+sudo bundler update --bundler
 
 # install node package available on package.json
 yarn install
@@ -57,6 +66,7 @@ yarn install
 # config git
 git config --global user.email $GH_EMAIL
 git config --global user.name "Teclib"
+
 git remote remove origin
 git remote add origin https://$GH_USER:$GH_TOKEN@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git
 

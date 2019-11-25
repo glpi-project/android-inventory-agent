@@ -56,4 +56,4 @@ gcloud firebase test android run \
   --app $(ls -dt ~/flyve_mdm/app/build/outputs/apk/debug/*.apk | head -1) \
   --test $(ls -dt ~/flyve_mdm/app/build/outputs/apk/androidTest/debug/*.apk | head -1) \
   --device model=Nexus6,version=25,locale=en,orientation=portrait  \
-  --timeout 90s
+  --timeout 180s
