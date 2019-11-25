@@ -1,6 +1,6 @@
 # Inventory Agent for Android
 
-![GLPI Inventory Agent banner](https://user-images.githubusercontent.com/663460/26935464-54267e9c-4c6c-11e7-86df-8cfa6658133e.png)
+![GLPI Android Inventory Agent banner](https://user-images.githubusercontent.com/663460/26935464-54267e9c-4c6c-11e7-86df-8cfa6658133e.png)
 
 [![License](https://img.shields.io/github/license/flyve-mdm/android-inventory-agent.svg?&label=License)](https://github.com/flyve-mdm/android-inventory-agent/blob/develop/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/Teclib.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/teclib)
@@ -10,9 +10,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/android-inventory-agent.svg)](https://greenkeeper.io/)
 [![GitHub release](https://img.shields.io/github/release/flyve-mdm/android-inventory-agent.svg)](https://github.com/flyve-mdm/android-inventory-agent/releases)
 
-GLPI Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
-
-To get started, check out [GLPI Inventory Agent Website](https://flyve-mdm.com/)!
+GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
 
 ## Table of contents
 
@@ -29,7 +27,7 @@ To get started, check out [GLPI Inventory Agent Website](https://flyve-mdm.com/)
 
 ## Synopsis
 
-The Inventory Agent for Android is part of GLPI Inventory Agent project. It allows you to collect a complete inventory of your Android device and sent it to your management software.
+The Inventory Agent for Android is part of GLPI Android Inventory Agent project. It allows you to collect a complete inventory of your Android device and sent it to your management software.
 
 The Inventory project is a free software project providing:
 
@@ -69,26 +67,18 @@ Inventory Agent for Android can send inventory to:
 * Controllers
 * Videos
 
-Visit our [website](http://flyve.org/android-inventory-agent/) for more information.
-
-## Build Status
-
-| **LTS** | **Bleeding Edge** |
-|:---:|:---:|
-| [![Build Status](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/master.svg?style=svg)](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/master) | [![Build Status](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/develop.svg?style=svg)](https://circleci.com/gh/flyve-mdm/android-inventory-agent/tree/develop) |
-
 ## Compatibility Matrix
 
-### GLPI Inventory Agent
+### GLPI Android Inventory Agent
 
-|GLPI|9.1|9.2+|
-|:---|:---:|:---:|
-|**GLPI Inventory Agent**|1.0|2.0|
-|**FusionInventory**|9.1+1.1|9.2+2.0+|
+|GLPI|9.1|9.2+|9.3+|9.4+|
+|:---|:---:|:---:|:---:|:---:|
+|**GLPI Android Inventory Agent**|1.0|2.0|2.0|2.0|
+|**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|
 
 ### Inventory Agent & Android Versions
 
-GLPI Inventory Agent is compatible with Android 4.1 and higher.
+GLPI Android Inventory Agent is compatible with Android 4.1 and higher.
 
 ## Installation
 
@@ -100,19 +90,19 @@ We maintain a detailed documentation of the project on the website, check the [H
 
 ## Versioning
 
-In order to provide transparency on our release cycle and to maintain backward compatibility, GLPI Inventory Agent is maintained under [the Semantic Versioning guidelines](http://semver.org/). We are committed to following and complying with the rules, the best we can.
+In order to provide transparency on our release cycle and to maintain backward compatibility, GLPI Android Inventory Agent is maintained under [the Semantic Versioning guidelines](http://semver.org/). We are committed to following and complying with the rules, the best we can.
 
-See [the tags section of our GitHub project](http://github.com/flyve-mdm/android-inventory-agent/tags) for changelogs for each release version of GLPI Inventory Agent. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
+See [the tags section of our GitHub project](http://github.com/flyve-mdm/android-inventory-agent/tags) for changelogs for each release version of GLPI Android Inventory Agent. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
 
 ## Contact
 
-For notices about major changes and general discussion of GLPI Inventory Agent development, subscribe to the [/r/glpi](https://www.reddit.com/r/glpi/) subreddit.
+For notices about major changes and general discussion of GLPI Android Inventory Agent development, subscribe to the [/r/glpi](https://www.reddit.com/r/glpi/) subreddit.
 You can also chat with us via IRC in [#glpi on freenode](http://webchat.freenode.net/?channels=glpi) or [@glpi on Telegram](https://t.me/glpien).
 Ping me @rafaelje in the IRC chatroom if you get stuck.
 
 ## Professional Services
 
-The GLPI Inventory Agent and GLPI Network services are available through our [Partner's Network](http://www.teclib-edition.com/en/partners/). We provide special training, bug fixes with editor subscription, contributions for new features, and more.
+The GLPI Android Inventory Agent and GLPI Network services are available through our [Partner's Network](http://www.teclib-edition.com/en/partners/). We provide special training, bug fixes with editor subscription, contributions for new features, and more.
 
 Obtain a personalized service experience, associated with benefits and opportunities.
 
@@ -123,7 +113,7 @@ guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our i
 
 ## Copying
 
-* **Name**: [GLPI Inventory Agent](https://glpi-project.org/fr/) is a registered trademark of [Teclib'](http://www.teclib-edition.com/en/).
+* **Name**: [GLPI Android Inventory Agent](https://glpi-project.org/fr/) is a registered trademark of [Teclib](http://www.teclib-edition.com/en/).
 * **Code**: you can redistribute it and/or modify
     it under the terms of the GNU General Public License ([GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)).
 * **Documentation**: released under Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
