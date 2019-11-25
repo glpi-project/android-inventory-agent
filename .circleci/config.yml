@@ -62,13 +62,17 @@ reference:
     run:
       name: Validate running
       command: source ci/scripts/validate_running.sh
-
+  update_licenses: &update_licenses
+    run:
+      name: Update licenses
+      command: source ci/scripts/ci_licenses.sh
 jobs:
   # unit test
   build:
     <<: *android_config
     steps:
       - checkout
+      - *update_licenses
       - *validate_running
       - *restore_gradle_cache
       - *ruby_dependencies
@@ -83,6 +87,7 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      - *update_licenses
       - *validate_running
       - *restore_gradle_cache
       - *ruby_dependencies
@@ -99,6 +104,7 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      - *update_licenses
       - *validate_running
       - *restore_gradle_cache
       - *ruby_dependencies
@@ -118,6 +124,7 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      - *update_licenses
       - *validate_running
       - *restore_gradle_cache
       - *ruby_dependencies
@@ -141,6 +148,7 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      - *update_licenses
       - *validate_running
       - *restore_gradle_cache
       - *ruby_dependencies
@@ -170,6 +178,7 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      - *update_licenses
       - *validate_running
       - *restore_gradle_cache
       - *ruby_dependencies
@@ -197,22 +206,22 @@ workflows:
               ignore:
                 - master
                 - develop
-          #- test_instrumentation:
-              #context: org-global
-            #requires:
-            #- build
-            #filters:
-              #branches:
-                #ignore:
-                #- master
-      #- deploy_alpha:
-          #context: org-global
-              #requires:
-            #- test_instrumentation
-            #filters:
-              #branches:
-                #only:
-                #- develop
+      - test_instrumentation:
+          context: org-global
+          requires:
+            - build
+          filters:
+            branches:
+              ignore:
+                - master
+      - deploy_alpha:
+          context: org-global
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
       - deploy_production:
           context: org-global
           requires:
