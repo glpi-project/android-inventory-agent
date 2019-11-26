@@ -46,20 +46,18 @@ platform :android do
 end
 
 after_all do |lane|
-    telegram(
-        url_horn: ENV["TELEGRAM_WEBHOOKS"],
-        repo: ENV["GIT_REPO"],
-        branch: ENV["GIT_BRANCH"],
-        message: "Fastlane is OK"
+    mailgun(
+      to: "skita@teclib.com",
+      success: true,
+      message: "Fastlane is OK"
     )
 end
 
 error do |lane, exception|
-    telegram(
-        url_horn: ENV["TELEGRAM_WEBHOOKS"],
-        repo: ENV["GIT_REPO"],
-        branch: ENV["GIT_BRANCH"],
-        message: "`ERROR` Fastlane FAIL"
+    mailgun(
+      to: "skita@teclib.com",
+      success: true,
+      message: "`ERROR` Fastlane FAIL"
     )
 end
 
