@@ -38,9 +38,6 @@
 echo GIT_REPO=$CIRCLE_REPOSITORY_URL >> .env
 echo GIT_BRANCH=$CIRCLE_BRANCH >> .env
 
-echo STOREPASS=$FASTLANE_STOREPASS >> .env
-echo KEYPASS=$FASTLANE_KEYPASS >> .env
-
 # decrypt deploy on google play file
 openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KEY
 
