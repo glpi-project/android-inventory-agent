@@ -66,7 +66,15 @@ dependencies {
     implementation 'com.android.support:preference-v7:28.0.0'
 }
 
+
+import groovy.json.JsonSlurper
+
 import java.util.regex.Pattern
+
+task createAbout(type:Exec) {
+    workingDir '../ci/scripts'
+    commandLine './create_about_data.sh'
+}
 
 task updateVersionCode {
     doLast {
@@ -76,27 +84,49 @@ task updateVersionCode {
         def matcher = pattern.matcher(manifestText)
         matcher.find()
         def versionCode = Integer.parseInt(matcher.group(1))
+
+        if(project.hasProperty("vVersion")) {
+            versionCode = vVersion
+        } else {
+            ++versionCode
+        }
+
         def manifestContent = matcher.replaceAll("versionCode=\"" + ++versionCode + "\"")
         println "Version Code: " + versionCode
         manifestFile.write(manifestContent)
     }
 }
 
+preBuild.dependsOn createAbout
+
 task updateVersionName {
     doLast {
+
+        // Usage example:
+        // set manual version:
+        // gradlew updateVersionName -P vName=1.0.0
+        // or get the version from package.json:
+        // gradlew updateVersionName
+
+        def versionName
+
         if (project.hasProperty("vName")) {
-            def manifestFile = file("src/main/AndroidManifest.xml")
-            def patternVersionNumber = Pattern.compile("versionName=\"(\\d+)\\.(\\d+)\\.(\\d+)(?:\\S*)\"")
-            def manifestText = manifestFile.getText()
-            def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
-            matcherVersionNumber.find()
-
-            def manifestContent = matcherVersionNumber.replaceAll("versionName=\"" + vName + "\"")
-            manifestFile.write(manifestContent)
-
-            println "Version name: " + vName
+            versionName = vName
         } else {
-            println "please run: updateVersionName -P vName="
+            def packageFile = file('../package.json')
+            def json = new JsonSlurper().parseText(packageFile.text)
+            versionName = json.version
         }
+
+        def manifestFile = file("src/main/AndroidManifest.xml")
+        def patternVersionNumber = Pattern.compile("versionName=\"(\\d+)\\.(\\d+)\\.(\\d+)(?:\\S*)\"")
+        def manifestText = manifestFile.getText()
+        def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
+        matcherVersionNumber.find()
+
+        def manifestContent = matcherVersionNumber.replaceAll("versionName=\"" + versionName + "\"")
+        manifestFile.write(manifestContent)
+
+        println "Version name: " + versionName
     }
 }
