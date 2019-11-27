@@ -45,6 +45,9 @@ if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* &
     git checkout . -f
     git push origin develop
 
+    export STOREPASS=$FASTLANE_KEYPASS
+    export KEYPASS=$FASTLANE_STOREPASS
+
     sudo fastlane android "alpha"
 
 fi
