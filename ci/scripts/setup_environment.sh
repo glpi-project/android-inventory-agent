@@ -51,10 +51,10 @@ sudo apt-get install ruby-full build-essential
 sudo gem update --system --no-document
 
 # install fastlane
-sudo gem install fastlane --no-rdoc --no-ri
+sudo gem install fastlane
 
 # update bundler
-sudo gem install bundler --no-rdoc --no-ri
+sudo gem install bundler
 
 # update Gemfile.lock
 sudo bundler update --bundler
