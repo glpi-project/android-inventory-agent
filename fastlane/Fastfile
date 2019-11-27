@@ -32,9 +32,9 @@ platform :android do
     desc "Deploy workflow"
     lane :certification do |options|
         Fastlane::Actions.sh("pwd", log: true)
-        Fastlane::Actions.sh("~/Android/Sdk/build-tools/29.0.1/zipalign -v -f -p 4 ../app/build/outputs/apk/release/app-release-unsigned.apk ../app/build/outputs/apk/release/app-release-unsigned-aligned.apk", log: true)
-        Fastlane::Actions.sh("~/Android/Sdk/build-tools/29.0.1/apksigner sign --ks ../ci/release.keystore --ks-key-alias InventoryAgent --ks-pass pass:ENV['STOREPASS'] --key-pass pass:ENV['KEYPASS']  --out ../app/build/outputs/apk/release/appCertified.apk ../app/build/outputs/apk/release/app-release-unsigned-aligned.apk", log: true)
-        Fastlane::Actions.sh("~/Android/Sdk/build-tools/29.0.1/apksigner verify ../app/build/outputs/apk/release/appCertified.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/zipalign -v -f -p 4 ../app/build/outputs/apk/release/app-release-unsigned.apk ../app/build/outputs/apk/release/app-release-unsigned-aligned.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/apksigner sign --ks ../ci/release.keystore --ks-key-alias InventoryAgent --ks-pass pass:ENV['STOREPASS'] --key-pass pass:ENV['KEYPASS']  --out ../app/build/outputs/apk/release/appCertified.apk ../app/build/outputs/apk/release/app-release-unsigned-aligned.apk", log: true)
+        Fastlane::Actions.sh("$ANDROID_HOME/build-tools/$BUILD_TOOL/apksigner verify ../app/build/outputs/apk/release/appCertified.apk", log: true)
     end
     lane :beta do |options|
         supply(
