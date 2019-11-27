@@ -45,6 +45,6 @@ if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* &
     git checkout . -f
     git push origin develop
 
-    fastlane android "alpha"
+    sudo fastlane android "alpha"
 
 fi
