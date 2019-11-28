@@ -1,13 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fbutton="http://schemas.android.com/tools">
 
-    <ListView
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btn_run_inventory"
+            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_horizontal"
+        fbutton:buttonColor="@color/colorAccent"
+        fbutton:cornerRadius="5dp"
+        android:textColor="@color/white"
+        android:text="@string/AccueilInventoryRun"
+        fbutton:gravity="center_horizontal"
+        fbutton:shadowColor="@color/colorAccentShadow"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"/>
+
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btn_show_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_run_inventory"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center|center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/AccueilInventoryShow"
+        android:textColor="@color/white"
+        fbutton:buttonColor="@color/colorAccent"
+        fbutton:cornerRadius="5dp"
+        fbutton:gravity="center_horizontal"
+        fbutton:shadowColor="@color/colorAccentShadow"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp" />
+
+
+
+
+    <!--<ListView
         android:id="@+id/lst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        />-->
 
 </RelativeLayout>

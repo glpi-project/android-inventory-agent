@@ -63,6 +63,8 @@ public class FragmentHelp extends Fragment implements Help.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        setRetainInstance(true);
+
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_help, container, false);
 

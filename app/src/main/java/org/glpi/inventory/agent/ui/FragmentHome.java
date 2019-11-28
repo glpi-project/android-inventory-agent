@@ -35,18 +35,21 @@
 
 package org.glpi.inventory.agent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.home.Home;
 import org.glpi.inventory.agent.core.home.HomePresenter;
 import org.glpi.inventory.agent.core.home.HomeSchema;
+import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.utils.Helpers;
 
 public class FragmentHome extends Fragment implements Home.View {
@@ -62,8 +65,27 @@ public class FragmentHome extends Fragment implements Home.View {
 
         presenter.doBindService(FragmentHome.this.getActivity());
 
-        ListView lst = v.findViewById(R.id.lst);
-        presenter.setupList(FragmentHome.this.getActivity(), lst);
+        Button btn_run = v.findViewById(R.id.btn_run_inventory);
+        btn_run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogListServers alert = new DialogListServers();
+                alert.showDialog(FragmentHome.this.getActivity(), presenter);
+            }
+        });
+
+        Button btn_show = v.findViewById(R.id.btn_show_inventory);
+        btn_show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent miIntent = new Intent(FragmentHome.this.getActivity(), ActivityInventoryReport.class);
+                FragmentHome.this.getActivity().startActivity(miIntent);
+            }
+        });
+
+
+        //ListView lst = v.findViewById(R.id.lst);
+        /*presenter.setupList(FragmentHome.this.getActivity(), lst);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,7 +93,7 @@ public class FragmentHome extends Fragment implements Home.View {
                 HomeSchema homeSchema = presenter.getListItems().get(i);
                 presenter.clickItem(FragmentHome.this.getActivity(), homeSchema);
             }
-        });
+        });*/
 
         return v;
     }

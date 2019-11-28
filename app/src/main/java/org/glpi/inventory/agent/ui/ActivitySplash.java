@@ -35,11 +35,20 @@
 
 package org.glpi.inventory.agent.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.splash.Splash;
@@ -49,8 +58,9 @@ import org.glpi.inventory.agent.utils.Helpers;
 
 public class ActivitySplash extends Activity implements Splash.View {
 
-    private static final int DELAY = 3000;
+    private static final int DELAY = 4000;
     private Splash.Presenter presenter;
+    private View view;
     /**
      * Called when the activity is starting, inflates the activity's UI
      * @param savedInstanceState if the activity is re-initialized, it contains the data it most recently supplied
@@ -62,10 +72,36 @@ public class ActivitySplash extends Activity implements Splash.View {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_splash);
-
         presenter = new SplashPresenter(this);
         presenter.setupStorage(ActivitySplash.this);
+
+        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+        view = li.inflate(R.layout.activity_splash, null);
+        setContentView(R.layout.activity_splash);
+
+
+        ImageView logoTeclib = (ImageView) findViewById(R.id.imgLogoTeclib);
+        Animation fromBottom = AnimationUtils.loadAnimation(this,R.anim.from_bottom);
+        logoTeclib.setAnimation(fromBottom);
+
+        ImageView logoGlpi = findViewById(R.id.imgInventory);
+        Animation fromTop = AnimationUtils.loadAnimation(this,R.anim.from_top);
+        logoGlpi.setAnimation(fromTop);
+
+    }
+
+
+    void fadeOutAnimation() {
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
+        fadeOut.setDuration(1500);
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                // We wanna set the view to GONE, after it's fade out. so it actually disappear from the layout & don't take up space.
+                Helpers.openActivity(ActivitySplash.this, ActivityMain.class, true);
+            }
+        });
+        fadeOut.start();
     }
 
     @Override
@@ -79,7 +115,7 @@ public class ActivitySplash extends Activity implements Splash.View {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Helpers.openActivity(ActivitySplash.this, ActivityMain.class, true);
+                    fadeOutAnimation();
                 }
             }, DELAY);
         } catch (Exception ex) {
