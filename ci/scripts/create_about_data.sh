@@ -72,12 +72,12 @@
 
 # Get version number from package.json
 # Get version number from package.json
-export GIT_TAG=$(jq -r ".version" ../../package.json)
-export VERSION_CODE=$(grep versionCode ../../app/src/main/AndroidManifest.xml | cut -d\" -f2)
+export GIT_TAG=$(jq -r ".version" ./package.json)
+export VERSION_CODE=$(grep versionCode ./app/src/main/AndroidManifest.xml | cut -d\" -f2)
 
-echo "about.version=${GIT_TAG}" > ../../app/src/main/assets/about.properties
-echo "about.build=$VERSION_CODE" >> ../../app/src/main/assets/about.properties
-echo "about.date=$(date "+%a %b %d %H:%M:%S %Y")" >> ../../app/src/main/assets/about.properties
-echo "about.commit=${CIRCLE_SHA1:0:7}" >> ../../app/src/main/assets/about.properties
-echo "about.commitFull=$CIRCLE_SHA1" >> ../../app/src/main/assets/about.properties
-echo "about.github=https://github.com/glpi-project/android-inventory-agent" >> ../../app/src/main/assets/about.properties
+echo "about.version=${GIT_TAG}" > ./app/src/main/assets/about.properties
+echo "about.build=$VERSION_CODE" >> ./app/src/main/assets/about.properties
+echo "about.date=$(date "+%a %b %d %H:%M:%S %Y")" >> ./app/src/main/assets/about.properties
+echo "about.commit=${CIRCLE_SHA1:0:7}" >> ./app/src/main/assets/about.properties
+echo "about.commitFull=$CIRCLE_SHA1" >> ./app/src/main/assets/about.properties
+echo "about.github=https://github.com/glpi-project/android-inventory-agent" >> ./app/src/main/assets/about.properties
