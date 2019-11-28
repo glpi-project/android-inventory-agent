@@ -41,6 +41,7 @@ if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* &
 
     # update manifest changes
     git add app/src/main/AndroidManifest.xml
+    git add app/src/main/assets/about.properties
     git commit -m "ci(release): update version on android manifest"
     git checkout . -f
     git push origin develop
