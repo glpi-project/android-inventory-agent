@@ -72,8 +72,8 @@ import groovy.json.JsonSlurper
 import java.util.regex.Pattern
 
 task createAbout(type:Exec) {
-    workingDir '../ci/scripts'
-    commandLine './create_about_data.sh'
+    workingDir '../'
+    commandLine './ci/scripts/create_about_data.sh'
 }
 
 task updateVersionCode {
