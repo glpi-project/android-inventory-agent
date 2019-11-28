@@ -36,6 +36,7 @@
 package org.glpi.inventory.agent.ui;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +45,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -51,12 +53,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.main.Main;
 import org.glpi.inventory.agent.core.main.MainPresenter;
+import org.glpi.inventory.agent.preference.GlobalParametersPreference;
+import org.glpi.inventory.agent.preference.InventoryParametersPreference;
 import org.glpi.inventory.agent.service.InventoryService;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.LocalPreferences;
@@ -74,6 +81,12 @@ public class ActivityMain extends AppCompatActivity
     private FragmentManager fragmentManager;
     private android.support.v7.widget.Toolbar toolbar;
     private SharedPreferences sharedPreferences;
+    private FloatingActionButton mainFab;
+    private FloatingActionButton btn_settings;
+    private FloatingActionButton btn_scheduler;
+    private Boolean isOpen;
+    private Animation fab_open, fab_close, fab_clock, fab_anticlock;
+    private TextView textview_settings, textview_scheduler;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -151,6 +164,11 @@ public class ActivityMain extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
                 presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));
+                if(presenter.getMenuItem().get(position).get("id").equals("1")){
+                    enableFab();
+                }else{
+                    disableFab();
+                }
             }
         });
 
@@ -166,6 +184,72 @@ public class ActivityMain extends AppCompatActivity
         mDrawerToggle.syncState();
         IntentFilter timeAlarmChanged = new IntentFilter("timeAlarmChanged");
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, timeAlarmChanged);
+
+        //FloatActionButton
+        mainFab = findViewById(R.id.fab);
+        btn_settings = findViewById(R.id.btn_settings);
+        btn_scheduler = findViewById(R.id.btn_scheduler);
+        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_fab_clock);
+        fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_fab_anticlock);
+
+        textview_settings =  findViewById(R.id.text_settings);
+        textview_scheduler = findViewById(R.id.text_scheduler);
+        isOpen = false;
+
+        mainFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFab();
+            }
+        });
+
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent miIntent = new Intent(ActivityMain.this, GlobalParametersPreference.class);
+                ActivityMain.this.startActivity(miIntent);
+            }
+        });
+
+        btn_scheduler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent miIntent = new Intent(ActivityMain.this, InventoryParametersPreference.class);
+                ActivityMain.this.startActivity(miIntent);
+            }
+        });
+
+    }
+
+    private void disableFab(){
+        mainFab.hide();
+    }
+
+    private void enableFab(){
+        mainFab.show();
+    }
+    private void openFab(){
+        if (isOpen) {
+            textview_settings.setVisibility(View.INVISIBLE);
+            textview_scheduler.setVisibility(View.INVISIBLE);
+            btn_settings.startAnimation(fab_close);
+            btn_scheduler.startAnimation(fab_close);
+            mainFab.startAnimation(fab_anticlock);
+            btn_settings.setClickable(false);
+            btn_scheduler.setClickable(false);
+            isOpen = false;
+        } else {
+            textview_settings.setVisibility(View.VISIBLE);
+            textview_scheduler.setVisibility(View.VISIBLE);
+            btn_settings.startAnimation(fab_open);
+            btn_scheduler.startAnimation(fab_open);
+            mainFab.startAnimation(fab_clock);
+            btn_settings.setClickable(true);
+            btn_scheduler.setClickable(true);
+            isOpen = true;
+        }
     }
 
     private void loadCategories() {
@@ -198,6 +282,15 @@ public class ActivityMain extends AppCompatActivity
                     toolbar.setSubtitle("");
                 }
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!isOpen){
+            super.onBackPressed();
+        }else{
+            openFab();
         }
     }
 

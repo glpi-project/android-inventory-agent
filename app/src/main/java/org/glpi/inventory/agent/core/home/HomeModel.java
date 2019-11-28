@@ -119,9 +119,9 @@ public class HomeModel implements Home.Model {
         arrHome.add(new HomeSchema("1", activity.getString(R.string.AccueilInventoryTitle)));
         arrHome.add(new HomeSchema("4", activity.getString(R.string.AccueilInventoryShow), activity.getString(R.string.AccueilInventoryShowSummary)));
         arrHome.add(new HomeSchema("3", activity.getString(R.string.AccueilInventoryRun), activity.getString(R.string.AccueilInventoryRunSummary)));
-        arrHome.add(new HomeSchema("5", activity.getString(R.string.AccueilInventoryParam), activity.getString(R.string.AccueilInventoryParamSummary)));
-        arrHome.add(new HomeSchema("6", activity.getString(R.string.AccueilGlobalTitle)));
-        arrHome.add(new HomeSchema("7", activity.getString(R.string.AccueilGlobalParam), activity.getString(R.string.AccueilGlobalParamSummary)));
+        //arrHome.add(new HomeSchema("5", activity.getString(R.string.AccueilInventoryParam), activity.getString(R.string.AccueilInventoryParamSummary)));
+        //arrHome.add(new HomeSchema("6", activity.getString(R.string.AccueilGlobalTitle)));
+        //arrHome.add(new HomeSchema("7", activity.getString(R.string.AccueilGlobalParam), activity.getString(R.string.AccueilGlobalParamSummary)));
 
         HomeAdapter mAdapter = new HomeAdapter(activity, arrHome);
         lst.setAdapter(mAdapter);

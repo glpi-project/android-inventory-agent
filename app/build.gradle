@@ -41,6 +41,9 @@ android {
 }
 
 dependencies {
+
+    implementation 'info.hoang8f:fbutton:1.0.5'
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
 
