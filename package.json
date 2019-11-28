@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/glpi-project/android-inventory-agent/issues"
   },
-  "homepage": "http://flyve.org/android-inventory-agent/",
+  "homepage": "http://glpi-project/android-inventory-agent/",
   "devDependencies": {
     "conventional-github-releaser": "^3.0.0",
     "gh-pages": "^2.0.0",
