@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flyve-mdm/android-inventory-agent.git"
+    "url": "git+https://github.com/glpi-project/android-inventory-agent.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/flyve-mdm/android-inventory-agent/issues"
+    "url": "https://github.com/glpi-project/android-inventory-agent/issues"
   },
-  "homepage": "http://flyve.org/android-inventory-agent/",
+  "homepage": "https://glpi-project.github.io/android-inventory-agent/",
   "devDependencies": {
     "eslint": "^4.11.0",
     "eslint-config-google": "^0.9.1",
