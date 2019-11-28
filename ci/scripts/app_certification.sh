@@ -34,6 +34,9 @@
 #  ---------------------------------------------------------------------
 #
 
+ # run about script
+./ci/scripts/create_about_data.sh
+
 # run transifex script
 ./ci/scripts/transifex.sh
 
