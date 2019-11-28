@@ -175,7 +175,7 @@ ul.subNavList li{
 }
 .navBarCell1Rev {
     color: #FFF;
-    background-color: #008785;
+    background-color: #00a4f7;
     color:#253441;
     margin: auto 5px;
 }
@@ -204,7 +204,7 @@ Page header and footer styles
     font-size:13px;
 }
 .title {
-    color:#2c4557;
+    color:#00A4F7;
     margin:10px 0;
 }
 .subTitle {
@@ -389,7 +389,7 @@ Table styles
     padding-bottom:7px;
     display:inline-block;
     float:left;
-    background-color:#008785;
+    background-color:#00A4F7;
     border: none;
     height:30px;
     margin-bottom: 5px;
@@ -403,7 +403,7 @@ Table styles
     margin-right:3px;
     display:inline-block;
     float:left;
-    background-color:#008785;
+    background-color:#00A4F7;
     height:30px;
     margin-bottom: 5px;
     color: #FFF;
@@ -436,7 +436,7 @@ Table styles
     position:relative;
     float:left;
     color: #FFF;
-    background-color: #008785;
+    background-color: #00a4f7;
 }
 .memberSummary .activeTableTab .tabEnd {
     display:none;
@@ -445,7 +445,7 @@ Table styles
     position:relative; 
     float:left;
     color: #FFF;
-    background-color: #008785;
+    background-color: #00A4F7;
 }
 .memberSummary .tableTab .tabEnd {
     display:none;
