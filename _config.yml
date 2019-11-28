@@ -1,14 +1,13 @@
 title: android inventory agent
 baseurl: "/android-inventory-agent"
-url: "http://flyve.org"
-image: http://flyve.org/android-inventory-agent/images/logo2.png
-email: ml-flyvemdm@teclib.com
-twitter: https://twitter.com/flyvemdm
-facebook: https://www.facebook.com/FlyveMDM
-googlePlus: https://plus.google.com/collection/c32TsB
-telegram: https://t.me/flyvemdm
-irc: http://webchat.freenode.net/?channels=flyve-mdm
-reddit: https://www.reddit.com/r/FlyveMDM/
+url: "http://glpi-project.github.io"
+image: http://glpi-project.github.io/android-inventory-agent/images/logo2.png
+email: sales@teclib.com
+twitter: https://twitter.com/glpi_project
+facebook: https://www.facebook.com/glpiproject/
+telegram: https://t.me/glpien
+irc: http://webchat.freenode.net/?channels=glpi
+reddit: https://www.reddit.com/r/glpi/
 
 # Build settings
 markdown: kramdown
