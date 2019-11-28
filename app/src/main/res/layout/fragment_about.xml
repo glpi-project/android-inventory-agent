@@ -5,13 +5,19 @@
     android:layout_height="match_parent"
     >
 
+    <View android:id="@+id/strut"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"/>
+
+
     <ImageView
         android:id="@+id/imgInventory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logoinventory"
-        android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/strut"
         />
 
     <TextView

@@ -2,12 +2,17 @@
 <android.support.v4.widget.DrawerLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:id="@+id/drawerLayout"
+	android:layout_gravity="left"
+
 	>
 
+
 	<LinearLayout
+		android:id="@+id/anchor_for_fab"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
@@ -24,11 +29,119 @@
 		</android.support.v7.widget.Toolbar>
 
 		<FrameLayout
-			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:orientation="vertical"
 			android:id="@+id/containerView">
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:gravity="right">
+
+				<TextView
+					android:id="@+id/text_scheduler"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginRight="10dp"
+					android:layout_marginBottom="179dp"
+					android:background="@android:color/transparent"
+					android:padding="8dp"
+					android:text="@string/AccueilInventoryParamSummary"
+					android:textColor="@color/colorAccent"
+					android:visibility="invisible" />
+
+				<android.support.design.widget.FloatingActionButton
+					android:id="@+id/btn_scheduler"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginRight="32dp"
+					android:layout_marginBottom="169dp"
+					android:layout_toRightOf="@id/text_scheduler"
+					android:background="?android:attr/selectableItemBackground"
+					android:clickable="true"
+					android:elevation="16dp"
+					android:focusable="true"
+					android:gravity="right"
+					android:visibility="invisible"
+					app:backgroundTint="@color/colorAccent"
+					app:pressedTranslationZ="12dp"
+					app:srcCompat="@drawable/ic_schedule_white_24dp" />
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:gravity="right">
+
+				<TextView
+					android:id="@+id/text_settings"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginRight="10dp"
+					android:layout_marginBottom="116dp"
+					android:background="@android:color/transparent"
+					android:padding="8dp"
+					android:text="@string/GlobalAdvanced"
+					android:textColor="@color/colorAccent"
+					android:visibility="invisible" />
+
+
+				<android.support.design.widget.FloatingActionButton
+					android:id="@+id/btn_settings"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginRight="32dp"
+					android:layout_marginBottom="106dp"
+					android:layout_toRightOf="@id/text_settings"
+					android:background="?android:attr/selectableItemBackground"
+					android:clickable="true"
+					android:elevation="16dp"
+					android:focusable="true"
+					android:gravity="right"
+					android:visibility="invisible"
+					app:backgroundTint="@color/colorAccent"
+					app:pressedTranslationZ="12dp"
+					app:srcCompat="@drawable/ic_setting_white_24dp" />
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:gravity="right">
+
+				<android.support.design.widget.FloatingActionButton
+					android:id="@+id/fab"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginRight="32dp"
+					android:layout_marginBottom="32dp"
+					android:background="?android:attr/selectableItemBackground"
+					android:clickable="true"
+					android:elevation="16dp"
+					android:focusable="true"
+					android:gravity="right"
+					android:visibility="visible"
+					app:backgroundTint="@color/colorAccent"
+					app:pressedTranslationZ="12dp"
+					app:srcCompat="@drawable/ic_option_white_24dp" />
+
+			</RelativeLayout>
+
+
+
 		</FrameLayout>
+
+
 
 	</LinearLayout>
 
@@ -48,23 +161,26 @@
 			android:orientation="vertical"
 			>
 
-			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:src="@drawable/header_menu3"
-				android:scaleType="centerCrop"
-				android:adjustViewBounds="true"
-				/>
 
-			<ListView
-				android:id="@+id/lst"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:dividerHeight="0dp"
-				android:layout_marginTop="24dp"
-				android:divider="@null"
-				/>
-		</LinearLayout>
-	</android.support.design.widget.NavigationView>
+	<ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/header_menu3"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        />
+
+    <ListView
+        android:id="@+id/lst"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:layout_marginTop="24dp"
+        android:divider="@null"
+        />
+</LinearLayout>
+</android.support.design.widget.NavigationView>
+
+
 
 </android.support.v4.widget.DrawerLayout>
