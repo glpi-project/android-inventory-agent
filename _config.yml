@@ -20,7 +20,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-repository: flyve-mdm/android-inventory-agent
+repository: glpi-project/android-inventory-agent
 
 prose:
 
