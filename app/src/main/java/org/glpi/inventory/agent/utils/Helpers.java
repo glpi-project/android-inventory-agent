@@ -204,9 +204,9 @@ public class Helpers {
         String versionApp = enviromentInfo.getVersion();
         String type = "Linux";
         String versionAndroid = "Android " + Build.VERSION.RELEASE;
-        String app = "Flyve MDM";
+        String app = "GLPI Inventory Agent";
 
-        // Inventory Agent/0.2.0[568] (Linux; Android 4.0.4; Flyve MDM)
+        // Inventory Agent/0.2.0[568] (Linux; Android 4.0.4; GLPI Inventory Agent)
         return name + versionApp + " (" + type + "; " + versionAndroid + "; " + app + ")";
     }
 

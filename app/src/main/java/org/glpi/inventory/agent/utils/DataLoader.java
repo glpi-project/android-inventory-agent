@@ -57,6 +57,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
@@ -98,13 +99,9 @@ public class DataLoader {
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
         HttpProtocolParams.setContentCharset(params, "UTF-8");
         HttpProtocolParams.setUseExpectContinue(params, true);
-
-        EnvironmentInfo enviromentInfo = new EnvironmentInfo(appContext);
-        String version = "v0.0.0";
-        if(enviromentInfo.getIsLoaded()) {
-            version = "v" + enviromentInfo.getVersion();
-        }
-        HttpProtocolParams.setUserAgent(params, "Inventory-Agent-Android_" + version);
+        
+        String version = Helpers.getAgentDescription(appContext);
+        client.getParams().setParameter(CoreProtocolPNames.USER_AGENT,version);
 
         DefaultHttpClient sslClient = new DefaultHttpClient(ccm, client.getParams());
 
@@ -115,6 +112,7 @@ public class DataLoader {
             public void process(HttpRequest request, HttpContext context) {
                 for (Header h : request.getAllHeaders()) {
                     AgentLog.log(this, "HEADER : " + h.getName() + "=" + h.getValue(), Log.VERBOSE);
+                    Log.e("GLPI", "HEADER : " + h.getName() + "=" + h.getValue());
                 }
             }
         });
