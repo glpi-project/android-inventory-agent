@@ -35,7 +35,7 @@
   ],
   "start_url": "{{ site.baseurl }}/?utm_source=homescreen",
   "background_color": "#FFF",
-  "theme_color": "#158784",
+  "theme_color": "#00a4f7",
   "display": "standalone",
   "orientation": "portrait"
 }
