@@ -11,7 +11,7 @@ Welcome to our ever growing community!
 
 We are more than happy to accept external contributions to the project in the form of feedback, [translations](https://glpi-project.github.io/android-inventory-agent/howtos/contribute-translating), bug reports and even better, pull requests!
 
-Here you'll learn everything you must know to start contributing in any of the Flyve MDM projects.
+Here you'll learn everything you must know to start contributing in any of the GLPI projects.
 
 Starting from the basics we include Awesome tips: <img src="{{ '/images/picto-information.png' | absolute_url }}" alt="Awesome tip:" height="16px"> and Watch outs: <img src="{{ '/images/picto-warning.png' | absolute_url }}" alt="Watch out:" height="16px"> to get the most of it.
 
@@ -193,19 +193,17 @@ After adding your email account, remember to update your GPG on keybase, to do t
 
 ## Now that everything is set up
 
-Read our [Contributing guidelines](https://github.com/flyve-mdm/android-inventory-agent/blob/develop/CONTRIBUTING.md), you'll learn every step to contribute, from making an issue to closing them, using the [Git Flow](http://git-flow.readthedocs.io/en/latest/), [Conventional Commits](http://conventionalcommits.org/) and the tools we implement.
+Read our [Contributing guidelines](https://github.com/glpi-project/android-inventory-agent/blob/develop/CONTRIBUTING.md), you'll learn every step to contribute, from making an issue to closing them, using the [Git Flow](http://git-flow.readthedocs.io/en/latest/), [Conventional Commits](http://conventionalcommits.org/) and the tools we implement.
 
 ### If you need Assistance
 
 You can find us in any of our channels, we'll help you as soon as possible:
 
 * For Questions & Doubts:
-  * [Flyve MDM group](https://t.me/flyvemdm) on Telegram.
-  * [#flyve-mdm on freenode](http://webchat.freenode.net/?channels=flyve-mdm) via IRC chat.
+  * [GLPI group](https://t.me/glpien) on Telegram.
+  * [#GLPI on freenode](http://webchat.freenode.net/?channels=glpi) via IRC chat.
 * Technical questions:
   * [StackOverflow](http://stackoverflow.com/)
-* General Discussion:
-  * [Flyve MDM mailing list](http://mail.ow2.org/wws/info/flyve-mdm-dev)
 * Customers Assistance:
   * [Support channel](https://support.teclib.com/)
 
