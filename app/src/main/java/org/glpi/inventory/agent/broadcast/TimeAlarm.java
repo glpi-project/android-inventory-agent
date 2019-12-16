@@ -93,7 +93,7 @@ public class TimeAlarm extends BroadcastReceiver {
                             @Override
                             public void onTaskSuccess(String data) {
                                 Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
-                                Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
+                                //Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
                             }
 
                             @Override

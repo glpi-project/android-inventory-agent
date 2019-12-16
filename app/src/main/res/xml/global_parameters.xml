@@ -40,7 +40,7 @@
            android:targetPackage="org.glpi.inventory.agent" />
    </Preference>
 
-   <PreferenceCategory
+   <!--<PreferenceCategory
        android:layout="@layout/custom_preference_category"
        android:title="@string/AccueilPrivacyTitle" />
 
@@ -60,7 +60,7 @@
        android:summaryOff="@string/AccueilAnonymousDataSummaryOff"
        android:summaryOn="@string/AccueilAnonymousDataSummaryOn"
        android:title="@string/AccueilAnonymousDataTitle"
-       android:widgetLayout="@layout/custom_checkbox"/>
+       android:widgetLayout="@layout/custom_checkbox"/>-->
 
    <PreferenceCategory
        android:layout="@layout/custom_preference_category"

@@ -50,18 +50,15 @@ public class SplashModel implements Splash.Model {
 
     public void setupStorage(Context context) {
         try {
-            LocalStorage localStorage = new LocalStorage(context);
-
+            /*LocalStorage localStorage = new LocalStorage(context);
             String crashReport = localStorage.getData("crashReport");
             if (crashReport == null) {
                 localStorage.setData("crashReport", "true");
             }
-
             String anonymousData = localStorage.getData("anonymousData");
             if (anonymousData == null) {
                 localStorage.setData("anonymousData", "true");
-            }
-
+            }*/
             presenter.setupStorageReady();
         } catch (Exception ex) {
             AgentLog.e(ex.getMessage());
