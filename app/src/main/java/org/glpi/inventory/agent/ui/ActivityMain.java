@@ -215,7 +215,6 @@ public class ActivityMain extends AppCompatActivity
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Crashlytics.getInstance().crash();
                 Intent miIntent = new Intent(ActivityMain.this, GlobalParametersPreference.class);
                 ActivityMain.this.startActivity(miIntent);
             }
