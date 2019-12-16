@@ -41,14 +41,9 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.flyve.inventory.InventoryTask;
-import org.glpi.inventory.agent.schema.ServerSchema;
-import org.glpi.inventory.agent.utils.AgentLog;
-import org.glpi.inventory.agent.utils.HttpInventory;
-import org.glpi.inventory.agent.utils.UtilsAgent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 

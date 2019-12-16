@@ -56,9 +56,9 @@ public class AgentLog {
      * Sends a DEBUG log message
      * @param message to log
      */
-    public static void d(String message) {
+    public static void d(String message, Object... args) {
         if(message != null) {
-            Logger.d(TAG, message);
+            Logger.d(message, args);
         }
     }
 
@@ -66,9 +66,9 @@ public class AgentLog {
      * Sends a VERBOSE log message
      * @param message to log
      */
-    public static void v(String message) {
+    public static void v(String message, Object... args) {
         if(message != null) {
-            Logger.v(TAG, message);
+            Logger.v(message, args);
         }
     }
 
@@ -76,9 +76,9 @@ public class AgentLog {
      * Sends an INFO log message
      * @param message to log
      */
-    public static void i(String message) {
+    public static void i(String message, Object... args) {
         if(message != null) {
-            Logger.i(TAG, message);
+            Logger.i(message, args);
         }
     }
 
@@ -86,29 +86,9 @@ public class AgentLog {
      * Sends an ERROR log message
      * @param message to log
      */
-    public static void e(String message) {
+    public static void e(String message, Object... args) {
         if(message != null) {
-            Logger.e(TAG, message);
-        }
-    }
-
-    /**
-     * Sends a WARN log message
-     * @param message to log
-     */
-    public static void w(String message) {
-        if(message != null) {
-            Logger.w(TAG, message);
-        }
-    }
-
-    /**
-     * Reports a condition that should never happen, wts (What a Terrible Failure)
-     * @param message to log
-     */
-    public static void wtf(String message) {
-        if(message != null) {
-            Logger.wtf(TAG, message);
+            Logger.e(message, args);
         }
     }
 

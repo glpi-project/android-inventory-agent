@@ -44,6 +44,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,14 +59,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.crashlytics.android.Crashlytics;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.glpi.inventory.agent.R;
@@ -76,8 +74,6 @@ import org.glpi.inventory.agent.utils.LocalStorage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
-
-import io.fabric.sdk.android.Fabric;
 
 public class ActivityMain extends AppCompatActivity
         implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -215,7 +211,6 @@ public class ActivityMain extends AppCompatActivity
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Crashlytics.getInstance().crash();
                 Intent miIntent = new Intent(ActivityMain.this, GlobalParametersPreference.class);
                 ActivityMain.this.startActivity(miIntent);
             }

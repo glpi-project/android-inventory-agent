@@ -112,7 +112,6 @@ public class DataLoader {
             public void process(HttpRequest request, HttpContext context) {
                 for (Header h : request.getAllHeaders()) {
                     AgentLog.log(this, "HEADER : " + h.getName() + "=" + h.getValue(), Log.VERBOSE);
-                    Log.e("GLPI", "HEADER : " + h.getName() + "=" + h.getValue());
                 }
             }
         });

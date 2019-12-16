@@ -141,7 +141,7 @@ public class InventoryService extends Service {
                 public void run() {
                     calendar = Calendar.getInstance();
                     longDate = calendar.getTime().getTime();
-                    Log.i("strDate", String.valueOf(longDate));
+                    Log.d("strDate", String.valueOf(longDate));
                     twoDatesBetweenTime();
                 }
 

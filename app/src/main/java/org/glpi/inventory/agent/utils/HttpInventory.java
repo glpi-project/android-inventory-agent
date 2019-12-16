@@ -173,8 +173,6 @@ public class HttpInventory {
                 }
             }
 
-            AgentLog.d(sb.toString());
-
         } catch (ClientProtocolException e) {
             AgentLog.log(this, appContext.getResources().getString(R.string.error_protocol) + e.getLocalizedMessage(), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_protocol));
