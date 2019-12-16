@@ -41,8 +41,6 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.widget.Toast;
 
-import com.bugsnag.android.Bugsnag;
-
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.utils.EnvironmentInfo;
 import org.glpi.inventory.agent.utils.AgentLog;
@@ -63,16 +61,7 @@ public class AboutModel implements About.Model {
         if (countEasterEgg > 6 && countEasterEgg <= 10) {
             Toast.makeText(context, context.getResources().getQuantityString(R.plurals.easter_egg_attempts, countEasterEgg, countEasterEgg), Toast.LENGTH_SHORT).show();
         }
-        if (countEasterEgg == 10) {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            Boolean val = sharedPreferences.getBoolean("crashReport",false);
 
-            if(val) {
-                Bugsnag.notify(new RuntimeException("Easter Egg Fail on" + context.getString(R.string.app_name)));
-            } else {
-                Toast.makeText(context, context.getString(R.string.crashreport_disable), Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     @Override

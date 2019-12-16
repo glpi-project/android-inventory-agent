@@ -37,9 +37,10 @@ package org.glpi.inventory.agent.core.main;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.HashMap;
 import java.util.List;
