@@ -36,7 +36,6 @@
 package org.glpi.inventory.agent.ui;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,19 +44,24 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.crashlytics.android.Crashlytics;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.main.Main;
@@ -73,13 +77,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
+import io.fabric.sdk.android.Fabric;
+
 public class ActivityMain extends AppCompatActivity
         implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Main.Presenter presenter;
     private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
-    private android.support.v7.widget.Toolbar toolbar;
+    private Toolbar toolbar;
     private SharedPreferences sharedPreferences;
     private FloatingActionButton mainFab;
     private FloatingActionButton btn_settings;
@@ -124,6 +130,7 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         ActivityCompat.requestPermissions(ActivityMain.this,
@@ -208,6 +215,7 @@ public class ActivityMain extends AppCompatActivity
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Crashlytics.getInstance().crash();
                 Intent miIntent = new Intent(ActivityMain.this, GlobalParametersPreference.class);
                 ActivityMain.this.startActivity(miIntent);
             }
@@ -225,10 +233,14 @@ public class ActivityMain extends AppCompatActivity
 
     private void disableFab(){
         mainFab.hide();
+        btn_settings.hide();
+        btn_scheduler.hide();
     }
 
     private void enableFab(){
         mainFab.show();
+        btn_settings.show();
+        btn_scheduler.show();
     }
     private void openFab(){
         if (isOpen) {

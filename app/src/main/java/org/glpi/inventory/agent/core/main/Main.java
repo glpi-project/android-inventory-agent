@@ -37,7 +37,10 @@ package org.glpi.inventory.agent.core.main;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+
 import android.widget.ListView;
 
 import java.util.HashMap;
@@ -56,14 +59,14 @@ public interface Main {
 
         // Models
         Map<String, String> setupDrawer(Activity activity, ListView lst);
-        void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> item);
+        void loadFragment(FragmentManager fragmentManager, Toolbar toolbar, Map<String, String> item);
         List<HashMap<String, String>> getMenuItem();
         void setupInventoryAlarm(Context context);
     }
 
     interface Model {
         Map<String, String> setupDrawer(Activity activity, ListView lst);
-        void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> item);
+        void loadFragment(FragmentManager fragmentManager,  Toolbar toolbar, Map<String, String> item);
         List<HashMap<String, String>> getMenuItem();
         void setupInventoryAlarm(Context context);
     }

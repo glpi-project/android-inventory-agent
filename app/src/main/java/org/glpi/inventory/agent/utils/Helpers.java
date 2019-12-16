@@ -48,14 +48,19 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.ui.ActivityMain;
+
+import java.io.File;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
@@ -177,17 +182,23 @@ public class Helpers {
 
     public static void share(Context context, String message, final int type){
         final InventoryTask inventoryTask = new InventoryTask(context, "", true);
-        inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
-            @Override
-            public void onTaskSuccess(String s) {
-                inventoryTask.shareInventory(type);
-            }
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        if(type == 1){
 
-            @Override
-            public void onTaskError(Throwable throwable) {
-                AgentLog.e(throwable.getMessage());
+            File file = new File(path+ "/Inventory.json");
+            if(file.exists()){
+                inventoryTask.shareInventory(type);
+            }else{
+                AgentLog.e("JSON File not exist");
             }
-        });
+        }else{
+            File file = new File(path+ "/Inventory.xml");
+            if(file.exists()){
+                inventoryTask.shareInventory(type);
+            }else{
+                AgentLog.e("XML File not exist");
+            }
+        }
     }
 
     public static String capitalize(String str) {

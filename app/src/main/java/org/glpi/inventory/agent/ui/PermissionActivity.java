@@ -38,8 +38,9 @@ package org.glpi.inventory.agent.ui;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.permission.Permission;

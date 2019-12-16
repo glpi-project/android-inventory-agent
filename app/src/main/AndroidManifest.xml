@@ -43,9 +43,10 @@
         android:theme="@style/AppTheme"
         android:largeHeap="true"
         android:vmSafeMode="true">
+
         <meta-data
-            android:name="com.bugsnag.android.API_KEY"
-            android:value="b6bc7ce0da33f92fe6c49c568af43963" />
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsEnabled}" />
 
         <activity
             android:name="org.glpi.inventory.agent.ui.ActivitySplash"

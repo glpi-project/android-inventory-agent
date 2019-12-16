@@ -36,8 +36,9 @@
 package org.glpi.inventory.agent;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.glpi.inventory.agent.core.about.About;
 import org.glpi.inventory.agent.core.about.AboutModel;
@@ -48,10 +49,10 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class AboutModelTest {
 
-    private Context context = InstrumentationRegistry.getTargetContext();
+    private Context context =  InstrumentationRegistry.getInstrumentation().getContext();
 
     @Test
     public void crashTestEasterEgg() {

@@ -38,7 +38,8 @@ package org.glpi.inventory.agent.core.report;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;

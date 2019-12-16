@@ -36,8 +36,9 @@
 package org.glpi.inventory.agent;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.schema.ServerSchema;
@@ -47,13 +48,14 @@ import org.glpi.inventory.agent.utils.UtilsAgent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class InventoryTaskTest {
 
-    private Context appContext = InstrumentationRegistry.getTargetContext();
+    private Context appContext = InstrumentationRegistry.getInstrumentation().getContext();
 
     @Test
     public void getJSON() throws Exception {
@@ -87,7 +89,7 @@ public class InventoryTaskTest {
         });
     }
 
-    @Test
+    /*@Test
     public void sendInventoryTest() throws Exception {
         // Tested XML with good format
         String data = UtilsAgent.getXml("inventory.xml", appContext);
@@ -108,9 +110,9 @@ public class InventoryTaskTest {
             @Override
             public void onTaskError(String error) {
                 AgentLog.e(error);
-                assertTrue(false);
+                fail();
             }
         });
-    }
+    }*/
 
 }
