@@ -228,7 +228,7 @@ public class InventoryService extends Service {
         if(!autoStartInventory) {  return; }
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "android:inventory:agent");
         wl.acquire();
 
         final InventoryTask inventory = new InventoryTask(context.getApplicationContext(), Helpers.getAgentDescription(context), true);
@@ -244,7 +244,7 @@ public class InventoryService extends Service {
                             @Override
                             public void onTaskSuccess(String data) {
                                 Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
-                                Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
+                                //Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
                             }
 
                             @Override

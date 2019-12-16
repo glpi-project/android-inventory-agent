@@ -141,7 +141,7 @@ public class DialogListServers {
                         progressBar.dismiss();
                         String action = activity.getResources().getString(R.string.snackButton);
                         Helpers.snackClose(activity, data, action, false);
-                        Helpers.sendAnonymousData(activity, inventoryTask);
+                        //Helpers.sendAnonymousData(activity, inventoryTask);
                         dialog.dismiss();
                     }
 
