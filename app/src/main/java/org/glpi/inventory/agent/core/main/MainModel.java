@@ -39,9 +39,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.widget.ListView;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.DrawerAdapter;
@@ -50,6 +51,7 @@ import org.glpi.inventory.agent.ui.FragmentHelp;
 import org.glpi.inventory.agent.ui.FragmentHome;
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.LocalStorage;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,7 +97,7 @@ public class MainModel implements Main.Model {
         }
     }
 
-    public void loadFragment(FragmentManager fragmentManager, android.support.v7.widget.Toolbar toolbar, Map<String, String> menuItem) {
+    public void loadFragment(FragmentManager fragmentManager, Toolbar toolbar, Map<String, String> menuItem) {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

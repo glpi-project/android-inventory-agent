@@ -36,10 +36,11 @@
 package org.glpi.inventory.agent;
 
 import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.KeyEvent;
 import android.widget.ListView;
+
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import androidx.test.rule.ActivityTestRule;
 
 import org.glpi.inventory.agent.core.home.Home;
 import org.glpi.inventory.agent.core.home.HomeModel;
@@ -51,7 +52,7 @@ import org.junit.runner.RunWith;
 
 import static org.mockito.Mockito.mock;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class HomeModelTest {
 
     @Rule

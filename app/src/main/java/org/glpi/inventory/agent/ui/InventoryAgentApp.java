@@ -40,7 +40,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
-import android.support.multidex.MultiDex;
+import androidx.multidex.MultiDex;
 import android.util.Log;
 
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -49,7 +49,6 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
 import org.glpi.inventory.agent.utils.AgentLog;
-import org.glpi.inventory.agent.utils.UtilsCrash;
 
 public class InventoryAgentApp extends Application implements OnSharedPreferenceChangeListener {
 
@@ -75,7 +74,7 @@ public class InventoryAgentApp extends Application implements OnSharedPreference
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Boolean val = sharedPreferences.getBoolean("crashReport",false);
 
-        UtilsCrash.configCrash(this, val);
+        //UtilsCrash.configCrash(this, val);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);

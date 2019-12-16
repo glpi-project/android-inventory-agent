@@ -37,19 +37,16 @@ package org.glpi.inventory.agent.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.home.Home;
 import org.glpi.inventory.agent.core.home.HomePresenter;
-import org.glpi.inventory.agent.core.home.HomeSchema;
-import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.utils.Helpers;
 
 public class FragmentHome extends Fragment implements Home.View {
