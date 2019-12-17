@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.5.1
+      - image: circleci/ruby:latest
     working_directory: ~/project-site
     environment:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
@@ -21,7 +21,7 @@ jobs:
              sudo gem update --system --no-document
              sudo gem install bundler --no-document
              sudo bundler update --bundler
-             curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+             curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
              sudo apt-get install -y nodejs
              npm install
              
