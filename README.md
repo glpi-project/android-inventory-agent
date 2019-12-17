@@ -2,13 +2,13 @@
 
 ![GLPI Android Inventory Agent banner](/app/src/main/res/drawable/readme.png)
 
-[![License](https://img.shields.io/github/license/flyve-mdm/android-inventory-agent.svg?&label=License)](https://github.com/flyve-mdm/android-inventory-agent/blob/develop/LICENSE.md)
+[![License](https://img.shields.io/github/license/glpi-project/android-inventory-agent.svg?&label=License)](https://github.com/glpi-project/android-inventory-agent/blob/develop/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/Teclib.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/teclib)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Project Status: Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-[![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/android-inventory-agent.svg)](https://greenkeeper.io/)
-[![GitHub release](https://img.shields.io/github/release/flyve-mdm/android-inventory-agent.svg)](https://github.com/flyve-mdm/android-inventory-agent/releases)
+[![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/android-inventory-agent.svg)](https://greenkeeper.io/)
+[![GitHub release](https://img.shields.io/github/release/glpi-project/android-inventory-agent.svg)](https://github.com/glpi-project/android-inventory-agent/releases)
 
 GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
 
@@ -82,17 +82,17 @@ GLPI Android Inventory Agent is compatible with Android 4.1 and higher.
 
 ## Installation
 
-[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.glpi.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/flyve-mdm/android-inventory-agent/releases/latest)
+[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.glpi.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/glpi-project/android-inventory-agent/releases/latest)
 
 ## Documentation
 
-We maintain a detailed documentation of the project on the website, check the [How-tos](http://flyve.org/android-inventory-agent/howtos/) and [Development](http://flyve.org/android-inventory-agent/) section.
+We maintain a detailed documentation of the project on the website, check the [How-tos](http://glpi-project.github.io/android-inventory-agent/howtos/) and [Development](http://glpi-project.github.io/android-inventory-agent/) section.
 
 ## Versioning
 
 In order to provide transparency on our release cycle and to maintain backward compatibility, GLPI Android Inventory Agent is maintained under [the Semantic Versioning guidelines](http://semver.org/). We are committed to following and complying with the rules, the best we can.
 
-See [the tags section of our GitHub project](http://github.com/flyve-mdm/android-inventory-agent/tags) for changelogs for each release version of GLPI Android Inventory Agent. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
+See [the tags section of our GitHub project](http://github.com/glpi-project/android-inventory-agent/tags) for changelogs for each release version of GLPI Android Inventory Agent. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
 
 ## Contact
 
@@ -109,7 +109,7 @@ Obtain a personalized service experience, associated with benefits and opportuni
 ## Contribute
 
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/flyve-mdm/android-inventory-agent/issues).
+guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/glpi-project/android-inventory-agent/issues).
 
 ## Copying
 
