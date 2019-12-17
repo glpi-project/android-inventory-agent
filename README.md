@@ -7,7 +7,7 @@
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Project Status: Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-[![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/android-inventory-agent.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/android-inventory-agent.svg)](https://badges.greenkeeper.io/glpi-project/android-inventory-agent.svg)
 [![GitHub release](https://img.shields.io/github/release/glpi-project/android-inventory-agent.svg)](https://github.com/glpi-project/android-inventory-agent/releases)
 
 GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
@@ -82,7 +82,7 @@ GLPI Android Inventory Agent is compatible with Android 4.1 and higher.
 
 ## Installation
 
-[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.glpi.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/glpi-project/android-inventory-agent/releases/latest)
+[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/glpi-project/android-inventory-agent/releases/latest)
 
 ## Documentation
 
