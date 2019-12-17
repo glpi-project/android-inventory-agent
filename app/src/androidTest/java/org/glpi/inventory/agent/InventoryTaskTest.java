@@ -36,6 +36,7 @@
 package org.glpi.inventory.agent;
 
 import android.content.Context;
+import android.os.Environment;
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -48,6 +49,9 @@ import org.glpi.inventory.agent.utils.UtilsAgent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -58,7 +62,7 @@ public class InventoryTaskTest {
     private Context appContext = InstrumentationRegistry.getInstrumentation().getContext();
 
     @Test
-    public void getJSON() throws Exception {
+    public void getJSON()  throws Exception{
         InventoryTask task = new InventoryTask(appContext, "test", true);
         task.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
@@ -91,12 +95,18 @@ public class InventoryTaskTest {
 
     /*@Test
     public void sendInventoryTest() throws Exception {
-        // Tested XML with good format
-        String data = UtilsAgent.getXml("inventory.xml", appContext);
+
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        File file = new File(path + "/Inventory.xml");
+
+        FileInputStream fin = new FileInputStream(file);
+        String data = UtilsAgent.convertStreamToString(fin);
+        fin.close();
+
         // Send xml to default route
         HttpInventory httpInventory = new HttpInventory(appContext);
         ServerSchema serverSchema = new ServerSchema();
-        serverSchema.setAddress("https://demo-api.flyve.org/plugins/fusioninventory/");
+        serverSchema.setAddress("http://172.28.214.182/GLPI/9.4-bugfixes/plugins/fusioninventory/");
         serverSchema.setTag("");
         serverSchema.setLogin("");
         serverSchema.setPass("");
