@@ -37,6 +37,10 @@
 # Since we will download a video, we require integrity checking with CRC32c
 # But the crcmod installation in the docker image isn't using the module's C extension
 # So, uninstall it and install again with the C extension
+
+if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* && $GH_COMMIT_MESSAGE != *"build(properties): add new properties values"* && $GH_COMMIT_MESSAGE != *"ci(release): update version on android manifest"* ]]; then
+
+
 echo "y" | sudo pip uninstall crcmod
 
 sudo pip install -U crcmod
@@ -57,3 +61,5 @@ gcloud firebase test android run \
   --test $(ls -dt ~/flyve_mdm/app/build/outputs/apk/androidTest/debug/*.apk | head -1) \
   --device model=Nexus6,version=25,locale=en,orientation=portrait  \
   --timeout 180s
+
+fi
