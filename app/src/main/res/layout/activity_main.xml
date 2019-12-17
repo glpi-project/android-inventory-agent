@@ -44,6 +44,8 @@
 					android:id="@+id/text_scheduler"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:labelFor="@id/btn_scheduler"
+					android:hint="@string/AccueilInventoryParamSummary"
 					android:layout_alignParentBottom="true"
 					android:layout_marginRight="10dp"
 					android:layout_marginBottom="179dp"
@@ -85,9 +87,11 @@
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
 					android:layout_marginRight="10dp"
+					android:hint="@string/GlobalAdvanced"
 					android:layout_marginBottom="116dp"
 					android:background="@android:color/transparent"
 					android:padding="8dp"
+					android:labelFor="@id/btn_settings"
 					android:text="@string/GlobalAdvanced"
 					android:textColor="@color/colorAccent"
 					android:visibility="invisible" />
@@ -118,6 +122,24 @@
 				android:orientation="vertical"
 				android:gravity="right">
 
+
+
+
+				<TextView
+					android:id="@+id/text_options"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginRight="10dp"
+					android:hint="@string/Options"
+					android:layout_marginBottom="116dp"
+					android:background="@android:color/transparent"
+					android:padding="8dp"
+					android:labelFor="@id/btn_settings"
+					android:textColor="@color/colorAccent"
+					android:visibility="invisible" />
+
+
 				<com.google.android.material.floatingactionbutton.FloatingActionButton
 					android:id="@+id/fab"
 					android:layout_width="wrap_content"
@@ -134,6 +156,7 @@
 					app:backgroundTint="@color/colorAccent"
 					app:pressedTranslationZ="12dp"
 					app:srcCompat="@drawable/ic_option_white_24dp" />
+
 
 			</RelativeLayout>
 
