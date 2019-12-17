@@ -44,6 +44,9 @@ if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* &
 
 # Update layouts and styles of development folder for correct display on project site
 
+# checkout uncommited changes
+git checkout -- Gemfile.lock
+
 # get gh-pages branch
 git fetch origin gh-pages
 
