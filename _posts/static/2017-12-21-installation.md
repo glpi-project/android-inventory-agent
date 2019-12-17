@@ -9,7 +9,7 @@ category: user
 
 ### Compatibility Matrix
 
-#### Flyve MDM
+#### Android Inventory Agent
 
 <table class="zebra-table">
     <tr>
