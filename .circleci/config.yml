@@ -18,10 +18,10 @@ jobs:
       - run:
           name: "Install dependencies"
           command: |
-             apt-get install ruby-full build-essential
-             gem update --system --no-document
-             gem install bundler --no-document
-             bundler update --bundler
+             sudo apt-get install ruby-full build-essential
+             sudo gem update --system --no-document
+             sudo gem install bundler --no-document
+             sudo bundler update --bundler
              curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
              sudo apt-get install -y nodejs
              npm install
