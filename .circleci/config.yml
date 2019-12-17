@@ -18,7 +18,6 @@ jobs:
       - run:
           name: "Install dependencies"
           command: |
-             sudo apt-get install ruby-full build-essential
              sudo gem update --system --no-document
              sudo gem install bundler --no-document
              sudo bundler update --bundler
