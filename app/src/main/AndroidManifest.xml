@@ -109,7 +109,21 @@
 
         <activity android:name="org.glpi.inventory.agent.ui.PermissionActivity" />
         <activity android:name="org.glpi.inventory.agent.ui.ActivityListServers" />
-        <activity android:name="org.glpi.inventory.agent.ui.ActivityDetailServer" />
+        <activity android:name="org.glpi.inventory.agent.ui.ActivityDetailServer">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="glpi-project.github.io"
+                    android:pathPrefix="/android-inventory-agent/deeplink"/>
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+
+        </activity>
         <activity android:name="org.glpi.inventory.agent.ui.ActivityCategories" />
     </application>
 
