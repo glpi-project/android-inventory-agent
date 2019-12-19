@@ -270,4 +270,15 @@
     <string name="Options">Options</string>
     <string name="Share">Share</string>
 
+    <!-- scan -->
+    <string name="scan_camera_problem_dialog_title">Sorry</string>
+    <string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
+    <string name="scan_camera_permission_dialog_title">Camera permission</string>
+    <string name="scan_camera_permission_dialog_message">In order to scan QR codes, you need to grant permission to use the camera.</string>
+
+    <string name="button_dismiss">Dismiss</string>
+    <string name="message">message</string>
+    <string name="bad_qr_code_format">Bad QR code format</string>
+
+
 </resources>

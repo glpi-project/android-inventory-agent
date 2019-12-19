@@ -35,16 +35,21 @@
 
 package org.glpi.inventory.agent.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.flyve.inventory.InventoryLog;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.detailserver.DetailServer;
 import org.glpi.inventory.agent.core.detailserver.DetailServerPresenter;
@@ -52,8 +57,11 @@ import org.glpi.inventory.agent.schema.ServerSchema;
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.Utils;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.view.View.GONE;
 
 public class ActivityDetailServer extends AppCompatActivity implements DetailServer.View, View.OnClickListener {
 
@@ -66,6 +74,9 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     private EditText editPassWord;
     private Toolbar toolbar;
     private String serverName;
+    private FloatingActionButton btnScan;
+
+    private static final int REQUEST_CODE_SCAN = 150;
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -84,11 +95,49 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         serverName = getIntent().getStringExtra("serverName");
         if (serverName == null) {
             actionServer.setText(R.string.add_server);
-            deleteServer.setVisibility(View.GONE);
+            deleteServer.setVisibility(GONE);
         } else {
             actionServer.setText(R.string.update_server);
             presenter.loadServer(serverName, getApplicationContext());
         }
+
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityDetailServer.this.startActivityForResult(new Intent(ActivityDetailServer.this, ScanActivity.class), REQUEST_CODE_SCAN);
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) {
+            String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+            // come from QR scan
+            JSONObject jsonData = null;
+            if (input != null) {
+                try {
+                    jsonData = new JSONObject(input);
+                } catch (Exception e) {
+                    Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
+                    AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format)+ " " + input);
+                }
+            }
+
+            if(jsonData != null){
+                try {
+                    editUrlAddress.setText(jsonData.getString("URL"));
+                    editTag.setText(jsonData.getString("TAG"));
+                    editLogin.setText(jsonData.getString("LOGIN"));
+                    editPassWord.setText(jsonData.getString("PASSWORD"));
+                } catch (Exception ex) {
+                    Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
+                    AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format));
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
     }
 
     private void setToolbar() {
@@ -117,8 +166,8 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editPassWord = findViewById(R.id.editPassWord);
         actionServer.setOnClickListener(this);
         deleteServer.setOnClickListener(this);
+        btnScan = findViewById(R.id.btnQRScan);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -163,6 +212,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editTag.setText(model.getTag());
         editLogin.setText(model.getLogin());
         editPassWord.setText(model.getPass());
+        btnScan.hide();
     }
 
     @Override
