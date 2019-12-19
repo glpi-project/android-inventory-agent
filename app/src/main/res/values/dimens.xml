@@ -5,4 +5,11 @@
     <dimen name="standard_155">155dp</dimen>
     <dimen name="standard_21">21dp</dimen>
     <dimen name="standard_45">45dp</dimen>
+
+    <dimen name="scan_laser_width">4dp</dimen>
+    <dimen name="scan_dot_size">8dp</dimen>
+
+    <dimen name="font_size_small">15sp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
+
 </resources>
