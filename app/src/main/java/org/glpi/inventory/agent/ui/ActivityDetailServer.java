@@ -37,7 +37,9 @@ package org.glpi.inventory.agent.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +51,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.flyve.inventory.CommonErrorType;
 import org.flyve.inventory.InventoryLog;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.detailserver.DetailServer;
@@ -59,6 +62,7 @@ import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.Utils;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static android.view.View.GONE;
@@ -108,21 +112,62 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
             }
         });
 
+
+        //try to know if com from deeplink
+        String deeplink = "";
+        Intent intent = getIntent();
+        Uri data;
+        data = intent.getData();
+
+        try {
+            deeplink = data.getQueryParameter("data");
+            //decode base64
+            byte[] decodedBytes = Base64.decode(deeplink,Base64.DEFAULT);
+            String decodedString = new String(decodedBytes);
+
+            // come from QR scan
+            JSONObject jsonData = null;
+            try {
+                jsonData = new JSONObject(decodedString);
+            } catch (Exception e) {
+                Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
+                AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format)+ " " + decodedString);
+            }
+
+            if(jsonData != null){
+                try {
+                    editUrlAddress.setText(jsonData.getString("URL"));
+                    editTag.setText(jsonData.getString("TAG"));
+                    editLogin.setText(jsonData.getString("LOGIN"));
+                    editPassWord.setText(jsonData.getString("PASSWORD"));
+                } catch (Exception ex) {
+                    Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
+                    AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format));
+                }
+            }
+
+        } catch (Exception ex) {
+            AgentLog.e(getApplicationContext().getResources().getString(R.string.error_deeplink)+ " " + ex);
+        }
+
     }
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) {
             String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+
+            //decode base64
+            byte[] decodedBytes = Base64.decode(input,Base64.DEFAULT);
+            String decodedString = new String(decodedBytes);
+
             // come from QR scan
             JSONObject jsonData = null;
-            if (input != null) {
-                try {
-                    jsonData = new JSONObject(input);
-                } catch (Exception e) {
-                    Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
-                    AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format)+ " " + input);
-                }
+            try {
+                jsonData = new JSONObject(decodedString);
+            } catch (Exception e) {
+                Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
+                AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format)+ " " + decodedString);
             }
 
             if(jsonData != null){

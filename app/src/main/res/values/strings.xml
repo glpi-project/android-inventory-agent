@@ -279,6 +279,10 @@
     <string name="button_dismiss">Dismiss</string>
     <string name="message">message</string>
     <string name="bad_qr_code_format">Bad QR code format</string>
+    <string name="bad_deeplink_format">Bad DeepLink format</string>
+
+
+    <string name="error_deeplink">Error when try to get data from deeplink</string>
 
 
 </resources>
