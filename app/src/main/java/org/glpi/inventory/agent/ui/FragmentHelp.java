@@ -35,11 +35,16 @@
 
 package org.glpi.inventory.agent.ui;
 
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -47,6 +52,8 @@ import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.help.Help;
 import org.glpi.inventory.agent.core.help.HelpPresenter;
 import org.glpi.inventory.agent.utils.Helpers;
+
+import java.util.List;
 
 public class FragmentHelp extends Fragment implements Help.View {
 
@@ -65,17 +72,46 @@ public class FragmentHelp extends Fragment implements Help.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        setRetainInstance(true);
 
-        // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_help, container, false);
+        try {
+            setRetainInstance(true);
 
-        presenter =  new HelpPresenter(this);
+            // Inflate the layout for this fragment
+            View v =  inflater.inflate(R.layout.fragment_help, container, false);
 
-        WebView wv = v.findViewById(R.id.webview);
-        presenter.loadWebsite(FragmentHelp.this.getActivity(), wv, HELP_URL);
+            presenter =  new HelpPresenter(this);
 
-        return v;
+            WebView wv = v.findViewById(R.id.webview);
+            presenter.loadWebsite(FragmentHelp.this.getActivity(), wv, HELP_URL);
+
+            return v;
+        }catch (Exception ex){
+            final String appPackageName = "com.google.android.webview";
+            if(isPackageExisted(appPackageName)){
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.install_web_view), Toast.LENGTH_LONG).show();
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.load_help_error), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isPackageExisted(String targetPackage){
+        List<ApplicationInfo> packages;
+        PackageManager pm;
+
+        pm = getContext().getPackageManager();
+        packages = pm.getInstalledApplications(0);
+        for (ApplicationInfo packageInfo : packages) {
+            if(packageInfo.packageName.equals(targetPackage))
+                return true;
+        }
+        return false;
     }
 
     @Override

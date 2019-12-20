@@ -283,6 +283,8 @@
 
 
     <string name="error_deeplink">Error when try to get data from deeplink</string>
+    <string name="install_web_view">It seems that you need to install the \"WebView\" package from Google to display the help page correctly.</string>
+    <string name="load_help_error">Unable to load help page</string>
 
 
 </resources>
