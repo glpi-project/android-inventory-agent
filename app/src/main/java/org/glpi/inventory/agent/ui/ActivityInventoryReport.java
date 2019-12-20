@@ -36,6 +36,7 @@
 package org.glpi.inventory.agent.ui;
 
 import android.Manifest;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -73,6 +74,7 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ActivityCompat.requestPermissions(ActivityInventoryReport.this,
                 new String[]{
