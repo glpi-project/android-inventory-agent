@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GLPI Inventory Agent</string>
-    <string name="agent_started">Inventory Agent is started</string>
-    <string name="agent_stopped">Inventory Agent is stopped</string>
-    <string name="agent_reboot">Inventory Agent is restarted</string>
-    <string name="agent_description">Agent is running in background</string>
+    <string name="app_name">GLPI Agent</string>
+    <string name="agent_started">GLPI Agent is started</string>
+    <string name="agent_stopped">GLPI Agent is stopped</string>
+    <string name="agent_reboot">GLPI Agent is restarted</string>
+    <string name="agent_description">GLPI Agent is running in background</string>
     <string name="button_start_inventory">Start Inventory</string>
     <string name="menu_about">About</string>
     <string name="menu_show_inventory">My device inventory</string>
@@ -28,8 +28,8 @@
     <string name="service_notif_id">Inventory Agent</string>
     <string name="buttonListServer">buttonList</string>
     <string-array name="agent_status">
-        <item>Agent is waiting an order ...</item>
-        <item>Agent is performing an inventory ...</item>
+        <item>GLPI Agent is waiting an order ...</item>
+        <item>GLPI Agent is performing an inventory ...</item>
     </string-array>
     <string name="agent_settings">Agent settings</string>
     <string name="phone_boot">Agent must be launched at phone boot</string>
