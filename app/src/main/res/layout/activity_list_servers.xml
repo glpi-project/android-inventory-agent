@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fbutton="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,7 +35,8 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/radius_btn_yellow"
                 android:text="@string/add_server"
-                android:textColor="@color/black" />
+                android:textColor="@color/textColorYellow" />
+
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
