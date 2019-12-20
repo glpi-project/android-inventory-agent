@@ -6,6 +6,7 @@
 	<color name="colorAccentShadow">#0095DB</color>
 	<color name="black">#000000</color>
 	<color name="colorYellow">#fec95c</color>
+	<color name="colorYellowShadow">#e4b452</color>
 	<color name="textColorYellow">#8f5a0a</color>
 	<color name="red">#EA1E31</color>
 	<color name="white">#FFF</color>

@@ -80,6 +80,7 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
         setContentView(R.layout.activity_list_servers);
         presenter = new ServersPresenter(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.getContext().setTheme(R.style.toolbarArrow);
         try {
             setSupportActionBar(toolbar);
             if (getSupportActionBar() != null)

@@ -37,7 +37,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorYellow"
                 android:text="@string/delete"
                 android:background="@drawable/radius_btn_yellow"/>
         </RelativeLayout>

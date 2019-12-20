@@ -133,7 +133,7 @@
     <string name="AccueilInventoryRun">Run inventory now</string>
     <string name="AccueilInventoryRunSummary">Send inventory report</string>
     <string name="AccueilInventoryParam">Inventory parameters</string>
-    <string name="AccueilInventoryParamSummary">Schedule the inventory task</string>
+    <string name="AccueilInventoryParamSummary">Schedule task</string>
     <string name="AccueilInventoryShow">Show my inventory</string>
     <string name="AccueilInventoryShowSummary">Display inventory report</string>
 
