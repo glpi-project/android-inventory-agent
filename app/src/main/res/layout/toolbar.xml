@@ -9,4 +9,5 @@
     android:minHeight="?attr/actionBarSize"
     android:background="@color/colorAccent"
     app:navigationIcon="?attr/homeAsUpIndicator"
+    android:theme="@style/toolbarArrow"
     />

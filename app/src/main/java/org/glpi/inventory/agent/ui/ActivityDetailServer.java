@@ -116,38 +116,43 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         //try to know if com from deeplink
         String deeplink = "";
         Intent intent = getIntent();
-        Uri data;
-        data = intent.getData();
 
-        try {
-            deeplink = data.getQueryParameter("data");
-            //decode base64
-            byte[] decodedBytes = Base64.decode(deeplink,Base64.DEFAULT);
-            String decodedString = new String(decodedBytes);
+        if(intent != null){
+            Uri data;
+            data = intent.getData();
 
-            // come from QR scan
-            JSONObject jsonData = null;
-            try {
-                jsonData = new JSONObject(decodedString);
-            } catch (Exception e) {
-                Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
-                AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format)+ " " + decodedString);
-            }
-
-            if(jsonData != null){
+            if(data != null){
                 try {
-                    editUrlAddress.setText(jsonData.getString("URL"));
-                    editTag.setText(jsonData.getString("TAG"));
-                    editLogin.setText(jsonData.getString("LOGIN"));
-                    editPassWord.setText(jsonData.getString("PASSWORD"));
+                    deeplink = data.getQueryParameter("data");
+                    //decode base64
+                    byte[] decodedBytes = Base64.decode(deeplink,Base64.DEFAULT);
+                    String decodedString = new String(decodedBytes);
+
+                    // come from QR scan
+                    JSONObject jsonData = null;
+                    try {
+                        jsonData = new JSONObject(decodedString);
+                    } catch (Exception e) {
+                        Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
+                        AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format)+ " " + decodedString);
+                    }
+
+                    if(jsonData != null){
+                        try {
+                            editUrlAddress.setText(jsonData.getString("URL"));
+                            editTag.setText(jsonData.getString("TAG"));
+                            editLogin.setText(jsonData.getString("LOGIN"));
+                            editPassWord.setText(jsonData.getString("PASSWORD"));
+                        } catch (Exception ex) {
+                            Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
+                            AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format));
+                        }
+                    }
+
                 } catch (Exception ex) {
-                    Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
-                    AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format));
+                    AgentLog.e(getApplicationContext().getResources().getString(R.string.error_deeplink)+ " " + ex);
                 }
             }
-
-        } catch (Exception ex) {
-            AgentLog.e(getApplicationContext().getResources().getString(R.string.error_deeplink)+ " " + ex);
         }
 
     }
@@ -203,6 +208,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
 
     private void instanceObject() {
         toolbar = findViewById(R.id.toolbar);
+        toolbar.getContext().setTheme(R.style.toolbarArrow);
         deleteServer = toolbar.findViewById(R.id.deleteServer);
         actionServer = findViewById(R.id.actionServer);
         editUrlAddress = findViewById(R.id.editUrlAddress);
