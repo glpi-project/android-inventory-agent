@@ -3,12 +3,14 @@
 ![GLPI Android Inventory Agent banner](/app/src/main/res/drawable/readme.png)
 
 [![License](https://img.shields.io/github/license/glpi-project/android-inventory-agent.svg?&label=License)](https://github.com/glpi-project/android-inventory-agent/blob/develop/LICENSE.md)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Follow twitter](https://img.shields.io/twitter/follow/Teclib.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/teclib)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Project Status: Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![Greenkeeper badge](https://img.shields.io/badge/Greenkeeper-enabled-4c1.svg?colorA=555&style=flat)](https://greenkeeper.io)
 [![GitHub release](https://img.shields.io/github/release/glpi-project/android-inventory-agent.svg)](https://github.com/glpi-project/android-inventory-agent/releases)
+[![GitHub build](https://img.shields.io/circleci/build/github/glpi-project/android-inventory-agent.svg)](https://circleci.com/gh/glpi-project/android-inventory-agent/)
 
 GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
 
