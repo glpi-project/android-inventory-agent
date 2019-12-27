@@ -40,7 +40,6 @@ platform :android do
         supply(
             track: 'alpha',
             apk: "app/build/outputs/apk/release/appCertified.apk",
-            release_status:'draft',
             skip_upload_aab: true
         )
     end
