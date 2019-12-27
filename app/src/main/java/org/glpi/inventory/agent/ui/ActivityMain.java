@@ -171,6 +171,9 @@ public class ActivityMain extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
                 presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));
+                if(isOpen){
+                    openFab();
+                }
                 if(presenter.getMenuItem().get(position).get("id").equals("1")){
                     enableFab();
                 }else{
@@ -215,6 +218,9 @@ public class ActivityMain extends AppCompatActivity
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isOpen){
+                    openFab();
+                }
                 Intent miIntent = new Intent(ActivityMain.this, GlobalParametersPreference.class);
                 ActivityMain.this.startActivity(miIntent);
             }
@@ -223,6 +229,9 @@ public class ActivityMain extends AppCompatActivity
         btn_scheduler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isOpen){
+                    openFab();
+                }
                 Intent miIntent = new Intent(ActivityMain.this, InventoryParametersPreference.class);
                 ActivityMain.this.startActivity(miIntent);
             }

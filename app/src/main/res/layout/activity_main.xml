@@ -188,7 +188,7 @@
 	<ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/header_menu3"
+        android:src="@drawable/header_menu"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         />
