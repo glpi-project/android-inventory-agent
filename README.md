@@ -7,7 +7,7 @@
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Project Status: Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-[![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/android-inventory-agent.svg)](https://badges.greenkeeper.io/glpi-project/android-inventory-agent.svg)
+[![Greenkeeper badge](https://img.shields.io/badge/Greenkeeper-enabled-4c1.svg?colorA=555&style=flat)](https://greenkeeper.io)
 [![GitHub release](https://img.shields.io/github/release/glpi-project/android-inventory-agent.svg)](https://github.com/glpi-project/android-inventory-agent/releases)
 
 GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
@@ -110,6 +110,7 @@ Obtain a personalized service experience, associated with benefits and opportuni
 
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
 guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/glpi-project/android-inventory-agent/issues).
+
 
 ## Copying
 
