@@ -21,6 +21,7 @@ GLPI Android Inventory Agent allows your company to maintain control of all mobi
 * [Compatibility Matrix](#compatibility-matrix)
 * [Installation](#installation)
 * [Documentation](#documentation)
+* [Screenshots](#screenshot)
 * [Versioning](#versioning)
 * [Contribute](#contribute)
 * [Contact](#contact)
@@ -89,6 +90,13 @@ GLPI Android Inventory Agent is compatible with Android 4.1 and higher.
 ## Documentation
 
 We maintain a detailed documentation of the project on the website, check the [How-tos](http://glpi-project.github.io/android-inventory-agent/howtos/) and [Development](http://glpi-project.github.io/android-inventory-agent/) section.
+
+## Screenshot
+
+|    |            |   |
+|:-------------:|:-------------:|:-------------:|
+| <img src="./screenshot/inventory-main.png" alt="drawing" width="300"/> |    <img src="./screenshot/show-server.png" alt="drawing" width="300"/>  |  <img src="./screenshot/add-server.png" alt="drawing" width="300"/> |
+| <img src="./screenshot/automatic-inventory.png" alt="drawing" width="300"/> |    <img src="./screenshot/select-server.png" alt="drawing" width="300"/>  | <img src="./screenshot/show-share.png" alt="drawing" width="300"/> | 
 
 ## Versioning
 
