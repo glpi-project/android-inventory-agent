@@ -73,8 +73,8 @@ public class ReportModel implements Report.Model {
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {
-                presenter.sendInventory(s, Utils.loadJsonHeader(s));
                 inventoryTask.getXMLSyn();
+                presenter.sendInventory(s, Utils.loadJsonHeader(s));
             }
 
             @Override
