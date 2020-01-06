@@ -37,8 +37,9 @@ package org.glpi.inventory.agent.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -51,7 +52,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.flyve.inventory.CommonErrorType;
 import org.flyve.inventory.InventoryLog;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.detailserver.DetailServer;
@@ -62,7 +62,7 @@ import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.Utils;
 import org.json.JSONObject;
 
-import java.nio.charset.StandardCharsets;
+import android.net.Uri;
 import java.util.ArrayList;
 
 import static android.view.View.GONE;
@@ -78,6 +78,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     private EditText editPassWord;
     private Toolbar toolbar;
     private String serverName;
+    private JSONObject extra_Data = null;
     private FloatingActionButton btnScan;
 
     private static final int REQUEST_CODE_SCAN = 150;
@@ -118,31 +119,31 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         Intent intent = getIntent();
 
         if(intent != null){
-            Uri data;
-            data = intent.getData();
 
-            if(data != null){
+            Uri deeplink_Data = null;
+            deeplink_Data = intent.getData();
+
+            if(deeplink_Data != null){
                 try {
-                    deeplink = data.getQueryParameter("data");
+                    deeplink = deeplink_Data.getQueryParameter("data");
                     //decode base64
                     byte[] decodedBytes = Base64.decode(deeplink,Base64.DEFAULT);
                     String decodedString = new String(decodedBytes);
 
                     // come from QR scan
-                    JSONObject jsonData = null;
                     try {
-                        jsonData = new JSONObject(decodedString);
+                        extra_Data = new JSONObject(decodedString);
                     } catch (Exception e) {
                         Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
                         AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format)+ " " + decodedString);
                     }
 
-                    if(jsonData != null){
+                    if(extra_Data != null){
                         try {
-                            editUrlAddress.setText(jsonData.getString("URL"));
-                            editTag.setText(jsonData.getString("TAG"));
-                            editLogin.setText(jsonData.getString("LOGIN"));
-                            editPassWord.setText(jsonData.getString("PASSWORD"));
+                            editUrlAddress.setText(extra_Data.getString("URL"));
+                            editTag.setText(extra_Data.getString("TAG"));
+                            editLogin.setText(extra_Data.getString("LOGIN"));
+                            editPassWord.setText(extra_Data.getString("PASSWORD"));
                         } catch (Exception ex) {
                             Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
                             AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format));
@@ -167,20 +168,20 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
             String decodedString = new String(decodedBytes);
 
             // come from QR scan
-            JSONObject jsonData = null;
+
             try {
-                jsonData = new JSONObject(decodedString);
+                extra_Data = new JSONObject(decodedString);
             } catch (Exception e) {
                 Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
                 AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format)+ " " + decodedString);
             }
 
-            if(jsonData != null){
+            if(extra_Data != null){
                 try {
-                    editUrlAddress.setText(jsonData.getString("URL"));
-                    editTag.setText(jsonData.getString("TAG"));
-                    editLogin.setText(jsonData.getString("LOGIN"));
-                    editPassWord.setText(jsonData.getString("PASSWORD"));
+                    editUrlAddress.setText(extra_Data.getString("URL"));
+                    editTag.setText(extra_Data.getString("TAG"));
+                    editLogin.setText(extra_Data.getString("LOGIN"));
+                    editPassWord.setText(extra_Data.getString("PASSWORD"));
                 } catch (Exception ex) {
                     Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
                     AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format));
@@ -231,6 +232,20 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                 serverInfo.add(editPassWord.getText().toString());
                 if (serverName == null) {
                     presenter.saveServer(serverInfo, getApplicationContext());
+                    //manage automatic inventory
+                    if(extra_Data != null){
+                        try {
+                            if(extra_Data.getString("ANDROID_AUTOMATIC_INVENTORY").equalsIgnoreCase("1")){
+                                SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SharedPreferences.Editor editor = customSharedPreference.edit();
+                                editor.putString("timeInventory", extra_Data.getString("ANDROID_FREQUENCY"));
+                                editor.putBoolean("autoStartInventory", true);
+                                editor.apply();
+                            }
+                        } catch (Exception ex) {
+                            AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format));
+                        }
+                    }
                 } else {
                     presenter.updateServer(serverInfo, serverName, getApplicationContext());
                 }
