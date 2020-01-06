@@ -40,6 +40,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -51,6 +52,7 @@ import android.widget.ProgressBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import org.flyve.inventory.InventoryLog;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.ViewPagerAdapter;
 import org.glpi.inventory.agent.core.report.Report;
@@ -112,6 +114,7 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
             }
         });
 
+        progressBar.setVisibility(View.VISIBLE);
         presenter.generateReport(ActivityInventoryReport.this);
     }
 
@@ -159,5 +162,12 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
                 }
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //FIX: TransactionTooLargeException when sharing Uri via intent
+        outState.clear();
     }
 }
