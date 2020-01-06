@@ -21,7 +21,7 @@ GLPI Android Inventory Agent allows your company to maintain control of all mobi
 * [Compatibility Matrix](#compatibility-matrix)
 * [Installation](#installation)
 * [Documentation](#documentation)
-* [Screenshots](#screenshot)
+* [Screenshots](#screenshots)
 * [Versioning](#versioning)
 * [Contribute](#contribute)
 * [Contact](#contact)
@@ -85,13 +85,14 @@ GLPI Android Inventory Agent is compatible with Android 4.1 and higher.
 
 ## Installation
 
-[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="60">](https://github.com/glpi-project/android-inventory-agent/releases/latest)
+[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) 
+    [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/org.glpi.inventory.agent)
 
 ## Documentation
 
 We maintain a detailed documentation of the project on the website, check the [How-tos](http://glpi-project.github.io/android-inventory-agent/howtos/) and [Development](http://glpi-project.github.io/android-inventory-agent/) section.
 
-## Screenshot
+## Screenshots
 
 |    |            |   |
 |:-------------:|:-------------:|:-------------:|
@@ -118,8 +119,12 @@ Obtain a personalized service experience, associated with benefits and opportuni
 
 ## Contribute
 
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing](./CONTRIBUTING.md) and then check out one of our issues in the [Issues Dashboard](https://github.com/glpi-project/android-inventory-agent/issues).
+Want to contribute some code, or improve documentation? Excellent! Read up on our
+guidelines for [contributing](./CONTRIBUTING.md) 
+
+## Issues / request features
+
+Want to report a bug or request feature, please contact us at 
 
 
 ## Copying
