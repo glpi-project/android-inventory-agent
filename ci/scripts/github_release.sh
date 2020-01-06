@@ -51,9 +51,9 @@ yarn github-release edit \
 --name "Inventory Agent v${GIT_TAG}" \
 
 # Upload example code release
-yarn github-release upload \
---user $CIRCLE_PROJECT_USERNAME \
---repo $CIRCLE_PROJECT_REPONAME \
---tag ${GIT_TAG} \
---name "InventoryAgent-${GIT_TAG}.apk" \
---file ${FILE}
+# yarn github-release upload \
+# --user $CIRCLE_PROJECT_USERNAME \
+# --repo $CIRCLE_PROJECT_REPONAME \
+# --tag ${GIT_TAG} \
+# --name "InventoryAgent-${GIT_TAG}.apk" \
+# --file ${FILE}
