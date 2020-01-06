@@ -97,7 +97,6 @@ public class DataLoader {
         HttpParams params = new BasicHttpParams();
 
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-        HttpProtocolParams.setContentCharset(params, "UTF-8");
         HttpProtocolParams.setUseExpectContinue(params, true);
         
         String version = Helpers.getAgentDescription(appContext);
@@ -107,6 +106,8 @@ public class DataLoader {
 
         HttpPost post;
         post = new HttpPost(mFusionApp.getAddress());
+        post.setHeader("Content-Type","application/xml");
+        post.setHeader("Charset","UTF-8");
         sslClient.addRequestInterceptor(new HttpRequestInterceptor() {
             @Override
             public void process(HttpRequest request, HttpContext context) {
