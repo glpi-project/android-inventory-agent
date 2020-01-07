@@ -41,7 +41,6 @@ if [[ $GH_COMMIT_MESSAGE != *"ci(release): generate CHANGELOG.md for version"* &
 
     # Get the version number from package.json
     export GIT_TAG=$(jq -r ".version" package.json)
-
     # get if is a release or a pre release with "-"
     IS_PRERELEASE="$( cut -d '-' -f 2 <<< "$GIT_TAG" )";
 

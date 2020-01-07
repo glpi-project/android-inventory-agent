@@ -36,6 +36,7 @@
 
 # Get version number from package.json
 export GIT_TAG=$(jq -r ".version" package.json)
+export GITHUB_TOKEN=$GH_TOKEN
 
 # Generate CHANGELOG.md and increment version
 IS_PRERELEASE="$( cut -d '-' -f 2 <<< "$GIT_TAG" )";
@@ -69,33 +70,31 @@ git checkout . -f
 git push --follow-tags origin $CIRCLE_BRANCH
 
 # Create release with conventional-github-releaser
-yarn conventional-github-releaser -p angular -t $GH_TOKEN
+yarn conventional-github-releaser -p angular -t $GH_TOKEN 2> /dev/null || true
 
 # get apk path
-export FILE="./app/build/outputs/apk/release/appCertified.apk"
+# export FILE="./app/build/outputs/apk/release/appCertified.apk"
 
-if [[ $CIRCLE_BRANCH != "$IS_PRERELEASE" ]]; then
+#if [[ $CIRCLE_BRANCH != "$IS_PRERELEASE" ]]; then
 
     # Upload release
-    yarn github-release upload \
-    --user "${CIRCLE_PROJECT_USERNAME}" \
-    --repo "${CIRCLE_PROJECT_REPONAME}" \
-    --tag "${GIT_TAG}" \
-    --name "InventoryAgent-${GIT_TAG}.apk" \
-    --file ${FILE}
+#     yarn github-release upload \
+#     --user "${CIRCLE_PROJECT_USERNAME}" \
+#     --repo "${CIRCLE_PROJECT_REPONAME}" \
+#     --tag "${GIT_TAG}" \
+#     --name "InventoryAgent-${GIT_TAG}.apk"
 
-else
+# else
 
     # Upload pre-release
-    yarn github-release upload \
-    --user "${CIRCLE_PROJECT_USERNAME}" \
-    --repo "${CIRCLE_PROJECT_REPONAME}" \
-    --tag "${GIT_TAG}" \
-    --name "InventoryAgent-${GIT_TAG}.apk" \
-    --file ${FILE} \
-    --pre-release
+#     yarn github-release upload \
+#     --user "${CIRCLE_PROJECT_USERNAME}" \
+#     --repo "${CIRCLE_PROJECT_REPONAME}" \
+#     --tag "${GIT_TAG}" \
+#     --name "InventoryAgent-${GIT_TAG}.apk" \
+#     --pre-release
 
-fi
+# fi
 
 # Update develop branch
 git add .

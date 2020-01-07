@@ -123,7 +123,7 @@ guidelines for [contributing](./CONTRIBUTING.md)
 
 ## Issues / request features
 
-Want to report a bug or request feature, please contact us [Here](https://portal.glpi-network.com/contactez-nous)
+Want to report a bug or request feature, please contact us [here](https://portal.glpi-network.com/contactez-nous)
 
 
 ## Copying
