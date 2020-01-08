@@ -2,9 +2,9 @@
 layout: news
 category: blog
 published: false
-title: November 2017
+title: JAnuary 2020
 ---
-Welcome to the release version 1.0.0 of Flyve MDM Android Inventory Agent!
+Welcome to the release version 1.0.0 of GLPI Agent for android !
 
 We are glad and very proud to present you this brand new application that features a complete inventory of your Android device where both the hardware and software information are collected and sent with just a touch.
 
@@ -22,72 +22,13 @@ It requires Android 1.6 or higher.
 
 The Android Inventory Agent is a free software project providing:
 - hardware and software inventory (multiplatform)
-- network discovery
-- network inventory for printers and switches
-- Wake On Lan (WOL)
-- Software deployment
 - total integration with the GLPI project (open source asset management software and helpdesk)
 
 The Inventory Agent can also be used with open sources projects like Uranos or Rudder.
 
-You can join the community in GitHub and participate to contribute, test and correct bugs: [Flyve MDM on GitHub](https://github.com/flyve-mdm)!
+You can join the community in GitHub and participate to contribute, test and correct bugs: [GLPI Agent on GitHub](https://github.com/glpi-project/android-inventory-agent)!
 
 The Inventory Agent is under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.html).
-
-### Choose your server
-
-You can specify the server address and your credentials to send the inventory to your account automatically.
-
-The Inventory Agent can send to:
-
-- Fusion Inventory for GLPI 2.3.x and higher
-- OCSInventory NG (ocsng) 1.3.x and 2.x
-- Mandriva Pulse2
-
-<img src="https://github.com/Naylin15/Screenshots/blob/master/android%20settings.png?raw=true" alt="Global Settings" height="900">
-
-
-### Privacy options
-
-The Android Inventory Agent counts with privacy options that allows you to choose what information will be send besides your inventory, those are:
-
-#### Health Report
-
-This allows to send a crash report using Bugsnag, helping us to monitor errors in the application, as part of our Quality Control.
-
-#### Usage Data
-
-You can decide if your inventory is anonymously send to Flyve MDM, also part of our Quality Control.
-
-### Run your inventory
-
-The Inventory Agent allows you to run the inventory manually from the main screen directly, sending the data such as memory, drivers, sensors [and so much more](#the-inventory-includes "See the complete list") in an XML file.
-
-You can also uncheck the Inventory option to disable the inventory.
-
-<img src="https://i.imgur.com/JP4xnSh.png" alt="Run inventory now" height="900">
-
-
-### Automatize your Inventory
-
-Inventory Agent provides you the option to automatize your inventory generation, you can decide how your inventory will be run if manually or automatically, and the frequency it will have.
-
-<img src="https://i.imgur.com/eh1jv4B.png" alt="Automatic inventory"  height="900">
-
-
-### Show my inventory
-
-You can take a look at the information gathered in your inventory before it is sent. This way you will know exactly what are the elements of your device.
-
-<img src="https://i.imgur.com/wb7DYPn.png" alt="My device inventory"  height="900">
-
-
-### Share the inventory
-
-You also have the option of sharing your inventory and have it available whenever and wherever you need it, you have the option to share in two formats JSON and XML, as you prefer it.
-
-<img src="https://i.imgur.com/KQriJYz.png" alt="Select the format to share"  height="900">
-
 
 ### Exclusive Library
 
