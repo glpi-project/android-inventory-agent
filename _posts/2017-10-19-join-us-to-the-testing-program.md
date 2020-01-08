@@ -1,7 +1,7 @@
 ---
 layout: news
 category: blog
-published: true
+published: false
 title: Join us to the Testing Program
 redditURL: 'https://play.google.com/apps/testing/org.glpi.inventory.agent'
 hackerNewsURL: 'https://glpi-project.github.io/android-inventory-agent/blog/2017/10/19/join-us-to-the-testing-program.html'

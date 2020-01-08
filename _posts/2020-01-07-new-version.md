@@ -1,8 +1,8 @@
 ---
 layout: news
 category: blog
-published: false
-title: JAnuary 2020
+published: true
+title: Release version 1.0.0
 ---
 Welcome to the release version 1.0.0 of GLPI Agent for android !
 
