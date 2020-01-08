@@ -10,11 +10,11 @@ We are glad and very proud to present you this brand new application that featur
 
 The Inventory Agent introduces you several functions, being the most outstanding the following:
 
-- [Choose your server](#choose-your-server)
-- [Automatize your inventory](#automatize-your-inventory)
-- [The data collected](#the-inventory-file-includes)
-- [Display your inventory](#show-my-inventory)
-- [Share your inventory](#share-the-inventory)
+* Choose your server
+* Automatize your inventory
+* The data collected
+* Display your inventory
+* Share your inventory
 
 It requires Android 1.6 or higher.
 
