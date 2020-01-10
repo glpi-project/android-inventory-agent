@@ -44,10 +44,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.about.About;
 import org.glpi.inventory.agent.core.about.AboutPresenter;
+import org.glpi.inventory.agent.utils.AgentLog;
 
 public class FragmentAbout extends Fragment implements About.View {
 
@@ -86,5 +89,17 @@ public class FragmentAbout extends Fragment implements About.View {
     @Override
     public void showAboutFail() {
         txtAbout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        try {
+            FragmentManager fm = getActivity()
+                    .getSupportFragmentManager();
+            fm.popBackStack ("about", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }catch(NullPointerException ex) {
+            AgentLog.e(ex.getMessage());
+        }
+        return true;
     }
 }

@@ -47,10 +47,12 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.help.Help;
 import org.glpi.inventory.agent.core.help.HelpPresenter;
+import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 
 import java.util.List;
@@ -117,5 +119,17 @@ public class FragmentHelp extends Fragment implements Help.View {
     @Override
     public void showError(String message) {
         Helpers.snackClose(FragmentHelp.this.getActivity(), message, getString(R.string.permission_snack_ok), true);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        try {
+            FragmentManager fm = getActivity()
+                    .getSupportFragmentManager();
+            fm.popBackStack ("help", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }catch(NullPointerException ex) {
+            AgentLog.e(ex.getMessage());
+        }
+        return true;
     }
 }
