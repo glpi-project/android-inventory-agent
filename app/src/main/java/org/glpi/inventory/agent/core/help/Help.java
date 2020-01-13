@@ -38,11 +38,15 @@ package org.glpi.inventory.agent.core.help;
 import android.app.Activity;
 import android.webkit.WebView;
 
+import androidx.appcompat.widget.Toolbar;
+
 public interface Help {
 
     interface View {
         void showError(String message);
         boolean onBackPressed();
+        void setToolbar(Toolbar toolbar);
+
     }
 
     interface Presenter {
