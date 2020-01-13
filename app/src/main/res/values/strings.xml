@@ -48,6 +48,7 @@
     <string name="inventory_sent">Inventory sent</string>
     <string name="inventory_notification_sent">Inventory scheduled shipped</string>
     <string name="inventory_notification_fail">Inventory scheduled fail</string>
+    <string name="inventory_no_server">No server found</string>
     <string name="crashreport_disable">Crash report is disable, please enable to test it</string>
     <string name="dialog_share_title">Select the format to share</string>
     <string-array name="export_list">
