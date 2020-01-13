@@ -48,6 +48,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.glpi.inventory.agent.R;
+import org.glpi.inventory.agent.utils.AgentLog;
 
 public class InventoryParametersPreference extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -72,9 +73,15 @@ public class InventoryParametersPreference extends PreferenceActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+
         if ("timeInventory".equals(s)) {
             Intent intent = new Intent("timeAlarmChanged");
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getString(s, "Week"));
+        }
+
+        if("autoStartInventory".equals(s)){
+            AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getBoolean(s, false));
         }
     }
 }
