@@ -116,7 +116,7 @@ public class InventoryService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startMyOwnForeground(){
         String NOTIFICATION_CHANNEL_ID = "org.glpi.inventory.agent";
-        String channelName = "Inventory Service";
+        String channelName = getApplicationContext().getResources().getString(R.string.app_is_running);
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
         chan.setLightColor(Color.BLUE);
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
@@ -129,6 +129,17 @@ public class InventoryService extends Service {
         appIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent appIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, appIntent, 0);
 
+
+        //create inent to invite user to disable notification
+        Intent notificationIntent = new Intent();
+        notificationIntent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        notificationIntent.putExtra("app_package", getPackageName());
+        notificationIntent.putExtra("app_uid", getApplicationInfo().uid);
+        notificationIntent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+        PendingIntent notificationIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0,
+                notificationIntent, 0);
+
+        //create notification
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
                 .setSmallIcon(R.drawable.ic_stat)
@@ -138,6 +149,7 @@ public class InventoryService extends Service {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(getApplicationContext().getResources().getString(R.string.app_is_running_extend)))
                 .setContentIntent(appIntentRedirect)
+                .addAction(R.drawable.ic_about, getApplicationContext().getResources().getString(R.string.disable_notification), notificationIntentRedirect)
                 .build();
         startForeground(2, notification);
     }
