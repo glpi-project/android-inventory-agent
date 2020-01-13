@@ -112,8 +112,7 @@ public class TimeAlarm extends BroadcastReceiver {
                 });
             }
         } else {
-            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
-            AgentLog.e(context.getResources().getString(R.string.inventory_notification_fail));
+            AgentLog.e(context.getResources().getString(R.string.inventory_no_server));
         }
 
         wl.release();
