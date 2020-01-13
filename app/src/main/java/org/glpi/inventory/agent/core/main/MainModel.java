@@ -101,26 +101,27 @@ public class MainModel implements Main.Model {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        toolbar.setTitle(menuItem.get("name"));
-
         // Home
         if (menuItem.get("id").equals("1")) {
             FragmentHome f = new FragmentHome();
+            f.setToolbar(toolbar);
             fragmentTransaction.replace(R.id.containerView, f).commit();
         }
 
         // Help
         if (menuItem.get("id").equals("4")) {
             FragmentHelp f = new FragmentHelp();
-            fragmentTransaction.replace(R.id.containerView, f).commit();
+            f.setToolbar(toolbar);
             fragmentTransaction.addToBackStack("help");
+            fragmentTransaction.replace(R.id.containerView, f).commit();
         }
 
         // About
         if (menuItem.get("id").equals("5")) {
             FragmentAbout f = new FragmentAbout();
-            fragmentTransaction.replace(R.id.containerView, f).commit();
+            f.setToolbar(toolbar);
             fragmentTransaction.addToBackStack("about");
+            fragmentTransaction.replace(R.id.containerView, f).commit();
         }
     }
 
