@@ -119,7 +119,7 @@ public class DataLoader {
         });
 
         try {
-            post.setEntity(new StringEntity(lastXML));
+            post.setEntity(new StringEntity(lastXML,"UTF-8"));
         } catch (UnsupportedEncodingException e1) {
             AgentLog.e(e1.getMessage());
         }
