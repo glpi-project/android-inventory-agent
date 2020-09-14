@@ -45,6 +45,9 @@ android {
 
 dependencies {
 
+    implementation "androidx.work:work-runtime:2.2.0"
+
+
     implementation 'info.hoang8f:fbutton:1.0.5'
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

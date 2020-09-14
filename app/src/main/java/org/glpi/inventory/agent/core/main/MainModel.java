@@ -44,25 +44,36 @@ import android.widget.ListView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.flyve.inventory.InventoryLog;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.DrawerAdapter;
+import org.glpi.inventory.agent.service.SendInventoryWorker;
 import org.glpi.inventory.agent.ui.FragmentAbout;
 import org.glpi.inventory.agent.ui.FragmentHelp;
 import org.glpi.inventory.agent.ui.FragmentHome;
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.LocalStorage;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.BackoffPolicy;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class MainModel implements Main.Model {
 
     private Main.Presenter presenter;
     private ArrayList<HashMap<String, String>> arrDrawer;
+    public static final String TAG_MY_WORK = "inventory_scheduled";
 
     public MainModel(Main.Presenter presenter) {
         this.presenter = presenter;
@@ -70,31 +81,46 @@ public class MainModel implements Main.Model {
 
     @Override
     public void setupInventoryAlarm(Context context) {
-        LocalStorage cache = new LocalStorage(context);
-        if (cache.getDataBoolean("changeSchedule")) {
-            Calendar calendar = Calendar.getInstance();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String timeInventory = sharedPreferences.getString("timeInventory", "day");
 
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            String timeInventory = sharedPreferences.getString("timeInventory", "week");
-
-            // week by default
-            if (timeInventory.equalsIgnoreCase("week")) {
-                calendar.add(Calendar.DATE, 7);
-            }
-
-            if (timeInventory.equalsIgnoreCase("day")) {
-                calendar.add(Calendar.DATE, 1);
-            }
-
-            if (timeInventory.equalsIgnoreCase("month")) {
-                calendar.add(Calendar.DATE, 30);
-            }
-
-            long dateTime = calendar.getTime().getTime();
-
-            cache.setDataLong("data", dateTime);
-            cache.setDataBoolean("changeSchedule", false);
+        boolean autoStartInventory = sharedPreferences.getBoolean("autoStartInventory", false);
+        if(!autoStartInventory) {
+            InventoryLog.d("WORKER -> schedule inventory is disable -> cancel worker if exist");
+            WorkManager.getInstance(context).cancelAllWorkByTag(TAG_MY_WORK);
+            return;
         }
+
+        //day configuration
+        int interval = 1;
+        int backOffDelay = 2;
+
+        // week by default
+        if (timeInventory != null && timeInventory.equalsIgnoreCase("week")) {
+            backOffDelay = 5;
+            interval = 7;
+        }
+
+        // month
+        if (timeInventory != null && timeInventory.equalsIgnoreCase("month")) {
+            backOffDelay = 5;
+            interval = 3;
+        }
+
+        InventoryLog.d("WORKER -> configure worker for "+timeInventory+" interval");
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(true)
+                .build();
+
+        PeriodicWorkRequest saveRequest =
+                new PeriodicWorkRequest.Builder(SendInventoryWorker.class, interval, TimeUnit.DAYS)
+                        .setConstraints(constraints)
+                        .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, backOffDelay, TimeUnit.HOURS) //retry every 2 hours
+                        .build();
+
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(TAG_MY_WORK, ExistingPeriodicWorkPolicy.REPLACE,saveRequest);
     }
 
     public void loadFragment(FragmentManager fragmentManager, Toolbar toolbar, Map<String, String> menuItem) {

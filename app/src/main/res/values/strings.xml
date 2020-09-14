@@ -46,7 +46,7 @@
     <string name="snackButton">Done</string>
     <string name="loading">Processing...</string>
     <string name="inventory_sent">Inventory sent</string>
-    <string name="inventory_notification_sent">Inventory scheduled shipped</string>
+    <string name="inventory_notification_sent">Planned inventory sent</string>
     <string name="inventory_notification_fail">Inventory scheduled fail</string>
     <string name="inventory_no_server">No server found</string>
     <string name="crashreport_disable">Crash report is disable, please enable to test it</string>
@@ -88,7 +88,7 @@
     <string name="show">Show</string>
     <string name="update_server">Update Server</string>
     <string name="send_inventory">Send</string>
-    <string name="no_servers_added">No Servers \n Added</string>
+    <string name="no_servers_added">Inventory planned but no server registered</string>
     <string name="no_added">No Added</string>
     <string name="close">Close</string>
 
@@ -211,7 +211,7 @@
     <!-- Inventory Preferences -->
 
     <string name="InventoryCat">Inventory</string>
-    <string name="InventoryAuto">Automatic inventory</string>
+    <string name="InventoryAuto">Schedule inventory</string>
     <string name="InventoryAutoSummaryOn">Disable automatic inventory</string>
     <string name="InventoryAutoSummaryOff">Enable automatic inventory</string>
     <string name="InventoryFrequency">Frequency</string>

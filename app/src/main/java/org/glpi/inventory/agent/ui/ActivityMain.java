@@ -40,17 +40,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -61,7 +58,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.glpi.inventory.agent.R;
@@ -69,7 +65,6 @@ import org.glpi.inventory.agent.core.main.Main;
 import org.glpi.inventory.agent.core.main.MainPresenter;
 import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.preference.InventoryParametersPreference;
-import org.glpi.inventory.agent.service.InventoryService;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.LocalPreferences;
 import org.glpi.inventory.agent.utils.LocalStorage;
@@ -78,16 +73,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
-import io.fabric.sdk.android.Fabric;
 
 public class ActivityMain extends AppCompatActivity
-        implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
+        implements Main.View{
 
     private Main.Presenter presenter;
     private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
-    private SharedPreferences sharedPreferences;
+    //private SharedPreferences sharedPreferences;
     private FloatingActionButton mainFab;
     private FloatingActionButton btn_settings;
     private FloatingActionButton btn_scheduler;
@@ -95,7 +89,7 @@ public class ActivityMain extends AppCompatActivity
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     private TextView textview_settings, textview_scheduler;
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    /*private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String strTime = intent.getStringExtra("time");
@@ -105,12 +99,11 @@ public class ActivityMain extends AppCompatActivity
                 toolbar.setSubtitle("");
             }
         }
-    };
+    };*/
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            new LocalStorage(context).setDataBoolean("changeSchedule", true);
             presenter.setupInventoryAlarm(ActivityMain.this);
         }
     };
@@ -119,19 +112,18 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+        //registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(broadcastReceiver);
+        //unregisterReceiver(broadcastReceiver);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         ActivityCompat.requestPermissions(ActivityMain.this,
@@ -160,8 +152,8 @@ public class ActivityMain extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
 
         // setup shared preference
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         presenter = new MainPresenter(this);
         Map<String, String> menuItem = presenter.setupDrawer(ActivityMain.this, lst);
@@ -182,8 +174,6 @@ public class ActivityMain extends AppCompatActivity
             }
         });
 
-        presenter.setupInventoryAlarm(ActivityMain.this);
-
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
 
@@ -192,8 +182,14 @@ public class ActivityMain extends AppCompatActivity
 
         drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+        //register to scheduled change
         IntentFilter timeAlarmChanged = new IntentFilter("timeAlarmChanged");
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, timeAlarmChanged);
+
+        //register to auto start change
+        IntentFilter autoStartInventory = new IntentFilter("autoStartInventory");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, autoStartInventory);
 
         //FloatActionButton
         mainFab = findViewById(R.id.fab);
@@ -284,8 +280,8 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        //sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
     @Override
@@ -293,7 +289,7 @@ public class ActivityMain extends AppCompatActivity
         Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);
     }
 
-    @Override
+    /*@Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("autoStartInventory")) {
             if (!sharedPreferences.getBoolean("autoStartInventory", false)) {
@@ -304,7 +300,7 @@ public class ActivityMain extends AppCompatActivity
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

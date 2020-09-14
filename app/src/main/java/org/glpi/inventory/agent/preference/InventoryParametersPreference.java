@@ -81,7 +81,10 @@ public class InventoryParametersPreference extends PreferenceActivity
         }
 
         if("autoStartInventory".equals(s)){
+            Intent intent = new Intent("autoStartInventory");
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
             AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getBoolean(s, false));
         }
     }
+
 }

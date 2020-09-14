@@ -70,7 +70,7 @@ public class HomeModel implements Home.Model {
         // class name because we want a specific service implementation that
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
-        InventoryService inventoryService = new InventoryService();
+        /*InventoryService inventoryService = new InventoryService();
         Intent mServiceIntent = new Intent(activity, inventoryService.getClass());
         ComponentName result;
 
@@ -88,7 +88,7 @@ public class HomeModel implements Home.Model {
             }
         } else {
             AgentLog.log(this, " Agent already started ", Log.ERROR);
-        }
+        }*/
     }
 
     /**

@@ -239,6 +239,10 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                                 SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SharedPreferences.Editor editor = customSharedPreference.edit();
                                 editor.putString("timeInventory", extra_Data.getString("ANDROID_FREQUENCY"));
+
+                                //send broadcast message
+                                Intent intent = new Intent("timeAlarmChanged");
+                                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
                                 editor.putBoolean("autoStartInventory", true);
                                 editor.apply();
                             }
@@ -249,7 +253,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                                 SharedPreferences.Editor editor = customSharedPreference.edit();
                                 editor.putBoolean("boot", true);
                                 editor.apply();
-
                             }
                         } catch (Exception ex) {
                             AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format));

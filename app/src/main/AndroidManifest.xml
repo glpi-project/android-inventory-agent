@@ -84,28 +84,28 @@
             android:launchMode="standard"
             android:theme="@style/NoActionBar" />
 
-        <service
-            android:name="org.glpi.inventory.agent.service.InventoryService"
-            android:description="@string/agent_description"
-            android:enabled="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="Inventory Agent"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="org.glpi.inventory.service" />
-            </intent-filter>
-        </service>
+        <!--<service
+           android:name="org.glpi.inventory.agent.service.InventoryService"
+           android:description="@string/agent_description"
+           android:enabled="true"
+           android:icon="@mipmap/ic_launcher"
+           android:label="Inventory Agent"
+           tools:ignore="ExportedService">
+           <intent-filter>
+               <action android:name="org.glpi.inventory.service" />
+           </intent-filter>
+       </service>-->
 
-        <receiver android:name="org.glpi.inventory.agent.broadcast.BootStartAgent">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="org.glpi.inventory.agent.broadcast.TimeAlarm">
-            <intent-filter>
-                <action android:name="org.glpi.inventory.agent.ALARM" />
-            </intent-filter>
-        </receiver>
+       <receiver android:name="org.glpi.inventory.agent.broadcast.BootStartAgent">
+           <intent-filter>
+               <action android:name="android.intent.action.BOOT_COMPLETED" />
+           </intent-filter>
+       </receiver>
+       <!--<receiver android:name="org.glpi.inventory.agent.broadcast.TimeAlarm">
+           <intent-filter>
+               <action android:name="org.glpi.inventory.agent.ALARM" />
+           </intent-filter>
+       </receiver>-->
 
         <activity android:name="org.glpi.inventory.agent.ui.PermissionActivity" />
         <activity android:name="org.glpi.inventory.agent.ui.ActivityListServers" />
