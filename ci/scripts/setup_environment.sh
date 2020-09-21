@@ -72,8 +72,11 @@ git remote add origin https://$GH_USER:$GH_TOKEN@github.com/$CIRCLE_PROJECT_USER
 # Get version number from package.json
 export GIT_TAG=$(jq -r ".version" package.json)
 
+# remove python2 python3
+sudo apt -y purge python2.7
+sudo apt-get -y install python3-pip
+
 # install transifex CLI
-sudo apt-get -y install python-pip
-sudo pip install --upgrade "urllib3==1.22" awscli awsebcli
-sudo pip install transifex-client
+sudo pip3 install --upgrade "urllib3==1.22" awscli awsebcli
+sudo pip3 install transifex-client
 sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_TOKEN"$'\ntoken = '"$TRANSIFEX_TOKEN"$'\n' > ~/.transifexrc
