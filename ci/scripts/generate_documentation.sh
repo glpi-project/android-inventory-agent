@@ -69,7 +69,7 @@ sudo apt update
 sudo apt install adoptopenjdk-8-hotspot
 
 # force javadoc to use jre 8
-sudo alternatives --set javadoc /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javadoc
+sudo update-alternatives --set javadoc /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javadoc
 
 # Generate javadoc this folder must be on .gitignore
 javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages . -bootclasspath $ANDROID_HOME/platforms/android-29/android.jar
