@@ -50,6 +50,9 @@ sudo apt-get install ruby-full build-essential
 # update Rubygems
 sudo gem update --system --no-document
 
+# install rake
+sudo gem install rake
+
 # install fastlane
 sudo gem install fastlane --no-document
 
