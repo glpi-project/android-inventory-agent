@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -63,18 +63,23 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.21.0'
     androidTestImplementation 'org.mockito:mockito-android:2.21.0'
 
-    implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.3.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'org.flyve:inventory:1.4.4@aar'
-    implementation 'com.orhanobut:logger:2.1.1'
+    implementation 'com.orhanobut:logger:2.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
 
-    implementation 'com.google.firebase:firebase-analytics:17.2.1'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+
+    // Recommended: Add the Google Analytics SDK.
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
 
     implementation 'com.google.zxing:core:3.3.0'
 
@@ -89,6 +94,34 @@ import java.util.regex.Pattern
 task createAbout(type:Exec) {
     workingDir '../'
     commandLine './ci/scripts/create_about_data.sh'
+}
+
+task javadoc(type: Javadoc) {
+    doFirst {
+        configurations.implementation
+                .filter { it.name.endsWith('.aar') }
+                .each { aar ->
+                    copy {
+                        from zipTree(aar)
+                        include "**/classes.jar"
+                        into "$buildDir/tmp/aarsToJars/${aar.name.replace('.aar', '')}/"
+                    }
+                }
+    }
+
+    configurations.implementation.setCanBeResolved(true)
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.implementation
+    classpath += fileTree(dir: "$buildDir/tmp/aarsToJars/")
+
+    if (!project.hasProperty("customDestination")) {
+        def customDestination = "development"
+    }
+
+    //println "Destination for javadoc is "+customDestination
+    //destinationDir = file("../"+customDestination)
+    failOnError true
 }
 
 task updateVersionCode {
