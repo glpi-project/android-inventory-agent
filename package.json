@@ -35,7 +35,7 @@
     "extend": "^3.0.2",
     "handlebars": "^4.0.14",
     "https-proxy-agent": "^2.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
     "mem": "^6.0.0",
