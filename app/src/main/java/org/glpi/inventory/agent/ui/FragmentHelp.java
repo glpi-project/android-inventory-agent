@@ -60,7 +60,7 @@ import java.util.List;
 
 public class FragmentHelp extends Fragment implements Help.View {
 
-    private static final String HELP_URL = "https://services.glpi-network.com";
+    private static final String HELP_URL = "https://glpi-project.org/subscriptions/";
 
     private Help.Presenter presenter;
     private Toolbar toolbar;
