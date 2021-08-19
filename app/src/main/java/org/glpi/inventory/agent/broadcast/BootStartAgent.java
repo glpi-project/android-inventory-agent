@@ -68,11 +68,14 @@ public class BootStartAgent extends BroadcastReceiver {
         SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
         if (customSharedPreference.getBoolean("boot", false)) {
             try {
-                Intent myIntent = new Intent(context, InventoryService.class);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Intent myIntent = new Intent(context, InventoryService.class);
                     context.startForegroundService(myIntent);
                 } else {
-                    context.startService(myIntent);
+                    Intent myIntent = new Intent(context, ActivityMain.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
                 }
             }catch(Exception ex) {
                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
