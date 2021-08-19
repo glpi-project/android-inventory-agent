@@ -104,12 +104,9 @@ public class InventoryService extends Service {
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 5, NOTIFY_INTERVAL);
         intent = new Intent(TIMER_RECEIVER);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startMyOwnForeground();
-        }else{
-            startForeground(1, new Notification());
         }
-
 
     }
 
