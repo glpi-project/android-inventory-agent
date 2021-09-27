@@ -28,7 +28,7 @@
     "conventional-github-releaser": "^3.0.0",
     "gh-pages": "^2.0.0",
     "node-github-release": "^0.1.1",
-    "standard-version": "^8.0.1"
+    "standard-version": "^7.0.0"
   },
   "dependencies": {
     "extend": "^3.0.2",
