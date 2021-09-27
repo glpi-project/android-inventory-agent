@@ -37,15 +37,12 @@ package org.glpi.inventory.agent.core.about;
 
 import android.content.Context;
 
-import androidx.appcompat.widget.Toolbar;
-
 public interface About {
 
     interface View {
         void showAboutSuccess(String message);
         void showAboutFail();
         boolean onBackPressed();
-        void setToolbar(Toolbar toolbar);
     }
 
     interface Presenter {

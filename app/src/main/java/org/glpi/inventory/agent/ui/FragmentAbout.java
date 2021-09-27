@@ -45,7 +45,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -60,14 +59,13 @@ public class FragmentAbout extends Fragment implements About.View {
     private About.Presenter presenter;
     private TextView txtAbout;
     private ImageView imgGithub;
-    private Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         View v = inflater.inflate(R.layout.fragment_about, null);
-        toolbar.setTitle(getActivity().getResources().getString(R.string.drawer_about));
+
         presenter = new AboutPresenter(this);
 
         txtAbout = v.findViewById(R.id.txtAbout);
@@ -108,11 +106,6 @@ public class FragmentAbout extends Fragment implements About.View {
     @Override
     public void showAboutFail() {
         txtAbout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void setToolbar(Toolbar toolbar){
-        this.toolbar = toolbar;
     }
 
     @Override

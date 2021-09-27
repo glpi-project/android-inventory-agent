@@ -38,15 +38,12 @@ package org.glpi.inventory.agent.core.home;
 import android.app.Activity;
 import android.widget.ListView;
 
-import androidx.appcompat.widget.Toolbar;
-
 import java.util.List;
 
 public interface Home {
 
     interface View {
         void showError(String message);
-        void setToolbar(Toolbar toolbar);
     }
 
     interface Presenter {
