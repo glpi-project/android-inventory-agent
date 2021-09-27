@@ -77,6 +77,7 @@ sudo apt -y purge python2.7
 sudo apt-get -y install python3-pip
 
 # install transifex CLI
-sudo pip3 install --upgrade requests urllib3 botocore awscli awsebcli
+sudo pip3 install --upgrade "urllib3==1.25.10" awscli awsebcli
+sudo pip3 install --upgrade requests
 sudo pip3 install transifex-client
 sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_TOKEN"$'\ntoken = '"$TRANSIFEX_TOKEN"$'\n' > ~/.transifexrc
