@@ -62,7 +62,7 @@
 DOC_PATH="development/code-documentation/$CIRCLE_BRANCH"
 
 # Generate javadoc this folder must be on .gitignore
-javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages org
+javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages .
 
 # delete the index.html file
 sudo rm $DOC_PATH/index.html
