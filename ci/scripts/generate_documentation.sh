@@ -62,17 +62,14 @@
 DOC_PATH="development/code-documentation/$CIRCLE_BRANCH"
 
 # install jre 8 for use by javadoc
-sudo apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common
-wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
-sudo apt update
-sudo apt install adoptopenjdk-8-hotspot
+sudo apt-get -y install openjdk-8-jre
 
 # force javadoc to use jre 8
-sudo alternatives --set javadoc /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javadoc
+sudo update-alternatives --config javadoc
+sudo alternatives --set javadoc /usr/lib/jvm/java-8-openjdk-amd64/bin/javadoc
 
 # Generate javadoc this folder must be on .gitignore
-javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages . -bootclasspath $ANDROID_HOME/platforms/android-29/android.jar
+javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages org
 
 # delete the index.html file
 sudo rm $DOC_PATH/index.html
