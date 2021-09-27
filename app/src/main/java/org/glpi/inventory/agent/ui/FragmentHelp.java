@@ -46,7 +46,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -63,8 +62,6 @@ public class FragmentHelp extends Fragment implements Help.View {
     private static final String HELP_URL = "https://services.glpi-network.com";
 
     private Help.Presenter presenter;
-    private Toolbar toolbar;
-
 
     /**
      * Instantiate the user interface View
@@ -77,7 +74,7 @@ public class FragmentHelp extends Fragment implements Help.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        toolbar.setTitle(getActivity().getResources().getString(R.string.drawer_help));
+
         try {
             setRetainInstance(true);
 
@@ -117,11 +114,6 @@ public class FragmentHelp extends Fragment implements Help.View {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public void setToolbar(Toolbar toolbar){
-        this.toolbar = toolbar;
     }
 
     @Override
