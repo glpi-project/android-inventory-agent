@@ -12,7 +12,7 @@ reference:
         - image: circleci/android:api-29-node
     environment:
       TERM: dumb
-      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport"
+      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
 
   ## Cache
