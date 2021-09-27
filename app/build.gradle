@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
-        minSdkVersion 18
+        minSdkVersion 16
         targetSdkVersion 29
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
