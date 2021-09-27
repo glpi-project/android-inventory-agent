@@ -61,6 +61,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.glpi.inventory.agent.R;
@@ -76,6 +77,8 @@ import org.glpi.inventory.agent.utils.LocalStorage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
+
+import io.fabric.sdk.android.Fabric;
 
 public class ActivityMain extends AppCompatActivity
         implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
