@@ -61,10 +61,17 @@
 
 DOC_PATH="development/code-documentation/$CIRCLE_BRANCH"
 
-# Generate javadoc this folder must be on .gitignore
-#javadoc -d $DOC_PATH -sourcepath ./inventory/src/main/java -subpackages . -bootclasspath $ANDROID_HOME/platforms/android-29/android.jar
+# install jre 8 for use by javadoc
+sudo apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+sudo apt update
+sudo apt install adoptopenjdk-8-hotspot
 
-./gradlew :inventory:javadoc -PcustomDestination=$DOC_PATH
+#reload bash
+source ~/.bashrc
+# Generate javadoc this folder must be on .gitignore
+javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages . -bootclasspath $ANDROID_HOME/platforms/android-29/android.jar
 
 # delete the index.html file
 sudo rm $DOC_PATH/index.html
