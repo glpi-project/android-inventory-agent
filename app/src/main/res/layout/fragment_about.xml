@@ -24,27 +24,16 @@
         android:id="@+id/txtAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/menu_about"
+        android:hint="@string/menu_about"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="44dp"
-        android:gravity="center"
-        android:hint="@string/menu_about"
+        android:textSize="12sp"
         android:labelFor="@id/imgInventory"
         android:lineSpacingExtra="6dp"
-        android:text="@string/menu_about"
-        android:textSize="12sp" />
-
-    <ImageView
-        android:id="@+id/imgGithub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:maxWidth="150dp"
-        android:clickable="true"
-        android:src="@drawable/github"
-        android:focusable="true" />
+        />
 
 </RelativeLayout>

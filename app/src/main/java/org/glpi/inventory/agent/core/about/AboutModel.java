@@ -94,8 +94,8 @@ public class AboutModel implements About.Model {
 
     private String aboutStr(String version, String build, String date, String commit, String commitFull, String github) {
         String str = "Inventory Agent, version "+ version +", build "+ build +".<br />";
-        str += "Built on "+ date + ".<br />" /*+". Last commit <a href='"+github+"/commit/"+commitFull+"'>"+ commit +"</a>.<br />"*/;
-        str += "© <a href='http://teclib-edition.com/'>Teclib'</a>. Licensed under <a href='https://www.gnu.org/licenses/gpl-3.0.en.html'>GPLv3</a>. <a href='https://flyve-mdm.com/'>GLPI Android Inventory Agent</a>®<br />See us on GitHub<br />";
+        str += "Built on "+ date +". Last commit <a href='"+github+"/commit/"+commitFull+"'>"+ commit +"</a>.<br />";
+        str += "© <a href='http://teclib-edition.com/'>Teclib'</a>. Licensed under <a href='https://www.gnu.org/licenses/gpl-3.0.en.html'>GPLv3</a>. <a href='https://flyve-mdm.com/'>GLPI Android Inventory Agent</a>®";
 
         return str;
     }
