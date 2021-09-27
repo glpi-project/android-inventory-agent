@@ -35,20 +35,16 @@
 
 package org.glpi.inventory.agent.preference;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.glpi.inventory.agent.R;
-import org.glpi.inventory.agent.utils.AgentLog;
 
 public class GlobalParametersPreference extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -56,7 +52,6 @@ public class GlobalParametersPreference extends PreferenceActivity implements Sh
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.global_parameters);
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar, root, false);
         bar.setTitle(R.string.GlobalAdvanced);
@@ -71,9 +66,6 @@ public class GlobalParametersPreference extends PreferenceActivity implements Sh
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        if ("boot".equals(s)) {
-            AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getBoolean(s, false));
-        }
 
     }
 }
