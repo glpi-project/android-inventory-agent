@@ -172,13 +172,14 @@ public class ActivityMain extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
                 presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));
-                if(!presenter.getMenuItem().get(position).get("id").equals("1")){
-                    if(isOpen){
-                        openFab();
-                    }
+                if(isOpen){
+                    openFab();
+                }
+                if(presenter.getMenuItem().get(position).get("id").equals("1")){
+                    enableFab();
+                }else{
                     disableFab();
                 }
-
             }
         });
 
@@ -245,12 +246,11 @@ public class ActivityMain extends AppCompatActivity
         btn_scheduler.hide();
     }
 
-    public void enableFab(){
-        if(mainFab.getVisibility() != View.VISIBLE){
-            mainFab.show();
-        }
+    private void enableFab(){
+        mainFab.show();
+        btn_settings.show();
+        btn_scheduler.show();
     }
-
     private void openFab(){
         if (isOpen) {
             textview_settings.setVisibility(View.INVISIBLE);

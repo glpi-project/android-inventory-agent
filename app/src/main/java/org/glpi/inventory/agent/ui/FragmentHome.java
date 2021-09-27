@@ -42,7 +42,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import org.glpi.inventory.agent.R;
@@ -53,17 +52,11 @@ import org.glpi.inventory.agent.utils.Helpers;
 public class FragmentHome extends Fragment implements Home.View {
 
     private Home.Presenter presenter;
-    private Toolbar toolbar;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, null);
-
-        toolbar.setTitle(R.string.app_name);
-
-        ((ActivityMain)getActivity()).enableFab();
 
         presenter = new HomePresenter(this);
 
@@ -87,14 +80,20 @@ public class FragmentHome extends Fragment implements Home.View {
             }
         });
 
+
+        //ListView lst = v.findViewById(R.id.lst);
+        /*presenter.setupList(FragmentHome.this.getActivity(), lst);
+
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                HomeSchema homeSchema = presenter.getListItems().get(i);
+                presenter.clickItem(FragmentHome.this.getActivity(), homeSchema);
+            }
+        });*/
+
         return v;
     }
-
-    @Override
-    public void setToolbar(Toolbar toolbar){
-        this.toolbar = toolbar;
-    }
-
 
     @Override
     public void showError(String message) {
