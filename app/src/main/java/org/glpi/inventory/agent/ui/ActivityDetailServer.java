@@ -242,15 +242,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                                 editor.putBoolean("autoStartInventory", true);
                                 editor.apply();
                             }
-
-                            if(extra_Data.has("ANDROID_START_ON_BOOT") &&
-                                    extra_Data.getString("ANDROID_START_ON_BOOT").equalsIgnoreCase("1")){
-                                SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                SharedPreferences.Editor editor = customSharedPreference.edit();
-                                editor.putBoolean("boot", true);
-                                editor.apply();
-
-                            }
                         } catch (Exception ex) {
                             AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format));
                         }
