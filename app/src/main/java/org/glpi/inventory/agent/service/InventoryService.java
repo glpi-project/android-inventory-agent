@@ -38,7 +38,6 @@ package org.glpi.inventory.agent.service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -57,7 +56,6 @@ import android.util.Log;
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.schema.ServerSchema;
-import org.glpi.inventory.agent.ui.ActivityMain;
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.HttpInventory;
@@ -124,20 +122,12 @@ public class InventoryService extends Service {
         assert manager != null;
         manager.createNotificationChannel(chan);
 
-        //create intent to redirect user to app on click
-        Intent appIntent = new Intent(getApplicationContext(), ActivityMain.class);
-        appIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent appIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, appIntent, 0);
-
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
-                .setSmallIcon(R.drawable.ic_stat)
-                .setContentTitle(getApplicationContext().getResources().getString(R.string.app_is_running))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("App is running in background")
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(getApplicationContext().getResources().getString(R.string.app_is_running_extend)))
-                .setContentIntent(appIntentRedirect)
                 .build();
         startForeground(2, notification);
     }
