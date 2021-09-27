@@ -14,6 +14,20 @@
 
 GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
 
+## Table of contents
+
+* [Synopsis](#synopsis)
+* [Build Status](#build-status)
+* [Compatibility Matrix](#compatibility-matrix)
+* [Installation](#installation)
+* [Documentation](#documentation)
+* [Screenshots](#screenshots)
+* [Versioning](#versioning)
+* [Contribute](#contribute)
+* [Contact](#contact)
+* [Professional Services](#professional-services)
+* [Copying](#copying)
+
 ## Synopsis
 
 The Inventory Agent for Android is part of GLPI Android Inventory Agent project. It allows you to collect a complete inventory of your Android device and sent it to your management software.
@@ -74,8 +88,6 @@ GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Andro
 
 [<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) 
 
-Are you having trouble installing our GLPI Android Agent? You can subscribe to our professional support GLPI Network [here](https://services.glpi-network.com).
-
 ## Documentation
 
 We maintain a detailed documentation of the project on the website, check the [How-tos](http://glpi-project.github.io/android-inventory-agent/howtos/) and [Development](http://glpi-project.github.io/android-inventory-agent/) section.
@@ -91,24 +103,29 @@ We maintain a detailed documentation of the project on the website, check the [H
 
 In order to provide transparency on our release cycle and to maintain backward compatibility, GLPI Android Inventory Agent is maintained under [the Semantic Versioning guidelines](http://semver.org/). We are committed to following and complying with the rules, the best we can.
 
-See [the tags section of our GitHub project](http://github.com/glpi-project/android-inventory-agent/tags) for changelogs for each release version of GLPI Android Inventory Agent. Release announcement posts on [the official GLPI blog](https://glpi-project.org) contain summaries of the most noteworthy changes made in each release.
+See [the tags section of our GitHub project](http://github.com/glpi-project/android-inventory-agent/tags) for changelogs for each release version of GLPI Android Inventory Agent. Release announcement posts on [the official Teclib' blog](http://www.teclib-edition.com/en/communities/blog-posts/) contain summaries of the most noteworthy changes made in each release.
 
-## GLPI Network - Professional support
+## Contact
 
-You want to report a bug (and get a fix quickly) or do you need a guarantee for GLPI Android Agent?
+For notices about major changes and general discussion of GLPI Android Inventory Agent development, subscribe to the [/r/glpi](https://www.reddit.com/r/glpi/) subreddit.
+You can also chat with us via IRC in [#glpi on freenode](http://webchat.freenode.net/?channels=glpi) or [@glpi on Telegram](https://t.me/glpien).
+Ping me @rafaelje in the IRC chatroom if you get stuck.
 
-You can subscribe to our professional support GLPI Network [here](https://services.glpi-network.com).
+## Professional Services
 
-This subscription includes a guarantee through a service level contract between your company and our team in charge of GLPI development (core, supported plugins and GLPI Agent) as well as exclusive features and services.
+The GLPI Android Inventory Agent and GLPI Network services are available through our [Partner's Network](http://www.teclib-edition.com/en/partners/). We provide special training, bug fixes with editor subscription, contributions for new features, and more.
+
+Obtain a personalized service experience, associated with benefits and opportunities.
 
 ## Contribute
 
 Want to contribute some code, or improve documentation? Excellent! Read up on our
 guidelines for [contributing](./CONTRIBUTING.md) 
 
-## Request features
+## Issues / request features
 
-Want to request features? Please contact us [here](https://portal.glpi-network.com/contact-us)
+Want to report a bug or request feature, please contact us [here](https://portal.glpi-network.com/contactez-nous)
+
 
 ## Copying
 
