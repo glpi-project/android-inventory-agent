@@ -68,8 +68,6 @@ sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 sudo apt update
 sudo apt install adoptopenjdk-8-hotspot
 
-#reload bash
-source ~/.bashrc
 # Generate javadoc this folder must be on .gitignore
 javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages . -bootclasspath $ANDROID_HOME/platforms/android-29/android.jar
 
