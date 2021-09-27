@@ -42,7 +42,6 @@ public interface About {
     interface View {
         void showAboutSuccess(String message);
         void showAboutFail();
-        boolean onBackPressed();
     }
 
     interface Presenter {
@@ -59,7 +58,4 @@ public interface About {
         void crashTestEasterEgg(Context context);
         void loadAbout(Context context);
     }
-
-
-
 }
