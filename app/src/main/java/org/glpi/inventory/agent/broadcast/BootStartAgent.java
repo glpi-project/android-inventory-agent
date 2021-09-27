@@ -39,12 +39,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import org.flyve.inventory.InventoryLog;
-import org.glpi.inventory.agent.service.InventoryService;
 import org.glpi.inventory.agent.ui.ActivityMain;
 import org.glpi.inventory.agent.utils.AgentLog;
 
@@ -61,27 +58,29 @@ public class BootStartAgent extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String action = intent.getAction();
+
         if(action==null) {
             return;
         }
 
-        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        if (customSharedPreference.getBoolean("boot", false)) {
-            try {
-                Intent myIntent = new Intent(context, InventoryService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(myIntent);
-                } else {
-                    context.startService(myIntent);
-                }
-            }catch(Exception ex) {
-                Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+        if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+            SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+            if (customSharedPreference.getBoolean("boot", false)) {
+                AgentLog.d("Need to start app on StartUp");
+                Intent myIntent = new Intent(context, ActivityMain.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(myIntent);
+            }else{
+                AgentLog.d("No need to start app on StartUp");
             }
-        }
 
-        if(customSharedPreference.getBoolean("autoStartInventory", false)){
-            alarm.setAlarm(context);
-        }
+            if(customSharedPreference.getBoolean("autoStartInventory", false)){
+                AgentLog.d("Need to start service schedule inventory");
+                alarm.setAlarm(context);
+            }else{
+                AgentLog.d("No need to start service schedule inventory");
+            }
 
+        }
     }
 }
