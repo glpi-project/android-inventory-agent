@@ -38,12 +38,6 @@ package org.glpi.inventory.agent.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import org.flyve.inventory.InventoryLog;
-import org.glpi.inventory.agent.ui.ActivityMain;
-import org.glpi.inventory.agent.utils.AgentLog;
 
 public class BootStartAgent extends BroadcastReceiver {
 
@@ -64,23 +58,7 @@ public class BootStartAgent extends BroadcastReceiver {
         }
 
         if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-            SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
-            if (customSharedPreference.getBoolean("boot", false)) {
-                AgentLog.d("Need to start app on StartUp");
-                Intent myIntent = new Intent(context, ActivityMain.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(myIntent);
-            }else{
-                AgentLog.d("No need to start app on StartUp");
-            }
-
-            if(customSharedPreference.getBoolean("autoStartInventory", false)){
-                AgentLog.d("Need to start service schedule inventory");
-                alarm.setAlarm(context);
-            }else{
-                AgentLog.d("No need to start service schedule inventory");
-            }
-
+            alarm.setAlarm(context);
         }
     }
 }
