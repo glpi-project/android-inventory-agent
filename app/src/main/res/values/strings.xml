@@ -286,12 +286,5 @@
     <string name="install_web_view">It seems that you need to install the \"WebView\" package from Google to display the help page correctly.</string>
     <string name="load_help_error">Unable to load help page</string>
 
-    <!-- message on share inventory -->
-    <string name="share_warning">Warning</string>
-    <string name="share_understand">I understand</string>
-    <string name="share_cancel">Cancel</string>
-    <string name="share_message">You are about to share your inventory containing personal data (IMEI, phone number etc …), do not send it to just anyone.</string>
-    <string name="share_no_reminde_me">Don\'t remind me</string>
-
 
 </resources>

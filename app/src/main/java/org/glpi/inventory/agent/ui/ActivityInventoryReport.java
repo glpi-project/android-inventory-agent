@@ -36,20 +36,16 @@
 package org.glpi.inventory.agent.ui;
 
 import android.Manifest;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -72,9 +68,6 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
 
     private Report.Presenter presenter;
     private ProgressBar progressBar;
-    private FloatingActionButton btnShare;
-    private SharedPreferences sharedPreferences;
-
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -113,58 +106,16 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
             AgentLog.e(ex.getMessage());
         }
 
-        btnShare = findViewById(R.id.btnShare);
-        btnShare.hide();
-
-        progressBar.setVisibility(View.VISIBLE);
-        presenter.generateReport(ActivityInventoryReport.this);
-
+        FloatingActionButton btnShare = findViewById(R.id.btnShare);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                if(sharedPreferences.getBoolean("noRemindShareWarning",false)){
-                    presenter.showDialogShare(ActivityInventoryReport.this);
-                }else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityInventoryReport.this);
-                    builder.setTitle(getApplication().getResources().getString(R.string.share_warning));
-                    builder.setIcon(R.drawable.ic_launcher_round);
-                    builder.setMessage(R.string.share_message);
-                    builder.setPositiveButton(R.string.share_understand,
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    presenter.showDialogShare(ActivityInventoryReport.this);
-                                }
-                            });
-
-                    builder.setNeutralButton(R.string.share_no_reminde_me,
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean("noRemindShareWarning", true);
-                                    editor.apply();
-                                    presenter.showDialogShare(ActivityInventoryReport.this);
-                                }
-                            });
-
-                    builder.setNegativeButton(R.string.share_cancel,
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    dialog.cancel();
-                                }
-                            });
-                    builder.create().show();
-                }
-
+                presenter.showDialogShare(ActivityInventoryReport.this);
             }
         });
+
+        progressBar.setVisibility(View.VISIBLE);
+        presenter.generateReport(ActivityInventoryReport.this);
     }
 
 
@@ -189,7 +140,6 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
             viewPager.setAdapter(viewPagerAdapter);
             TabLayout tabLayout = findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(viewPager);
-            btnShare.show();
         } catch (Exception ex) {
             AgentLog.e(ex.getMessage());
         }
