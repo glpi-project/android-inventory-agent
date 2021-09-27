@@ -17,14 +17,14 @@
        android:title="@string/GlobalBoot"
        android:widgetLayout="@layout/custom_checkbox"/>
 
-   <!--<CheckBoxPreference
+   <CheckBoxPreference
        android:defaultValue="false"
        android:key="notif"
        android:summary="CheckBox summary"
        android:summaryOff="@string/GlobalNotifSummaryOff"
        android:summaryOn="@string/GlobalNotifSummaryOn"
        android:title="@string/GlobalNotif"
-       android:widgetLayout="@layout/custom_checkbox"/>-->
+       android:widgetLayout="@layout/custom_checkbox"/>
 
    <PreferenceCategory
        android:layout="@layout/custom_preference_category"

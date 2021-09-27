@@ -294,7 +294,6 @@
     <string name="share_no_reminde_me">Don\'t remind me</string>
     <string name="app_is_running">App is running in background</string>
     <string name="app_is_running_extend">To perform schedule inventory app is running in background</string>
-    <string name="disable_notification">Disable notification</string>
 
 
 </resources>
