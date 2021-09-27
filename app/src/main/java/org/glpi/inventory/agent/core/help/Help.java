@@ -42,7 +42,6 @@ public interface Help {
 
     interface View {
         void showError(String message);
-        boolean onBackPressed();
     }
 
     interface Presenter {
