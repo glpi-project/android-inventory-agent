@@ -9,7 +9,7 @@
        android:title="@string/GlobalCat" />
 
    <CheckBoxPreference
-       android:defaultValue="false"
+       android:defaultValue="true"
        android:key="boot"
        android:summary="CheckBox summary"
        android:summaryOff="@string/GlobalBootSummaryOff"
