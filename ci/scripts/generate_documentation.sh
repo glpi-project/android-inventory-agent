@@ -61,13 +61,6 @@
 
 DOC_PATH="development/code-documentation/$CIRCLE_BRANCH"
 
-# install jre 8 for use by javadoc
-sudo apt-get -y install openjdk-8-jre
-
-# force javadoc to use jre 8
-sudo update-alternatives --config javadoc
-sudo alternatives --set javadoc /usr/lib/jvm/java-8-openjdk-amd64/bin/javadoc
-
 # Generate javadoc this folder must be on .gitignore
 javadoc -d $DOC_PATH -sourcepath ./app/src/main/java -subpackages org
 
