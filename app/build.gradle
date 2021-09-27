@@ -114,11 +114,6 @@ task javadoc(type: Javadoc) {
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.implementation
     classpath += fileTree(dir: "$buildDir/tmp/aarsToJars/")
-    exclude '**BuildConfig**'
-    exclude '**/R**'
-    exclude '**/R.*'
-    exclude '**/R\$**'
-    exclude '**/inventory**'
 
     if (!project.hasProperty("customDestination")) {
         def customDestination = "development"
