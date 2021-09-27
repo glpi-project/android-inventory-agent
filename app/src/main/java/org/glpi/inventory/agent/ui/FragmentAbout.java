@@ -35,8 +35,6 @@
 
 package org.glpi.inventory.agent.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -58,30 +56,15 @@ public class FragmentAbout extends Fragment implements About.View {
 
     private About.Presenter presenter;
     private TextView txtAbout;
-    private ImageView imgGithub;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 
         View v = inflater.inflate(R.layout.fragment_about, null);
 
         presenter = new AboutPresenter(this);
 
         txtAbout = v.findViewById(R.id.txtAbout);
-        imgGithub = v.findViewById(R.id.imgGithub);
-
-        imgGithub.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://github.com/glpi-project/android-inventory-agent"));
-                startActivity(intent);
-            }
-        });
-
 
         ImageView imgInventory = v.findViewById(R.id.imgInventory);
         imgInventory.setOnClickListener(new View.OnClickListener() {
