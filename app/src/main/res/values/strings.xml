@@ -292,8 +292,6 @@
     <string name="share_cancel">Cancel</string>
     <string name="share_message">You are about to share your inventory containing personal data (IMEI, phone number etc …), do not send it to just anyone.</string>
     <string name="share_no_reminde_me">Don\'t remind me</string>
-    <string name="app_is_running">App is running in background</string>
-    <string name="app_is_running_extend">To perform schedule inventory app is running in background</string>
 
 
 </resources>
