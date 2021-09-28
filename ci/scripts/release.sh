@@ -45,17 +45,17 @@ IS_PRERELEASE="$( cut -d '-' -f 2 <<< "$GIT_TAG" )";
 git add app/src/main/AndroidManifest.xml
 git commit -m "build(manifest): increase version value"
 
-if [[ $CIRCLE_BRANCH != "$IS_PRERELEASE" ]]; then
+#if [[ $CIRCLE_BRANCH != "$IS_PRERELEASE" ]]; then
+#
+#  PREFIX_PRERELEASE="$( cut -d '.' -f 1 <<< "$IS_PRERELEASE" )";
+#  yarn release --skip.bump=true -m "ci(release): generate CHANGELOG.md for version %s" --prerelease "$PREFIX_PRERELEASE"
+#
+#else
 
-  PREFIX_PRERELEASE="$( cut -d '.' -f 1 <<< "$IS_PRERELEASE" )";
-  yarn release --skip.bump=true -m "ci(release): generate CHANGELOG.md for version %s" --prerelease "$PREFIX_PRERELEASE"
+# create CHANGELOG and update the number on package.json
+yarn release --skip.bump=true -m "ci(release): generate CHANGELOG.md for version %s"
 
-else
-
-  # create CHANGELOG and update the number on package.json
-  yarn release --skip.bump=true -m "ci(release): generate CHANGELOG.md for version %s"
-
-fi
+#fi
 
 # send changelog to gh-pages
 #yarn gh-pages --dist ./ --src CHANGELOG.md --dest ./_includes/ --add -m "docs(changelog): update changelog with version ${GIT_TAG}"
