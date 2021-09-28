@@ -62,7 +62,7 @@ Inventory Agent for Android can send inventory to:
 
 |GLPI|9.1|9.2+|9.3+|9.4+|9.5+|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.0.1|
+|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|
 |**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|9.5+1.0+|
 |**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|
 
