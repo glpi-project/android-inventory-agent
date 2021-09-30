@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/glpi-project/android-inventory-agent/compare/1.0.0...1.1.0) (2021-09-30)
+
+
+### Features
+
+* **about:** add GitHub infos ([3669d53](https://github.com/glpi-project/android-inventory-agent/commit/3669d53ba0d46ed68ca5a650eac1fd09dc21a734))
+* **core:** manage on startup option from qrcode or deeplink ([610c2e2](https://github.com/glpi-project/android-inventory-agent/commit/610c2e28eb8ea710d7316e246c063bc9c41ad312))
+* **dependencies:** upgrade yarn packages ([2b0832f](https://github.com/glpi-project/android-inventory-agent/commit/2b0832f78d40db677b794a28a10feb35c4f0801c))
+* **share:** inform user of the risks of sharing ([ec277be](https://github.com/glpi-project/android-inventory-agent/commit/ec277bec9b0a3568dc0bc9ddcffb35858c8ac78c))
+* **ui:** allow disable notification from itself ([e20e812](https://github.com/glpi-project/android-inventory-agent/commit/e20e812be1c7be50230bf5b7c6e564a4f0df150d))
+
+
+### Bug Fixes
+
+* **build:** bump version for urllib3 ([a94db6a](https://github.com/glpi-project/android-inventory-agent/commit/a94db6a0d28fa3792948f51c97713a80ab11e6c2))
+* **build:** disable create_doc from circleci ([ddb4813](https://github.com/glpi-project/android-inventory-agent/commit/ddb481331477a97da64561e00c906a52adddeb3f))
+* **build:** fix javadoc generation ([55a58c0](https://github.com/glpi-project/android-inventory-agent/commit/55a58c0998dc20fbc880030b077cb54ae4807863))
+* **build:** install latest version for python ([43f2dbc](https://github.com/glpi-project/android-inventory-agent/commit/43f2dbce220afc6fcb67531f8ec40ef9323dcea2))
+* **build:** install rake gem ([fcb8524](https://github.com/glpi-project/android-inventory-agent/commit/fcb852497066a30b969e651470c5459f9a73eed1))
+* **build:** javadoc fix ([b3a368d](https://github.com/glpi-project/android-inventory-agent/commit/b3a368dc0528ddcfa4d495c10519befc013ce9df))
+* **build:** minSDK to 19 for UIAutomator test ([f39fb8f](https://github.com/glpi-project/android-inventory-agent/commit/f39fb8fb6276f23cecfe2260b9f69430b12e26a1))
+* **build:** replace useless JAVA option ([a9112b5](https://github.com/glpi-project/android-inventory-agent/commit/a9112b502e526790d0c4653cfda0b417fb243c03))
+* **build:** update somes packages ([0ee3064](https://github.com/glpi-project/android-inventory-agent/commit/0ee30642ad762c9bf526bdb1d247276472f39087))
+* **build:** upgrade request first ([8a6baa5](https://github.com/glpi-project/android-inventory-agent/commit/8a6baa586fed548cae4b9c21ef14f9440a4b7e9d))
+* **changelog:** clean changelog ([d2800c9](https://github.com/glpi-project/android-inventory-agent/commit/d2800c9289f0b95c6822b578969ad28eee370881))
+* **core:** fix default value ([c8cb304](https://github.com/glpi-project/android-inventory-agent/commit/c8cb304885de87e1b3d2257a57e89f8711abcc87))
+* **core:** fix start app on device boot completed ([1e35a56](https://github.com/glpi-project/android-inventory-agent/commit/1e35a562196992cb42a8294719d4182e36b76bc6))
+* **core:** security fix, upgrade package minimist and dot-prop ([749c302](https://github.com/glpi-project/android-inventory-agent/commit/749c302958f4079ae3870f67c8447d7988dcf71b))
+* **doc:** fix generated doc ([9447882](https://github.com/glpi-project/android-inventory-agent/commit/9447882452254fd1467313f3de6911fbbe101e11))
+* **doc:** fix javadoc args ([3f6509a](https://github.com/glpi-project/android-inventory-agent/commit/3f6509a5c7e851ad25509b2a5bb19235603ab025))
+* **doc:** fix javadoc args ([47480f1](https://github.com/glpi-project/android-inventory-agent/commit/47480f1b654856f7db383296e613c562f2e90787))
+* **doc:** remove useless arg from JDK 11 ([171af3e](https://github.com/glpi-project/android-inventory-agent/commit/171af3ec53788330eb0418f7e28fe1b56b6a9f24))
+* **doc:** use jre 8 instead of 11 ([1d2f7e5](https://github.com/glpi-project/android-inventory-agent/commit/1d2f7e532051f5d333c5807d6c37fc27ad7831df))
+* **doc:** use jre 8 instead of 11 ([71032e6](https://github.com/glpi-project/android-inventory-agent/commit/71032e619b88c55d03a30a5b4d305d1fa443ef24))
+* **fastlane:** set changes_not_sent_for_review arg ([9a085e3](https://github.com/glpi-project/android-inventory-agent/commit/9a085e31ef2f1829a736ae77a5c8233c4c106435))
+* **fastlane:** set changes_not_sent_for_review arg ([19d675f](https://github.com/glpi-project/android-inventory-agent/commit/19d675f7b4982a7e794c9f5f4b307e691390f1f6))
+* **inventory:** manage cyrillic content ([66fe504](https://github.com/glpi-project/android-inventory-agent/commit/66fe50476a9bdaf74221a2d6b0d6ed57e514c840))
+* **readme:** fix GLPI Agent version ([9ada551](https://github.com/glpi-project/android-inventory-agent/commit/9ada55188359a5c9518688d58ffac1f541fb006a))
+* **readme:** readme review for professional support ([c2665b5](https://github.com/glpi-project/android-inventory-agent/commit/c2665b5051a851e4024d6a3a9b84386671627155))
+* **ui:** better managment for back pressed ([e7f34a3](https://github.com/glpi-project/android-inventory-agent/commit/e7f34a308298968010c80cf7170fd3065815ed41))
+* **ui:** manage backpressed on fragment ([d61d2f4](https://github.com/glpi-project/android-inventory-agent/commit/d61d2f4b1d512588a4f279ef0525b47b65d5715d))
+
 ## 1.0.0 (2020-01-07)
 
 
