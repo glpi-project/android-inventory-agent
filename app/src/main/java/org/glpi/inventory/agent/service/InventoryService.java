@@ -53,6 +53,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import android.util.Log;
+import android.util.Xml;
 
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
@@ -63,7 +64,11 @@ import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.HttpInventory;
 import org.glpi.inventory.agent.utils.LocalPreferences;
 import org.glpi.inventory.agent.utils.LocalStorage;
+import org.glpi.inventory.agent.utils.Utils;
+import org.xmlpull.v1.XmlSerializer;
 
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -259,6 +264,7 @@ public class InventoryService extends Service {
                 inventory.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
+                        data = Utils.addItemtypeNode(this, data, model.getItemtype());
                         httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
