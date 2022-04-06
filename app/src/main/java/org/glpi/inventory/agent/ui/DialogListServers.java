@@ -39,12 +39,21 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.util.Log;
+import android.util.Xml;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.dom.DOMElement;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.home.Home;
@@ -53,8 +62,11 @@ import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.HttpInventory;
 import org.glpi.inventory.agent.utils.LocalPreferences;
+import org.glpi.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class DialogListServers {
 
@@ -134,6 +146,8 @@ public class DialogListServers {
         inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
+
+                data = Utils.addItemtypeNode(this, data, model.getItemtype());
                 AgentLog.d(data);
                 httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                     @Override

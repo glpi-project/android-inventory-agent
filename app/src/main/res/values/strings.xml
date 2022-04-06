@@ -65,6 +65,10 @@
         <item>Week</item>
         <item>Month</item>
     </string-array>
+    <string-array name="AssetItemtype">
+        <item>Computer</item>
+        <item>Phone</item>
+    </string-array>
     <plurals name="easter_egg_attempts">
         <item quantity="one">You have %d Attempt</item>
         <item quantity="other">You have %d Attempts</item>

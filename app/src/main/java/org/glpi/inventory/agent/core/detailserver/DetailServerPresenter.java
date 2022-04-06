@@ -46,7 +46,7 @@ public class DetailServerPresenter implements DetailServer.Presenter {
     private DetailServer.View view;
     private DetailServer.Model model;
 
-    public DetailServerPresenter(DetailServer.View view){
+    public  DetailServerPresenter(DetailServer.View view){
         this.view = view;
         model = new DetailServerModel(this);
     }
