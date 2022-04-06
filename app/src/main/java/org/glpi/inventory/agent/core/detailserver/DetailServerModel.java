@@ -56,7 +56,7 @@ public class DetailServerModel implements DetailServer.Model {
     @Override
     public void saveServer(ArrayList<String> modelServer, Context context) {
         LocalPreferences preferences = new LocalPreferences(context);
-        if (modelServer.size() >= 4) {
+        if (modelServer.size() >= 5) {
             if (!"".equals(modelServer.get(0))) {
                 JSONObject jo = new JSONObject();
                 try {
@@ -64,6 +64,7 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("tag", modelServer.get(1));
                     jo.put("login", modelServer.get(2));
                     jo.put("pass", modelServer.get(3));
+                    jo.put("itemtype", modelServer.get(4));
                     ArrayList<String> serverArray = preferences.loadServer();
                     serverArray.add(modelServer.get(0));
                     preferences.saveServer(serverArray);
@@ -84,7 +85,7 @@ public class DetailServerModel implements DetailServer.Model {
     @Override
     public void updateServer(ArrayList<String> modelServer, String serverName, Context context) {
         LocalPreferences preferences = new LocalPreferences(context);
-        if (modelServer.size() >= 4) {
+        if (modelServer.size() >= 5) {
             if (!"".equals(modelServer.get(0))) {
                 JSONObject jo = new JSONObject();
                 try {
@@ -92,6 +93,7 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("tag", modelServer.get(1));
                     jo.put("login", modelServer.get(2));
                     jo.put("pass", modelServer.get(3));
+                    jo.put("itemtype", modelServer.get(4));
                     ArrayList<String> serverArray = preferences.loadServer();
                     for (int i = 0; i < serverArray.size(); i++) {
                         if (serverArray.get(i).equals(serverName)) {
@@ -124,6 +126,7 @@ public class DetailServerModel implements DetailServer.Model {
             serverSchema.setTag(jo.getString("tag"));
             serverSchema.setLogin(jo.getString("login"));
             serverSchema.setPass(jo.getString("pass"));
+            serverSchema.setItemtype(jo.getString("itemtype"));
             presenter.modelServer(serverSchema);
         } catch (JSONException e) {
             AgentLog.e(e.getMessage());
