@@ -42,8 +42,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +78,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     private EditText editTag;
     private EditText editLogin;
     private EditText editPassWord;
+    private Spinner assetItemtype;
     private Toolbar toolbar;
     private String serverName;
     private JSONObject extra_Data = null;
@@ -144,6 +147,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                             editTag.setText(extra_Data.getString("TAG"));
                             editLogin.setText(extra_Data.getString("LOGIN"));
                             editPassWord.setText(extra_Data.getString("PASSWORD"));
+                            assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(extra_Data.getString("ASSET_ITEMTYPE")));
                         } catch (Exception ex) {
                             Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_deeplink_format), Toast.LENGTH_LONG).show();
                             AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_deeplink_format));
@@ -182,6 +186,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                     editTag.setText(extra_Data.getString("TAG"));
                     editLogin.setText(extra_Data.getString("LOGIN"));
                     editPassWord.setText(extra_Data.getString("PASSWORD"));
+                    assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(extra_Data.getString("ASSET_ITEMTYPE")));
                 } catch (Exception ex) {
                     Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
                     AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format));
@@ -219,6 +224,13 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         actionServer.setOnClickListener(this);
         deleteServer.setOnClickListener(this);
         btnScan = findViewById(R.id.btnQRScan);
+        assetItemtype = findViewById(R.id.spinnerAssetItemtype);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.AssetItemtype, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        assetItemtype.setAdapter(adapter);
+
     }
 
     @Override
@@ -230,6 +242,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                 serverInfo.add(editTag.getText().toString());
                 serverInfo.add(editLogin.getText().toString());
                 serverInfo.add(editPassWord.getText().toString());
+                serverInfo.add(assetItemtype.getSelectedItem().toString());
                 if (serverName == null) {
                     presenter.saveServer(serverInfo, getApplicationContext());
                     //manage automatic inventory
@@ -287,6 +300,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editTag.setText(model.getTag());
         editLogin.setText(model.getLogin());
         editPassWord.setText(model.getPass());
+        assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(model.getItemtype()));
         btnScan.hide();
     }
 

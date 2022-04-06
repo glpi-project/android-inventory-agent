@@ -41,17 +41,125 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Environment;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.dom.DOMElement;
+import org.flyve.inventory.InventoryLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 public class Utils {
+
+    public static String fileNameXML = "Inventory.xml";
+
+    public static String addItemtypeNode(Object obj, String data, String asset_itemtype) {
+        try {
+            Document document = DocumentHelper.parseText(data);
+            Element root = document.getRootElement();
+
+            //defined default value
+            if(asset_itemtype.isEmpty() || asset_itemtype.equals(null)){
+                asset_itemtype = "Computer";
+            }
+            DOMElement itemtype = new DOMElement("ITEMTYPE");
+            itemtype.addCDATA(asset_itemtype);
+
+            List elements = root.elements();
+            elements.add(0, itemtype);
+
+            data = document.asXML();
+            Utils.storeFile(data, Utils.fileNameXML);
+            return data;
+
+        } catch (Exception ex) {
+            AgentLog.log(obj, "Can't set ITEMTYPE", Log.ERROR);
+            AgentLog.log(obj, ex.getMessage(), Log.ERROR);
+            return data;
+        }
+    }
+
+    /**
+     * Logs the message in a directory
+     * @param message the message
+     * @param filename name of the file
+     */
+    public static void storeFile(String message, String filename) {
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        File dir = new File(path);
+
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+
+            if(!dir.exists()) {
+                if(dir.mkdirs()) {
+                    InventoryLog.d("create path");
+                } else {
+                    InventoryLog.e("cannot create path");
+                    return;
+                }
+            }
+
+            File logFile = new File(path + "/" + filename);
+
+            if (!logFile.exists())  {
+                try  {
+                    if(logFile.createNewFile()) {
+                        InventoryLog.d("File created");
+                    } else {
+                        InventoryLog.d("Cannot create file");
+                        return;
+                    }
+                } catch (IOException ex) {
+                    InventoryLog.e(ex.getMessage());
+                }
+            }
+
+            FileWriter fw = null;
+
+            try {
+                //BufferedWriter for performance, true to set append to file flag
+                fw = new FileWriter(logFile, false);
+                BufferedWriter buf = new BufferedWriter(fw);
+
+                buf.write(message);
+                buf.newLine();
+                buf.flush();
+                buf.close();
+                fw.close();
+                InventoryLog.d("Inventory stored");
+            }
+            catch (IOException ex) {
+                InventoryLog.e(ex.getMessage());
+            }
+            finally {
+                if(fw!=null) {
+                    try {
+                        fw.close();
+                    } catch(Exception ex) {
+                        InventoryLog.e(ex.getMessage());
+                    }
+                }
+            }
+        } else {
+            InventoryLog.d("External Storage is not available");
+        }
+    }
 
     public static void showAlertDialog(String message, Context context, final OnTaskCompleted callback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

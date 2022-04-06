@@ -41,6 +41,7 @@ public class ServerSchema {
     private String tag;
     private String login;
     private String pass;
+    private String itemtype;
 
     public String getAddress() {
         return address;
@@ -72,5 +73,13 @@ public class ServerSchema {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String getItemtype() {
+        return itemtype;
+    }
+
+    public void setItemtype(String itemtype) {
+        this.itemtype = itemtype;
     }
 }
