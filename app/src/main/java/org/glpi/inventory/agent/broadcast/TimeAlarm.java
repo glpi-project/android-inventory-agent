@@ -85,6 +85,7 @@ public class TimeAlarm extends BroadcastReceiver {
             for (final String serverName : serverArray) {
                 final ServerSchema model = httpInventory.setServerModel(serverName);
                 inventory.setTag(model.getTag());
+                inventory.setAssetItemtype(model.getItemtype());
                 inventory.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
