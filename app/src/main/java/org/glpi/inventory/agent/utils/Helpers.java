@@ -37,6 +37,7 @@ package org.glpi.inventory.agent.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -184,15 +185,14 @@ public class Helpers {
         final InventoryTask inventoryTask = new InventoryTask(context, "", true);
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
         if(type == 1){
-
-            File file = new File(path+ "/Inventory.json");
+            File file = new File(context.getFilesDir(), "Inventory.json");
             if(file.exists()){
                 inventoryTask.shareInventory(type);
             }else{
                 AgentLog.e("JSON File not exist");
             }
         }else{
-            File file = new File(path+ "/Inventory.xml");
+            File file = new File(context.getFilesDir(), "Inventory.xml");
             if(file.exists()){
                 inventoryTask.shareInventory(type);
             }else{
