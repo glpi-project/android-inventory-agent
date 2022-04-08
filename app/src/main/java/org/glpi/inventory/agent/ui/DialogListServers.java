@@ -141,13 +141,12 @@ public class DialogListServers {
         final HttpInventory httpInventory = new HttpInventory(activity);
         final ServerSchema model = httpInventory.setServerModel(server);
         inventoryTask.setTag(model.getTag());
+        inventoryTask.setAssetItemtype(model.getItemtype());
 
         // Sending anonymous information
         inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
-
-                data = Utils.addItemtypeNode(this, data, model.getItemtype());
                 AgentLog.d(data);
                 httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                     @Override

@@ -261,10 +261,11 @@ public class InventoryService extends Service {
         if (!serverArray.isEmpty()) {
             for (String serverName : serverArray) {
                 final ServerSchema model = httpInventory.setServerModel(serverName);
+                inventory.setTag(model.getTag());
+                inventory.setAssetItemtype(model.getItemtype());
                 inventory.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
-                        data = Utils.addItemtypeNode(this, data, model.getItemtype());
                         httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {

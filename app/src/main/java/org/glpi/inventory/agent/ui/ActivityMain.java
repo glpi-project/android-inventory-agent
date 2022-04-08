@@ -42,7 +42,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -54,6 +56,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
