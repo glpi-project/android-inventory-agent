@@ -64,6 +64,8 @@ public class InventoryTaskTest {
     @Test
     public void getJSON()  throws Exception{
         InventoryTask task = new InventoryTask(appContext, "test", true);
+        task.setTag("TAG");
+        task.setAssetItemtype("Computer");
         task.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
@@ -80,6 +82,8 @@ public class InventoryTaskTest {
     @Test
     public void getXML() throws Exception {
         InventoryTask task = new InventoryTask(appContext, "test", true);
+        task.setTag("TAG");
+        task.setAssetItemtype("Computer");
         task.getXML(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
