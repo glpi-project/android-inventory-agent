@@ -48,6 +48,7 @@ import org.glpi.inventory.agent.utils.LocalPreferences;
 import org.glpi.inventory.agent.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ReportModel implements Report.Model {
 
@@ -93,6 +94,8 @@ public class ReportModel implements Report.Model {
 
         //list of items
         String[] items = context.getResources().getStringArray(R.array.export_list);
+        //remove json format (not well formatted for now)
+        items = Arrays.copyOf(items, 1);
         builder.setSingleChoiceItems(items, 0,
                 new DialogInterface.OnClickListener() {
                     @Override
