@@ -56,7 +56,7 @@ Inventory Agent for Android can send inventory to:
 * Controllers
 * Videos
 
-### DAta type
+### Data type
 
 Now you can choose (from the server information) whether this inventory should create a ```Phone``` or a ```Computer``` on GLPI
 
