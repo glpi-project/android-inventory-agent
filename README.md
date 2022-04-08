@@ -56,19 +56,24 @@ Inventory Agent for Android can send inventory to:
 * Controllers
 * Videos
 
+### DAta type
+
+Now you can choose (from the server information) whether this inventory should create a ```Phone``` or a ```Computer``` on GLPI
+
+
 ## Compatibility Matrix
 
 ### GLPI Android Inventory Agent
 
-|GLPI|9.1|9.2+|9.3+|9.4+|9.5+|
-|:---|:---:|:---:|:---:|:---:|:---:|
-|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|
-|**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|9.5+1.0+|
-|**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|
+|GLPI|9.1|9.2+|9.3+|9.4+|9.5+|10.0+|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|1.2.0|
+|**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|9.5+.0+|N/A|
+|**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|1.2.0|
 
 ### Inventory Agent & Android Versions
 
-GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Android 10).
+GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Android 11).
 
 ## Installation
 
