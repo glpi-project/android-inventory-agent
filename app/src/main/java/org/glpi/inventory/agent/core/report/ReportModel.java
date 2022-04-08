@@ -70,6 +70,7 @@ public class ReportModel implements Report.Model {
             inventoryTask = new InventoryTask(activity, description, true);
         }
 
+
         inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String s) {
