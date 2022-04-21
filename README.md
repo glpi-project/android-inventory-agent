@@ -68,7 +68,7 @@ Now you can choose (from the server information) whether this inventory should c
 |GLPI|9.1|9.2+|9.3+|9.4+|9.5+|10.0+|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 |**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|1.2.0|
-|**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|9.5+.0+|N/A|
+|**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|9.5+.0+|Not Available|
 |**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|1.2.0|
 
 ### Inventory Agent & Android Versions
