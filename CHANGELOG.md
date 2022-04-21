@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/glpi-project/android-inventory-agent/compare/1.1.0...1.2.0) (2022-04-21)
+
+
+### Features
+
+* **core:** bump Compil / Target SdkVersion to 30 ([5c22664](https://github.com/glpi-project/android-inventory-agent/commit/5c22664e19c0079c96a51ac3ebbb36a9bd4a6075))
+* **core:** native inventory compatibility ([ca04a57](https://github.com/glpi-project/android-inventory-agent/commit/ca04a571f8b4721abd56cc3ba37fcaf5ca1b919e))
+* **core:** use innentory library as external lib instead of dependencies ([46d738f](https://github.com/glpi-project/android-inventory-agent/commit/46d738fc60533fbb3cfc25269950835d6fd88830))
+* **readme:** update readme ([ab19a2e](https://github.com/glpi-project/android-inventory-agent/commit/ab19a2e7f98e0f2cf9165a8ed818e9b71f87e6bd))
+* **readme:** update readme ([0d93b4d](https://github.com/glpi-project/android-inventory-agent/commit/0d93b4d035a842b2612bcc73d5fc29be442d63de))
+
+
+### Bug Fixes
+
+* **build:** fix version value ([1fdec32](https://github.com/glpi-project/android-inventory-agent/commit/1fdec3273faf532075128005c374edad7d9f054d))
+* **release:** fix changelog ([cce94b2](https://github.com/glpi-project/android-inventory-agent/commit/cce94b2e2fb852a8c4ebdc44831896c5c86a2000))
+* **share:** fix file path ([da4c219](https://github.com/glpi-project/android-inventory-agent/commit/da4c2192505b4886b5a28a568448cc6bb413ff74))
+* **share:** share only XML file ([ed3badc](https://github.com/glpi-project/android-inventory-agent/commit/ed3badc2cea4b9f315db494a622b12e5c86c18f7))
+
 ## [1.1.0](https://github.com/glpi-project/android-inventory-agent/compare/1.0.0...1.1.0) (2021-09-30)
 
 
