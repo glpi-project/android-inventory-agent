@@ -77,7 +77,12 @@ GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Andro
 
 ## Installation
 
-[<img src="https://user-images.githubusercontent.com/663460/26973322-4ddf78a4-4d16-11e7-8b58-4c03b4bc2490.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent) 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/org.glpi.inventory.agent/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=org.glpi.inventory.agent)
 
 Are you having trouble installing our GLPI Android Agent? You can subscribe to our professional support GLPI Network [here](https://services.glpi-network.com).
 
