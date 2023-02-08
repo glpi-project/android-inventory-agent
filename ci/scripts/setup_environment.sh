@@ -41,7 +41,7 @@ echo GIT_BRANCH=$CIRCLE_BRANCH >> .env
 # decrypt deploy on google play file
 openssl aes-256-cbc -d -out ci/gplay.json -in ci/gplay.json.enc -k $ENCRYPTED_KEY
 
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 
 # Maintenance commands
 sudo apt-get update
