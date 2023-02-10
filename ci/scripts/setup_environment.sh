@@ -55,9 +55,9 @@ curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import -
 curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg2 --import -
 curl -sSL https://get.rvm.io | sudo bash -s stable
 source /etc/profile.d/rvm.sh
-rvm requirements
-rvm install 2.6
-rvm use 2.6 --default
+sudo rvm requirements
+sudo rvm install 2.6
+sudo rvm use 2.6 --default
 
 # update Rubygems
 sudo gem update --system --no-document
