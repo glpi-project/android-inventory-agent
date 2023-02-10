@@ -49,6 +49,7 @@ sudo apt-get update
 # install gems
 sudo apt-get install ruby-full build-essential
 
+sudo apt-get install ruby-full
 # update Rubygems
 sudo gem update --system --no-document
 
