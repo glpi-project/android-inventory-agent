@@ -1,0 +1,73 @@
+name: GLPI Android Inventory Library CI
+
+env:
+  module_app: app
+
+on:
+  pull_request:
+    branches:
+      - "develop"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+
+    ##############################################
+    # Prepare / Build project APK / AAR / JAR    #
+    ##############################################
+    # Grant execute permission for gradlew
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    # Build app
+    - name: Build with Gradle
+      run: ./gradlew build
+    # Create APK For Firebase Instrumentation Tests
+    - name: Build Debug Test APK (for Firebase Test Lab)
+      run: ./gradlew assembleDebugAndroidTest
+
+    ################################################################################################
+    # Run Firebase Test Lab                                                                        #
+    # See : https://medium.com/firebase-developers/github-actions-firebase-test-lab-4bc830685a99   #
+    # See : https://github.com/google-github-actions/auth                                          #
+    # See : https://github.com/google-github-actions/setup-gcloud                                  #
+    ################################################################################################
+    # Login to Google using Firebase Admin SDK Service Agent Key
+    - id: 'auth'
+      name: Login to Google Cloud
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+    # Set up Cloud SDK
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    # Set Firebase Project ID
+    - name: Set current project
+      run: gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
+
+    # Run Instrumentation Tests in Firebase Test Lab
+    - name: Run Instrumentation Tests in Firebase Test Lab
+      run: gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=Nexus6,version=25,locale=en,orientation=portrait
+
+
+    ##########################################
+    # Upload Artifacts (APK / AAR / JAR)     #
+    ##########################################
+    # Upload APK for Java version
+    - name: Upload APK Debug for Java
+      uses: actions/upload-artifact@v3
+      with:
+        name: Java-Debug-APK
+        path: ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk
+
+
