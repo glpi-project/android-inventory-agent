@@ -35,6 +35,16 @@ jobs:
     - name: Check repo git status
       run : git status
 
+    - name: Check repo git diff
+      run : git diff
+
+
+    #- name: Push Updated Version On AndroidManifest
+    #    uses: EndBug/add-and-commit@v9
+    #    with:
+    #      default_author: github_actions
+    #      message: "ci(release): update version on android manifest"
+
     # Push Transifex
     - name: Push source file using transifex client
       uses: transifex/cli-action@v2
