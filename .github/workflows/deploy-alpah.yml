@@ -35,9 +35,6 @@ jobs:
     - name: Check repo git status
       run : git status
 
-    - name: Check repo git diffs
-      run : git diff
-
     # Push Transifex
     - name: Push source file using transifex client
       uses: transifex/cli-action@v2
