@@ -88,3 +88,6 @@ build
 /development
 /reports
 /reports-beta
+
+#vendor
+vendor/

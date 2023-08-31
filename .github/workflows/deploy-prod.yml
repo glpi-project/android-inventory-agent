@@ -1,0 +1,156 @@
+name: GLPI Android Inventory Agent Release
+
+env:
+  module_app: app
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+      ref: develop
+      fetch-depth: 0 #To Fetch All Tags and Branches
+
+    - name: Install Dependencies
+      uses: php-actions/composer@v6
+      with:
+        dev: no
+
+    ################################
+    # Update Version Code          #
+    ################################
+    - name: Update Android Version code
+      run: ./gradlew updateVersionCode
+
+    - name: "Extract Current Tag Name"
+      run: echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+    - name: "Update Release Version"
+      run: echo "$(jq '.version = "${{ env.tag_name }}"' package.json)" > package.json
+
+    - name: Extract App VersionCode
+      run: echo "app_version_code=$(grep versionCode ./app/src/main/AndroidManifest.xml | cut -d\" -f2)" >> $GITHUB_ENV
+
+    - name: Update About Data
+      run : |
+            echo "about.version=${{ env.tag_name }}" > ./app/src/main/assets/about.properties
+            echo "about.build=${{ env.app_version_code }}" >> ./app/src/main/assets/about.properties
+            echo "about.date=$(date "+%a %b %d %H:%M:%S %Y")" >> ./app/src/main/assets/about.properties
+            echo "about.commit=$(git rev-parse --short "$GITHUB_SHA")" >> ./app/src/main/assets/about.properties
+            echo "about.commitFull=$(git rev-parse "$GITHUB_SHA")" >> ./app/src/main/assets/about.properties
+            echo "about.github=https://github.com/glpi-project/android-inventory-agent" >> ./app/src/main/assets/about.properties
+
+
+    - name: "Extract Full ChangeLog (Conventional Commit)"
+      run: |
+        {
+          echo 'full_change_log<<EOF'
+          ./vendor/bin/robo build:log 0.9 HEAD
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: "Update Full ChangeLog"
+      run: echo "${{ env.full_change_log }}" > CHANGELOG.md
+
+    - name: Push Update to repo
+      uses: EndBug/add-and-commit@v9
+      with:
+        default_author: github_actions
+        message: "ci(release): release new version ${{ env.tag_name }}"
+
+    - name: Merge develop -> master
+      uses: devmasx/merge-branch@master
+      with:
+        type: now
+        from_branch: develop
+        target_branch: master
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    ##########################################
+    # Push / Pull translation files          #
+    ##########################################
+    # Push Transifex
+    - name: Push source file using transifex client
+      uses: transifex/cli-action@v2
+      with:
+        args: push
+        token: ${{ secrets.TX_TOKEN }}
+
+    # Clean Transifex CLI
+    - name: Clean Transifex CLI
+      run: rm -fr /tmp/tx
+
+    # Pull from Transifex
+    - name: Pull source file using transifex client
+      uses: transifex/cli-action@v2
+      with:
+        args: pull --force --all --minimum-perc=80
+        token: ${{ secrets.TX_TOKEN }}
+
+
+    ###############################
+    # Prepare / Build project     #
+    ###############################
+    # Grant execute permission for gradlew
+    - name: Grant Execute Permission For Gradlew
+      run: chmod +x gradlew
+
+    # assemble app
+    - name: Build with Gradle
+      run: ./gradlew assemble
+
+    # Build app
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Sign app APK
+      uses: r0adkll/sign-android-release@v1
+      # ID used to access action output
+      id: sign_app
+      with:
+        releaseDirectory: app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.SIGN_APK_SIGNING_KEY }}
+        alias: ${{ secrets.SIGN_APK_ALIAS }}
+        keyStorePassword: ${{ secrets.SIGN_APP_STOREPASS }}
+        keyPassword: ${{ secrets.SIGN_APP_KEYPASS }}
+      env:
+        # override default build-tools version (29.0.3) -- optional
+        BUILD_TOOLS_VERSION: "30.0.2"
+
+    - name: Push to google play
+      uses: r0adkll/upload-google-play@v1
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_CONSOLE }}
+        packageName: org.glpi.inventory.agent
+        releaseFiles: app/build/outputs/apk/release/app-release-unsigned-signed.apk
+        track: production
+        changesNotSentForReview: true
+
+    #####################
+    # Prepare release   #
+    #####################
+    - name: "Rename APK"
+      run: mv app/build/outputs/apk/release/app-release-unsigned-signed.apk app/build/outputs/apk/release/android-inventory-agent-v${{ env.tag_name }}.apk
+
+    - name: "Extract Clean Git Log (Conventional Commit)"
+      run: |
+        {
+          echo 'release_body<<EOF'
+          ./vendor/bin/robo build:log ${{ env.previous_tag_name }} HEAD 0
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        name : Android Inventory Agent v${{ env.tag_name }}
+        draft : true
+        body : ${{ env.release_body }}
+        files: app/build/outputs/apk/release/android-inventory-agent-v${{ env.tag_name }}.apk
