@@ -129,7 +129,7 @@ public class InventoryService extends Service {
         //create intent to redirect user to app on click
         Intent appIntent = new Intent(getApplicationContext(), ActivityMain.class);
         appIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent appIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, appIntent, 0);
+        PendingIntent appIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, appIntent, PendingIntent.FLAG_MUTABLE);
 
 
         //create inent to invite user to disable notification
@@ -139,7 +139,7 @@ public class InventoryService extends Service {
         notificationIntent.putExtra("app_uid", getApplicationInfo().uid);
         notificationIntent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
         PendingIntent notificationIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0,
-                notificationIntent, 0);
+                notificationIntent, PendingIntent.FLAG_MUTABLE);
 
         //create notification
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
