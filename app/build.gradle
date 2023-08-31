@@ -90,11 +90,6 @@ import groovy.json.JsonSlurper
 
 import java.util.regex.Pattern
 
-task createAbout(type:Exec) {
-    workingDir '../'
-    commandLine './ci/scripts/create_about_data.sh'
-}
-
 task javadoc(type: Javadoc) {
     doFirst {
         configurations.implementation
@@ -148,8 +143,6 @@ task updateVersionCode {
         manifestFile.write(manifestContent)
     }
 }
-
-preBuild.dependsOn createAbout
 
 task updateVersionName {
     doLast {
