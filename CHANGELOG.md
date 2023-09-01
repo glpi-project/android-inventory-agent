@@ -23,6 +23,7 @@
 * **build:** Migrate develop Push CircleCI to GithubAction (V2) ([4d12ea314](https://github.com/glpi-project/android-inventory-agent/commit/4d12ea314))
 * **build:** Release workflow with GithubAction ([a1c9efb36](https://github.com/glpi-project/android-inventory-agent/commit/a1c9efb36))
 * **core:** bump SdkVersion to 33 ([88d4d9a89](https://github.com/glpi-project/android-inventory-agent/commit/88d4d9a89))
+* **doc:** update README ([2be9b15b4](https://github.com/glpi-project/android-inventory-agent/commit/2be9b15b4))
 * **test:** move to OS version 31 ([d93859311](https://github.com/glpi-project/android-inventory-agent/commit/d93859311))
 
 
