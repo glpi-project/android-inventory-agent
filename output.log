@@ -1,0 +1,134 @@
+Running php-build composer
+WARNING! Your password will be stored unencrypted in /home/runner/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+Pulling docker.pkg.github.com/glpi-project/android-inventory-agent/php-actions_composer_android-inventory-agent:php-latest-build2.1.0
+Error response from daemon: manifest unknown
+Dockerfile:
+FROM php:cli-alpine
+RUN apk add --update --no-cache zip git bash openssh
+#0 building with "default" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile-php-build
+#2 transferring dockerfile: 120B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/php:cli-alpine
+#3 ...
+
+#4 [auth] library/php:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/php:cli-alpine
+#3 DONE 0.9s
+
+#5 [1/2] FROM docker.io/library/php:cli-alpine@sha256:5497eac8cf1089126bf5ea906abffcb69f6129286921ed1a679290d558047c55
+#5 DONE 0.0s
+
+#6 importing cache manifest from docker.pkg.github.com/glpi-project/android-inventory-agent/php-actions_composer_android-inventory-agent:php-latest-build2.1.0
+#6 ERROR: failed to configure registry cache importer: pulling from host docker.pkg.github.com failed with status code [manifests php-latest-build2.1.0]: 401 Unauthorized
+
+#5 [1/2] FROM docker.io/library/php:cli-alpine@sha256:5497eac8cf1089126bf5ea906abffcb69f6129286921ed1a679290d558047c55
+#5 resolve docker.io/library/php:cli-alpine@sha256:5497eac8cf1089126bf5ea906abffcb69f6129286921ed1a679290d558047c55 done
+#5 sha256:956dc56ebfa141534a7cd4f930842179888f0f7404485d229508ea6517f888be 266B / 266B 0.1s done
+#5 sha256:5497eac8cf1089126bf5ea906abffcb69f6129286921ed1a679290d558047c55 1.65kB / 1.65kB done
+#5 sha256:fa2dda2d21207856dc7c4b6d71f327fabbab0d45e3ea0101f3f89a0775a0f811 2.20kB / 2.20kB done
+#5 sha256:75dd484c87a837bc9d0f3898f839f01005acab4aa8e8f64a35fae539cc57c600 8.98kB / 8.98kB done
+#5 sha256:404102781aa39e16bd9a361b243061e50f63d446d6145586a7a849a4129c8081 2.66MB / 2.66MB 0.2s done
+#5 sha256:7410f32c8672a1a82d756b99fcd64b40f8731c4e4e8a37962cdb815163f4a2b7 1.26kB / 1.26kB 0.2s done
+#5 extracting sha256:404102781aa39e16bd9a361b243061e50f63d446d6145586a7a849a4129c8081
+#5 sha256:ab667de420222b52530062b9f3cee98ac7830b42c11102899c5ba689fc70459b 0B / 12.06MB 0.2s
+#5 sha256:f3bae9f71b130088213cd31c6f7837a09db1adbb4e3a2565bb6fc5020ef0e5c8 0B / 499B 0.2s
+#5 sha256:32b0a344272da8c296beb439d702034e395d92ce802b01bbfb61675a2cbc06d2 0B / 16.74MB 0.2s
+#5 sha256:ab667de420222b52530062b9f3cee98ac7830b42c11102899c5ba689fc70459b 9.44MB / 12.06MB 0.3s
+#5 sha256:f3bae9f71b130088213cd31c6f7837a09db1adbb4e3a2565bb6fc5020ef0e5c8 499B / 499B 0.3s done
+#5 sha256:9c4e0b6e75a2dea406992b35a4970e393a667f269a113f4cb3953037216a29ff 0B / 2.44kB 0.3s
+#5 extracting sha256:404102781aa39e16bd9a361b243061e50f63d446d6145586a7a849a4129c8081 0.2s done
+#5 sha256:ab667de420222b52530062b9f3cee98ac7830b42c11102899c5ba689fc70459b 12.06MB / 12.06MB 0.3s done
+#5 sha256:32b0a344272da8c296beb439d702034e395d92ce802b01bbfb61675a2cbc06d2 15.73MB / 16.74MB 0.5s
+#5 sha256:9c4e0b6e75a2dea406992b35a4970e393a667f269a113f4cb3953037216a29ff 2.44kB / 2.44kB 0.4s done
+#5 sha256:535c52f5d5e7d4f284c6ff857acfeda878075fb2de2519cbc912c5794c142952 18.94kB / 18.94kB 0.5s done
+#5 extracting sha256:7410f32c8672a1a82d756b99fcd64b40f8731c4e4e8a37962cdb815163f4a2b7 0.0s done
+#5 extracting sha256:956dc56ebfa141534a7cd4f930842179888f0f7404485d229508ea6517f888be
+#5 sha256:32b0a344272da8c296beb439d702034e395d92ce802b01bbfb61675a2cbc06d2 16.74MB / 16.74MB 0.5s done
+#5 extracting sha256:956dc56ebfa141534a7cd4f930842179888f0f7404485d229508ea6517f888be done
+#5 extracting sha256:ab667de420222b52530062b9f3cee98ac7830b42c11102899c5ba689fc70459b 0.1s done
+#5 extracting sha256:f3bae9f71b130088213cd31c6f7837a09db1adbb4e3a2565bb6fc5020ef0e5c8
+#5 extracting sha256:f3bae9f71b130088213cd31c6f7837a09db1adbb4e3a2565bb6fc5020ef0e5c8 done
+#5 extracting sha256:32b0a344272da8c296beb439d702034e395d92ce802b01bbfb61675a2cbc06d2 0.1s
+#5 extracting sha256:32b0a344272da8c296beb439d702034e395d92ce802b01bbfb61675a2cbc06d2 1.0s done
+#5 extracting sha256:9c4e0b6e75a2dea406992b35a4970e393a667f269a113f4cb3953037216a29ff done
+#5 extracting sha256:535c52f5d5e7d4f284c6ff857acfeda878075fb2de2519cbc912c5794c142952 done
+#5 DONE 1.9s
+
+#7 [2/2] RUN apk add --update --no-cache zip git bash openssh
+#7 0.228 fetch https://dl-cdn.alpinelinux.org/alpine/v3.18/main/x86_64/APKINDEX.tar.gz
+#7 0.372 fetch https://dl-cdn.alpinelinux.org/alpine/v3.18/community/x86_64/APKINDEX.tar.gz
+#7 0.692 (1/14) Installing bash (5.2.15-r5)
+#7 0.732 Executing bash-5.2.15-r5.post-install
+#7 0.735 (2/14) Installing libexpat (2.5.0-r1)
+#7 0.748 (3/14) Installing pcre2 (10.42-r1)
+#7 0.771 (4/14) Installing git (2.40.1-r0)
+#7 0.910 (5/14) Installing openssh-keygen (9.3_p2-r0)
+#7 0.929 (6/14) Installing libedit (20221030.3.1-r1)
+#7 0.941 (7/14) Installing openssh-client-common (9.3_p2-r0)
+#7 0.981 (8/14) Installing openssh-client-default (9.3_p2-r0)
+#7 1.002 (9/14) Installing openssh-sftp-server (9.3_p2-r0)
+#7 1.014 (10/14) Installing openssh-server-common (9.3_p2-r0)
+#7 1.024 (11/14) Installing openssh-server (9.3_p2-r0)
+#7 1.045 (12/14) Installing openssh (9.3_p2-r0)
+#7 1.060 (13/14) Installing unzip (6.0-r14)
+#7 1.075 (14/14) Installing zip (3.0-r12)
+#7 1.091 Executing busybox-1.36.1-r2.trigger
+#7 1.098 OK: 33 MiB in 51 packages
+#7 DONE 1.2s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 0.7s done
+#8 writing image sha256:40d7a7db7564ebe001af837dbe654acf7dae673934bc46385c8e64de6c2485c0 done
+#8 naming to docker.pkg.github.com/glpi-project/android-inventory-agent/php-actions_composer_android-inventory-agent:php-latest-build2.1.0 done
+#8 DONE 0.7s
+------
+ > importing cache manifest from docker.pkg.github.com/glpi-project/android-inventory-agent/php-actions_composer_android-inventory-agent:php-latest-build2.1.0:
+------
+The push refers to repository [docker.pkg.github.com/glpi-project/android-inventory-agent/php-actions_composer_android-inventory-agent]
+1ec8b6141bfa: Preparing
+e8a223884cae: Preparing
+8c1e74b01ff6: Preparing
+39533be187b5: Preparing
+b3309a4fb834: Preparing
+d1c978face9e: Preparing
+c11f925ddb3f: Preparing
+2270494f0a50: Preparing
+ebaa87f84e90: Preparing
+4693057ce236: Preparing
+2270494f0a50: Waiting
+ebaa87f84e90: Waiting
+4693057ce236: Waiting
+d1c978face9e: Waiting
+c11f925ddb3f: Waiting
+8c1e74b01ff6: Pushed
+b3309a4fb834: Pushed
+1ec8b6141bfa: Pushed
+e8a223884cae: Pushed
+2270494f0a50: Pushed
+ebaa87f84e90: Pushed
+d1c978face9e: Pushed
+c11f925ddb3f: Pushed
+39533be187b5: Pushed
+4693057ce236: Pushed
+php-latest-build2.1.0: digest: sha256:7568c73eda087debef37255cdcb6e20c9ff2ec9739dc63683002061f5c1504a4 size: 2413
+Docker tag: docker.pkg.github.com/glpi-project/android-inventory-agent/php-actions_composer_android-inventory-agent:php-latest-build2.1.0
+No private keys supplied
+Command: composer install --no-dev --no-progress --no-interaction
+Skipping env variable PWD
+Skipping env variable HOME
+Skipping env variable SHLVL
+Skipping env variable PATH
