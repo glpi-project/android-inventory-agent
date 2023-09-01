@@ -14,8 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-      ref: develop
-      fetch-depth: 0 #To Fetch All Tags and Branches
+        ref: develop
+        fetch-depth: 0 #To Fetch All Tags and Branches
 
     - name: Install Dependencies
       uses: php-actions/composer@v6
