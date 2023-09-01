@@ -37,6 +37,9 @@ jobs:
     - name: Extract App VersionCode
       run: echo "app_version_code=$(grep versionCode ./app/src/main/AndroidManifest.xml | cut -d\" -f2)" >> $GITHUB_ENV
 
+    - name: Extract Previous Tag Name
+      run: echo "previous_tag_name=$(git tag --sort=taggerdate | tail -1)" >> $GITHUB_ENV
+
     - name: Update About Data
       run : |
             echo "about.version=${{ env.tag_name }}" > ./app/src/main/assets/about.properties
@@ -58,10 +61,12 @@ jobs:
     - name: "Update Full ChangeLog"
       run: echo "${{ env.full_change_log }}" > CHANGELOG.md
 
-    - name: Push Update to repo
+    - name: Update develop branch
       uses: EndBug/add-and-commit@v9
       with:
         default_author: github_actions
+        add: "['CHANGELOG.md', 'package.json']" #only this files will be added
+        push: origin HEAD:develop
         message: "ci(release): release new version ${{ env.tag_name }}"
 
     - name: Merge develop -> master
