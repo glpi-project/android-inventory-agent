@@ -92,4 +92,3 @@ jobs:
         packageName: org.glpi.inventory.agent
         releaseFiles: app/build/outputs/apk/release/app-release-unsigned-signed.apk
         track: alpha
-        changesNotSentForReview: true
