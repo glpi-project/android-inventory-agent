@@ -12,24 +12,10 @@
 [![GitHub release](https://img.shields.io/github/release/glpi-project/android-inventory-agent.svg)](https://github.com/glpi-project/android-inventory-agent/releases)
 [![GitHub build](https://img.shields.io/circleci/build/github/glpi-project/android-inventory-agent.svg)](https://circleci.com/gh/glpi-project/android-inventory-agent/)
 
-GLPI Android Inventory Agent allows your company to maintain control of all mobile devices, whilst providing comprehensive protection and enhanced security for sensitive corporate data, via a centralized management console.
 
 ## Synopsis
 
-The Inventory Agent for Android is part of GLPI Android Inventory Agent project. It allows you to collect a complete inventory of your Android device and sent it to your management software.
-
-The Inventory project is a free software project providing:
-
-* Hardware and software inventory (multiplatform)
-* Network discovery
-* Network inventory for printers and switches
-* Wake On Lan (WOL)
-* Software deployment
-* Total integration with the GLPI project (open source asset management software and helpdesk)
-
-Inventory Agent for Android can send inventory to:
-
-* FusionInventory for GLPI 2.3.x and higher
+The Inventory Agent for Android allows you to collect a complete inventory of your Android device and sent it to your GLPI.
 
 ### Data collected
 
@@ -67,13 +53,12 @@ Now you can choose (from the server information) whether this inventory should c
 
 |GLPI|9.1|9.2+|9.3+|9.4+|9.5+|10.0+|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|1.2.0|
-|**FusionInventory**|9.1+1.1|9.2+2.0+|9.3+1.2+|9.4+1.0+|9.5+.0+|Not Available|
+|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|1.3.0|
 |**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|1.2.0|
 
 ### Inventory Agent & Android Versions
 
-GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Android 11).
+GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Android 13).
 
 ## Installation
 
