@@ -12,6 +12,7 @@
 * **build:** downgrade mockito ([62dcaf4b1](https://github.com/glpi-project/android-inventory-agent/commit/62dcaf4b1))
 * **build:** remove useless gradle process ([b792a8ed9](https://github.com/glpi-project/android-inventory-agent/commit/b792a8ed9))
 * **build:** set changesNotSentForReview parameter ([1ddc36906](https://github.com/glpi-project/android-inventory-agent/commit/1ddc36906))
+* **release:** fix GithubAction workflow ([c47d125f2](https://github.com/glpi-project/android-inventory-agent/commit/c47d125f2))
 * **release:** fix GithubAction workflow ([a19ea9536](https://github.com/glpi-project/android-inventory-agent/commit/a19ea9536))
 
 
