@@ -87,9 +87,7 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
 
         ActivityCompat.requestPermissions(ActivityInventoryReport.this,
                 new String[]{
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.CAMERA,
                 },
                 1);
@@ -197,15 +195,14 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1: {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[2] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 } else {
                     String message = getResources().getString(R.string.permission_error_result);
                     Helpers.snackClose(ActivityInventoryReport.this, message, getString(R.string.permission_snack_ok), true);
