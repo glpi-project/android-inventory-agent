@@ -2,16 +2,24 @@
 
 
 <a name=1.3.0></a>
-## [1.3.0](https://github.com/glpi-project/android-inventory-agent/compare/1.2.0..1.3.0) (2023-09-01)
+## [1.3.0](https://github.com/glpi-project/android-inventory-agent/compare/1.2.0..1.3.0) (2023-09-04)
 
 
 ### Bug Fixes
 
 * **IntentService:** use FLAG_MUTABLE ([175609b55](https://github.com/glpi-project/android-inventory-agent/commit/175609b55))
 * **build:** Remove old CI workflow ([4e2c0c9bf](https://github.com/glpi-project/android-inventory-agent/commit/4e2c0c9bf))
+* **build:** capability to retrieve VersionCode ([d1760ea93](https://github.com/glpi-project/android-inventory-agent/commit/d1760ea93))
 * **build:** downgrade mockito ([62dcaf4b1](https://github.com/glpi-project/android-inventory-agent/commit/62dcaf4b1))
+* **build:** fix changesNotSentForReview ([429571fbb](https://github.com/glpi-project/android-inventory-agent/commit/429571fbb))
+* **build:** fix push to google play ([08adc0c95](https://github.com/glpi-project/android-inventory-agent/commit/08adc0c95))
+* **build:** fix push to google play ([e5eced21c](https://github.com/glpi-project/android-inventory-agent/commit/e5eced21c))
 * **build:** remove useless gradle process ([b792a8ed9](https://github.com/glpi-project/android-inventory-agent/commit/b792a8ed9))
 * **build:** set changesNotSentForReview parameter ([1ddc36906](https://github.com/glpi-project/android-inventory-agent/commit/1ddc36906))
+* **core:** remove useless permission ([2da1434d0](https://github.com/glpi-project/android-inventory-agent/commit/2da1434d0))
+* **core:** remove useless permission ([3fe22bf3a](https://github.com/glpi-project/android-inventory-agent/commit/3fe22bf3a))
+* **core:** remove useless permission ([879629061](https://github.com/glpi-project/android-inventory-agent/commit/879629061))
+* **permissions:** remove useless permissions ([704fe3679](https://github.com/glpi-project/android-inventory-agent/commit/704fe3679))
 * **release:** fix GithubAction workflow ([c47d125f2](https://github.com/glpi-project/android-inventory-agent/commit/c47d125f2))
 * **release:** fix GithubAction workflow ([a19ea9536](https://github.com/glpi-project/android-inventory-agent/commit/a19ea9536))
 
