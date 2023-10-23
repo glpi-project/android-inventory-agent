@@ -44,14 +44,16 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="51dp"
         android:divider="@drawable/empty_tall_divider"
         android:orientation="vertical"
         android:padding="15dp"
-        android:id="@+id/linear"
         android:showDividers="middle">
 
         <EditText
@@ -86,8 +88,14 @@
             android:id="@+id/spinnerAssetItemtype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
+        <EditText
+            android:id="@+id/editSerialNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/serial"
+            android:inputType="text" />
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnQRScan"

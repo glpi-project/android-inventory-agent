@@ -65,6 +65,7 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("login", modelServer.get(2));
                     jo.put("pass", modelServer.get(3));
                     jo.put("itemtype", modelServer.get(4));
+                    jo.put("serial", modelServer.get(5));
                     ArrayList<String> serverArray = preferences.loadServer();
                     serverArray.add(modelServer.get(0));
                     preferences.saveServer(serverArray);
@@ -94,6 +95,7 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("login", modelServer.get(2));
                     jo.put("pass", modelServer.get(3));
                     jo.put("itemtype", modelServer.get(4));
+                    jo.put("serial", modelServer.get(5));
                     ArrayList<String> serverArray = preferences.loadServer();
                     for (int i = 0; i < serverArray.size(); i++) {
                         if (serverArray.get(i).equals(serverName)) {
@@ -127,6 +129,7 @@ public class DetailServerModel implements DetailServer.Model {
             serverSchema.setLogin(jo.getString("login"));
             serverSchema.setPass(jo.getString("pass"));
             serverSchema.setItemtype(jo.getString("itemtype"));
+            serverSchema.setSerial(jo.getString("serial"));
             presenter.modelServer(serverSchema);
         } catch (JSONException e) {
             AgentLog.e(e.getMessage());

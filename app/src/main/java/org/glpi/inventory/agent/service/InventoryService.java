@@ -266,6 +266,9 @@ public class InventoryService extends Service {
                 inventory.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
+                        if(!model.getSerial().isEmpty()) {
+                            data = data.replaceAll("<SSN>(.*)</SSN>","<SSN>" + model.getSerial() + "</SSN>");
+                        }
                         httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
