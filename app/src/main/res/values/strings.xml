@@ -41,6 +41,7 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="tag">Tag</string>
+    <string name="serial">Custom asset serial</string>
     <string name="tagSummary">Custom asset tag</string>
     <string name="week">Week</string>
     <string name="snackButton">Done</string>

@@ -42,6 +42,13 @@ public class ServerSchema {
     private String login;
     private String pass;
     private String itemtype;
+    private String serial;
+
+    public String getSerial() { return this.serial; }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
 
     public String getAddress() {
         return address;

@@ -147,7 +147,9 @@ public class DialogListServers {
         inventoryTask.getXML(new InventoryTask.OnTaskCompleted() {
             @Override
             public void onTaskSuccess(String data) {
-                AgentLog.d(data);
+                if(!model.getSerial().trim().isEmpty()) {
+                    data = data.replaceAll("<SSN>(.*)</SSN>","<SSN>" + model.getSerial() + "</SSN>");
+                }
                 httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {

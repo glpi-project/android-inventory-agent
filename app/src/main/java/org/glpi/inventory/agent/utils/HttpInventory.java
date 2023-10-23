@@ -90,6 +90,7 @@ public class HttpInventory {
             serverSchema.setLogin(jo.getString("login"));
             serverSchema.setPass(jo.getString("pass"));
             serverSchema.setItemtype(jo.getString("itemtype"));
+            serverSchema.setSerial(jo.getString("serial"));
         } catch (JSONException e) {
             AgentLog.e(e.getMessage());
         }
