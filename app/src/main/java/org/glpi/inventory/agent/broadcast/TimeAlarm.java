@@ -90,7 +90,7 @@ public class TimeAlarm extends BroadcastReceiver {
                     @Override
                     public void onTaskSuccess(String data) {
                         ServerSchema model = httpInventory.setServerModel(serverName);
-                        if(!model.getSerial().isEmpty()) {
+                        if(!model.getSerial().trim().isEmpty()) {
                             data = data.replaceAll("<SSN>(.*)</SSN>","<SSN>" + model.getSerial() + "</SSN>");
                         }
                         httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
