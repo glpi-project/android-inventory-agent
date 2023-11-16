@@ -1,6 +1,16 @@
 
 
 
+<a name=1.4.0></a>
+## [1.4.0](https://github.com/glpi-project/android-inventory-agent/compare/1.3.0..1.4.0) (2023-11-15)
+
+
+### Features
+
+* **Inventory:** added option to override serial number ([90bece6c7](https://github.com/glpi-project/android-inventory-agent/commit/90bece6c7))
+
+
+
 <a name=1.3.0></a>
 ## [1.3.0](https://github.com/glpi-project/android-inventory-agent/compare/1.2.0..1.3.0) (2023-09-04)
 
