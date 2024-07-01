@@ -41,8 +41,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+
+import androidx.annotation.RequiresApi;
 
 import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
@@ -126,6 +129,7 @@ public class TimeAlarm extends BroadcastReceiver {
      * Schedules the alarm
      * @param context
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setAlarm(Context context) {
 
         AgentLog.d("Set Alarm");
@@ -133,7 +137,7 @@ public class TimeAlarm extends BroadcastReceiver {
         AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, TimeAlarm.class);
         i.setAction("org.glpi.inventory.agent.ALARM");
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_IMMUTABLE);
 
         SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
         String timeInventory = customSharedPreference.getString("timeInventory", "Week");

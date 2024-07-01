@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<restrictions xmlns:android="http://schemas.android.com/apk/res/android" >
+    <restriction
+        android:key="automatic_inventory"
+        android:restrictionType="bool"
+        android:title="@string/automatic_inventory"/>
+
+    <restriction
+        android:key="auto_start_on_boot"
+        android:restrictionType="bool"
+        android:title="@string/auto_start_on_boot"/>
+
+    <restriction
+        android:defaultValue="@string/default_frequency"
+        android:description="@string/frequency_description"
+        android:entries="@array/entries_frequency"
+        android:entryValues="@array/entry_values_frequency"
+        android:key="frequency"
+        android:restrictionType="choice"
+        android:title="@string/frequency"/>
+
+  <restriction
+    android:key="server_configuration_list"
+    android:restrictionType="bundle_array"
+    android:title="@string/server_list">
+      <restriction
+        android:key="server_configuration"
+        android:restrictionType="bundle"
+        android:title="@string/server_configuration">
+
+      <restriction
+          android:key="server_url"
+          android:restrictionType="string"
+          android:title="@string/server_url"/>
+      <restriction
+          android:key="server_tag"
+          android:restrictionType="string"
+          android:title="@string/server_tag"/>
+      <restriction
+          android:key="server_login"
+          android:restrictionType="string"
+          android:title="@string/server_login"/>
+      <restriction
+          android:key="server_password"
+          android:restrictionType="string"
+          android:title="@string/server_password"/>
+      <restriction
+          android:defaultValue="@string/default_server_itemtype"
+          android:description="@string/server_itemtype"
+          android:entries="@array/entries_server_itemtype"
+          android:entryValues="@array/entry_values_server_itemtype"
+          android:key="server_itemtype"
+          android:restrictionType="choice"
+          android:title="@string/title_server_itemtype"/>
+      <restriction
+          android:key="server_custom_asset_serial"
+          android:restrictionType="string"
+          android:title="@string/server_custom_asset_serial"/>
+    </restriction>
+
+
+
+  </restriction>
+</restrictions>

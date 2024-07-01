@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Choice restriction for itemtype -->
+    <string name="title_server_itemtype">Type</string>
+    <string name="description_server_itemtype">Type of asset</string>
+    <string name="entry_server_itemtype_computer">Computer</string>
+    <string name="entry_server_itemtype_phone">Phone</string>
+    <string-array name="entries_server_itemtype">
+        <item>@string/entry_server_itemtype_computer</item>
+        <item>@string/entry_server_itemtype_phone</item>
+    </string-array>
+    <string-array name="entry_values_server_itemtype">
+        <item>Computer</item>
+        <item>Phone</item>
+    </string-array>
+    <string name="default_server_itemtype">Computer</string>
+
+    <!-- Choice restriction for frequency -->
+    <string name="frequency">Frequency</string>
+    <string name="frequency_description">Frequency</string>
+    <string name="frequency_day">Day</string>
+    <string name="frequency_week">Week</string>
+    <string name="frequency_month">Month</string>
+    <string-array name="entries_frequency">
+        <item>@string/frequency_day</item>
+        <item>@string/frequency_week</item>
+        <item>@string/frequency_month</item>
+    </string-array>
+    <string-array name="entry_values_frequency">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+    <string name="default_frequency">Day</string>
+
+
+</resources>
