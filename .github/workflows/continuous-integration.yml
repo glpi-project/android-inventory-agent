@@ -65,6 +65,7 @@ jobs:
     ##########################################
     # Upload APK for Java version
     - name: Upload APK Debug for Java
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: Java-Debug-APK

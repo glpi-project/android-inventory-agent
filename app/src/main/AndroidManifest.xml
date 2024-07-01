@@ -39,6 +39,8 @@ android:versionName="">
 
         <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="${crashlyticsEnabled}"/>
 
+        <meta-data android:name="android.content.APP_RESTRICTIONS"  android:resource="@xml/app_restrictions"/>
+
         <activity android:exported="true" android:name="org.glpi.inventory.agent.ui.ActivitySplash" android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

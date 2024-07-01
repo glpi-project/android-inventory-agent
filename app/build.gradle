@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,9 +53,14 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
 
+    /* app restriction */
+    implementation 'androidx.enterprise:enterprise-feedback:1.0.0'
+
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.androidx', module: 'support-annotations'
     })
+    androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
+
     androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
 
     testImplementation 'org.mockito:mockito-core:2.18.3'
