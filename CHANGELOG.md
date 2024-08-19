@@ -1,344 +1,1101 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [UNRELEASED]
+
+## [1.7.0] - 2025-08-22
+
+### 💼 Other
+
+- *(Build)* Move to SDK 35
+- *(Build)* Fix trigger for CI
+
+## [1.6.1] - 2024-12-20
+
+### 🐛 Bug Fixes
+
+- *(EMM)* Fix missing managed configurations used as NULL
+- *(Core)* Exclude sensitive strings
+- *(UI)* Adjust color scheme in user settings for better visibility and consistency.
 
 
+### 💼 Other
 
-<a name=1.4.0></a>
-## [1.4.0](https://github.com/glpi-project/android-inventory-agent/compare/1.3.0..1.4.0) (2023-11-15)
+- *(Dependencies)* Bump Android Inventory Library to 1.6.1
+- *(Build)* Use main branch
+- *(Build)* Clean unused step
+- *(Build)* Clean composer step
+- *(Build)* Use main branch for deploy alpha
 
+## [1.6.0] - 2024-10-29
 
-### Features
+### 💼 Other
 
-* **Inventory:** added option to override serial number ([90bece6c7](https://github.com/glpi-project/android-inventory-agent/commit/90bece6c7))
+- *(Build)* Bump github action
+- *(deps-dev)* Bump gh-pages from 2.2.0 to 5.0.0
+- *(Build)* Bump dependencies
+- *(Build)* Remove dependencies
+- *(Build)* Move EndBug/add-and-commit to v9.1.1
+- *(Build)* Move EndBug/add-and-commit to v9.0.0
+- *(Build)* Do not add file that no longer exists
+- *(Build)* Add missing package.json
+- *(Build)* Revert change
+- *(Build)* Move to SDK 34
+- *(core)* Fix android 14 compatibility
 
+### ⚙️ Miscellaneous Tasks
 
+- *(release)* Update version on android manifest
+- *(release)* Release new version 1.4.0
 
-<a name=1.3.0></a>
-## [1.3.0](https://github.com/glpi-project/android-inventory-agent/compare/1.2.0..1.3.0) (2023-09-04)
+### 💼 Other
 
+- *(Core)* Handle EMM managed configurations
 
-### Bug Fixes
+## [1.5.0] - 2023-12-18
 
-* **IntentService:** use FLAG_MUTABLE ([175609b55](https://github.com/glpi-project/android-inventory-agent/commit/175609b55))
-* **build:** Remove old CI workflow ([4e2c0c9bf](https://github.com/glpi-project/android-inventory-agent/commit/4e2c0c9bf))
-* **build:** capability to retrieve VersionCode ([d1760ea93](https://github.com/glpi-project/android-inventory-agent/commit/d1760ea93))
-* **build:** downgrade mockito ([62dcaf4b1](https://github.com/glpi-project/android-inventory-agent/commit/62dcaf4b1))
-* **build:** fix changesNotSentForReview ([429571fbb](https://github.com/glpi-project/android-inventory-agent/commit/429571fbb))
-* **build:** fix push to google play ([08adc0c95](https://github.com/glpi-project/android-inventory-agent/commit/08adc0c95))
-* **build:** fix push to google play ([e5eced21c](https://github.com/glpi-project/android-inventory-agent/commit/e5eced21c))
-* **build:** remove useless gradle process ([b792a8ed9](https://github.com/glpi-project/android-inventory-agent/commit/b792a8ed9))
-* **build:** set changesNotSentForReview parameter ([1ddc36906](https://github.com/glpi-project/android-inventory-agent/commit/1ddc36906))
-* **core:** remove useless permission ([2da1434d0](https://github.com/glpi-project/android-inventory-agent/commit/2da1434d0))
-* **core:** remove useless permission ([3fe22bf3a](https://github.com/glpi-project/android-inventory-agent/commit/3fe22bf3a))
-* **core:** remove useless permission ([879629061](https://github.com/glpi-project/android-inventory-agent/commit/879629061))
-* **permissions:** remove useless permissions ([704fe3679](https://github.com/glpi-project/android-inventory-agent/commit/704fe3679))
-* **release:** fix GithubAction workflow ([c47d125f2](https://github.com/glpi-project/android-inventory-agent/commit/c47d125f2))
-* **release:** fix GithubAction workflow ([a19ea9536](https://github.com/glpi-project/android-inventory-agent/commit/a19ea9536))
+### ⚙️ Miscellaneous Tasks
 
+- *(release)* Update version on android manifest
+- *(release)* Release new version 1.4.0
 
-### Features
+## [1.4.0] - 2023-11-16
 
-* **build:** Migrate develop PullRequest CircleCI to GithubAction ([6f0293645](https://github.com/glpi-project/android-inventory-agent/commit/6f0293645))
-* **build:** Migrate develop Push CircleCI to GithubAction ([fefd99184](https://github.com/glpi-project/android-inventory-agent/commit/fefd99184))
-* **build:** Migrate develop Push CircleCI to GithubAction (V2) ([4d12ea314](https://github.com/glpi-project/android-inventory-agent/commit/4d12ea314))
-* **build:** Release workflow with GithubAction ([a1c9efb36](https://github.com/glpi-project/android-inventory-agent/commit/a1c9efb36))
-* **core:** bump SdkVersion to 33 ([88d4d9a89](https://github.com/glpi-project/android-inventory-agent/commit/88d4d9a89))
-* **doc:** update README ([2be9b15b4](https://github.com/glpi-project/android-inventory-agent/commit/2be9b15b4))
-* **test:** move to OS version 31 ([d93859311](https://github.com/glpi-project/android-inventory-agent/commit/d93859311))
+### 🚀 Features
 
+- *(Inventory)* Added option to override serial number
 
+### 💼 Other
 
-<a name=1.2.0></a>
-## [1.2.0](https://github.com/glpi-project/android-inventory-agent/compare/1.1.0..1.2.0) (2022-04-21)
+- *(deps)* Bump minimatch, decode-uri-component, semver-regex
 
+### ⚙️ Miscellaneous Tasks
 
-### Bug Fixes
+- *(release)* Release new version 1.3.0
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
 
-* **build:** fix version value ([1fdec3273](https://github.com/glpi-project/android-inventory-agent/commit/1fdec3273))
-* **release:** fix changelog ([cce94b2e2](https://github.com/glpi-project/android-inventory-agent/commit/cce94b2e2))
-* **share:** fix file path ([da4c21925](https://github.com/glpi-project/android-inventory-agent/commit/da4c21925))
-* **share:** share only XML file ([ed3badc2c](https://github.com/glpi-project/android-inventory-agent/commit/ed3badc2c))
+## [1.3.0] - 2023-09-04
 
+### 🚀 Features
 
-### Features
+- *(build)* Migrate develop PullRequest CircleCI to GithubAction
+- *(build)* Migrate develop Push CircleCI to GithubAction
+- *(core)* Bump SdkVersion to 33
+- *(build)* Migrate develop Push CircleCI to GithubAction (V2)
+- *(test)* Move to OS version 31
+- *(build)* Release workflow with GithubAction
+- *(doc)* Update README
 
-* **core:** bump Compil / Target SdkVersion to 30 ([5c22664e1](https://github.com/glpi-project/android-inventory-agent/commit/5c22664e1))
-* **core:** native inventory compatibility ([ca04a571f](https://github.com/glpi-project/android-inventory-agent/commit/ca04a571f))
-* **core:** use innentory library as external lib instead of dependencies ([46d738fc6](https://github.com/glpi-project/android-inventory-agent/commit/46d738fc6))
-* **readme:** update readme ([ab19a2e7f](https://github.com/glpi-project/android-inventory-agent/commit/ab19a2e7f))
-* **readme:** update readme ([0d93b4d03](https://github.com/glpi-project/android-inventory-agent/commit/0d93b4d03))
+### 🐛 Bug Fixes
 
+- *(IntentService)* Use FLAG_MUTABLE
+- *(build)* Downgrade mockito
+- *(build)* Set changesNotSentForReview parameter
+- *(build)* Remove old CI workflow
+- *(build)* Remove useless gradle process
+- *(release)* Fix GithubAction workflow
+- *(release)* Fix GithubAction workflow
+- *(core)* Remove useless permission
+- *(core)* Remove useless permission
+- *(core)* Remove useless permission
+- *(build)* Capability to retrieve VersionCode
+- *(build)* Fix push to google play
+- *(build)* Fix push to google play
+- *(permissions)* Remove useless permissions
+- *(build)* Fix changesNotSentForReview
 
+### ⚙️ Miscellaneous Tasks
 
-<a name=1.1.0></a>
-## [1.1.0](https://github.com/glpi-project/android-inventory-agent/compare/1.0.0..1.1.0) (2021-09-30)
+- *(release)* Update version on android manifest
+- *(release)* Release new version 1.3.0
 
+## [1.2.0] - 2022-04-21
 
-### Bug Fixes
+### 🚀 Features
 
-* **boot:** fix boot for API < 26 ([4c13275e6](https://github.com/glpi-project/android-inventory-agent/commit/4c13275e6))
-* **boot:** fix boot for API >= 26 (as forground service) ([171e6c146](https://github.com/glpi-project/android-inventory-agent/commit/171e6c146))
-* **build:** bump version for urllib3 ([a94db6a0d](https://github.com/glpi-project/android-inventory-agent/commit/a94db6a0d))
-* **build:** disable create_doc from circleci ([ddb481331](https://github.com/glpi-project/android-inventory-agent/commit/ddb481331))
-* **build:** fix javadoc generation ([55a58c099](https://github.com/glpi-project/android-inventory-agent/commit/55a58c099))
-* **build:** install latest version for python ([43f2dbce2](https://github.com/glpi-project/android-inventory-agent/commit/43f2dbce2))
-* **build:** install rake gem ([fcb852497](https://github.com/glpi-project/android-inventory-agent/commit/fcb852497))
-* **build:** javadoc fix ([b3a368dc0](https://github.com/glpi-project/android-inventory-agent/commit/b3a368dc0))
-* **build:** minSDK to 19 for UIAutomator test ([f39fb8fb6](https://github.com/glpi-project/android-inventory-agent/commit/f39fb8fb6))
-* **build:** replace useless JAVA option ([a9112b502](https://github.com/glpi-project/android-inventory-agent/commit/a9112b502))
-* **build:** update somes packages ([0ee30642a](https://github.com/glpi-project/android-inventory-agent/commit/0ee30642a))
-* **build:** upgrade request first ([8a6baa586](https://github.com/glpi-project/android-inventory-agent/commit/8a6baa586))
-* **changelog:** clean changelog ([d2800c928](https://github.com/glpi-project/android-inventory-agent/commit/d2800c928))
-* **core:** fix default value ([c8cb30488](https://github.com/glpi-project/android-inventory-agent/commit/c8cb30488))
-* **core:** fix start app on device boot completed ([1e35a5621](https://github.com/glpi-project/android-inventory-agent/commit/1e35a5621))
-* **core:** security fix, upgrade package minimist and dot-prop ([749c30295](https://github.com/glpi-project/android-inventory-agent/commit/749c30295))
-* **doc:** fix generated doc ([944788245](https://github.com/glpi-project/android-inventory-agent/commit/944788245))
-* **doc:** fix javadoc args ([3f6509a5c](https://github.com/glpi-project/android-inventory-agent/commit/3f6509a5c))
-* **doc:** fix javadoc args ([47480f1b6](https://github.com/glpi-project/android-inventory-agent/commit/47480f1b6))
-* **doc:** remove useless arg from JDK 11 ([171af3ec5](https://github.com/glpi-project/android-inventory-agent/commit/171af3ec5))
-* **doc:** use jre 8 instead of 11 ([1d2f7e532](https://github.com/glpi-project/android-inventory-agent/commit/1d2f7e532))
-* **doc:** use jre 8 instead of 11 ([71032e619](https://github.com/glpi-project/android-inventory-agent/commit/71032e619))
-* **fastlane:** set changes_not_sent_for_review arg ([9a085e31e](https://github.com/glpi-project/android-inventory-agent/commit/9a085e31e))
-* **fastlane:** set changes_not_sent_for_review arg ([19d675f7b](https://github.com/glpi-project/android-inventory-agent/commit/19d675f7b))
-* **inventory:** manage cyrillic content ([66fe50476](https://github.com/glpi-project/android-inventory-agent/commit/66fe50476))
-* **readme:** fix GLPI Agent version ([9ada55188](https://github.com/glpi-project/android-inventory-agent/commit/9ada55188))
-* **readme:** readme review for professional support ([c2665b505](https://github.com/glpi-project/android-inventory-agent/commit/c2665b505))
-* **ui:** better managment for back pressed ([e7f34a308](https://github.com/glpi-project/android-inventory-agent/commit/e7f34a308))
-* **ui:** manage backpressed on fragment ([d61d2f4b1](https://github.com/glpi-project/android-inventory-agent/commit/d61d2f4b1))
+- *(core)* Native inventory compatibility
+- *(core)* Bump Compil / Target SdkVersion to 30
+- *(core)* Use innentory library as external lib instead of dependencies
+- *(readme)* Update readme
 
+### 🐛 Bug Fixes
 
-### Features
+- *(release)* Fix changelog
+- *(build)* Fix version value
+- *(share)* Fix file path
+- *(share)* Share only XML file
 
-* **about:** add GitHub infos ([3669d53ba](https://github.com/glpi-project/android-inventory-agent/commit/3669d53ba))
-* **core:** manage on startup option from qrcode or deeplink ([610c2e28e](https://github.com/glpi-project/android-inventory-agent/commit/610c2e28e))
-* **dependencies:** upgrade yarn packages ([2b0832f78](https://github.com/glpi-project/android-inventory-agent/commit/2b0832f78))
-* **share:** inform user of the risks of sharing ([ec277bec9](https://github.com/glpi-project/android-inventory-agent/commit/ec277bec9))
-* **ui:** allow disable notification from itself ([e20e812be](https://github.com/glpi-project/android-inventory-agent/commit/e20e812be))
+### 💼 Other
 
+- *(manifest)* Increase version value
+- *(deps)* Bump minimist from 0.2.1 to 1.2.6
+- *(deps)* Bump trim-off-newlines from 1.0.2 to 1.0.3
+- *(deps)* Bump async from 2.6.3 to 2.6.4
+- *(core)* Bump version
+- *(core)* Bump version from package
 
+### ⚙️ Miscellaneous Tasks
 
-<a name=1.0.0></a>
-## [1.0.0](https://github.com/glpi-project/android-inventory-agent/compare/..1.0.0) (2020-01-07)
+- *(release)* Update version on android manifest
+- *(release)* Generate CHANGELOG.md for version 1.2.0
 
+## [1.1.0] - 2021-09-30
 
-### Bug Fixes
+### 🚀 Features
 
-*  remove modules file created by IntelliJ IDEA ([01d80bef5](https://github.com/glpi-project/android-inventory-agent/commit/01d80bef5))
-* **UI:** fix accessibility ([eff6fdfdb](https://github.com/glpi-project/android-inventory-agent/commit/eff6fdfdb))
-* **about:** close link tag on last commit link ([09ba4e098](https://github.com/glpi-project/android-inventory-agent/commit/09ba4e098))
-* **about:** retrieve informations from properties ([783de81d4](https://github.com/glpi-project/android-inventory-agent/commit/783de81d4))
-* **alarm:** check if execute the inventory ([e23e5ffe8](https://github.com/glpi-project/android-inventory-agent/commit/e23e5ffe8))
-* **alarm:** set repeting with interval day ([2b2663253](https://github.com/glpi-project/android-inventory-agent/commit/2b2663253))
-* **alarm:** update alarm repeating time ([920a1bfe8](https://github.com/glpi-project/android-inventory-agent/commit/920a1bfe8))
-* **anonymous:** add application json on request property ([7d2771063](https://github.com/glpi-project/android-inventory-agent/commit/7d2771063))
-* **apk:** changed version code in manifest ([a0584c00d](https://github.com/glpi-project/android-inventory-agent/commit/a0584c00d))
-* **apk:** changed version code in manifest ([13d216679](https://github.com/glpi-project/android-inventory-agent/commit/13d216679))
-* **build:** add draft status ([d0229e86c](https://github.com/glpi-project/android-inventory-agent/commit/d0229e86c))
-* **build:** build gem without document ([2d58122e3](https://github.com/glpi-project/android-inventory-agent/commit/2d58122e3))
-* **build:** bump mockito-android version to 2.21.0 ([c8c34057a](https://github.com/glpi-project/android-inventory-agent/commit/c8c34057a))
-* **build:** bump version code ([af800cafc](https://github.com/glpi-project/android-inventory-agent/commit/af800cafc))
-* **build:** do not add apk with release ([fc54ad189](https://github.com/glpi-project/android-inventory-agent/commit/fc54ad189))
-* **build:** do not run firebase test labs for teclib-bot ([80a3fd54a](https://github.com/glpi-project/android-inventory-agent/commit/80a3fd54a))
-* **build:** fastlane step ([e7b987fd0](https://github.com/glpi-project/android-inventory-agent/commit/e7b987fd0))
-* **build:** fix fastlane ([d9cbeaa83](https://github.com/glpi-project/android-inventory-agent/commit/d9cbeaa83))
-* **build:** fix fastlane workflow ([963c7fcb5](https://github.com/glpi-project/android-inventory-agent/commit/963c7fcb5))
-* **build:** fix patch for create_about_data ([57bc5fe02](https://github.com/glpi-project/android-inventory-agent/commit/57bc5fe02))
-* **build:** fix path for create_about_data with gradle ([d44e6c1ef](https://github.com/glpi-project/android-inventory-agent/commit/d44e6c1ef))
-* **build:** fix release ([41a30ebe2](https://github.com/glpi-project/android-inventory-agent/commit/41a30ebe2))
-* **build:** fix version code incremental ([f325350a5](https://github.com/glpi-project/android-inventory-agent/commit/f325350a5))
-* **build:** gem update without document ([6d9dfc5c8](https://github.com/glpi-project/android-inventory-agent/commit/6d9dfc5c8))
-* **build:** implement inventory library 0.8.6 ([d95498867](https://github.com/glpi-project/android-inventory-agent/commit/d95498867))
-* **build:** prevent error on build ([83364cd69](https://github.com/glpi-project/android-inventory-agent/commit/83364cd69))
-* **build:** reload gemfile.lock ([dcf373954](https://github.com/glpi-project/android-inventory-agent/commit/dcf373954))
-* **build:** run create_about_data ([7820406af](https://github.com/glpi-project/android-inventory-agent/commit/7820406af))
-* **build:** update about.properties file ([ee18b9ed0](https://github.com/glpi-project/android-inventory-agent/commit/ee18b9ed0))
-* **build:** update ci script ([4d3d21971](https://github.com/glpi-project/android-inventory-agent/commit/4d3d21971))
-* **build:** update fastlane to 2.137.0 ([9d4ae0d72](https://github.com/glpi-project/android-inventory-agent/commit/9d4ae0d72))
-* **ci:** fix javadoc generation ([0ceccfb8a](https://github.com/glpi-project/android-inventory-agent/commit/0ceccfb8a))
-* **connection:** add default value to URL ([2f3e3bddf](https://github.com/glpi-project/android-inventory-agent/commit/2f3e3bddf))
-* **connection:** add default value to URL ([214cfd601](https://github.com/glpi-project/android-inventory-agent/commit/214cfd601))
-* **connection:** allow work on main thread ([7fee1b767](https://github.com/glpi-project/android-inventory-agent/commit/7fee1b767))
-* **connection:** return method when the validation is true ([f56db8f56](https://github.com/glpi-project/android-inventory-agent/commit/f56db8f56))
-* **connection:** return method when the validation is true ([1c1022b55](https://github.com/glpi-project/android-inventory-agent/commit/1c1022b55))
-* **connection:** validated https connection ([008371d7a](https://github.com/glpi-project/android-inventory-agent/commit/008371d7a))
-* **connection:** validated https connection ([166f678c3](https://github.com/glpi-project/android-inventory-agent/commit/166f678c3))
-* **core:** add support for HTTP ([0a4943cdb](https://github.com/glpi-project/android-inventory-agent/commit/0a4943cdb))
-* **core:** fix compatibility intent with android 28 ([fe426e5c1](https://github.com/glpi-project/android-inventory-agent/commit/fe426e5c1))
-* **data:** fix anonymous data summary text ([f1a44678d](https://github.com/glpi-project/android-inventory-agent/commit/f1a44678d))
-* **design:** change UI/UX ([3e53cc4b4](https://github.com/glpi-project/android-inventory-agent/commit/3e53cc4b4))
-* **fastlane:** do not run gradle assemble ([999221886](https://github.com/glpi-project/android-inventory-agent/commit/999221886))
-* **fastlane:** do not run gradle test, it's already done before ([d053c3968](https://github.com/glpi-project/android-inventory-agent/commit/d053c3968))
-* **fastlane:** env var ([adc10940d](https://github.com/glpi-project/android-inventory-agent/commit/adc10940d))
-* **fastlane:** fix env variables ([98d487672](https://github.com/glpi-project/android-inventory-agent/commit/98d487672))
-* **fastlane:** fix env variables and path ([5a0ce8667](https://github.com/glpi-project/android-inventory-agent/commit/5a0ce8667))
-* **fastlane:** update keystore ([5f5f8d3ae](https://github.com/glpi-project/android-inventory-agent/commit/5f5f8d3ae))
-* **gradle:** fix gradle repositories ([9fc0b1079](https://github.com/glpi-project/android-inventory-agent/commit/9fc0b1079))
-* **help:** prevent error from android lollipop and WebView ([27f376128](https://github.com/glpi-project/android-inventory-agent/commit/27f376128))
-* **icon:** change icon jpg by background color ([e784cb4b4](https://github.com/glpi-project/android-inventory-agent/commit/e784cb4b4))
-* **icon:** shown icon app with API below 26 ([f586b2d7f](https://github.com/glpi-project/android-inventory-agent/commit/f586b2d7f))
-* **icon:** shown icon app with API below 26 ([43d7b0c23](https://github.com/glpi-project/android-inventory-agent/commit/43d7b0c23))
-* **inventory:** add log messages ([449c2458e](https://github.com/glpi-project/android-inventory-agent/commit/449c2458e))
-* **inventory:** catch empty url exception ([3a5351718](https://github.com/glpi-project/android-inventory-agent/commit/3a5351718))
-* **inventory:** fix http user-agent informations ([80bb00187](https://github.com/glpi-project/android-inventory-agent/commit/80bb00187))
-* **inventory:** set content type and charset correctly ([72c2cda16](https://github.com/glpi-project/android-inventory-agent/commit/72c2cda16))
-* **inventory:** validate headers response ([dc978dd27](https://github.com/glpi-project/android-inventory-agent/commit/dc978dd27))
-* **inventory:** validate http response ([7bd2f1fa1](https://github.com/glpi-project/android-inventory-agent/commit/7bd2f1fa1))
-* **log:** improve log ([1ec2384b8](https://github.com/glpi-project/android-inventory-agent/commit/1ec2384b8))
-* **main:** remove request permission ([6e61dd44a](https://github.com/glpi-project/android-inventory-agent/commit/6e61dd44a))
-* **memory:** add large heap in manifest ([79d2e73d0](https://github.com/glpi-project/android-inventory-agent/commit/79d2e73d0))
-* **package:** update conventional-github-releaser to version 2.0.0 ([f83cf3365](https://github.com/glpi-project/android-inventory-agent/commit/f83cf3365))
-* **package:** update conventional-github-releaser to version 3.0.0 ([63eb802b5](https://github.com/glpi-project/android-inventory-agent/commit/63eb802b5))
-* **package:** update mem to version 6.0.0 ([e3b8daf55](https://github.com/glpi-project/android-inventory-agent/commit/e3b8daf55))
-* **permission:** add missing permission ([5c49a2337](https://github.com/glpi-project/android-inventory-agent/commit/5c49a2337))
-* **permission:** move next screen from main to permission ([19c4538d0](https://github.com/glpi-project/android-inventory-agent/commit/19c4538d0))
-* **progress:** change behavior progress bar ([c04f8a49f](https://github.com/glpi-project/android-inventory-agent/commit/c04f8a49f))
-* **progress:** change behavior progress bar ([255e3c3b1](https://github.com/glpi-project/android-inventory-agent/commit/255e3c3b1))
-* **readme:** fix greenkeeper badge ([11b001ff2](https://github.com/glpi-project/android-inventory-agent/commit/11b001ff2))
-* **readme:** update informations ([6e4e4ea75](https://github.com/glpi-project/android-inventory-agent/commit/6e4e4ea75))
-* **readme:** update informations ([e3cb99220](https://github.com/glpi-project/android-inventory-agent/commit/e3cb99220))
-* **schedule:** automatic inventory by default disable ([1c01f14f6](https://github.com/glpi-project/android-inventory-agent/commit/1c01f14f6))
-* **schedule:** automatic inventory by default disable ([66e9b08cd](https://github.com/glpi-project/android-inventory-agent/commit/66e9b08cd))
-* **schedule:** change type schedule to send inventory ([3f4edee21](https://github.com/glpi-project/android-inventory-agent/commit/3f4edee21))
-* **schedule:** change type schedule to send inventory ([38fe7972d](https://github.com/glpi-project/android-inventory-agent/commit/38fe7972d))
-* **schedule:** validated if change the schedule ([435e81a0b](https://github.com/glpi-project/android-inventory-agent/commit/435e81a0b))
-* **schedule:** validated if change the schedule ([ce455674a](https://github.com/glpi-project/android-inventory-agent/commit/ce455674a))
-* **security:** update deps (yarn and gem) ([bf66d0c3b](https://github.com/glpi-project/android-inventory-agent/commit/bf66d0c3b))
-* **security:** update deps (yarn and gem) ([b1314ac4c](https://github.com/glpi-project/android-inventory-agent/commit/b1314ac4c))
-* **security:** update yarn package ([e9bf76ddb](https://github.com/glpi-project/android-inventory-agent/commit/e9bf76ddb))
-* **service:** add parameter to inventory task ([08b8b1950](https://github.com/glpi-project/android-inventory-agent/commit/08b8b1950))
-* **service:** add parameter to inventory task ([9e024da56](https://github.com/glpi-project/android-inventory-agent/commit/9e024da56))
-* **service:** add parameter to inventory task in dialog list ([4ed524076](https://github.com/glpi-project/android-inventory-agent/commit/4ed524076))
-* **service:** add parameter to inventory task in dialog list ([d1de75d87](https://github.com/glpi-project/android-inventory-agent/commit/d1de75d87))
-* **service:** add parameter to inventory task in test ([26ba990c7](https://github.com/glpi-project/android-inventory-agent/commit/26ba990c7))
-* **service:** add parameter to inventory task in test ([803e49fce](https://github.com/glpi-project/android-inventory-agent/commit/803e49fce))
-* **service:** add parameter to inventory task in time alarm ([0af39bbc1](https://github.com/glpi-project/android-inventory-agent/commit/0af39bbc1))
-* **service:** add parameter to inventory task in time alarm ([e10642dc5](https://github.com/glpi-project/android-inventory-agent/commit/e10642dc5))
-* **service:** added permission foreground service ([24a7a49e3](https://github.com/glpi-project/android-inventory-agent/commit/24a7a49e3))
-* **service:** added permission foreground service ([d04659094](https://github.com/glpi-project/android-inventory-agent/commit/d04659094))
-* **service:** improved xml to send in test ([73a80a0fa](https://github.com/glpi-project/android-inventory-agent/commit/73a80a0fa))
-* **service:** improved xml to send in test ([8312c98d2](https://github.com/glpi-project/android-inventory-agent/commit/8312c98d2))
-* **service:** validated version Android to call service ([27bf73928](https://github.com/glpi-project/android-inventory-agent/commit/27bf73928))
-* **service:** validated version Android to call service ([47f1656df](https://github.com/glpi-project/android-inventory-agent/commit/47f1656df))
-* **share:** implement the inventory library share method ([b47402674](https://github.com/glpi-project/android-inventory-agent/commit/b47402674))
-* **share:** prevent error (transactiontoolarge) on share inventory ([858d2b9da](https://github.com/glpi-project/android-inventory-agent/commit/858d2b9da))
-* **splash:** add postdelayed direct on splash activity ([ecd088182](https://github.com/glpi-project/android-inventory-agent/commit/ecd088182))
-* **toolbar:** fix toolbar nullpointerexception ([bf851dfc4](https://github.com/glpi-project/android-inventory-agent/commit/bf851dfc4))
-* **ui:** add delay on request permission popup ([e4fade7ac](https://github.com/glpi-project/android-inventory-agent/commit/e4fade7ac))
-* **ui:** change icon / banner ([703d0faf1](https://github.com/glpi-project/android-inventory-agent/commit/703d0faf1))
-* **ui:** fix crash on orientation change ([65838915d](https://github.com/glpi-project/android-inventory-agent/commit/65838915d))
-* **ui:** update logo ([a281af94c](https://github.com/glpi-project/android-inventory-agent/commit/a281af94c))
+- *(about)* Add GitHub infos
+- *(share)* Inform user of the risks of sharing
+- *(ui)* Allow disable notification from itself
+- *(core)* Manage on startup option from qrcode or deeplink
+- *(dependencies)* Upgrade yarn packages
 
+### 🐛 Bug Fixes
 
-### Features
+- *(changelog)* Clean changelog
+- *(ui)* Manage backpressed on fragment
+- *(ui)* Better managment for back pressed
+- *(core)* Fix start app on device boot completed
+- *(build)* Install latest version for python
+- *(build)* Replace useless JAVA option
+- *(build)* Bump version for urllib3
+- *(build)* Upgrade request first
+- *(doc)* Remove useless arg from JDK 11
+- *(doc)* Fix javadoc args
+- *(core)* Security fix, upgrade package minimist and dot-prop
+- *(doc)* Fix javadoc args
+- *(doc)* Use jre 8 instead of 11
+- *(doc)* Use jre 8 instead of 11
+- *(inventory)* Manage cyrillic content
+- *(build)* Javadoc fix
+- *(doc)* Fix generated doc
+- *(build)* Update somes packages
+- *(build)* Install rake gem
+- *(build)* MinSDK to 19 for UIAutomator test
+- *(build)* Fix javadoc generation
+- *(build)* Disable create_doc from circleci
+- *(fastlane)* Set changes_not_sent_for_review arg
+- *(fastlane)* Set changes_not_sent_for_review arg
+- *(boot)* Fix boot for API >= 26 (as forground service)
+- *(core)* Fix default value
+- *(boot)* Fix boot for API < 26
+- *(readme)* Readme review for professional support
+- *(readme)* Fix GLPI Agent version
 
-*  Add the inventory engine as dependency (#3) ([a22641da2](https://github.com/glpi-project/android-inventory-agent/commit/a22641da2))
-*  improve memory to get information inventory ([d96b6c275](https://github.com/glpi-project/android-inventory-agent/commit/d96b6c275))
-* **about:** add about screen ([4c985900e](https://github.com/glpi-project/android-inventory-agent/commit/4c985900e))
-* **about:** add html and properties information ([246109513](https://github.com/glpi-project/android-inventory-agent/commit/246109513))
-* **about:** add preference about item ([2f86181e8](https://github.com/glpi-project/android-inventory-agent/commit/2f86181e8))
-* **about:** add toolbar ([c384af731](https://github.com/glpi-project/android-inventory-agent/commit/c384af731))
-* **acra:** add acra library ([816c17449](https://github.com/glpi-project/android-inventory-agent/commit/816c17449))
-* **acra:** configuring acra ([47fe50706](https://github.com/glpi-project/android-inventory-agent/commit/47fe50706))
-* **acra:** remove acra resources ([47c448923](https://github.com/glpi-project/android-inventory-agent/commit/47c448923))
-* **acra:** set tracepot like server and add aditional setup ([4958fc720](https://github.com/glpi-project/android-inventory-agent/commit/4958fc720))
-* **assets:** add graphic resources and translations  (#16) ([83f0afd2a](https://github.com/glpi-project/android-inventory-agent/commit/83f0afd2a))
-* **bugsnag:** add custom endpoint ([37f92da72](https://github.com/glpi-project/android-inventory-agent/commit/37f92da72))
-* **bugsnag:** implement basic bugsnag feature ([4ffa59b07](https://github.com/glpi-project/android-inventory-agent/commit/4ffa59b07))
-* **build:** bump fastlane v2.137.0 to v2.138.0 ([8c47235d2](https://github.com/glpi-project/android-inventory-agent/commit/8c47235d2))
-* **cache:** add long and boolean cache method ([d65afb215](https://github.com/glpi-project/android-inventory-agent/commit/d65afb215))
-* **categories:** MVC to categories ([6b73ab0ed](https://github.com/glpi-project/android-inventory-agent/commit/6b73ab0ed))
-* **categories:** add views and button ([f358e6a00](https://github.com/glpi-project/android-inventory-agent/commit/f358e6a00))
-* **categories:** show specific categories in resport ([69b97bdb3](https://github.com/glpi-project/android-inventory-agent/commit/69b97bdb3))
-* **categories:** validate format string to categories ([d4cc1d6e6](https://github.com/glpi-project/android-inventory-agent/commit/d4cc1d6e6))
-* **core:** add DeepLink to add servers informations ([605af5c36](https://github.com/glpi-project/android-inventory-agent/commit/605af5c36))
-* **core:** add QR code scanner to add servers informations ([f8ef6f239](https://github.com/glpi-project/android-inventory-agent/commit/f8ef6f239))
-* **core:** add firebase crash report ([07bab37b9](https://github.com/glpi-project/android-inventory-agent/commit/07bab37b9))
-* **core:** manage schedule inventory with deeplink and qrcode ([bed1bacaa](https://github.com/glpi-project/android-inventory-agent/commit/bed1bacaa))
-* **core:** rename app ([7a7c808e3](https://github.com/glpi-project/android-inventory-agent/commit/7a7c808e3))
-* **core:** update README ([79bb35f71](https://github.com/glpi-project/android-inventory-agent/commit/79bb35f71))
-* **core:** update branding and package name ([88316fdde](https://github.com/glpi-project/android-inventory-agent/commit/88316fdde))
-* **core:** update circleci image ([50ca36746](https://github.com/glpi-project/android-inventory-agent/commit/50ca36746))
-* **core:** update license ([793f2128a](https://github.com/glpi-project/android-inventory-agent/commit/793f2128a))
-* **countdown:** check the auto inventory to show the countdown ([b44a47f26](https://github.com/glpi-project/android-inventory-agent/commit/b44a47f26))
-* **design:** add check type item layout for home list ([84fe48113](https://github.com/glpi-project/android-inventory-agent/commit/84fe48113))
-* **design:** add default item layout for home list ([407634c5d](https://github.com/glpi-project/android-inventory-agent/commit/407634c5d))
-* **design:** add drawer menu adapter ([65ddf88ed](https://github.com/glpi-project/android-inventory-agent/commit/65ddf88ed))
-* **design:** add drawer menu titles ([b1d439868](https://github.com/glpi-project/android-inventory-agent/commit/b1d439868))
-* **design:** add global parameters layout ([f53ba44af](https://github.com/glpi-project/android-inventory-agent/commit/f53ba44af))
-* **design:** add global parameters preference ([268d7f9bf](https://github.com/glpi-project/android-inventory-agent/commit/268d7f9bf))
-* **design:** add header type item layout for home list ([96e5bf39f](https://github.com/glpi-project/android-inventory-agent/commit/96e5bf39f))
-* **design:** add icons resources ([dc9204164](https://github.com/glpi-project/android-inventory-agent/commit/dc9204164))
-* **design:** add inventory options ([3ae698614](https://github.com/glpi-project/android-inventory-agent/commit/3ae698614))
-* **design:** add inventory parameters layout ([1f517a746](https://github.com/glpi-project/android-inventory-agent/commit/1f517a746))
-* **design:** add inventory parameters preference ([28dd85030](https://github.com/glpi-project/android-inventory-agent/commit/28dd85030))
-* **design:** add list item drawer layout ([38c21f98d](https://github.com/glpi-project/android-inventory-agent/commit/38c21f98d))
-* **design:** add list on layout ([6b06d368c](https://github.com/glpi-project/android-inventory-agent/commit/6b06d368c))
-* **design:** add main activity ([4703aeca6](https://github.com/glpi-project/android-inventory-agent/commit/4703aeca6))
-* **design:** add send anonymous data method ([1f6cd8f9e](https://github.com/glpi-project/android-inventory-agent/commit/1f6cd8f9e))
-* **design:** add service and options ([550a892d7](https://github.com/glpi-project/android-inventory-agent/commit/550a892d7))
-* **design:** add text styles ([1a780c919](https://github.com/glpi-project/android-inventory-agent/commit/1a780c919))
-* **design:** create home adapter ([70a1bea94](https://github.com/glpi-project/android-inventory-agent/commit/70a1bea94))
-* **design:** create home schema for list ([e9a1f134b](https://github.com/glpi-project/android-inventory-agent/commit/e9a1f134b))
-* **design:** implement about like fragment ([c26b568ed](https://github.com/glpi-project/android-inventory-agent/commit/c26b568ed))
-* **design:** launch main activity ([63cb23a9f](https://github.com/glpi-project/android-inventory-agent/commit/63cb23a9f))
-* **design:** request permission to the user ([bcbccaeb9](https://github.com/glpi-project/android-inventory-agent/commit/bcbccaeb9))
-* **design:** update design with drawer and toolbar ([4364b4c5d](https://github.com/glpi-project/android-inventory-agent/commit/4364b4c5d))
-* **design:** update main activity layout ([e7dfa7cf0](https://github.com/glpi-project/android-inventory-agent/commit/e7dfa7cf0))
-* **easteregg:** add easter egg crash report ([266444bb8](https://github.com/glpi-project/android-inventory-agent/commit/266444bb8))
-* **help:** add help implementation ([39f2793c4](https://github.com/glpi-project/android-inventory-agent/commit/39f2793c4))
-* **icon:** add adaptive icon to android oreo ([03f2e3264](https://github.com/glpi-project/android-inventory-agent/commit/03f2e3264))
-* **icon:** add adaptive icon to android oreo ([42e9677a2](https://github.com/glpi-project/android-inventory-agent/commit/42e9677a2))
-* **inventory:** Send inventory to all servers ([10b4478b6](https://github.com/glpi-project/android-inventory-agent/commit/10b4478b6))
-* **inventory:** Send inventory to all servers ([e57410950](https://github.com/glpi-project/android-inventory-agent/commit/e57410950))
-* **inventory:** add count down on the service ([da2e70f8b](https://github.com/glpi-project/android-inventory-agent/commit/da2e70f8b))
-* **inventory:** add description information on version client ([bf4b79313](https://github.com/glpi-project/android-inventory-agent/commit/bf4b79313))
-* **inventory:** add line separate and background color list ([65790de99](https://github.com/glpi-project/android-inventory-agent/commit/65790de99))
-* **inventory:** add line separate and background color list ([4fff0393e](https://github.com/glpi-project/android-inventory-agent/commit/4fff0393e))
-* **inventory:** add progress dialog running inventory ([b418b50f4](https://github.com/glpi-project/android-inventory-agent/commit/b418b50f4))
-* **inventory:** add tablayout ([ddd4485d0](https://github.com/glpi-project/android-inventory-agent/commit/ddd4485d0))
-* **inventory:** add tablayout ([23a1c865a](https://github.com/glpi-project/android-inventory-agent/commit/23a1c865a))
-* **inventory:** add viewpager and show info ([11bfb5dba](https://github.com/glpi-project/android-inventory-agent/commit/11bfb5dba))
-* **inventory:** add viewpager and show info ([3c86a58e3](https://github.com/glpi-project/android-inventory-agent/commit/3c86a58e3))
-* **inventory:** bump android inventory library from 1.3.6 to 1.4.0 ([78522797a](https://github.com/glpi-project/android-inventory-agent/commit/78522797a))
-* **inventory:** bump inventory lib 0.12.0 to 1.3.6 ([34605620c](https://github.com/glpi-project/android-inventory-agent/commit/34605620c))
-* **inventory:** changed style tab information ([e3b0412d2](https://github.com/glpi-project/android-inventory-agent/commit/e3b0412d2))
-* **inventory:** changed style tab information ([7c1064428](https://github.com/glpi-project/android-inventory-agent/commit/7c1064428))
-* **inventory:** implement count down ([a3224deda](https://github.com/glpi-project/android-inventory-agent/commit/a3224deda))
-* **inventory:** remove header in specific tab ([dad9f303b](https://github.com/glpi-project/android-inventory-agent/commit/dad9f303b))
-* **inventory:** remove header in specific tab ([05e05ca99](https://github.com/glpi-project/android-inventory-agent/commit/05e05ca99))
-* **inventory:** remove tab to empty information ([d680a6163](https://github.com/glpi-project/android-inventory-agent/commit/d680a6163))
-* **inventory:** remove tab to empty information ([2d1e55f5f](https://github.com/glpi-project/android-inventory-agent/commit/2d1e55f5f))
-* **inventory:** send inventory on thread ([6da1a06d5](https://github.com/glpi-project/android-inventory-agent/commit/6da1a06d5))
-* **language:** add catalan language ([cefb6e0e4](https://github.com/glpi-project/android-inventory-agent/commit/cefb6e0e4))
-* **language:** add catalan language ([12bb53e15](https://github.com/glpi-project/android-inventory-agent/commit/12bb53e15))
-* **library:** update inventory library ([51860529b](https://github.com/glpi-project/android-inventory-agent/commit/51860529b))
-* **menu:** update inventory icon ([d5ec4af5c](https://github.com/glpi-project/android-inventory-agent/commit/d5ec4af5c))
-* **notification:** send message to notification bar ([97b19fbf3](https://github.com/glpi-project/android-inventory-agent/commit/97b19fbf3))
-* **permission:** add request permission screen ([fcce74188](https://github.com/glpi-project/android-inventory-agent/commit/fcce74188))
-* **privacy:** add privacy functionality ([c372bc8a8](https://github.com/glpi-project/android-inventory-agent/commit/c372bc8a8))
-* **privacy:** add privacy on anonymous data ([faea7e6ef](https://github.com/glpi-project/android-inventory-agent/commit/faea7e6ef))
-* **readme:** add badges ([aff3d095f](https://github.com/glpi-project/android-inventory-agent/commit/aff3d095f))
-* **readme:** add screenshots ([ccf01b347](https://github.com/glpi-project/android-inventory-agent/commit/ccf01b347))
-* **readme:** change logo ([7dc381d5d](https://github.com/glpi-project/android-inventory-agent/commit/7dc381d5d))
-* **servers:** add button and list server activity ([24f860587](https://github.com/glpi-project/android-inventory-agent/commit/24f860587))
-* **servers:** add button and list server activity ([99ca5a068](https://github.com/glpi-project/android-inventory-agent/commit/99ca5a068))
-* **servers:** add button close dialog ([9924c5ec3](https://github.com/glpi-project/android-inventory-agent/commit/9924c5ec3))
-* **servers:** add button close dialog ([d84effded](https://github.com/glpi-project/android-inventory-agent/commit/d84effded))
-* **servers:** add tag to time alarm and service ([ea9766cb3](https://github.com/glpi-project/android-inventory-agent/commit/ea9766cb3))
-* **servers:** add tag to time alarm and service ([9a6090226](https://github.com/glpi-project/android-inventory-agent/commit/9a6090226))
-* **servers:** added list view servers ([f3334632f](https://github.com/glpi-project/android-inventory-agent/commit/f3334632f))
-* **servers:** added list view servers ([d9a2ef404](https://github.com/glpi-project/android-inventory-agent/commit/d9a2ef404))
-* **servers:** limit size name list server in dialog ([606e06219](https://github.com/glpi-project/android-inventory-agent/commit/606e06219))
-* **servers:** limit size name list server in dialog ([15a93c12e](https://github.com/glpi-project/android-inventory-agent/commit/15a93c12e))
-* **servers:** new dialog to list servers ([165d997c7](https://github.com/glpi-project/android-inventory-agent/commit/165d997c7))
-* **servers:** new dialog to list servers ([9b462f92c](https://github.com/glpi-project/android-inventory-agent/commit/9b462f92c))
-* **servers:** validate empty server and show message ([b655ede60](https://github.com/glpi-project/android-inventory-agent/commit/b655ede60))
-* **servers:** validate empty server and show message ([f0c69ae7d](https://github.com/glpi-project/android-inventory-agent/commit/f0c69ae7d))
-* **share:** add share button ([f4220e0e8](https://github.com/glpi-project/android-inventory-agent/commit/f4220e0e8))
-* **show:** add inventory activity and adapter ([45ec95c33](https://github.com/glpi-project/android-inventory-agent/commit/45ec95c33))
-* **tag:** send tag to inventory ([2915b8b1f](https://github.com/glpi-project/android-inventory-agent/commit/2915b8b1f))
-* **tag:** send tag to inventory ([d5a414bd1](https://github.com/glpi-project/android-inventory-agent/commit/d5a414bd1))
-* **text:** add property to enable select text ([bb9fc7e96](https://github.com/glpi-project/android-inventory-agent/commit/bb9fc7e96))
-* **transifex:** add values show inventory in string resource ([2a8a9b2a5](https://github.com/glpi-project/android-inventory-agent/commit/2a8a9b2a5))
-* **transifex:** get language device ([4ade21a85](https://github.com/glpi-project/android-inventory-agent/commit/4ade21a85))
-* **transifex:** validate input in header to the screen inventory ([98a91fd53](https://github.com/glpi-project/android-inventory-agent/commit/98a91fd53))
+### 💼 Other
 
+- *(deps)* Bump lodash from 4.17.15 to 4.17.19
+- *(deps-dev)* Bump standard-version from 7.0.1 to 8.0.1
+- *(gradle)* Update gradle to 4.0.2
+- *(deps)* Bump ini from 1.3.5 to 1.3.7
+- *(deps)* Bump path-parse from 1.0.6 to 1.0.7
+- *(deps)* Bump addressable from 2.7.0 to 2.8.0
+- *(deps)* Bump hosted-git-info from 2.8.5 to 2.8.9
+- *(deps)* Bump lodash from 4.17.19 to 4.17.21
+- *(deps)* Bump handlebars from 4.5.3 to 4.7.7
+- *(deps)* Bump y18n from 4.0.0 to 4.0.1
+- *(help)* Change GLPI Network URL
+- *(readme)* Update content
+- *(core)* Bump version
+- *(deps)* Bump ansi-regex from 5.0.0 to 5.0.1
+- *(release)* Disable github prerelease
+- *(yarn)* Upgrade packages
+- *(manifest)* Increase version value
 
+### 🚜 Refactor
+
+- *(core)* Refactor notification
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Update version on android manifest
+- *(release)* Generate CHANGELOG.md for version 1.1.0
+
+## [1.0.0] - 2020-01-07
+
+### 🚀 Features
+
+- Add the inventory engine as dependency (#3)
+- *(assets)* Add graphic resources and translations  (#16)
+- *(acra)* Add acra library
+- *(acra)* Configuring acra
+- *(acra)* Set tracepot like server and add aditional setup
+- *(acra)* Remove acra resources
+- *(bugsnag)* Implement basic bugsnag feature
+- *(bugsnag)* Add custom endpoint
+- *(about)* Add about screen
+- *(about)* Add toolbar
+- *(about)* Add html and properties information
+- *(privacy)* Add privacy functionality
+- *(about)* Add preference about item
+- *(inventory)* Send inventory on thread
+- *(inventory)* Add progress dialog running inventory
+- *(show)* Add inventory activity and adapter
+- *(notification)* Send message to notification bar
+- *(easteregg)* Add easter egg crash report
+- *(share)* Add share button
+- *(library)* Update inventory library
+- *(inventory)* Add description information on version client
+- *(privacy)* Add privacy on anonymous data
+- *(design)* Add main activity
+- *(design)* Add drawer menu adapter
+- *(design)* Update main activity layout
+- *(design)* Add icons resources
+- *(design)* Add list item drawer layout
+- *(design)* Launch main activity
+- *(design)* Add drawer menu titles
+- *(design)* Add text styles
+- *(design)* Update design with drawer and toolbar
+- *(design)* Add default item layout for home list
+- *(design)* Add check type item layout for home list
+- *(design)* Add header type item layout for home list
+- *(design)* Add send anonymous data method
+- *(design)* Create home schema for list
+- *(design)* Create home adapter
+- *(design)* Add list on layout
+- *(design)* Add inventory options
+- *(design)* Add global parameters layout
+- *(design)* Add global parameters preference
+- *(design)* Add inventory parameters layout
+- *(design)* Add inventory parameters preference
+- *(design)* Add service and options
+- *(design)* Request permission to the user
+- *(design)* Implement about like fragment
+- *(help)* Add help implementation
+- *(menu)* Update inventory icon
+- *(cache)* Add long and boolean cache method
+- *(inventory)* Add count down on the service
+- *(inventory)* Implement count down
+- *(countdown)* Check the auto inventory to show the countdown
+- *(permission)* Add request permission screen
+- *(language)* Add catalan language
+- *(inventory)* Add tablayout
+- *(inventory)* Add viewpager and show info
+- *(inventory)* Remove header in specific tab
+- *(inventory)* Remove tab to empty information
+- *(icon)* Add adaptive icon to android oreo
+- *(inventory)* Changed style tab information
+- *(inventory)* Add line separate and background color list
+- *(tag)* Send tag to inventory
+- *(servers)* Add button and list server activity
+- *(servers)* Added list view servers
+- *(servers)* New dialog to list servers
+- *(servers)* Limit size name list server in dialog
+- *(servers)* Add tag to time alarm and service
+- *(servers)* Validate empty server and show message
+- *(servers)* Add button close dialog
+- *(inventory)* Send inventory to all servers
+- *(language)* Add catalan language
+- *(inventory)* Add tablayout
+- *(inventory)* Add viewpager and show info
+- *(inventory)* Remove header in specific tab
+- *(inventory)* Remove tab to empty information
+- *(icon)* Add adaptive icon to android oreo
+- *(inventory)* Changed style tab information
+- *(inventory)* Add line separate and background color list
+- *(tag)* Send tag to inventory
+- *(servers)* Add button and list server activity
+- *(servers)* Added list view servers
+- *(servers)* New dialog to list servers
+- *(servers)* Limit size name list server in dialog
+- *(servers)* Add tag to time alarm and service
+- *(servers)* Validate empty server and show message
+- *(servers)* Add button close dialog
+- *(inventory)* Send inventory to all servers
+- *(categories)* Add views and button
+- *(categories)* MVC to categories
+- *(categories)* Show specific categories in resport
+- *(categories)* Validate format string to categories
+- *(text)* Add property to enable select text
+- *(transifex)* Add values show inventory in string resource
+- *(transifex)* Validate input in header to the screen inventory
+- *(transifex)* Get language device
+- Improve memory to get information inventory
+- *(core)* Update circleci image
+- *(inventory)* Bump inventory lib 0.12.0 to 1.3.6
+- *(core)* Update branding and package name
+- *(core)* Update license
+- *(core)* Update README
+- *(readme)* Change logo
+- *(inventory)* Bump android inventory library from 1.3.6 to 1.4.0
+- *(core)* Add firebase crash report
+- *(core)* Add QR code scanner to add servers informations
+- *(core)* Add DeepLink to add servers informations
+- *(core)* Rename app
+- *(build)* Bump fastlane v2.137.0 to v2.138.0
+- *(readme)* Add badges
+- *(readme)* Add screenshots
+- *(core)* Manage schedule inventory with deeplink and qrcode
+
+### 🐛 Bug Fixes
+
+- *(connection)* Allow work on main thread
+- *(data)* Fix anonymous data summary text
+- *(inventory)* Validate http response
+- *(about)* Close link tag on last commit link
+- *(inventory)* Validate headers response
+- *(toolbar)* Fix toolbar nullpointerexception
+- *(anonymous)* Add application json on request property
+- *(package)* Update conventional-github-releaser to version 2.0.0
+- Remove modules file created by IntelliJ IDEA
+- *(alarm)* Set repeting with interval day
+- *(alarm)* Check if execute the inventory
+- *(inventory)* Add log messages
+- *(alarm)* Update alarm repeating time
+- *(inventory)* Catch empty url exception
+- *(package)* Update conventional-github-releaser to version 3.0.0
+- *(build)* Implement inventory library 0.8.6
+- *(share)* Implement the inventory library share method
+- *(ui)* Add delay on request permission popup
+- *(main)* Remove request permission
+- *(permission)* Move next screen from main to permission
+- *(splash)* Add postdelayed direct on splash activity
+- *(icon)* Shown icon app with API below 26
+- *(progress)* Change behavior progress bar
+- *(connection)* Validated https connection
+- *(connection)* Return method when the validation is true
+- *(connection)* Add default value to URL
+- *(schedule)* Change type schedule to send inventory
+- *(schedule)* Validated if change the schedule
+- *(schedule)* Automatic inventory by default disable
+- *(apk)* Changed version code in manifest
+- *(service)* Validated version Android to call service
+- *(service)* Added permission foreground service
+- *(service)* Improved xml to send in test
+- *(service)* Add parameter to inventory task
+- *(service)* Add parameter to inventory task in dialog list
+- *(service)* Add parameter to inventory task in time alarm
+- *(service)* Add parameter to inventory task in test
+- *(icon)* Shown icon app with API below 26
+- *(progress)* Change behavior progress bar
+- *(connection)* Validated https connection
+- *(connection)* Return method when the validation is true
+- *(connection)* Add default value to URL
+- *(schedule)* Change type schedule to send inventory
+- *(schedule)* Validated if change the schedule
+- *(schedule)* Automatic inventory by default disable
+- *(apk)* Changed version code in manifest
+- *(service)* Validated version Android to call service
+- *(service)* Added permission foreground service
+- *(service)* Improved xml to send in test
+- *(service)* Add parameter to inventory task
+- *(service)* Add parameter to inventory task in dialog list
+- *(service)* Add parameter to inventory task in time alarm
+- *(service)* Add parameter to inventory task in test
+- *(icon)* Change icon jpg by background color
+- *(memory)* Add large heap in manifest
+- *(permission)* Add missing permission
+- *(security)* Update deps (yarn and gem)
+- *(gradle)* Fix gradle repositories
+- *(ci)* Fix javadoc generation
+- *(build)* Bump mockito-android version to 2.21.0
+- *(security)* Update deps (yarn and gem)
+- *(security)* Update yarn package
+- *(package)* Update mem to version 6.0.0
+- *(core)* Fix compatibility intent with android 28
+- *(build)* Update ci script
+- *(build)* Fastlane step
+- *(build)* Fix fastlane
+- *(build)* Update fastlane to 2.137.0
+- *(build)* Build gem without document
+- *(fastlane)* Fix env variables
+- *(fastlane)* Fix env variables and path
+- *(fastlane)* Update keystore
+- *(fastlane)* Env var
+- *(build)* Gem update without document
+- *(build)* Fix fastlane workflow
+- *(fastlane)* Do not run gradle test, it's already done before
+- *(fastlane)* Do not run gradle assemble
+- *(build)* Bump version code
+- *(about)* Retrieve informations from properties
+- *(build)* Run create_about_data
+- *(build)* Fix patch for create_about_data
+- *(build)* Fix path for create_about_data with gradle
+- *(build)* Fix version code incremental
+- *(build)* Update about.properties file
+- *(inventory)* Fix http user-agent informations
+- *(design)* Change UI/UX
+- *(build)* Add draft status
+- *(log)* Improve log
+- *(build)* Reload gemfile.lock
+- *(readme)* Update informations
+- *(build)* Prevent error on build
+- *(build)* Do not run firebase test labs for teclib-bot
+- *(readme)* Update informations
+- *(UI)* Fix accessibility
+- *(core)* Add support for HTTP
+- *(ui)* Update logo
+- *(ui)* Fix crash on orientation change
+- *(ui)* Change icon / banner
+- *(help)* Prevent error from android lollipop and WebView
+- *(readme)* Fix greenkeeper badge
+- *(inventory)* Set content type and charset correctly
+- *(share)* Prevent error (transactiontoolarge) on share inventory
+- *(build)* Do not add apk with release
+- *(build)* Fix release
+
+### 💼 Other
+
+- Replaced following android guidelines
+- Fix serial unknown when sdk > 9
+- Use git hash + branch to suffix apk final name
+- *(api)* Update minsdk and targetsdk
+- *(version)* Update version
+- *(gradle)* Update build tools version
+- *(gradle)* Remove unused compile
+- *(gradle)* Change build tools version
+- *(gradle)* Update inventory library 0.3.0
+- *(gradle)* Add gradle properties file
+- *(gradle)* Update version factor
+- *(settings)* Add YAML file for bot settings
+- *(github)* Add app to auto invite contributors
+- *(config)* Add correct usage to add team name
+- *(library)* Update library
+- *(gradle)* Add multidex dependecie
+- *(gradle)* Remove external dependecies
+- *(npm)* Fix repository slug
+- *(transifex)* Fix project slug
+- Fix repository slug
+- *(npm)* Update standard-version
+- *(eclipse)* Add buildship and gradle
+- *(eclipse)* Update buildship
+- *(npm)* Version ready for first release
+- *(npm)* Update homepage
+- *(npm)* Update record lock file
+- *(gradle)* Update dependencies
+- *(manifest)* Add permission request
+- *(library)* Update inventory library
+- *(gradle)* Add logger
+- *(gradle)* Add logger
+- *(manifest)* Add preference activities
+- *(gradle)* Update inventory library 0.7.0
+- *(gradle)* Upgrade all libraries required
+- *(package)* Add library for release
+- *(gradle)* Update inventory library 0.8.5
+- *(gradle)* Add constraint support
+- *(gradle)* Update versioncode and name method
+- *(manifest)* Update version code
+- *(manifest)* Increase version value
+- *(gradle)* Add testOptions
+- *(gradle)* Fix mockito implementation
+- *(ruby)* Fix security vulnerabilities
+- *(ruby)* Fix security vulnerabilities
+- *(ruby)* Bundle update fastlane
+- *(library)* Upgrade inventory library
+- *(gradle)* Add testOptions
+- *(gradle)* Fix mockito implementation
+- *(ruby)* Fix security vulnerabilities
+- *(ruby)* Fix security vulnerabilities
+- *(ruby)* Bundle update fastlane
+- *(library)* Upgrade inventory library
+- *(package)* Changed version in package json
+- *(manifest)* Increment the version code to 39164
+- *(manifest)* Increase version value
+- *(release)* Integration release rc.2
+- *(release)* Integration release rc.2
+- *(github)* Fix invite contributors
+- *(dependencies)* Add maintenance commands
+- *(gradle)* Bump version to 3.5.1
+- *(circleci)* Disable firebase test lab
+- *(bundle)* Update gem bundle 1.17.3 to 2.0.2
+- *(core)* Bump target api level to 28
+- *(core)* Bump target sdk version to 28
+- *(inventory)* Update inventory library 1.4.2 to 1.4.3
+- *(inventory)* Update inventory library 1.4.3 to 1.4.4
+- *(docs)* Update README
+- *(docs)* Update README
+- *(manifest)* Increase version value
+
+### 🚜 Refactor
+
+- Rebranding (#7)
+- *(package)* Change name on description
+- *(log)* Add log wrapper class
+- *(accueil)* Refactor code
+- *(log)* Replace local log with FlyveLog
+- *(agent)* Refactor agent code
+- *(autoinventory)* Refactor auto inventory code
+- *(license)* Add header license to all files
+- *(todo)* Remove unused TODO comments
+- *(*)* Replace local logging with FlyveLog wrapper
+- *(*)* Remove unused code and files
+- *(manifest)* Remove duplicated services
+- *(service)* Improve inventory service
+- *(service)* Restart settings with changes
+- *(license)* Change link information
+- *(inventory)* Refactor send inventory to work with test
+- *(inventory)* Update flyve mdm inventory package
+- *(url)* Update default value url to fusion inventory
+- *(about)* Add space and replace some words on text
+- *(locale)* Integrate all the locale string
+- *(color)* Add custom colors
+- *(locale)* Add resources privacy text
+- *(locale)* Add resource to about title
+- *(about)* Update about properties with default values
+- *(app)* Change name app
+- *(about)* Add url github repository on properties
+- *(locale)* Unify the language in one file
+- *(crashreport)* Update crash report endpoint
+- *(inventory)* Update the anonymous information endpoint
+- *(locale)* Improve labels descriptions
+- *(error)* Improve error message
+- *(snackbar)* Replace toast message with snackbar
+- *(menu)* Remove right toolbar menu
+- *(error)* Show proper error message with library
+- *(data)* Improved anonymous data sent
+- *(inventory)* Update the anonymous information endpoint
+- *(environment)* Add helper to manage environment information
+- *(version)* Add version on setUserAgent http protocol
+- *(cache)* Remove predefined url
+- *(show)* Add inventory data
+- *(show)* Add design
+- *(inventory)* Add progress bar
+- *(notification)* Add icon for android mayor lollipop version
+- *(locale)* Update notification message
+- *(connection)* Add strict mode policy
+- *(inventory)* Update list inventory design
+- *(design)* Keep the same look and feel
+- *(about)* Improve look and feel
+- *(accueil)* Convert in preference activity
+- *(broadcast)* Check null values
+- *(permission)* Request camera permission
+- *(app)* Create a global app instance
+- *(alarm)* Improve send inventory task with calendar
+- *(chollima)* Update endpoint
+- *(accueil)* Remove comments
+- *(log)* Implement logger
+- *(log)* Implement logger
+- *(share)* Update intent title
+- *(resources)* Remove iddling recycler
+- *(accueil)* Remove accueil fragment
+- *(manifest)* Update activity and fragment names
+- *(about)* Update layout name
+- *(about)* Update layout name
+- *(inventory)* Add progress dialog
+- *(inventory)* Implement helpers send anonymous data
+- *(home)* Add header accent color
+- *(about)* Remove duplicated header
+- *(*)* Reorder files on packages
+- *(home)* Reorder inventory show
+- *(toolbar)* Change toolbar color and improve
+- *(main)* Implement MVC pattern
+- *(main)* Request permission with MVC
+- *(report)* Implement MVC pattern
+- *(splash)* Implement MVC pattern
+- *(about)* Implement MVC pattern
+- *(home)* Implement MVC pattern
+- *(permission)* Check if permission are granted
+- *(icon)* Create mipmap folders and remove olders
+- *(inventory)* Implement private data with new design
+- *(gitignore)* Add screenshots folder
+- *(splash)* Move validation from model to helper
+- *(service)* Instance handler on create for instrumented test
+- *(about)* Add new var for html convert for instrumented test
+- *(servers)* Change name model to schema
+- *(servers)* Remove comment code
+- *(service)* Instance handler on create for instrumented test
+- *(about)* Add new var for html convert for instrumented test
+- *(servers)* Change name model to schema
+- *(servers)* Remove comment code
+- *(preferences)* Save and load array
+- *(code)* Comment some code
+- *(ui)* Change pics and fix float input behavior
+
+### 📚 Documentation
+
+- *(license)* Add GPLv3
+- *(header)* Add Flyve MDM link
+- *(equals)* Add param and return tags
+- *(createEasySSLContext)* Add return and throws tags
+- *(getSSLContext)* Add return and throws tags
+- *(hashCode)* Add the return of the tag
+- *(HttpInventory)* Add the param of the tag
+- *(onReceive)* Add the param of the tags
+- *(getDeviceID)* Add the return of the tag
+- *(getUrl)* Add the return of the tag
+- *(getShouldAutoStart)* Add the return of the tag
+- *(getCredentialsPassword)* Add the return of the tag
+- *(getCredentialsLogin)* Add the return of the tag
+- *(onSharedPreferenceChanged)* Add the param of the tags
+- *(onCreate)* Add the summary
+- *(d)* Add the param of the tag
+- *(v)* Add the param of the tag
+- *(i)* Add the param of the tag
+- *(e)* Add the param of the tag
+- *(w)* Add the param of the tag
+- *(wtf)* Add the param of the tag
+- *(log)* Add the param of the tags
+- *(onBind)* Add param and return tags
+- *(onCreate)* Add the summary
+- *(onStartCommand)* Add tags
+- *(onDestroy)* Add the summary
+- *(onStart)* Add param and see tags
+- *(onCreate)* Add the param of the tag
+- *(openActivity)* Add the summary
+- *(setAlarm)* Add the param of the tag
+- *(cancelAlarm)* Add the param of the tag
+- *(onReceive)* Add the param of the tags
+- *(sendInventory)* Add param and return tags
+- *(onSharedPreferenceChanged)* Add the param of the tags
+- *(onPause)* Add the summary
+- *(onResume)* Add the summary
+- *(onCreate)* Add the summary and param tag
+- *(onStart)* Fix the summary
+- *(circleci)* Update indentation
+- *(readme)* Improve full content
+- *(fastlane)* Add README.md for fastlane
+- *(ci)* Add README.md
+- *(circleci)* Add README.md
+- *(transifex)* Add README.md
+- *(contributing)* Create the contribute guidelines
+- *(contributing)* Change title
+- *(contributing)* Fix links
+- *(readme)* Update content
+- *(.github)* Add issue template
+- *(.github)* Add pull request template
+- *(github)* Rename file
+- *(github)* Change code block to list
+- *(github)* Change content
+- *(contributing)* Fix links
+- *(readme)* Add Greenkeeper badge
+- *(greenkeeper)* Move badge to proper place
+- *(contributing)* Remove code of conduct
+- *(codeofconduct)* Add code of conduct
+- *(readme)* Add compatibility matrix
+- *(header)* Fix repository slug
+- Fix repository slug
+- *(license)* Remove GPLv2
+- *(readme)* Markdown linting
+- *(readme)* Markdown linting
+- *(readme)* Markdown linting
+- *(template)* Markdown linting
+- *(changelog)* No release no changelog
+- *(readme)* Remove maven central badge
+- *(service)* Update params with correct names
+- *(readme)* Fix links
+- *(agent)* Update parameters info
+- *(github)* Improve pull request template
+- *(contributing)* Improve content
+- *(github)* Improve issue template
+- *(github)* Change issue template
+- *(github)* Change pull request template
+- *(contributing)* Update to new format
+- *(github)* Update issue templates
+- *(readme)* Add professional services
+- *(settings)* Add cherry pick label
+- *(header)* Add license header
+- *(readme)* Update information
+- *(github)* Update PR template
+- *(contributing)* Add how to create a fork
+- *(readme)* Add new workflow
+- *(headers)* Update license
+- *(readme)* Move contribute block
+- *(readme)* Update inventory information
+- *(readme)* Add status badge
+- *(readme)* Update compatibility matrix
+- *(readme)* Move contribute block
+- *(readme)* Update inventory information
+- *(readme)* Add status badge
+- *(readme)* Update compatibility matrix
+- *(header)* Add email
+- *(header)* Add email and copyright
+- *(readme)* Add android version compatibility
+- *(separator)* Add title separator to the inventory
+- *(credits)* Add credit file
+- *(headers)* Remove author tag
+- *(readme)* Update readme
+- *(ci)* Update readme
+- *(changelog)* Delete change logs of candidates
+
+### 🎨 Styling
+
+- *(circleci)* Update app folder name to flyve_mdm
+- *(updateversion)* Remove markdown on commit text
+- *(lint)* Fix markdown
+- *(lint)* Fix markdown
+- *(adapter)* Update header copyright
+- *(core)* Update header copyright
+- *(utils)* Update header copyright
+- *(ui)* Update header copyright
+- *(test)* Update header copyright
+
+### 🧪 Testing
+
+- *(*)* Add instrumented and unit test examples
+- *(inventory)* Add inventory task test xml and json
+- *(example)* Remove example instrumented test
+- *(inventory)* Add send inventory test
+- *(inventory)* Rename flyve mdm inventory package name
+- *(about)* Add about test
+- *(*)* Remove fragment test
+- *(inventory)* Fix send inventory test with thread
+- *(inventorytask)* Set the url to test
+- *(inventory)* Add inventory screen shot
+- *(inventory)* Preset url for instrumented test
+- *(inventory)* Update inventory test
+- *(idling)* Add idling resource
+- *(inventory)* Refactor test
+- *(inventory)* Fix inventory refactor name
+- *(splash)* Remove splash test
+- *(about)* Add about model test
+- *(home)* Add home model test
+- *(main)* Add main model test
+- *(report)* Add report model test
+- *(splash)* Add splash model test
+- *(order)* Refactor test folder
+- *(comment)* Remove unused and comment code
+- *(main)* Remove main instrumented test
+- *(about)* Add about model test
+- *(home)* Add home model test
+- *(main)* Add main model test
+- *(report)* Add report model test
+- *(splash)* Add splash model test
+- *(order)* Refactor test folder
+- *(comment)* Remove unused and comment code
+- *(main)* Remove main instrumented test
+
+### ⚙️ Miscellaneous Tasks
+
+- *(git)* Add javadoc folder
+- *(travis)* Add script to install, build and deploy on travis
+- *(travis)* Google Play credentials
+- *(travis)* Remove unused files
+- *(travis)* Add encrypt keys
+- *(fastlane)* Library to send message to telegram with fastlane
+- *(fastlane)* Refactor script with beta and production deploy
+- *(gradle)* Update gradle script
+- *(travis)* Add precise distribution settings
+- *(travis)* Add jdk 8
+- *(gradle)* Upgrade gradle version
+- *(gradle)* Update compile sdk version
+- *(travis)* Move git checkout inside master and develop branch build
+- *(travis)* Update minimum and target sdk
+- *(travis)* Update android api and tools on travis script
+- *(travis)* Remove jdk 8 from script
+- *(deploy)* Add Google Play keys to deploy
+- *(gradle)* Remove checkbuild lint options
+- *(travis)* Remove jdk 8
+- *(gradle)* Update min and target sdk
+- *(deploy)* Add package file with project information
+- *(deploy)* Enable run test on pull request
+- *(test)* Run test on master, develop branch and pull request
+- *(build)* Release **beta** for version 2.1.0-beta
+- *(build)* Release **beta** for version 2.1.0-beta
+- *(build)* Release **beta** for version 2.1.0-beta
+- *(travis)* Update before script travis
+- *(travis)* Update deploy script travis
+- *(travis)* Update script travis
+- *(travis)* Update git ignore file
+- *(release)* 2.1.0
+- *(build)* Release **beta** for version 2.1.0-beta
+- *(release)* 2.1.1
+- *(build)* Release **beta** for version 2.1.1-beta
+- *(release)* 2.1.2
+- *(build)* Release **beta** for version 2.1.2-beta
+- *(locale)* Add transfifex push and pull
+- *(build)* Change api simulator to improve performance
+- *(travis)* Add encrypted keys and configuration for transifex
+- *(build)* Prevent loop and remove release on develop
+- *(cicleci)* Add circle-ci config script
+- *(circleci)* Change android api on docker image
+- *(circleci)* Preinstalled gradle
+- *(circleci)* Add required folders for gradle
+- *(release)* 2.1.3
+- *(build)* Release **beta** for version 2.1.3-beta
+- *(workflow)* Create workflow with build and test
+- *(circleci)* Create a workflow
+- *(circleci)* Add sequential job execution
+- *(circleci)* Add sequential job execution
+- *(circleci)* Refactor script
+- *(circleci)* Rename script
+- *(circleci)* Add docker information
+- *(circleci)* Add version and code
+- *(circleci)* Add steps
+- *(circle)* Fix indentation
+- *(circleci)* Setup enviroment
+- *(circleci)* Add deploy to workflows
+- *(circleci)* Add permission on setup script
+- *(circleci)* Install tools
+- *(circleci)* Install gem
+- *(circleci)* Refactor python script
+- *(circleci)* Fix script
+- *(circleci)* Test imagen
+- *(circleci)* Fix imagen
+- *(circleci)* Install ruby
+- *(circleci)* Install component
+- *(circleci)* Change install folder
+- *(circleci)* Add fastlane install
+- *(circleci)* Update version and code
+- *(circleci)* Remove jq install
+- *(circleci)* Remove folder
+- *(circleci)* Install with root
+- *(circleci)* Refactor gradle to gradlew
+- *(circleci)* Setup git config
+- *(circleci)* Add start emulator script
+- *(circleci)* Deploy on Google Play
+- *(circleci)* Activate ruby and fastlane install
+- *(fastlane)* Improve gem fastlane install
+- *(circle)* Install fastlane with sudo
+- *(circleci)* Remove params on fastlane install
+- *(circleci)* Install complete fastlane
+- *(circleci)* Move decrypt to setup
+- *(circleci)* Update openssl file
+- *(circleci)* Add encrypted file with new openssl version
+- *(build)* Setup android build tool
+- *(build)* Fix export var
+- *(circleci)* Remove BUILD_TOOL from script add on site
+- *(fastlane)* Setup fastlane env for telegram
+- *(gradle)* Add factor number on version code to deploy
+- *(changelog)* Add changelog script
+- *(build)* Push android manifest to branch
+- *(changelog)* Manage changelog file with header and push gh-page
+- *(build)* Add permission to push
+- *(build)* Add changelog from branch
+- *(javadoc)* Add javadoc shell script
+- *(circleci)* Add javadoc shell script to config
+- *(circleci)* Comment google play deploy and changelog
+- *(coverage)* Add coverage script
+- *(build)* Comment version and code
+- *(circleci)* Emulator start
+- *(circleci)* Add launch emulator
+- *(circleci)* Wait for emulator
+- *(transifex)* Add transifex workflow
+- *(circleci)* Refactor google play for fastlane script
+- *(releases)* Add github releases script
+- *(circleci)* Prepare config.yml for github releases
+- *(workflow)* Add workflow
+- *(circleci)* Update identation
+- *(transifex)* Update locales files
+- *(circleci)* Add instrumented test workflow
+- *(circleci)* Add instrumented test api 26
+- *(circleci)* Min android api available 16 max 23
+- *(circleci)* Refactor android api max 25 and min 16 with arm
+- *(javadoc)* Get report folder from branch
+- *(circleci)* Just run documentation on workflow
+- *(javadoc)* Get reports folder from branch
+- *(circleci)* Add simulator for coverage report
+- *(coverage)* Update coverage script
+- *(coverage)* Clean git files
+- *(coverage)* Replace folders with dot for design
+- *(test)* Instrumented test
+- *(circleci)* Add custom webhook notification
+- *(circleci)* Remove update version and code commit
+- *(transifex)* Remove transifex commit
+- *(transifex)* Refactor pull and push
+- *(circleci)* Add all items to workflows
+- *(circleci)* Remove flyve_ prefix
+- *(circleci)* Add filters to work flow
+- *(travis)* Remove travis scripts
+- *(circleci)* Change test job name for human readable
+- *(test)* Update test name on workflows
+- *(git)* Remove fastlane readme.md from gitignore
+- *(header)* Add scripts to edit coverage and javadoc header
+- *(javadoc)* Add header, replace files and add style
+- *(coverage)* Add header, replace files and add style
+- *(circleci)* Remove notify webhook
+- *(coverage)* Change folder
+- *(javadoc)* Fix git checkout
+- *(changelog)* Add jekyll header
+- *(changelog)* Add changelog script on production
+- *(fastlane)* Skip documentation
+- *(changelog)* Commit android manifest file
+- *(releases)* Add preset angular
+- *(build)* Update version
+- *(release)* Update script to generate the release
+- *(release)* Add install node github release
+- *(release)* Upload zip
+- *(release)* Add apk file
+- *(version)* Add manisfest and changelog to git
+- *(circleci)* Create assemble Release
+- *(circleci)* Reorder production steps
+- *(releases)* Rename the upload artifact
+- *(screenshot)* Add initial setup
+- *(screenshot)* Add screengrab job
+- *(fastlane)* Add package on setup
+- *(circleci)* Add screenshot on workflows
+- *(screenshot)* Add screengrab job  (#47)
+- *(about)* Create file with properties values
+- *(circleci)* Add about step on beta and production jobs
+- *(build)* Update manifest path
+- *(about)* Add complete hash commit id for the link
+- *(about)* Fix properties file name
+- *(about)* Remove delete file
+- *(about)* Take the previous commit
+- *(about)* Update commit with circleci environment
+- *(release)* Add conventional github releaser
+- *(release)* Add /dev/null || true to solve exit 1
+- *(about)* Add commit sliced
+- *(release)* Add script to push changes
+- *(circleci)* Add push changes step on deploy production job
+- *(merge)* Merge back the develop branch
+- *(validate)* Add validation script
+- *(circleci)* Rename test name and remove filters
+- *(circleci)* Refactor workflows
+- *(push)* Push to develop merge with master
+- *(css)* Improve script to add css and headers
+- *(changelog)* Remove rewrite header
+- *(circleci)* Move changelog to documentation jobs
+- *(circleci)* Add update version and code on documentation jobs
+- *(screenshot)* Add screenshot script
+- *(circleci)* Add push step on screenshot jobs
+- *(circleci)* Update validate script
+- *(screenshot)* Update screenshot folder
+- *(screenshot)* Add header on screenshot
+- *(screenshot)* Add about information
+- *(circleci)* Add cache on screenshot jobs
+- *(licenses)* Accept android licenses
+- *(screenshot)* Add all change on git
+- *(circleci)* Accept licenses on build
+- *(circleci)* Refactor accept licenses on build
+- *(git)* Remove local tags
+- *(screengrab)* Add accueil test
+- *(circleci)* Change android emulator api
+- *(circleci)* Restore api version 25
+- *(release)* Generate CHANGELOG.md for version 0.1.0
+- *(release)* Update version (0.1.0) and code number (931)
+- *(release)* Generate CHANGELOG.md for version 0.2.0
+- *(release)* Update version (0.2.0) and code number (932)
+- *(release)* Generate CHANGELOG.md for version 0.3.0
+- *(release)* Update version (0.3.0) and code number (939)
+- *(release)* Generate CHANGELOG.md for version 0.4.0
+- *(release)* Update version (0.4.0) and code number (942)
+- *(release)* Generate CHANGELOG.md for version 0.5.0
+- *(release)* Update version (0.5.0) and code number (949)
+- *(circleci)* Add validate workflow on jobs
+- *(circleci)* Update git develop merge
+- *(git)* Add pull origin develop
+- *(versioncode)* Update version code factor update
+- *(circleci)* Fix case of ChangeLog
+- *(circleci)* User name of git and other typos
+- *(circleci)* Change repository slug
+- *(git)* Avoid multiples push to the repo
+- *(circleci)* Use BUILD_NUM as version code
+- *(release)* Generate CHANGELOG.md for version 0.1.0
+- *(release)* Update version (0.1.0) and code number (979)
+- *(screenshot)* Update api level 25 emulator
+- *(fastlane)* Update signer and zipalign
+- *(circle)* Create apk with release
+- *(fastlane)* Add release to the path
+- *(circle)* Remove api 25
+- *(fastlane)* Add log path
+- *(fastlane)* Fix path
+- *(fastlane)* Add release folder on zipalign
+- *(fastlane)* Screenshot complete path
+- *(fastlane)* Add root folder path
+- *(fastlane)* Update test path
+- *(transifex)* Add arabic language
+- *(transifex)* Add Czech republic language
+- *(transifex)* Add Hebrew language
+- *(transifex)* Add Saudi Arabia language
+- *(transifex)* Fix underscord character by - on values folders
+- *(circle)* Change workflow
+- *(circle)* Add update of properties values
+- *(circle)* Add commands for changelog
+- *(circle)* Update variables name
+- *(circle)* Add command to find and upload the apk
+- *(circle)* Rename folders for normalization
+- *(circle)* Add commands to updateversion script
+- *(circle)* Change command to update develop
+- *(release)* Generate ChangeLog for version 1.1.0
+- *(release)* Update version on android manifest
+- *(release)* Generate ChangeLog for version 1.2.0
+- *(release)* Update version on android manifest
+- *(release)* Generate ChangeLog for version 1.3.0
+- *(release)* Update version on android manifest
+- *(circle)* Migrate to yarn
+- *(circle)* Change workflow
+- *(circle)* Add new scripts
+- *(circle)* Update about script
+- *(circle)* Delete unused scripts
+- *(circle)* Fix path to apk
+- *(circle)* Add commands to update version
+- *(circle)* Add commands to screenshots
+- *(fastlane)* Add deploy type
+- *(release)* Fix the apk file
+- *(push)* Improve the script with less code
+- *(release)* Fix github token variable
+- *(circleci)* Implement a new workflow with release
+- *(script)* Add new scripts with the new workflow
+- *(gems)* Add gemfile and gemfile.lock
+- *(fastlane)* Add certification lane annd add skip_upload_aab true
+- *(circleci)* Add update version code and name
+- *(release)* Set the version release
+- *(release)* Generate CHANGELOG.md for version 1.0.0-rc.1
+- *(setup)* Install transifex on setup
+- *(circle)* Add check transifex job
+- *(package)* Update gh-pages to version 2.0.0
+- *(package)* Update lockfile yarn.lock
+- *(environment)* Upgrade urllib to transifex
+- *(deploy)* Change config ci and deploy beta and production
+- *(deploy)* Add documentation header and version code ci
+- *(deploy)* Update config and release script
+- *(deploy)* Update release script
+- *(setup)* Install transifex on setup
+- *(circle)* Add check transifex job
+- *(package)* Update gh-pages to version 2.0.0
+- *(package)* Update lockfile yarn.lock
+- *(environment)* Upgrade urllib to transifex
+- *(deploy)* Change config ci and deploy beta and production
+- *(deploy)* Add documentation header and version code ci
+- *(deploy)* Update config and release script
+- *(deploy)* Update release script
+- *(release)* Generate CHANGELOG.md for version 1.0.0-rc.2
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(transifex)* Add languages in transifex
+- *(release)* Update version on android manifest
+- *(transifex)* Add language basque in transifex
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(documentation)* Fix path to folder
+- *(release)* Update version on android manifest
+- *(documentation)* Add run in master
+- *(release)* Update version on android manifest
+- *(build)* Release 1.0.0
+- *(enviroment)* Change name github enviroments
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(package)* Update standard-version to version 7.0.0
+- *(package)* Update lockfile yarn.lock
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Update version on android manifest
+- *(release)* Generate CHANGELOG.md for version 1.0.0
+
+<!-- generated by git-cliff -->

@@ -1,6 +1,6 @@
 {
   "name": "@teclib/android-inventory-agent",
-  "version": "1.4.0",
+  "version": "1.7.0",
   "description": "GLPI Android Inventory Agent",
   "main": "index.js",
   "scripts": {
@@ -23,24 +23,5 @@
   "bugs": {
     "url": "https://github.com/glpi-project/android-inventory-agent/issues"
   },
-  "homepage": "http://glpi-project/android-inventory-agent/",
-  "devDependencies": {
-    "conventional-github-releaser": "^3.0.0",
-    "gh-pages": "^2.0.0",
-    "node-github-release": "^0.1.1",
-    "standard-version": "^8.0.1"
-  },
-  "dependencies": {
-    "dot-prop": "^4.2.1",
-    "extend": "^3.0.2",
-    "handlebars": "^4.7.7",
-    "https-proxy-agent": "^2.2.0",
-    "lodash": "^4.17.21",
-    "lodash.merge": "^4.6.2",
-    "lodash.template": "^4.5.0",
-    "mem": "^6.0.0",
-    "minimist": "^1.2.6",
-    "semver-regex": "^3.1.4",
-    "trim-off-newlines": "^1.0.3"
-  }
+  "homepage": "http://glpi-project/android-inventory-agent/"
 }

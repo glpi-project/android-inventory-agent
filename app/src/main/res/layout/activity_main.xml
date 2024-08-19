@@ -6,9 +6,7 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:id="@+id/drawerLayout"
-	android:layout_gravity="left"
-
-	>
+	android:fitsSystemWindows="true">
 
 
 	<LinearLayout
@@ -16,6 +14,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
+		android:fitsSystemWindows="true"
 		>
 
 		<androidx.appcompat.widget.Toolbar
@@ -38,14 +37,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:orientation="vertical"
-				android:gravity="right">
+				android:gravity="end">
 
 				<TextView
 					android:id="@+id/text_scheduler"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
-					android:layout_marginRight="5dp"
+					android:layout_marginEnd="5dp"
 					android:layout_marginBottom="179dp"
 					android:background="@android:color/transparent"
 					android:hint="@string/AccueilInventoryParamSummary"
@@ -60,14 +59,14 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
-					android:layout_marginRight="32dp"
+					android:layout_marginEnd="32dp"
 					android:layout_marginBottom="169dp"
 					android:layout_toRightOf="@id/text_scheduler"
 					android:background="?android:attr/selectableItemBackground"
 					android:clickable="true"
 					android:elevation="16dp"
 					android:focusable="true"
-					android:gravity="right"
+					android:gravity="end"
 					android:visibility="invisible"
 					app:backgroundTint="@color/colorAccent"
 					app:pressedTranslationZ="12dp"
@@ -79,14 +78,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:orientation="vertical"
-				android:gravity="right">
+				android:gravity="end">
 
 				<TextView
 					android:id="@+id/text_settings"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
-					android:layout_marginRight="10dp"
+					android:layout_marginEnd="10dp"
 					android:layout_marginBottom="116dp"
 					android:background="@android:color/transparent"
 					android:hint="@string/GlobalAdvanced"
@@ -102,14 +101,14 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
-					android:layout_marginRight="32dp"
+					android:layout_marginEnd="32dp"
 					android:layout_marginBottom="106dp"
-					android:layout_toRightOf="@id/text_settings"
+					android:layout_toEndOf="@id/text_settings"
 					android:background="?android:attr/selectableItemBackground"
 					android:clickable="true"
 					android:elevation="16dp"
 					android:focusable="true"
-					android:gravity="right"
+					android:gravity="end"
 					android:visibility="invisible"
 					app:backgroundTint="@color/colorAccent"
 					app:pressedTranslationZ="12dp"
@@ -120,7 +119,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:orientation="vertical"
-				android:gravity="right">
+				android:gravity="end">
 
 
 
@@ -160,48 +159,41 @@
 
 			</RelativeLayout>
 
-
-
 		</FrameLayout>
-
-
 
 	</LinearLayout>
 
 	<com.google.android.material.navigation.NavigationView
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
 		app:itemTextColor="#FFFFFF"
 		android:layout_gravity="start"
-		android:fitsSystemWindows="true"
-		>
+		android:fitsSystemWindows="true">
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
-			>
+			android:fitsSystemWindows="true">
 
 
-	<ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/header_menu"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        />
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:src="@drawable/header_menu"
+				android:scaleType="centerCrop"
+				android:adjustViewBounds="true"
+				/>
 
-    <ListView
-        android:id="@+id/lst"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="0dp"
-        android:layout_marginTop="24dp"
-        android:divider="@null"
-        />
-</LinearLayout>
+			<ListView
+				android:id="@+id/lst"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:dividerHeight="0dp"
+				android:layout_marginTop="24dp"
+				android:divider="@null"
+				/>
+		</LinearLayout>
 </com.google.android.material.navigation.NavigationView>
 
 
