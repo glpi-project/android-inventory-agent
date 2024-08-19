@@ -39,7 +39,10 @@
 				android:orientation="vertical"
 				android:gravity="end">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> Add xml import into glpi agent
 
 				<TextView
 					android:id="@+id/text_config"
@@ -81,6 +84,9 @@
 				android:layout_height="match_parent"
 				android:orientation="vertical"
 				android:gravity="end">
+<<<<<<< HEAD
+>>>>>>> Add xml import into glpi agent
+=======
 >>>>>>> Add xml import into glpi agent
 
 				<TextView
