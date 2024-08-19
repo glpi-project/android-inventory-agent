@@ -38,6 +38,50 @@
 				android:layout_height="match_parent"
 				android:orientation="vertical"
 				android:gravity="end">
+<<<<<<< HEAD
+=======
+
+				<TextView
+					android:id="@+id/text_config"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginEnd="5dp"
+					android:layout_marginBottom="242dp"
+					android:background="@android:color/transparent"
+					android:hint="@string/AccueilInventoryImportSummary"
+					android:labelFor="@id/btn_scheduler"
+					android:padding="8dp"
+					android:text="@string/AccueilInventoryImportSummary"
+					android:textColor="@color/colorAccent"
+					android:visibility="invisible" />
+
+				<com.google.android.material.floatingactionbutton.FloatingActionButton
+					android:id="@+id/btn_config"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginEnd="32dp"
+					android:layout_marginBottom="232dp"
+					android:layout_toEndOf="@id/text_config"
+					android:background="?android:attr/selectableItemBackground"
+					android:clickable="true"
+					android:elevation="16dp"
+					android:focusable="true"
+					android:gravity="end"
+					android:visibility="invisible"
+					app:backgroundTint="@color/colorAccent"
+					app:pressedTranslationZ="12dp"
+					app:srcCompat="@drawable/ic_download" />
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:gravity="end">
+>>>>>>> Add xml import into glpi agent
 
 				<TextView
 					android:id="@+id/text_scheduler"
@@ -61,7 +105,7 @@
 					android:layout_alignParentBottom="true"
 					android:layout_marginEnd="32dp"
 					android:layout_marginBottom="169dp"
-					android:layout_toRightOf="@id/text_scheduler"
+					android:layout_toEndOf="@id/text_scheduler"
 					android:background="?android:attr/selectableItemBackground"
 					android:clickable="true"
 					android:elevation="16dp"
@@ -129,7 +173,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
-					android:layout_marginRight="10dp"
+					android:layout_marginEnd="10dp"
 					android:hint="@string/Options"
 					android:layout_marginBottom="116dp"
 					android:background="@android:color/transparent"
@@ -144,13 +188,13 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentBottom="true"
-					android:layout_marginRight="32dp"
+					android:layout_marginEnd="32dp"
 					android:layout_marginBottom="32dp"
 					android:background="?android:attr/selectableItemBackground"
 					android:clickable="true"
 					android:elevation="16dp"
 					android:focusable="true"
-					android:gravity="right"
+					android:gravity="end"
 					android:visibility="visible"
 					app:backgroundTint="@color/colorAccent"
 					app:pressedTranslationZ="12dp"

@@ -35,9 +35,18 @@
 
 package org.glpi.inventory.agent.ui;
 
+import static org.glpi.inventory.agent.utils.Utils.showAlertDialog;
+import static org.glpi.inventory.agent.utils.Utils.showInfoDialog;
+import static org.glpi.inventory.agent.utils.XMLConfig.importServer;
+import static kotlinx.coroutines.flow.FlowKt.skip;
+
 import android.Manifest;
+<<<<<<< HEAD
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
+=======
+import android.app.Activity;
+>>>>>>> Add xml import into glpi agent
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -46,9 +55,12 @@ import android.content.IntentFilter;
 import android.content.RestrictionsManager;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Parcelable;
+=======
+>>>>>>> Add xml import into glpi agent
 import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -57,11 +69,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+<<<<<<< HEAD
 import androidx.enterprise.feedback.KeyedAppState;
 import androidx.enterprise.feedback.KeyedAppStatesReporter;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+=======
+import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import android.util.Xml;
+>>>>>>> Add xml import into glpi agent
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -77,13 +96,28 @@ import org.glpi.inventory.agent.core.main.Main;
 import org.glpi.inventory.agent.core.main.MainPresenter;
 import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.preference.InventoryParametersPreference;
+<<<<<<< HEAD
+=======
+import org.glpi.inventory.agent.service.InventoryService;
+>>>>>>> Add xml import into glpi agent
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.LocalPreferences;
 import org.glpi.inventory.agent.utils.LocalStorage;
+<<<<<<< HEAD
 import org.json.JSONException;
 import org.json.JSONObject;
+=======
+import org.glpi.inventory.agent.utils.Utils;
+import org.glpi.inventory.agent.utils.XMLConfig;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+>>>>>>> Add xml import into glpi agent
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -102,10 +136,27 @@ public class ActivityMain extends AppCompatActivity
     private FloatingActionButton mainFab;
     private FloatingActionButton btn_settings;
     private FloatingActionButton btn_scheduler;
+    private FloatingActionButton btn_config;
     private Boolean isOpen;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
+<<<<<<< HEAD
     private TextView textview_settings, textview_scheduler;
     InventoryJobScheduler alarm = new InventoryJobScheduler();
+=======
+    private TextView textview_settings, textview_scheduler,textview_config;
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String strTime = intent.getStringExtra("time");
+            if (sharedPreferences.getBoolean("autoStartInventory", false)) {
+                toolbar.setSubtitle(strTime);
+            } else {
+                toolbar.setSubtitle("");
+            }
+        }
+    };
+>>>>>>> Add xml import into glpi agent
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -276,6 +327,7 @@ public class ActivityMain extends AppCompatActivity
         mainFab = findViewById(R.id.fab);
         btn_settings = findViewById(R.id.btn_settings);
         btn_scheduler = findViewById(R.id.btn_scheduler);
+        btn_config = findViewById(R.id.btn_config);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_fab_clock);
@@ -283,6 +335,7 @@ public class ActivityMain extends AppCompatActivity
 
         textview_settings =  findViewById(R.id.text_settings);
         textview_scheduler = findViewById(R.id.text_scheduler);
+        textview_config = findViewById(R.id.text_config);
         isOpen = false;
 
         mainFab.setOnClickListener(new View.OnClickListener() {
@@ -313,12 +366,32 @@ public class ActivityMain extends AppCompatActivity
                 ActivityMain.this.startActivity(miIntent);
             }
         });
+<<<<<<< HEAD
+=======
+
+
+
+        btn_config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isOpen){
+                    openFab();
+                }
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/xml");
+                startActivityForResult(intent, 2);
+            }
+        });
+
+>>>>>>> Add xml import into glpi agent
     }
 
     private void disableFab(){
         mainFab.hide();
         btn_settings.hide();
         btn_scheduler.hide();
+        btn_config.hide();
     }
 
     public void enableFab(){
@@ -331,20 +404,26 @@ public class ActivityMain extends AppCompatActivity
         if (isOpen) {
             textview_settings.setVisibility(View.INVISIBLE);
             textview_scheduler.setVisibility(View.INVISIBLE);
+            textview_config.setVisibility(View.INVISIBLE);
             btn_settings.startAnimation(fab_close);
             btn_scheduler.startAnimation(fab_close);
+            btn_config.startAnimation(fab_close);
             mainFab.startAnimation(fab_anticlock);
             btn_settings.setClickable(false);
             btn_scheduler.setClickable(false);
+            btn_config.setClickable(false);
             isOpen = false;
         } else {
             textview_settings.setVisibility(View.VISIBLE);
             textview_scheduler.setVisibility(View.VISIBLE);
+            textview_config.setVisibility(View.VISIBLE);
             btn_settings.startAnimation(fab_open);
             btn_scheduler.startAnimation(fab_open);
+            btn_config.startAnimation(fab_open);
             mainFab.startAnimation(fab_clock);
             btn_settings.setClickable(true);
             btn_scheduler.setClickable(true);
+            btn_config.setClickable(true);
             isOpen = true;
         }
     }
@@ -554,6 +633,7 @@ public class ActivityMain extends AppCompatActivity
         }
     }
 
+<<<<<<< HEAD
     private boolean isAlreadyScheduled(JobScheduler jobScheduler, JobInfo jobInfo) {
         boolean jobAlreadyScheduled = false;
         for (JobInfo existingJob: jobScheduler.getAllPendingJobs()) {
@@ -593,4 +673,27 @@ public class ActivityMain extends AppCompatActivity
 
         return builder.build();
     }
+=======
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent resultData) {
+        try {
+            if (requestCode == 2
+                    && resultCode == Activity.RESULT_OK) {
+                Uri uri = null;
+                if (resultData != null && resultData.getData() != null) {
+                    uri = resultData.getData();
+                    importServer(this,getContentResolver().openInputStream(uri));
+                }
+            }
+        }catch (Exception e)
+        {
+            showInfoDialog("Erreur lors de l'import du fichier xml",this);
+            AgentLog.e(e.getMessage());
+        }
+        super.onActivityResult(requestCode, resultCode, resultData);
+    }
+
+
+>>>>>>> Add xml import into glpi agent
 }

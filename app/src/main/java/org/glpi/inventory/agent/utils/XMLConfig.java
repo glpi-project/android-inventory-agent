@@ -1,0 +1,119 @@
+package org.glpi.inventory.agent.utils;
+
+import android.content.Context;
+import android.content.Intent;
+import android.util.Xml;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class XMLConfig {
+
+    public static void importServer( Context context,InputStream in) throws XmlPullParserException, IOException, JSONException {
+        List<String> values;
+        LocalPreferences preferences = new LocalPreferences(context);
+        try {
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            parser.setInput(in, null);
+            parser.nextTag();
+            values = readFeed(parser);
+        }
+        finally {
+            in.close();
+        }
+        if(values != null && !values.isEmpty()) {
+            Intent intent = new Intent();
+            intent.setClassName("com.telelogos.mediacontact", "com.telelogos.mediacontact.com.nom.service");
+            intent.putExtra("parameterName", parameterValue);
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("address", values.get(0));
+                jo.put("tag", values.get(1));
+                jo.put("login", values.get(2));
+                jo.put("pass", values.get(3));
+                jo.put("itemtype", values.get(4));
+                jo.put("serial", values.get(5));
+                ArrayList<String> serverArray = preferences.loadServer();
+                ArrayList<String> newServerArray = new ArrayList<>();
+                for(int i = 0; i < serverArray.size();i++){
+                    if(!serverArray.get(i).equals(values.get(0))){
+                        newServerArray.add(serverArray.get(i));
+                    }
+                }
+                newServerArray.add(values.get(0));
+                preferences.saveServer(newServerArray);
+            } catch (JSONException e) {
+                AgentLog.e(e.getMessage());
+                throw e;
+            }
+            if(preferences.loadJSONObject(values.get(0)) != null){
+                preferences.deletePreferences(values.get(0));
+            }
+            preferences.saveJSONObject(values.get(0), jo);
+        }
+    }
+
+    private static List<String> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+        List<String> entries = new ArrayList<>();
+        parser.require(XmlPullParser.START_TAG, null, "GLPIAgentConfiguration");
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            if (name.equals("server")) {
+                entries = readServer(parser);
+            }
+        }
+        return entries;
+    }
+
+    private static  List<String> readServer(XmlPullParser parser) throws XmlPullParserException, IOException {
+        parser.require(XmlPullParser.START_TAG, null, "server");
+        List<String> server = new ArrayList<>();
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            switch (name) {
+                case "address":
+                    server.add(readText(parser, "address"));
+                    break;
+                case "tag":
+                    server.add(readText(parser, "tag"));
+                    break;
+                case "login":
+                    server.add(readText(parser, "login"));
+                    break;
+                case "pass":
+                    server.add(readText(parser, "pass"));
+                    break;
+                case "itemtype":
+                    server.add(readText(parser, "itemtype"));
+                    break;
+                case "serial":
+                    server.add(readText(parser, "serial"));
+                    break;
+            }
+        }
+        return server;
+    }
+
+    private static String readText(XmlPullParser parser, String tag) throws XmlPullParserException, IOException {
+        parser.require(XmlPullParser.START_TAG, null, tag);
+        String text = parser.nextText();
+        parser.require(XmlPullParser.END_TAG, null, tag);
+        return text;
+    }
+
+}

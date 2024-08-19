@@ -143,6 +143,7 @@
     <string name="AccueilInventoryParamSummary">Schedule task</string>
     <string name="AccueilInventoryShow">Show my inventory</string>
     <string name="AccueilInventoryShowSummary">Display inventory report</string>
+    <string name="AccueilInventoryImportSummary">Import XML</string>
 
     <!-- Remote view part -->
 
