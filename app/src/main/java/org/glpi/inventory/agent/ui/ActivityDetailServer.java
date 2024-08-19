@@ -83,7 +83,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     private Toolbar toolbar;
     private String serverName;
     private JSONObject extra_Data = null;
-    private FloatingActionButton btnScan;
 
     private static final int REQUEST_CODE_SCAN = 150;
 
@@ -109,13 +108,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
             actionServer.setText(R.string.update_server);
             presenter.loadServer(serverName, getApplicationContext());
         }
-
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityDetailServer.this.startActivityForResult(new Intent(ActivityDetailServer.this, ScanActivity.class), REQUEST_CODE_SCAN);
-            }
-        });
 
 
         //try to know if com from deeplink
@@ -170,20 +162,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) {
-            String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-            //decode base64
-            byte[] decodedBytes = Base64.decode(input,Base64.DEFAULT);
-            String decodedString = new String(decodedBytes);
-
-            // come from QR scan
-
-            try {
-                extra_Data = new JSONObject(decodedString);
-            } catch (Exception e) {
-                Toast.makeText(this, getApplicationContext().getResources().getString(R.string.bad_qr_code_format), Toast.LENGTH_LONG).show();
-                AgentLog.e(getApplicationContext().getResources().getString(R.string.bad_qr_code_format)+ " " + decodedString);
-            }
 
             if(extra_Data != null){
                 try {
@@ -233,7 +211,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editSerial = findViewById(R.id.editSerialNumber);
         actionServer.setOnClickListener(this);
         deleteServer.setOnClickListener(this);
-        btnScan = findViewById(R.id.btnQRScan);
         assetItemtype = findViewById(R.id.spinnerAssetItemtype);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -313,7 +290,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editPassWord.setText(model.getPass());
         editSerial.setText(model.getSerial());
         assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(model.getItemtype()));
-        btnScan.hide();
     }
 
     @Override
