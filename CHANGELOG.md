@@ -1,6 +1,11 @@
 
 
 
+<a name=1.5.0></a>
+## [1.5.0](https://github.com/glpi-project/android-inventory-agent/compare/1.4.0..1.5.0) (2024-09-18)
+
+
+
 <a name=1.4.0></a>
 ## [1.4.0](https://github.com/glpi-project/android-inventory-agent/compare/1.3.0..1.4.0) (2023-11-15)
 
