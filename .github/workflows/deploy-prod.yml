@@ -62,10 +62,10 @@ jobs:
       run: echo "${{ env.full_change_log }}" > CHANGELOG.md
 
     - name: Update develop branch
-      uses: EndBug/add-and-commit@v9.0.0
+      uses: EndBug/add-and-commit@v9
       with:
         default_author: github_actions
-        add: "CHANGELOG.md"
+        add: "['CHANGELOG.md', 'package.json']" #only this files will be added
         push: origin HEAD:develop
         message: "ci(release): release new version ${{ env.tag_name }}"
 
