@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
-android:versionCode="39405"
+android:versionCode="39407"
 android:versionName="">
 
     <!-- Permissions -->
@@ -30,7 +30,6 @@ android:versionName="">
 
     <uses-permission android:name="android.permission.TRANSMIT_IR"/>
     <uses-permission android:name="android.permission.UWB_RANGING"/>
-
 
     <!-- Allows for QR COde scanner -->
     <uses-permission android:name="android.permission.VIBRATE"/>
