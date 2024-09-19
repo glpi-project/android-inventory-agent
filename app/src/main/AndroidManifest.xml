@@ -20,6 +20,18 @@ android:versionName="">
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-permission android:name="android.permission.TRANSMIT_IR"/>
+    <uses-permission android:name="android.permission.UWB_RANGING"/>
+
+
     <!-- Allows for QR COde scanner -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
@@ -31,6 +43,9 @@ android:versionName="">
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
 
     <!-- Apps wanting to use foreground services, API 28 higher -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" android:minSdkVersion="34"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" android:minSdkVersion="34"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" android:minSdkVersion="34"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:largeHeap="true" android:name="org.glpi.inventory.agent.ui.InventoryAgentApp" android:requestLegacyExternalStorage="true" android:roundIcon="@drawable/ic_launcher_round" android:theme="@style/AppTheme" android:vmSafeMode="true">
@@ -56,7 +71,14 @@ android:versionName="">
         <activity android:label="@string/app_name" android:name="org.glpi.inventory.agent.preference.GlobalParametersPreference"/>
         <activity android:label="@string/app_name" android:launchMode="standard" android:name="org.glpi.inventory.agent.ui.ActivityInventoryReport" android:theme="@style/NoActionBar"/>
 
-        <service android:description="@string/agent_description" android:enabled="true" android:exported="true" android:icon="@mipmap/ic_launcher" android:label="Inventory Agent" android:name="org.glpi.inventory.agent.service.InventoryService" tools:ignore="ExportedService">
+        <service
+            android:description="@string/agent_description"
+            android:enabled="true"
+            android:exported="false"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Inventory Agent"
+            android:name="org.glpi.inventory.agent.service.InventoryService"
+            android:foregroundServiceType="dataSync|connectedDevice|camera">
             <intent-filter>
                 <action android:name="org.glpi.inventory.service"/>
             </intent-filter>
