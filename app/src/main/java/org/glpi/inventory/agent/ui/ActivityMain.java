@@ -143,7 +143,7 @@ public class ActivityMain extends AppCompatActivity
             }
         };
 
-        registerReceiver(appRestrictionChange, restrictionsFilter);
+        registerReceiver(appRestrictionChange, restrictionsFilter, RECEIVER_NOT_EXPORTED);
     }
 
     @Override
@@ -270,7 +270,7 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+        registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER), RECEIVER_NOT_EXPORTED);
         resolveRestrictions();
     }
 
@@ -343,7 +343,7 @@ public class ActivityMain extends AppCompatActivity
         drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         IntentFilter timeAlarmChanged = new IntentFilter("timeAlarmChanged");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, timeAlarmChanged);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, timeAlarmChanged, RECEIVER_NOT_EXPORTED);
 
         //FloatActionButton
         mainFab = findViewById(R.id.fab);

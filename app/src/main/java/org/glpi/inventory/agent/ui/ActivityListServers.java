@@ -106,7 +106,7 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
         presenter.loadServers(this);
 
         IntentFilter filter = new IntentFilter("reload-servers");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter, RECEIVER_NOT_EXPORTED);
     }
 
 
