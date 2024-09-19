@@ -45,10 +45,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -56,11 +56,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.enterprise.feedback.KeyedAppState;
 import androidx.enterprise.feedback.KeyedAppStatesReporter;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.provider.Settings;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -70,19 +67,14 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
-import org.glpi.inventory.agent.core.detailserver.DetailServer;
-import org.glpi.inventory.agent.core.detailserver.DetailServerPresenter;
 import org.glpi.inventory.agent.core.main.Main;
 import org.glpi.inventory.agent.core.main.MainPresenter;
 import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.preference.InventoryParametersPreference;
-import org.glpi.inventory.agent.schema.ServerSchema;
 import org.glpi.inventory.agent.service.InventoryService;
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
-import org.glpi.inventory.agent.utils.HttpInventory;
 import org.glpi.inventory.agent.utils.LocalPreferences;
 import org.glpi.inventory.agent.utils.LocalStorage;
 import org.json.JSONException;
@@ -143,7 +135,14 @@ public class ActivityMain extends AppCompatActivity
             }
         };
 
-        registerReceiver(appRestrictionChange, restrictionsFilter);
+        if (Build.VERSION.SDK_INT >= 34 && getApplicationInfo().targetSdkVersion >= 34) {
+            registerReceiver(appRestrictionChange, restrictionsFilter, RECEIVER_NOT_EXPORTED);
+            registerReceiver(mMessageReceiver, restrictionsFilter, RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(appRestrictionChange, restrictionsFilter);
+            registerReceiver(mMessageReceiver, restrictionsFilter);
+        }
+
     }
 
     @Override
@@ -270,7 +269,13 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+
+        if (Build.VERSION.SDK_INT >= 34 && getApplicationInfo().targetSdkVersion >= 34) {
+            registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER), RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+        }
+
         resolveRestrictions();
     }
 
@@ -290,6 +295,7 @@ public class ActivityMain extends AppCompatActivity
                 new String[]{
                         Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.CAMERA,
+                        Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC
                 },
                 1);
 
@@ -342,8 +348,14 @@ public class ActivityMain extends AppCompatActivity
 
         drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+
         IntentFilter timeAlarmChanged = new IntentFilter("timeAlarmChanged");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, timeAlarmChanged);
+        if (Build.VERSION.SDK_INT >= 34 && getApplicationInfo().targetSdkVersion >= 34) {
+            registerReceiver(appRestrictionChange, timeAlarmChanged, RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(appRestrictionChange, timeAlarmChanged);
+        }
 
         //FloatActionButton
         mainFab = findViewById(R.id.fab);
@@ -439,7 +451,7 @@ public class ActivityMain extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        unregisterReceiver(mMessageReceiver);
     }
 
     @Override

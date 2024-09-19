@@ -45,7 +45,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.utils.AgentLog;
@@ -75,8 +74,7 @@ public class InventoryParametersPreference extends PreferenceActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
 
         if ("timeInventory".equals(s)) {
-            Intent intent = new Intent("timeAlarmChanged");
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            sendBroadcast(new Intent("timeAlarmChanged"));
             AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getString(s, "Week"));
         }
 

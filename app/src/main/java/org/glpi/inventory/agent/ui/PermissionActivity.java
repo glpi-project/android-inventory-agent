@@ -80,7 +80,8 @@ public class PermissionActivity extends AppCompatActivity implements Permission.
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                ) {
                     presenter.permissionSuccess();
                 } else {
                     presenter.showError(getString(R.string.permission_error_result));
