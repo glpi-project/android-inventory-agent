@@ -50,11 +50,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.flyve.inventory.InventoryLog;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.core.detailserver.DetailServer;
 import org.glpi.inventory.agent.core.detailserver.DetailServerPresenter;
@@ -256,6 +254,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                 serverInfo.add(editSerial.getText().toString());
                 if (serverName == null) {
                     presenter.saveServer(serverInfo, getApplicationContext());
+                    sendBroadcast(new Intent("reload-servers"));
                     //manage automatic inventory
                     if(extra_Data != null){
                         try {
@@ -281,6 +280,7 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                     }
                 } else {
                     presenter.updateServer(serverInfo, serverName, getApplicationContext());
+                    sendBroadcast(new Intent("reload-servers"));
                 }
                 break;
             case R.id.deleteServer:
@@ -319,6 +319,6 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("reload-servers"));
+        sendBroadcast(new Intent("reload-servers"));
     }
 }

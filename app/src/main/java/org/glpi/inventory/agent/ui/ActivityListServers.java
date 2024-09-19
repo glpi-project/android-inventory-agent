@@ -39,6 +39,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +47,6 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,6 +69,7 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
             presenter.loadServers(ActivityListServers.this);
         }
     };
+
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -106,7 +107,12 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
         presenter.loadServers(this);
 
         IntentFilter filter = new IntentFilter("reload-servers");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+        if (Build.VERSION.SDK_INT >= 34 && getApplicationInfo().targetSdkVersion >= 34) {
+            registerReceiver(mMessageReceiver, filter, RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mMessageReceiver, filter);
+        }
+
     }
 
 
@@ -133,7 +139,7 @@ public class ActivityListServers extends AppCompatActivity implements Servers.Vi
 
     @Override
     protected void onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
 }

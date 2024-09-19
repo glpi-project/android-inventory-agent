@@ -43,6 +43,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ServiceInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -52,6 +53,8 @@ import android.preference.PreferenceManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
+
 import android.util.Log;
 import android.util.Xml;
 
@@ -129,8 +132,7 @@ public class InventoryService extends Service {
         //create intent to redirect user to app on click
         Intent appIntent = new Intent(getApplicationContext(), ActivityMain.class);
         appIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent appIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, appIntent, PendingIntent.FLAG_MUTABLE);
-
+        PendingIntent appIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, appIntent, PendingIntent.FLAG_IMMUTABLE);
 
         //create inent to invite user to disable notification
         Intent notificationIntent = new Intent();
@@ -139,7 +141,7 @@ public class InventoryService extends Service {
         notificationIntent.putExtra("app_uid", getApplicationInfo().uid);
         notificationIntent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
         PendingIntent notificationIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0,
-                notificationIntent, PendingIntent.FLAG_MUTABLE);
+                notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         //create notification
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
@@ -153,7 +155,12 @@ public class InventoryService extends Service {
                 .setContentIntent(appIntentRedirect)
                 .addAction(R.drawable.ic_about, getApplicationContext().getResources().getString(R.string.disable_notification), notificationIntentRedirect)
                 .build();
-        startForeground(2, notification);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            startForeground(2, notification);
+        } else {
+            ServiceCompat.startForeground(this, 2,notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC | ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE | ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA);
+        }
     }
 
     class TimeDisplayTimerTask extends TimerTask {

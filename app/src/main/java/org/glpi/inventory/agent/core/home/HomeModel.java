@@ -37,6 +37,7 @@ package org.glpi.inventory.agent.core.home;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;

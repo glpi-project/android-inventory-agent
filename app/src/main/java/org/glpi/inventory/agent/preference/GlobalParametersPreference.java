@@ -35,7 +35,6 @@
 
 package org.glpi.inventory.agent.preference;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -45,7 +44,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.utils.AgentLog;
