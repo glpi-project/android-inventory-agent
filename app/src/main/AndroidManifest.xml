@@ -41,7 +41,6 @@ android:versionName="">
 
         <meta-data android:name="android.content.APP_RESTRICTIONS"  android:resource="@xml/app_restrictions"/>
 
-        <!--
         <activity android:exported="true" android:name="org.glpi.inventory.agent.ui.ActivitySplash" android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -49,19 +48,9 @@ android:versionName="">
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        -->
-
-
 
         <activity android:launchMode="singleInstance" android:name=".ui.ScanActivity" android:screenOrientation="landscape"/>
-
-        <activity android:exported="true" android:configChanges="orientation|screenSize" android:label="@string/app_name" android:name="org.glpi.inventory.agent.ui.ActivityMain" android:requestLegacyExternalStorage="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <activity android:configChanges="orientation|screenSize" android:label="@string/app_name" android:name="org.glpi.inventory.agent.ui.ActivityMain" android:requestLegacyExternalStorage="true"/>
         <activity android:label="@string/app_name" android:name="org.glpi.inventory.agent.preference.InventoryParametersPreference"/>
         <activity android:label="@string/app_name" android:name="org.glpi.inventory.agent.preference.GlobalParametersPreference"/>
         <activity android:label="@string/app_name" android:launchMode="standard" android:name="org.glpi.inventory.agent.ui.ActivityInventoryReport" android:theme="@style/NoActionBar"/>
