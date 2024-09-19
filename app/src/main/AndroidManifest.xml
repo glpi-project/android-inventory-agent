@@ -31,7 +31,6 @@ android:versionName="">
     <uses-permission android:name="android.permission.TRANSMIT_IR"/>
     <uses-permission android:name="android.permission.UWB_RANGING"/>
 
-
     <!-- Allows for QR COde scanner -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
