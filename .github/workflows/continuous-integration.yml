@@ -57,7 +57,7 @@ jobs:
 
     # Run Instrumentation Tests in Firebase Test Lab
     - name: Run Instrumentation Tests in Firebase Test Lab
-      run: gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=oriole,version=31,locale=en,orientation=portrait
+      run: gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=akita,version=34,locale=en,orientation=portrait
 
 
     ##########################################
