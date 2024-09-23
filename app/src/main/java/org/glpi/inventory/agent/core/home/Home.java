@@ -54,14 +54,12 @@ public interface Home {
         void showError(String message);
 
         // Models
-        void doBindService(Activity activity);
         void setupList(Activity activity, ListView lst);
         void clickItem(final Activity activity, HomeSchema homeSchema);
         List<HomeSchema> getListItems();
     }
 
     interface Model {
-        void doBindService(Activity activity);
         void setupList(Activity activity, ListView lst);
         void clickItem(final Activity activity, HomeSchema homeSchema);
         List<HomeSchema> getListItems();

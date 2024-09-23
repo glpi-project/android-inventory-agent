@@ -36,22 +36,15 @@
 package org.glpi.inventory.agent.core.home;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.util.Log;
 import android.widget.ListView;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.HomeAdapter;
 import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.preference.InventoryParametersPreference;
-import org.glpi.inventory.agent.service.InventoryService;
 import org.glpi.inventory.agent.ui.ActivityInventoryReport;
 import org.glpi.inventory.agent.ui.DialogListServers;
-import org.glpi.inventory.agent.utils.AgentLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,53 +57,6 @@ public class HomeModel implements Home.Model {
     public HomeModel(Home.Presenter presenter) {
         this.presenter = presenter;
     }
-
-    public void doBindService(Activity activity) {
-        // Establish a connection with the service. We use an explicit
-        // class name because we want a specific service implementation that
-        // we know will be running in our own process (and thus won't be
-        // supporting component replacement by other applications).
-        InventoryService inventoryService = new InventoryService();
-        Intent mServiceIntent = new Intent(activity, inventoryService.getClass());
-        ComponentName result;
-
-        if (!isMyServiceRunning(activity, inventoryService.getClass())) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                result = activity.startForegroundService(mServiceIntent);
-            } else {
-                result = activity.startService(mServiceIntent);
-            }
-
-            if (result != null) {
-                AgentLog.log(this, " Agent started ", Log.INFO);
-            } else {
-                AgentLog.log(this, " Agent fail", Log.ERROR);
-            }
-        } else {
-            AgentLog.log(this, " Agent already started ", Log.ERROR);
-        }
-    }
-
-    /**
-     * Check if the service is running
-     * @param serviceClass Class
-     * @return boolean
-     */
-    private boolean isMyServiceRunning(Activity activity, Class<?> serviceClass) {
-        try {
-            ActivityManager manager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (serviceClass.getName().equals(service.service.getClassName())) {
-                    return true;
-                }
-            }
-        } catch (Exception ex) {
-            AgentLog.e(ex.getMessage());
-        }
-
-        return false;
-    }
-
 
     @Override
     public void setupList(Activity activity, ListView lst) {

@@ -58,11 +58,6 @@ public class HomePresenter implements Home.Presenter {
     }
 
     @Override
-    public void doBindService(Activity activity) {
-        model.doBindService(activity);
-    }
-
-    @Override
     public void setupList(Activity activity, ListView lst) {
         model.setupList(activity, lst);
     }
