@@ -2,14 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
         minSdkVersion 21
         targetSdkVersion 34
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     testOptions {
@@ -28,18 +30,9 @@ android {
         }
     }
 
-    dexOptions {
-        preDexLibraries true
-        maxProcessCount 8
-    }
-
     namespace 'org.glpi.inventory.agent'
     lint {
         abortOnError false
-    }
-
-    defaultConfig {
-        multiDexEnabled true
     }
 }
 
@@ -63,8 +56,8 @@ dependencies {
 
     androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
 
-    testImplementation 'org.mockito:mockito-core:2.18.3'
-    androidTestImplementation 'org.mockito:mockito-android:2.18.3'
+    testImplementation 'org.mockito:mockito-android:5.5.0' // Use the latest version
+    androidTestImplementation 'org.mockito:mockito-android:5.5.0'
 
     implementation 'androidx.test.espresso:espresso-idling-resource:3.6.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])

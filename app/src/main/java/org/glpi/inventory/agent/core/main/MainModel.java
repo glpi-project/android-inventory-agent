@@ -46,6 +46,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.DrawerAdapter;
+import org.glpi.inventory.agent.ui.ActivityMain;
 import org.glpi.inventory.agent.ui.FragmentAbout;
 import org.glpi.inventory.agent.ui.FragmentHelp;
 import org.glpi.inventory.agent.ui.FragmentHome;
@@ -70,30 +71,9 @@ public class MainModel implements Main.Model {
 
     @Override
     public void setupInventoryAlarm(Context context) {
-        LocalStorage cache = new LocalStorage(context);
-        if (cache.getDataBoolean("changeSchedule")) {
-            Calendar calendar = Calendar.getInstance();
-
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            String timeInventory = sharedPreferences.getString("timeInventory", "week");
-
-            // week by default
-            if (timeInventory.equalsIgnoreCase("week")) {
-                calendar.add(Calendar.DATE, 7);
-            }
-
-            if (timeInventory.equalsIgnoreCase("day")) {
-                calendar.add(Calendar.DATE, 1);
-            }
-
-            if (timeInventory.equalsIgnoreCase("month")) {
-                calendar.add(Calendar.DATE, 30);
-            }
-
-            long dateTime = calendar.getTime().getTime();
-
-            cache.setDataLong("data", dateTime);
-            cache.setDataBoolean("changeSchedule", false);
+        if (context instanceof ActivityMain) {
+            ActivityMain activity = (ActivityMain) context;
+            activity.scheduleJob();
         }
     }
 
