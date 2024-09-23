@@ -50,14 +50,14 @@ Now you can choose (from the server information) whether this inventory should c
 
 ### GLPI Android Inventory Agent
 
-|GLPI|9.1|9.2+|9.3+|9.4+|9.5+|10.0+|
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|1.3.0|
-|**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|1.2.0|
+|GLPI|9.1|9.2+|9.3+|9.4+|9.5+|10.0+|10.0+|10.0+|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|**GLPI Android Inventory Agent**|1.0.0|1.0.0|1.0.0|1.0.0|1.1.0|1.3.0|1.4.0|1.5.0|
+|**Plugin GLPI Agent Config**|1.0|1.0|1.0|1.0|1.1.0|1.2.0|1.2.1|1.2.1|
 
 ### Inventory Agent & Android Versions
 
-GLPI Android Inventory Agent is compatible with Android 4.1 and higher (to Android 13).
+GLPI Android Inventory Agent is compatible with Android 5 and higher (to Android 13).
 
 ## Installation
 

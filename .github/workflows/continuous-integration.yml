@@ -56,8 +56,20 @@ jobs:
       run: gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
 
     # Run Instrumentation Tests in Firebase Test Lab
+    # dm3q    Samasung galaxy s23     SDK 33
+    # e1q     Samasung galaxy s24     SDK 34
+    # bluejay Google Pixel 6a         SDK 32
+    # a51     Samsung  Galaxy A51     SDK 31
+    # q2q     Samsung Galaxy Z Fold3  SDK 30
+    # cactus  Xiaomi Redmi 6A         SDK 27
     - name: Run Instrumentation Tests in Firebase Test Lab
-      run: gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=oriole,version=31,locale=en,orientation=portrait
+      run: |
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=e1q,version=34,locale=en,orientation=portrait
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=dm3q,version=33,locale=en,orientation=portrait
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=bluejay,version=32,locale=en,orientation=portrait
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=a51,version=31,locale=en,orientation=portrait
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=q2q,version=30,locale=en,orientation=portrait
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=cactus,version=27,locale=en,orientation=portrait
 
 
     ##########################################

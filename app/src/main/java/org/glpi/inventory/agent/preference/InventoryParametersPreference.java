@@ -73,15 +73,16 @@ public class InventoryParametersPreference extends PreferenceActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-
         if ("timeInventory".equals(s)) {
             Intent intent = new Intent("timeAlarmChanged");
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-            AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getString(s, "Week"));
+            AgentLog.d("GLPI-AGENT-JOBSCHEDULER : Preference "+ s +" changed -> " + sharedPreferences.getString(s, "Week"));
         }
 
         if("autoStartInventory".equals(s)){
-            AgentLog.d("Preference "+ s +" changed -> " + sharedPreferences.getBoolean(s, false));
+            Intent intent = new Intent("timeAlarmChanged");
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            AgentLog.d("GLPI-AGENT-JOBSCHEDULER : Preference "+ s +" changed -> " + sharedPreferences.getBoolean(s, false));
         }
     }
 }
