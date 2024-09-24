@@ -255,7 +255,18 @@ public class InventoryService extends Service {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "android:inventory:agent");
         wl.acquire();
 
-        final InventoryTask inventory = new InventoryTask(context.getApplicationContext(), Helpers.getAgentDescription(context), true);
+        LocalPreferences preferences = new LocalPreferences(context);
+        final ArrayList<String> listPreference = preferences.loadCategories();
+        String description = Helpers.getAgentDescription(context);
+        final InventoryTask inventory;
+
+        if (listPreference.size() > 0) {
+            String[] categories = listPreference.toArray(new String[listPreference.size()]);
+            inventory = new InventoryTask(context, Helpers.getAgentDescription(context), true, categories);
+        } else {
+            inventory = new InventoryTask(context, Helpers.getAgentDescription(context), true);
+        }
+
         final HttpInventory httpInventory = new HttpInventory(context.getApplicationContext());
         ArrayList<String> serverArray = new LocalPreferences(context).loadServer();
         if (!serverArray.isEmpty()) {
