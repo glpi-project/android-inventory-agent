@@ -38,53 +38,16 @@ package org.glpi.inventory.agent.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.preference.PreferenceManager;
-import android.widget.Toast;
-
-import org.flyve.inventory.InventoryLog;
-import org.glpi.inventory.agent.service.InventoryService;
 import org.glpi.inventory.agent.ui.ActivityMain;
-import org.glpi.inventory.agent.utils.AgentLog;
 
 public class BootStartAgent extends BroadcastReceiver {
 
-    TimeAlarm alarm = new TimeAlarm();
-
-    /**
-     * It sets an alarm after the user has finished booting
-     * @param context in which the receiver is running
-     * @param intent being received
-     */
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        String action = intent.getAction();
-        if(action==null) {
-            return;
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            Intent activityIntent = new Intent(context, ActivityMain.class);
+            activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(activityIntent);
         }
-
-        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        if (customSharedPreference.getBoolean("boot", false)) {
-            try {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    Intent myIntent = new Intent(context, InventoryService.class);
-                    context.startForegroundService(myIntent);
-                } else {
-                    Intent myIntent = new Intent(context, ActivityMain.class);
-                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(myIntent);
-                }
-            }catch(Exception ex) {
-                Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-
-        if(customSharedPreference.getBoolean("autoStartInventory", false)){
-            alarm.setAlarm(context);
-        }
-
     }
 }
