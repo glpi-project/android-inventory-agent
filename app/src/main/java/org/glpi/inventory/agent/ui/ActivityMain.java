@@ -49,6 +49,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -110,6 +111,8 @@ public class ActivityMain extends AppCompatActivity
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     private TextView textview_settings, textview_scheduler,textview_config;
 
+    final static int REQUESTCODE_OPEN_DOC = 2;
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -134,7 +137,11 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER), Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+        }
     }
 
     @Override
@@ -149,13 +156,22 @@ public class ActivityMain extends AppCompatActivity
         //Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        ActivityCompat.requestPermissions(ActivityMain.this,
-                new String[]{
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.CAMERA,
-                },
-                1);
-
+        if (Build.VERSION.SDK_INT >= 34) {
+            ActivityCompat.requestPermissions(ActivityMain.this,
+                    new String[]{
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC
+                    },
+                    1);
+        } else {
+            ActivityCompat.requestPermissions(ActivityMain.this,
+                    new String[]{
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.CAMERA,
+                    },
+                    1);
+        }
         if (!new LocalStorage(this).getDataBoolean("isFirstTime")) {
             loadCategories();
         }
@@ -263,7 +279,7 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("text/xml");
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, REQUESTCODE_OPEN_DOC);
             }
         });
 
@@ -374,7 +390,7 @@ public class ActivityMain extends AppCompatActivity
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent resultData) {
         try {
-            if (requestCode == 2
+            if (requestCode == REQUESTCODE_OPEN_DOC
                     && resultCode == Activity.RESULT_OK) {
                 Uri uri = null;
                 if (resultData != null && resultData.getData() != null) {

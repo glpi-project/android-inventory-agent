@@ -33,7 +33,6 @@ public class XMLConfig {
         if(values != null && !values.isEmpty()) {
             Intent intent = new Intent();
             intent.setClassName("com.telelogos.mediacontact", "com.telelogos.mediacontact.com.nom.service");
-            intent.putExtra("parameterName", parameterValue);
             JSONObject jo = new JSONObject();
             try {
                 jo.put("address", values.get(0));

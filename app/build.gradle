@@ -7,9 +7,8 @@ android {
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
         minSdkVersion 19
-        targetSdkVersion 33
-        compileSdk 33
-        maxSdkVersion 35
+        targetSdkVersion 34
+        compileSdk 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -57,7 +56,7 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.androidx', module: 'support-annotations'
     })
-    androidTestImplementation('tools.fastlane:screengrab:1.1.0', {
+    androidTestImplementation('tools.fastlane:screengrab:2.1.1', {
         exclude group: 'com.androidx', module: 'support-annotations'
     })
 
