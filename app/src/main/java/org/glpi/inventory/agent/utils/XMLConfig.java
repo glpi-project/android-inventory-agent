@@ -2,6 +2,8 @@ package org.glpi.inventory.agent.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Shader;
 import android.util.Xml;
 
 import org.json.JSONException;
@@ -25,7 +27,7 @@ public class XMLConfig {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
-            values = readFeed(parser);
+            values = readFeed(parser, preferences);
         }
         finally {
             in.close();
@@ -61,8 +63,11 @@ public class XMLConfig {
         }
     }
 
-    private static List<String> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private static List<String> readFeed(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
         List<String> entries = new ArrayList<>();
+        if (parser.getName().equals("map")) {
+            return readMap(parser, preferences);
+        }
         parser.require(XmlPullParser.START_TAG, null, "GLPIAgentConfiguration");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -105,6 +110,90 @@ public class XMLConfig {
                     break;
             }
         }
+        return server;
+    }
+
+
+    /**
+     * read and parse a glpi preferences.xml
+     * @param parser xml parser
+     * @param preferences used to deleted/set SharedPreferences
+     * @return empty list
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    private static  List<String> readMap(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
+        List<String> server = new ArrayList<>();
+        SharedPreferences prefs = preferences.getDefaultPreferences();
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+
+        try {
+            int categsCount = Integer.parseInt(prefs.getString("Status_size_categories", "0"));
+            for (int i = 1; i <= categsCount; i++) {
+                prefsEditor.remove("Status_categories_" + i);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            int srvCount = Integer.parseInt(prefs.getString("Status_size", "0"));
+            for (int i = 1; i <= srvCount; i++) {
+                prefsEditor.remove("Status_" + i);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            int eventType = parser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                String tagname = parser.getName(); // "string" "boolean"
+                int attrCount = parser.getAttributeCount();
+                String name = ""; // attribute "name"
+                String value = ""; // attribute "value" for tagname boolean
+                for (int i = 0;i<attrCount;i++) {
+                    String aName = parser.getAttributeName(i);
+                    String aValue = parser.getAttributeValue(i);
+                    if (aName.equals("name")) name = aValue;
+                    if (aName.equals("value")) value = aValue;
+                }
+                switch (eventType) {
+                    case XmlPullParser.START_TAG: {
+                        String text = null;
+                        if (tagname.equalsIgnoreCase("string")) {
+                            eventType = parser.next();
+                            if (eventType == XmlPullParser.TEXT) {
+                                text = parser.getText();
+                            }
+                        }
+
+//                        if (name.equalsIgnoreCase("Status_size")) {
+//                            //
+//                        } else if (name.equalsIgnoreCase("Status_0")) {
+//                            server.add(text);
+//                        } else {
+                        if (tagname.equalsIgnoreCase("string")) {
+                            prefsEditor.putString(name, text);
+                        } else if ( (tagname.equalsIgnoreCase("boolean")) && (!value.isEmpty())) {
+                            prefsEditor.putBoolean(name, value.equalsIgnoreCase("true"));
+                        }
+//                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+//        if (server.size()>0) {
+//            while (server.size()<6) { server.add(""); }
+//        }
+
+        prefsEditor.apply();
         return server;
     }
 

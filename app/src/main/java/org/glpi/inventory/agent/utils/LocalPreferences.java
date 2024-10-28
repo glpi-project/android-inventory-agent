@@ -62,6 +62,10 @@ public class LocalPreferences {
         return mContext.getSharedPreferences(SHARED_PREFS_FILE, 0);
     }
 
+    public SharedPreferences getDefaultPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(mContext);
+    }
+
     /**
      * Store an Json Array
      */
