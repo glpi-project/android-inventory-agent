@@ -1,9 +1,28 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     useLibrary 'org.apache.http.legacy'
 
+    signingConfigs {
+    	debug {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
         minSdkVersion 19
@@ -21,10 +40,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             manifestPlaceholders = [crashlyticsEnabled: true]
+            signingConfig signingConfigs.release
         }
         debug {
             testCoverageEnabled true
             manifestPlaceholders = [crashlyticsEnabled: false]
+            signingConfig signingConfigs.debug
         }
     }
 
