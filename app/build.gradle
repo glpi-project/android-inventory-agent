@@ -176,4 +176,10 @@ task updateVersionName {
     }
 }
 
+task printVersion {
+    doLast {
+        println android.defaultConfig.versionName
+    }
+}
+
 apply plugin: 'com.google.gms.google-services'
