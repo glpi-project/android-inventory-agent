@@ -87,7 +87,7 @@ pipeline {
             }
 
             environment {
-                APK_RELEASE_DIR = "app/release"
+                APK_RELEASE_DIR = "app/build/outputs/apk/release"
                 APK_RELEASE_NAME = "geodis-glpiclient-$BUILD_NUMBER-$GRADLE_BUILD-Release"
                 JFROG_FOLDER = "$JFROG_REPOSITORY/$BRANCH_NAME/$GRADLE_BUILD/"
             }
@@ -95,7 +95,8 @@ pipeline {
             steps {
                 sh'''
                     sh ./gradlew assembleRelease
-                    mv $APK_RELEASE_DIR/geopics-2.2.apk $APK_RELEASE_DIR/$APK_RELEASE_NAME.apk
+                    ls -R
+                    mv $APK_RELEASE_DIR/app-release.apk $APK_RELEASE_DIR/$APK_RELEASE_NAME.apk
                 '''
             }
             
@@ -106,7 +107,7 @@ pipeline {
                         spec: """{
                             "files": [
                             {
-                                    "pattern": "src/$APK_RELEASE_DIR/*.apk",
+                                    "pattern": "$APK_RELEASE_DIR/*.apk",
                                     "target": "$JFROG_FOLDER"
                                 }
                             ]
