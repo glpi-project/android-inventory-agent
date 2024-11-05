@@ -34,7 +34,7 @@ pipeline {
                 
                 script {
                     // GRADLE_BUILD is used to retrieve and keep the version name
-                    GRADLE_BUILD = sh(script: "cd src && sh ./gradlew -q printVersion", returnStdout: true).trim()
+                    GRADLE_BUILD = sh(script: "sh ./gradlew -q printVersion", returnStdout: true).trim()
                     echo GRADLE_BUILD
                 }
                 // Initialize artifactory server
@@ -51,12 +51,12 @@ pipeline {
 
             environment {
                 APK_DEBUG_DIR = "app/build/outputs/apk/debug"
-                APK_DEBUG_NAME = "geodis-glpiclient-$BUILD_NUMBER-Debug"
+                APK_DEBUG_NAME = "geodis-glpiclient-$BUILD_NUMBER-$GRADLE_BUILD-Debug"
+                JFROG_FOLDER = "$JFROG_REPOSITORY/$BRANCH_NAME/$GRADLE_BUILD/"
             }
 
             steps {
                 sh'''
-                    cd src
                     sh ./gradlew assembleDebug
                     mv $APK_DEBUG_DIR/app-debug.apk $APK_DEBUG_DIR/$APK_DEBUG_NAME.apk
                 '''
@@ -94,7 +94,6 @@ pipeline {
 
             steps {
                 sh'''
-                    cd src
                     sh ./gradlew assembleRelease
                     mv $APK_RELEASE_DIR/geopics-2.2.apk $APK_RELEASE_DIR/$APK_RELEASE_NAME.apk
                 '''
