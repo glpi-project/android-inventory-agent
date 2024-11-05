@@ -34,7 +34,11 @@ pipeline {
                 
                 script {
                     // GRADLE_BUILD is used to retrieve and keep the version name
+<<<<<<< HEAD
                     GRADLE_BUILD = sh(script: "sh ./gradlew -q printVersion", returnStdout: true).trim()
+=======
+                    GRADLE_BUILD = sh(script: "cd src && sh ./gradlew -q printVersion", returnStdout: true).trim()
+>>>>>>> Create Jenkinsfile
                     echo GRADLE_BUILD
                 }
                 // Initialize artifactory server
@@ -51,12 +55,20 @@ pipeline {
 
             environment {
                 APK_DEBUG_DIR = "app/build/outputs/apk/debug"
+<<<<<<< HEAD
                 APK_DEBUG_NAME = "geodis-glpiclient-$BUILD_NUMBER-$GRADLE_BUILD-Debug"
                 JFROG_FOLDER = "$JFROG_REPOSITORY/$BRANCH_NAME/$GRADLE_BUILD/"
+=======
+                APK_DEBUG_NAME = "geodis-glpiclient-$BUILD_NUMBER-Debug"
+>>>>>>> Create Jenkinsfile
             }
 
             steps {
                 sh'''
+<<<<<<< HEAD
+=======
+                    cd src
+>>>>>>> Create Jenkinsfile
                     sh ./gradlew assembleDebug
                     mv $APK_DEBUG_DIR/app-debug.apk $APK_DEBUG_DIR/$APK_DEBUG_NAME.apk
                 '''
@@ -87,16 +99,26 @@ pipeline {
             }
 
             environment {
+<<<<<<< HEAD
                 APK_RELEASE_DIR = "app/build/outputs/apk/release"
+=======
+                APK_RELEASE_DIR = "app/release"
+>>>>>>> Create Jenkinsfile
                 APK_RELEASE_NAME = "geodis-glpiclient-$BUILD_NUMBER-$GRADLE_BUILD-Release"
                 JFROG_FOLDER = "$JFROG_REPOSITORY/$BRANCH_NAME/$GRADLE_BUILD/"
             }
 
             steps {
                 sh'''
+<<<<<<< HEAD
                     sh ./gradlew assembleRelease
                     ls -R
                     mv $APK_RELEASE_DIR/app-release.apk $APK_RELEASE_DIR/$APK_RELEASE_NAME.apk
+=======
+                    cd src
+                    sh ./gradlew assembleRelease
+                    mv $APK_RELEASE_DIR/geopics-2.2.apk $APK_RELEASE_DIR/$APK_RELEASE_NAME.apk
+>>>>>>> Create Jenkinsfile
                 '''
             }
             
@@ -107,7 +129,11 @@ pipeline {
                         spec: """{
                             "files": [
                             {
+<<<<<<< HEAD
                                     "pattern": "$APK_RELEASE_DIR/*.apk",
+=======
+                                    "pattern": "src/$APK_RELEASE_DIR/*.apk",
+>>>>>>> Create Jenkinsfile
                                     "target": "$JFROG_FOLDER"
                                 }
                             ]
