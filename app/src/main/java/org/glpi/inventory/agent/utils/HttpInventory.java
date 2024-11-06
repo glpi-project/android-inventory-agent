@@ -135,7 +135,11 @@ public class HttpInventory {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
-                connect(lastXMLResult, callback);
+                try {
+                    connect(lastXMLResult, callback);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         t.start();

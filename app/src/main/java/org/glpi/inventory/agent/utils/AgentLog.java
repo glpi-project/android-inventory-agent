@@ -35,9 +35,16 @@
 
 package org.glpi.inventory.agent.utils;
 
+import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 
+import com.orhanobut.logger.CsvFormatStrategy;
+import com.orhanobut.logger.DiskLogAdapter;
+import com.orhanobut.logger.DiskLogStrategy;
 import com.orhanobut.logger.Logger;
+
+import java.io.File;
 
 /**
  * This is a Log wrapper
@@ -101,5 +108,20 @@ public class AgentLog {
     public static void log(Object obj, String msg, int level) {
         String final_msg = String.format("[%s] %s", obj.getClass().getName(), msg);
         Log.println(level, "InventoryAgent", final_msg);
+    }
+
+
+    public static void setLogFile() {
+        if (Build.VERSION.SDK_INT >= 30) {
+            if (!Environment.isExternalStorageManager()) {
+                return;
+            }
+        }
+        File file = new File(Environment.getExternalStorageDirectory(), "Documents");
+
+        DiskLogAdapter dla = new DiskLogAdapter(CsvFormatStrategy.newBuilder().tag("AgentLog")
+                .logStrategy(new DiskLogStrategy(new DiskLogHandler(file.getAbsolutePath(), "glpi", 500 * 1024)))
+                .build());
+        Logger.addLogAdapter(dla);
     }
 }

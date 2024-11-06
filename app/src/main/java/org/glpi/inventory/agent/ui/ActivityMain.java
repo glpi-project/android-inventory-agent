@@ -283,6 +283,13 @@ public class ActivityMain extends AppCompatActivity
             }
         });
 
+        if (!XMLConfig.checkFilesAccess(this)) {
+            this.finish();
+            return;
+        }
+        XMLConfig.autoImportServer(this);
+        AgentLog.setLogFile();
+        AgentLog.i("Application Start");
     }
 
     private void disableFab(){

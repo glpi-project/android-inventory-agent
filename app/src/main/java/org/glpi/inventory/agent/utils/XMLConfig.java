@@ -1,16 +1,28 @@
 package org.glpi.inventory.agent.utils;
 
+import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Shader;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Xml;
 
+import org.glpi.inventory.agent.BuildConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -168,17 +180,17 @@ public class XMLConfig {
                             }
                         }
 
-//                        if (name.equalsIgnoreCase("Status_size")) {
-//                            //
-//                        } else if (name.equalsIgnoreCase("Status_0")) {
-//                            server.add(text);
-//                        } else {
-                        if (tagname.equalsIgnoreCase("string")) {
-                            prefsEditor.putString(name, text);
-                        } else if ( (tagname.equalsIgnoreCase("boolean")) && (!value.isEmpty())) {
-                            prefsEditor.putBoolean(name, value.equalsIgnoreCase("true"));
+                        if (name.equalsIgnoreCase("Status_size")) {
+                            //
+                        } else if (name.equalsIgnoreCase("Status_0")) {
+                            server.add(text);
+                        } else {
+                            if (tagname.equalsIgnoreCase("string")) {
+                                prefsEditor.putString(name, text);
+                            } else if ( (tagname.equalsIgnoreCase("boolean")) && (!value.isEmpty())) {
+                                prefsEditor.putBoolean(name, value.equalsIgnoreCase("true"));
+                            }
                         }
-//                        }
                     }
                         break;
                     default:
@@ -189,9 +201,9 @@ public class XMLConfig {
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
-//        if (server.size()>0) {
-//            while (server.size()<6) { server.add(""); }
-//        }
+        if (server.size()>0) {
+            while (server.size()<6) { server.add(""); }
+        }
 
         prefsEditor.apply();
         return server;
@@ -203,5 +215,41 @@ public class XMLConfig {
         parser.require(XmlPullParser.END_TAG, null, tag);
         return text;
     }
+
+    public static void autoImportServer(Context context) {
+        try {
+            String path = getFilePath("geodis_glpi.xml",context);
+            System.out.println("XMLConfig autoImportServer "+(path!=null));
+            if (path==null) return;
+            importServer(context, new FileInputStream(path));
+        } catch (Exception e) {
+            System.out.println("XMLConfig autoImportServer exception "+e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean checkFilesAccess(Context context) {
+        if (Build.VERSION.SDK_INT >= 30) {
+            if (!Environment.isExternalStorageManager()) {
+                Uri uri = Uri.parse("package:"+ BuildConfig.APPLICATION_ID);
+                context.startActivity(
+                        new Intent(
+                                Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                                uri
+                        )
+                );
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static String getFilePath(String fileName, Context context) {
+        if (!checkFilesAccess(context))
+            return null;
+        File f = new File(Environment.getExternalStorageDirectory(), "Documents/"+fileName);
+        return f.getPath();
+    }
+
 
 }
