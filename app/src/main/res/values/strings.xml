@@ -53,11 +53,11 @@
     <string name="crashreport_disable">Crash report is disable, please enable to test it</string>
     <string name="dialog_share_title">Select the format to share</string>
     <string name="schedule_inventory_each">Inventory is scheduled </string>
-    <string-array name="export_list">
+    <string-array name="export_list" translatable="false">
         <item>XML</item>
         <item>JSON</item>
     </string-array>
-    <string-array name="Time">
+    <string-array name="Time" translatable="false">
         <item>day</item>
         <item>week</item>
         <item>month</item>
@@ -247,7 +247,7 @@
     <string name="Controllers">Controllers</string>
     <string name="Modems">Modems</string>
 
-    <string-array name="Inventory">
+    <string-array name="Inventory" translatable="false">
         <item>Hardware</item>
         <item>User</item>
         <item>Storage</item>
