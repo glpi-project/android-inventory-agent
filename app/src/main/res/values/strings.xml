@@ -67,7 +67,7 @@
         <item>Week</item>
         <item>Month</item>
     </string-array>
-    <string-array name="AssetItemtype">
+    <string-array name="AssetItemtype" translatable="false">
         <item>Computer</item>
         <item>Phone</item>
     </string-array>
