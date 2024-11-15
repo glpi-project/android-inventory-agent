@@ -442,9 +442,9 @@ public class ActivityMain extends AppCompatActivity
         }
 
         if (appRestrictions.containsKey("frequency")) {
-            editor.putString("timeInventory", appRestrictions.getString("frequency"));
+            editor.putString("timeInventory", appRestrictions.getString("frequency", "Week"));
             enterpriseFeedback(getApplicationContext(), "frequency", "frequency option set successfully", appRestrictions.getString("frequency"), KeyedAppState.SEVERITY_INFO);
-            AgentLog.e("EMM - set frequency to " + appRestrictions.getString("frequency"));
+            AgentLog.e("EMM - set frequency to " + appRestrictions.getString("frequency", "Week"));
             editor.apply();
         }
 
@@ -471,11 +471,21 @@ public class ActivityMain extends AppCompatActivity
 
                 try {
                     jsonServerConfig.put("address", serverConfig.getString("server_url"));
-                    jsonServerConfig.put("tag", serverConfig.getString("server_tag"));
-                    jsonServerConfig.put("login", serverConfig.getString("server_login"));
-                    jsonServerConfig.put("pass", serverConfig.getString("server_password"));
-                    jsonServerConfig.put("itemtype", serverConfig.getString("server_itemtype"));
-                    jsonServerConfig.put("serial", serverConfig.getString("server_custom_asset_serial"));
+
+                    String tag = serverConfig.containsKey("server_tag") ? serverConfig.getString("server_tag") : "";
+                    jsonServerConfig.put("tag", tag);
+
+                    String login = serverConfig.containsKey("server_login") ? serverConfig.getString("server_login") : "";
+                    jsonServerConfig.put("login", login);
+
+                    String pass = serverConfig.containsKey("server_password") ? serverConfig.getString("server_password") : "";
+                    jsonServerConfig.put("pass", pass);
+
+                    String itemType = serverConfig.containsKey("server_itemtype") ? serverConfig.getString("server_itemtype") : "Computer";
+                    jsonServerConfig.put("itemtype", itemType);
+
+                    String serial = serverConfig.containsKey("server_custom_asset_serial") ? serverConfig.getString("server_custom_asset_serial") : "";
+                    jsonServerConfig.put("serial", serial);
 
                     AgentLog.e("EMM - Receive the following configuration '" + jsonServerConfig.toString());
 
