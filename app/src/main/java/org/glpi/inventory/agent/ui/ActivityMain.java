@@ -51,6 +51,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -167,6 +168,7 @@ public class ActivityMain extends AppCompatActivity
         } else {
             ActivityCompat.requestPermissions(ActivityMain.this,
                     new String[]{
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.CAMERA,
                     },
@@ -287,7 +289,10 @@ public class ActivityMain extends AppCompatActivity
             this.finish();
             return;
         }
-        XMLConfig.autoImportServer(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager())
+                XMLConfig.autoImportServer(this);
+        }
         AgentLog.setLogFile();
         AgentLog.i("Application Start");
     }
@@ -381,11 +386,21 @@ public class ActivityMain extends AppCompatActivity
         switch (requestCode) {
             case 1: {
 
+                boolean allGranted = true;
+                for (int i=0;i<permissions.length;i++) {
+                    System.out.println("permission "+permissions[i]+" "+grantResults[i]);
+                    if (grantResults[i]!= PackageManager.PERMISSION_GRANTED)
+                        allGranted = false;
+
+                    if ( ( (Manifest.permission.READ_EXTERNAL_STORAGE.equals(permissions[i]))
+                            || (Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permissions[i]))
+                    )
+                        && (grantResults[i]== PackageManager.PERMISSION_GRANTED) )
+                            XMLConfig.autoImportServer(this);
+                }
+
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                } else {
+                if (!allGranted) {
                     String message = getResources().getString(R.string.permission_error_result);
                     Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);
                 }

@@ -37,6 +37,7 @@ package org.glpi.inventory.agent.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 import org.json.JSONException;
@@ -88,7 +89,10 @@ public class LocalPreferences {
     }
 
     public ArrayList<String> loadCategories() {
-        return loadArray("Status_size_categories", "Status_categories_");
+        ArrayList<String> categs = loadArray("Status_size_categories", "Status_categories_");
+        if ( (Build.MANUFACTURER.contains("M3"))&& (categs.contains("Cameras")) )
+            categs.remove("Cameras");
+        return categs;
     }
 
     public void saveCategories(ArrayList<String> list) {
