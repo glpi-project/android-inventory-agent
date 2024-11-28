@@ -117,14 +117,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name="org.glpi.inventory.agent.broadcast.InventoryAgent"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="org.glpi.inventory.agent.Inventory" />
-            </intent-filter>
-        </receiver>
-
         <activity android:name="org.glpi.inventory.agent.ui.PermissionActivity" />
         <activity android:name="org.glpi.inventory.agent.ui.ActivityListServers" />
         <activity
