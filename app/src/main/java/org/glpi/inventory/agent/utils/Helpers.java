@@ -2,35 +2,36 @@
  * ---------------------------------------------------------------------
  * GLPI Android Inventory Agent
  * Copyright (C) 2019 Teclib.
- *
+ * <p>
  * https://glpi-project.org
- *
+ * <p>
  * Based on Flyve MDM Inventory Agent For Android
  * Copyright © 2018 Teclib. All rights reserved.
- *
+ * <p>
+ * ---------------------------------------------------------------------
+ * <p>
+ * LICENSE
+ * <p>
+ * This file is part of GLPI Android Inventory Agent.
+ * <p>
+ * GLPI Android Inventory Agent is a subproject of GLPI.
+ * <p>
+ * GLPI Android Inventory Agent is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ * <p>
+ * GLPI Android Inventory Agent is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  * ---------------------------------------------------------------------
  *
- *  LICENSE
- *
- *  This file is part of GLPI Android Inventory Agent.
- *
- *  GLPI Android Inventory Agent is a subproject of GLPI.
- *
- *  GLPI Android Inventory Agent is free software: you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 3
- *  of the License, or (at your option) any later version.
- *
- *  GLPI Android Inventory Agent is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  ---------------------------------------------------------------------
- *  @copyright Copyright © 2019 Teclib. All rights reserved.
- *  @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- *  @link      https://github.com/glpi-project/android-inventory-agent
- *  @link      https://glpi-project.org/glpi-network/
- *  ---------------------------------------------------------------------
+ * @copyright Copyright © 2019 Teclib. All rights reserved.
+ * @license GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link https://github.com/glpi-project/android-inventory-agent
+ * @link https://glpi-project.org/glpi-network/
+ * ---------------------------------------------------------------------
  */
 
 package org.glpi.inventory.agent.utils;
@@ -51,7 +52,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+
 import androidx.core.app.NotificationCompat;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -75,7 +78,7 @@ public class Helpers {
     }
 
     public static void openActivity(Activity activity, Class<?> classToOpen, boolean closeThisActivity) {
-        if(!activity.isFinishing()) {
+        if (!activity.isFinishing()) {
             Intent miIntent = new Intent(activity, classToOpen);
             activity.startActivity(miIntent);
             if (closeThisActivity) {
@@ -94,7 +97,7 @@ public class Helpers {
     public static void snackClose(Activity activity, String message, String action, Boolean fail) {
 
         int color = activity.getResources().getColor(R.color.snackbar_action_good);
-        if(fail) {
+        if (fail) {
             color = activity.getResources().getColor(R.color.snackbar_action_fail);
         }
 
@@ -122,8 +125,8 @@ public class Helpers {
     public static void sendAnonymousData(Context context, InventoryTask inventoryTask) {
         // Sending anonymous information
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        Boolean val = sharedPreferences.getBoolean("anonymousData",false);
-        if(val) {
+        Boolean val = sharedPreferences.getBoolean("anonymousData", false);
+        if (val) {
             inventoryTask.setPrivateData(true);
             inventoryTask.getJSON(new InventoryTask.OnTaskCompleted() {
                 @Override
@@ -147,55 +150,21 @@ public class Helpers {
         return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
     }
 
-    public static void sendToNotificationBar(Context context, String message) {
-        Intent resultIntent = new Intent(context, ActivityMain.class);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
-                .setContentTitle(context.getResources().getString(R.string.app_name))
-                .setContentText(message)
-                .setSound(defaultSoundUri)
-                .setAutoCancel(true)
-                .setContentIntent(piResult)
-                .setPriority(Notification.PRIORITY_HIGH);
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setSmallIcon(R.drawable.ic_notification_white);
-        } else {
-            builder.setSmallIcon(R.mipmap.ic_launcher);
-        }
-
-        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
-
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        assert notificationManager != null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("default", "Inventory Agent", importance);
-            channel.setDescription("Inventory Agent");
-        }
-        notificationManager.notify(121, builder.build());
-    }
-
-    public static void share(Context context, String message, final int type){
+    public static void share(Context context, String message, final int type) {
         final InventoryTask inventoryTask = new InventoryTask(context, "", true);
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        if(type == 1){
+        if (type == 1) {
             File file = new File(context.getFilesDir(), "Inventory.json");
-            if(file.exists()){
+            if (file.exists()) {
                 inventoryTask.shareInventory(type);
-            }else{
+            } else {
                 AgentLog.e("JSON File not exist");
             }
-        }else{
+        } else {
             File file = new File(context.getFilesDir(), "Inventory.xml");
-            if(file.exists()){
+            if (file.exists()) {
                 inventoryTask.shareInventory(type);
-            }else{
+            } else {
                 AgentLog.e("XML File not exist");
             }
         }

@@ -2,35 +2,36 @@
  * ---------------------------------------------------------------------
  * GLPI Android Inventory Agent
  * Copyright (C) 2019 Teclib.
- *
+ * <p>
  * https://glpi-project.org
- *
+ * <p>
  * Based on Flyve MDM Inventory Agent For Android
  * Copyright © 2018 Teclib. All rights reserved.
- *
+ * <p>
+ * ---------------------------------------------------------------------
+ * <p>
+ * LICENSE
+ * <p>
+ * This file is part of GLPI Android Inventory Agent.
+ * <p>
+ * GLPI Android Inventory Agent is a subproject of GLPI.
+ * <p>
+ * GLPI Android Inventory Agent is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ * <p>
+ * GLPI Android Inventory Agent is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  * ---------------------------------------------------------------------
  *
- *  LICENSE
- *
- *  This file is part of GLPI Android Inventory Agent.
- *
- *  GLPI Android Inventory Agent is a subproject of GLPI.
- *
- *  GLPI Android Inventory Agent is free software: you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 3
- *  of the License, or (at your option) any later version.
- *
- *  GLPI Android Inventory Agent is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  ---------------------------------------------------------------------
- *  @copyright Copyright © 2019 Teclib. All rights reserved.
- *  @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- *  @link      https://github.com/glpi-project/android-inventory-agent
- *  @link      https://glpi-project.org/glpi-network/
- *  ---------------------------------------------------------------------
+ * @copyright Copyright © 2019 Teclib. All rights reserved.
+ * @license GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link https://github.com/glpi-project/android-inventory-agent
+ * @link https://glpi-project.org/glpi-network/
+ * ---------------------------------------------------------------------
  */
 
 package org.glpi.inventory.agent.service;
@@ -49,9 +50,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
 import android.util.Log;
 import android.util.Xml;
 
@@ -87,7 +90,7 @@ public class InventoryService extends Service {
     LocalStorage cache;
 
     private Timer mTimer = null;
-    public static final long NOTIFY_INTERVAL = 1000;
+    public static long NOTIFY_INTERVAL = 1000;
     Intent intent;
 
     @Nullable
@@ -104,7 +107,8 @@ public class InventoryService extends Service {
 
         cache = new LocalStorage(getApplicationContext());
         calendar = Calendar.getInstance();
-
+        final SharedPreferences prefs = new LocalPreferences(getApplicationContext()).getDefaultPreferences();
+        NOTIFY_INTERVAL = Long.parseLong(prefs.getString("ApiInterval", "1000"));
         mTimer = new Timer();
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 5, NOTIFY_INTERVAL);
         intent = new Intent(TIMER_RECEIVER);
@@ -116,7 +120,7 @@ public class InventoryService extends Service {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void startMyOwnForeground(){
+    private void startMyOwnForeground() {
         String NOTIFICATION_CHANNEL_ID = "org.glpi.inventory.agent";
         String channelName = getApplicationContext().getResources().getString(R.string.app_is_running);
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
@@ -138,21 +142,11 @@ public class InventoryService extends Service {
         notificationIntent.putExtra("app_package", getPackageName());
         notificationIntent.putExtra("app_uid", getApplicationInfo().uid);
         notificationIntent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
-        PendingIntent notificationIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0,
-                notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent notificationIntentRedirect = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         //create notification
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-        Notification notification = notificationBuilder.setOngoing(true)
-                .setSmallIcon(R.drawable.ic_stat)
-                .setContentTitle(getApplicationContext().getResources().getString(R.string.app_is_running))
-                .setPriority(NotificationManager.IMPORTANCE_MIN)
-                .setCategory(Notification.CATEGORY_SERVICE)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(getApplicationContext().getResources().getString(R.string.app_is_running_extend)))
-                .setContentIntent(appIntentRedirect)
-                .addAction(R.drawable.ic_about, getApplicationContext().getResources().getString(R.string.disable_notification), notificationIntentRedirect)
-                .build();
+        Notification notification = notificationBuilder.setOngoing(true).setSmallIcon(R.drawable.ic_stat).setContentTitle(getApplicationContext().getResources().getString(R.string.app_is_running)).setPriority(NotificationManager.IMPORTANCE_MIN).setCategory(Notification.CATEGORY_SERVICE).setStyle(new NotificationCompat.BigTextStyle().bigText(getApplicationContext().getResources().getString(R.string.app_is_running_extend))).setContentIntent(appIntentRedirect).addAction(R.drawable.ic_about, getApplicationContext().getResources().getString(R.string.disable_notification), notificationIntentRedirect).build();
         startForeground(2, notification);
     }
 
@@ -205,8 +199,7 @@ public class InventoryService extends Service {
                 String strTesting;
                 if (days != 0)
                     strTesting = days + " days  " + hours + ":" + minutes + ":" + seconds;
-                else
-                    strTesting = hours + ":" + minutes + ":" + seconds;
+                else strTesting = hours + ":" + minutes + ":" + seconds;
                 updateTime(strTesting);
             } else {
                 sendInventory();
@@ -230,11 +223,11 @@ public class InventoryService extends Service {
             calendar.add(Calendar.DATE, 7);
         }
 
-        if(timeInventory.equalsIgnoreCase("day")) {
+        if (timeInventory.equalsIgnoreCase("day")) {
             calendar.add(Calendar.DATE, 1);
         }
 
-        if(timeInventory.equalsIgnoreCase("month")) {
+        if (timeInventory.equalsIgnoreCase("month")) {
             calendar.add(Calendar.DATE, 30);
         }
 
@@ -249,7 +242,9 @@ public class InventoryService extends Service {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean autoStartInventory = sharedPreferences.getBoolean("autoStartInventory", false);
-        if(!autoStartInventory) {  return; }
+        if (!autoStartInventory) {
+            return;
+        }
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "android:inventory:agent");
@@ -266,19 +261,17 @@ public class InventoryService extends Service {
                 inventory.getXML(new InventoryTask.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
-                        if(!model.getSerial().trim().isEmpty()) {
-                            data = data.replaceAll("<SSN>(.*)</SSN>","<SSN>" + model.getSerial() + "</SSN>");
+                        if (!model.getSerial().trim().isEmpty()) {
+                            data = data.replaceAll("<SSN>(.*)</SSN>", "<SSN>" + model.getSerial() + "</SSN>");
                         }
                         httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
-                                Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
                                 //Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
                             }
 
                             @Override
                             public void onTaskError(String error) {
-                                Helpers.sendToNotificationBar(context.getApplicationContext(), error);
                                 AgentLog.e(error);
                             }
                         });
@@ -287,12 +280,10 @@ public class InventoryService extends Service {
                     @Override
                     public void onTaskError(Throwable error) {
                         AgentLog.e(error.getMessage());
-                        Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
                     }
                 });
             }
         } else {
-            Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.no_servers_added));
             AgentLog.e(context.getResources().getString(R.string.no_servers_added));
         }
 
@@ -303,7 +294,12 @@ public class InventoryService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.e("Service finish", "Finish");
-        getApplicationContext().startService(new Intent(getApplicationContext(), InventoryService.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            getApplicationContext().startForegroundService(new Intent(getApplicationContext(), InventoryService.class));
+        } else {
+            getApplicationContext().startService(new Intent(getApplicationContext(), InventoryService.class));
+        }
+
     }
 
     private void updateTime(String strTime) {

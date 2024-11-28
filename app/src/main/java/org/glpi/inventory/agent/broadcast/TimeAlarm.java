@@ -96,13 +96,11 @@ public class TimeAlarm extends BroadcastReceiver {
                         httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                             @Override
                             public void onTaskSuccess(String data) {
-                                Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_sent));
                                 //Helpers.sendAnonymousData(context.getApplicationContext(), inventory);
                             }
 
                             @Override
                             public void onTaskError(String error) {
-                                Helpers.sendToNotificationBar(context.getApplicationContext(), context.getResources().getString(R.string.inventory_notification_fail));
                                 AgentLog.e(error);
                             }
                         });
@@ -111,7 +109,6 @@ public class TimeAlarm extends BroadcastReceiver {
                     @Override
                     public void onTaskError(Throwable error) {
                         AgentLog.e(error.getMessage());
-                        Helpers.sendToNotificationBar(context, context.getResources().getString(R.string.inventory_notification_fail));
                     }
                 });
             }
