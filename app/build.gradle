@@ -9,7 +9,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     signingConfigs {
-    	debug {
+        debug {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
@@ -22,14 +22,14 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    
+
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
         minSdkVersion 19
         targetSdkVersion 34
         compileSdk 34
-        versionCode 13
-        versionName "2.1.0"
+        versionCode 15
+        versionName "2.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -155,7 +155,7 @@ task updateVersionCode {
         matcher.find()
         def versionCode = Integer.parseInt(matcher.group(1))
 
-        if(project.hasProperty("vVersion")) {
+        if (project.hasProperty("vVersion")) {
             versionCode = vVersion
         } else {
             ++versionCode
