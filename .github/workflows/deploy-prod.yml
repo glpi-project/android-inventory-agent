@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        ref: develop
+        ref: main
         fetch-depth: 0 #To Fetch All Tags and Branches
 
     - name: Install Dependencies
@@ -61,21 +61,13 @@ jobs:
     - name: "Update Full ChangeLog"
       run: echo "${{ env.full_change_log }}" > CHANGELOG.md
 
-    - name: Update develop branch
+    - name: Update main branch
       uses: EndBug/add-and-commit@v9
       with:
         default_author: github_actions
         add: "['CHANGELOG.md', 'package.json']" #only this files will be added
-        push: origin HEAD:develop
+        push: origin HEAD:main
         message: "ci(release): release new version ${{ env.tag_name }}"
-
-    - name: Merge develop -> master
-      uses: devmasx/merge-branch@master
-      with:
-        type: now
-        from_branch: develop
-        target_branch: master
-        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     ##########################################
     # Push / Pull translation files          #
