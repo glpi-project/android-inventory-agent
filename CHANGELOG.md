@@ -4,20 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+### 🐛 Bug Fixes
+
+- *(EMM)* Fix missing managed configurations used as NULL
+- *(Core)* Exclude sensitive strings
+
+
 ### 💼 Other
 
-- *(Core)* Exclude sensitive strings
-- *(EMM)* Fix missing managed configurations used as NULL
 - *(Dependencies)* Bump Android Inventory Library to 1.6.1
 - *(Build)* Use main branch
 - *(Build)* Clean unused step
 - *(Build)* Clean composer step
 - *(Build)* Use main branch for deploy alpha
-
-### ⚙️ Miscellaneous Tasks
-
-- *(release)* Release new version 1.6.0
-- *(release)* Update version on android manifest
 
 ## [1.6.0] - 2024-10-29
 
