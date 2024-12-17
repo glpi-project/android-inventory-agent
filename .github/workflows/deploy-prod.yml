@@ -50,17 +50,6 @@ jobs:
             echo "about.github=https://github.com/glpi-project/android-inventory-agent" >> ./app/src/main/assets/about.properties
 
 
-    - name: "Extract Full ChangeLog (Conventional Commit)"
-      run: |
-        {
-          echo 'full_change_log<<EOF'
-          ./vendor/bin/robo build:log 0.9 HEAD
-          echo EOF
-        } >> "$GITHUB_ENV"
-
-    - name: "Update Full ChangeLog"
-      run: echo "${{ env.full_change_log }}" > CHANGELOG.md
-
     - name: Update main branch
       uses: EndBug/add-and-commit@v9
       with:
@@ -141,19 +130,11 @@ jobs:
     - name: "Rename APK"
       run: mv app/build/outputs/apk/release/app-release-unsigned-signed.apk app/build/outputs/apk/release/android-inventory-agent-v${{ env.tag_name }}.apk
 
-    - name: "Extract Clean Git Log (Conventional Commit)"
-      run: |
-        {
-          echo 'release_body<<EOF'
-          ./vendor/bin/robo build:log ${{ env.previous_tag_name }} HEAD 0
-          echo EOF
-        } >> "$GITHUB_ENV"
-
     - name: Create Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         name : Android Inventory Agent v${{ env.tag_name }}
         draft : true
-        body : ${{ env.release_body }}
+        body : See CHANGELOG.md
         files: app/build/outputs/apk/release/android-inventory-agent-v${{ env.tag_name }}.apk
