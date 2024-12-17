@@ -1,35 +1,43 @@
----
-name: Bug report
-about: Create a report to help us improve
+# Bug Report
 
----
+A clear and concise description of the bug.
 
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
+## Steps to Reproduce
 Steps to reproduce the behavior:
 1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+2. Perform action '...'
+3. See error '...'
 
-**Expected behavior**
+## Expected Behavior
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+## Actual Behavior
+Describe what actually happens instead.
+
+## Screenshots
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Environment Details
+- **Agent Version:** [e.g., 1.2.3]
+- **Android Version:** [e.g., Android 11]
+- **Device:** [e.g., Pixel 5]
+- **Any other relevant details:** [e.g., build environment, dependencies]
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## Logs
+Please provide relevant logcat output or any other logs that may help in diagnosing the issue.
 
-**Additional context**
-Add any other context about the problem here.
+```text
+# Paste logs here
+```
+
+## Additional context
+Add any other context about the problem here, including links to documentation or issues that might be related.
+
+## Possible Solution
+(Optional) If you have an idea of how to fix the bug, describe it here.
+
+## Checklist
+- [ ] I have searched existing issues to see if the bug has already been reported.
+- [ ] I have provided sufficient details to reproduce the issue.
+- [ ] I have included relevant logs/screenshots.
+

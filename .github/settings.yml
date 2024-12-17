@@ -1,13 +1,13 @@
 repository:
   name: android-inventory-agent
-  description: Flyve MDM Inventory Agent
-  homepage: http://flyve.org/android-inventory-agent/
-  topics: flyve-mdm, android, inventory-agent
+  description: Android Inventory Agent
+  homepage: https://github.com/glpi-project/android-inventory-agent/
+  topics: android, inventory-agent
   private: false
   has_issues: true
   has_wiki: false
   has_downloads: true
-  default_branch: develop
+  default_branch: main
   allow_squash_merge: true
   allow_merge_commit: false
   allow_rebase_merge: true

@@ -1,28 +1,40 @@
-### Changes description
+# Pull Request
 
-<!-- Describe results, user mentions, screenshots, screencast (gif) -->
+## Description
+Provide a brief description of the changes made in this pull request. Include the problem this fixes or the feature it implements.
 
-### Checklist
+### Type of Change
+- [ ] Bug fix (non-breaking change that fixes an issue)
+- [ ] New feature (non-breaking change that adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update (improvements or additions to documentation)
 
-Please check if your PR fulfills the following specifications:
+---
 
-- [ ] Tests for the changes have been added
-- [ ] Docs have been added/updated
+## Related Issues
+List any related issues that are fixed or addressed by this pull request.
 
-### Estimated time
+Fixes: # [issue number]
 
-<!-- Add the number of pomodoros spent on this task -->
+Closes: # [issue number]
 
-|Assignee|:tomato:|
-|:---|:---:|
-|@|1|
+---
 
-<!--- Task not finished? Please give an update of the time --->
+## Testing
+Describe the testing performed for these changes:
+- Device/Emulator: [e.g., Pixel 5, Android 12]
+- Test Cases: [e.g., tested login functionality, navigation, etc.]
+- Results: [e.g., passed all tests, fixed rendering issue]
 
-### References
+---
 
-<!-- issues related (for reference or to be closed), dependencies and/or links of discuss -->
+## Screenshots/Recordings
+If applicable, attach screenshots or recordings of the changes made.
 
-Closes #N/A
-Related #N/A
-Depends on #N/A
+---
+
+## Checklist
+- [ ] I have tested these changes locally.
+- [ ] I have added tests that prove my fix is effective or my feature works.
+- [ ] I have updated documentation (if necessary).
+- [ ] I have ensured that this PR does not introduce unintended breaking changes.
