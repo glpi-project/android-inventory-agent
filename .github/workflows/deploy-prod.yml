@@ -17,11 +17,6 @@ jobs:
         ref: main
         fetch-depth: 0 #To Fetch All Tags and Branches
 
-    - name: Install Dependencies
-      uses: php-actions/composer@v6
-      with:
-        dev: no
-
     ################################
     # Update Version Code          #
     ################################
