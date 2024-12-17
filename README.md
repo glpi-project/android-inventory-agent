@@ -107,18 +107,24 @@ In order to provide transparency on our release cycle and to maintain backward c
 
 See [the tags section of our GitHub project](http://github.com/glpi-project/android-inventory-agent/tags) for changelogs for each release version of GLPI Android Inventory Agent. Release announcement posts on [the official GLPI blog](https://glpi-project.org) contain summaries of the most noteworthy changes made in each release.
 
-## GLPI Network - Professional support
+## Professional Services
 
-You want to report a bug (and get a fix quickly) or do you need a guarantee for GLPI Android Agent?
+![GLPI Network](./docs/glpi_network.png "GLPI network")
 
-You can subscribe to our professional support GLPI Network [here](https://services.glpi-network.com).
+The GLPI Network services are available through our [Partner's Network](http://www.teclib-edition.com/en/partners/).
+We provide special training, bug fixes with editor subscription, contributions for new features, and more.
 
-This subscription includes a guarantee through a service level contract between your company and our team in charge of GLPI development (core, supported plugins and GLPI Agent) as well as exclusive features and services.
+Obtain a personalized service experience, associated with benefits and opportunities.
 
 ## Contribute
 
-Want to contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing](./CONTRIBUTING.md) 
+Want to contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](./CONTRIBUTING.md) 
+
+* Open a ticket for each bug so it can be discussed
+* Follow [development guidelines](http://glpi-developer-documentation.readthedocs.io/en/latest/plugins/index.html)
+* Refer to [GitFlow](http://git-flow.readthedocs.io/) process for branching
+* Work on a new branch on your own fork
+* Open a PR that will be reviewed by a developer
 
 ## Request features
 
