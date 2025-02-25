@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorYellow"
-        android:textColor="@color/textColorYellow"
+        android:textColor="@color/black"
         android:text="" />
 
 </RelativeLayout>

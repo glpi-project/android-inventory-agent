@@ -35,7 +35,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/radius_btn_yellow"
                 android:text="@string/add_server"
-                android:textColor="@color/textColorYellow" />
+                android:textColor="@color/black" />
 
         </RelativeLayout>
 
