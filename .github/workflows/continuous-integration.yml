@@ -6,7 +6,7 @@ env:
 on:
   pull_request:
     branches:
-      - "develop"
+      - "main"
 
 jobs:
   build:
@@ -68,7 +68,7 @@ jobs:
         gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=dm3q,version=33,locale=en,orientation=portrait
         gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=bluejay,version=32,locale=en,orientation=portrait
         gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=a51,version=31,locale=en,orientation=portrait
-        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=q2q,version=30,locale=en,orientation=portrait
+        gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=redfin,version=30,locale=en,orientation=portrait
         gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=cactus,version=27,locale=en,orientation=portrait
 
 
