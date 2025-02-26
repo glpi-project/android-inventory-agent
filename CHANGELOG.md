@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+### 💼 Other
+
+- *(Build)* Fix trigger for CI
+
+## [1.6.1] - 2024-12-20
+
 ### 🐛 Bug Fixes
 
 - *(EMM)* Fix missing managed configurations used as NULL
