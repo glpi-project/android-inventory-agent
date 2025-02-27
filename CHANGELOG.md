@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 - *(EMM)* Fix missing managed configurations used as NULL
 - *(Core)* Exclude sensitive strings
 
+### 💼 Other
+- *(UI)* Adjust color scheme in user settings for better visibility and consistency.
 
 ### 💼 Other
 
