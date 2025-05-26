@@ -223,6 +223,10 @@ public class InventoryService extends Service {
             calendar.add(Calendar.DATE, 7);
         }
 
+        if (timeInventory.equalsIgnoreCase("Work Day")) {
+            calendar.add(Calendar.HOUR, 8);
+        }
+
         if (timeInventory.equalsIgnoreCase("day")) {
             calendar.add(Calendar.DATE, 1);
         }

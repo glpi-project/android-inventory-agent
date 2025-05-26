@@ -16,6 +16,7 @@ import android.provider.Settings;
 import android.util.Xml;
 
 import org.glpi.inventory.agent.BuildConfig;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -26,13 +27,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class XMLConfig {
 
     public static void importServer(Context context, InputStream in) throws XmlPullParserException, IOException, JSONException {
-        List<String> values;
+        Map<String, String> values;
         LocalPreferences preferences = new LocalPreferences(context);
         try {
             XmlPullParser parser = Xml.newPullParser();
@@ -48,12 +51,12 @@ public class XMLConfig {
             intent.setClassName("com.telelogos.mediacontact", "com.telelogos.mediacontact.com.nom.service");
             JSONObject jo = new JSONObject();
             try {
-                jo.put("address", values.get(0));
-                jo.put("tag", values.get(1));
-                jo.put("login", values.get(2));
-                jo.put("pass", values.get(3));
-                jo.put("itemtype", values.get(4));
-                jo.put("serial", values.get(5));
+                jo.put("address", values.get("address"));
+                jo.put("tag", values.get("tag"));
+                jo.put("login", values.get("login"));
+                jo.put("pass", values.get("pass"));
+                jo.put("itemtype", values.get("itemtype"));
+                jo.put("serial", values.get("serial"));
                 ArrayList<String> serverArray = preferences.loadServer();
                 ArrayList<String> newServerArray = new ArrayList<>();
                 for (int i = 0; i < serverArray.size(); i++) {
@@ -74,12 +77,12 @@ public class XMLConfig {
         }
     }
 
-    private static List<String> readFeed(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
-        List<String> entries = new ArrayList<>();
+    @Nullable
+    private static Map<String, String> readFeed(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
         if (parser.getName().equals("map")) {
             return readMap(parser, preferences);
         }
-        return entries;
+        return null;
     }
 
     /**
@@ -91,8 +94,8 @@ public class XMLConfig {
      * @throws XmlPullParserException
      * @throws IOException
      */
-    private static List<String> readMap(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
-        List<String> server = new ArrayList<>();
+    private static Map<String, String> readMap(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
+        Map<String, String> server = new HashMap<>();
         SharedPreferences prefs = preferences.getDefaultPreferences();
         SharedPreferences.Editor prefsEditor = prefs.edit();
 
@@ -140,17 +143,17 @@ public class XMLConfig {
                         if (name.equalsIgnoreCase("Status_size")) {
                             //
                         } else if (name.equalsIgnoreCase("Status_0")) {
-                            server.add(text);
+                            server.put("address", text);
                         } else if (name.equalsIgnoreCase("tag")) {
-                            server.add(text);
+                            server.put("tag", text);
                         } else if (name.equalsIgnoreCase("login")) {
-                            server.add(text);
+                            server.put("login", text);
                         } else if (name.equalsIgnoreCase("pass")) {
-                            server.add(text);
+                            server.put("pass", text);
                         } else if (name.equalsIgnoreCase("itemtype")) {
-                            server.add(text);
+                            server.put("itemtype", text);
                         } else if (name.equalsIgnoreCase("serial")) {
-                            server.add(text);
+                            server.put("serial", text);
                         } else {
                             if (tagname.equalsIgnoreCase("string")) {
                                 prefsEditor.putString(name, text);
@@ -170,7 +173,7 @@ public class XMLConfig {
         }
         if (server.size() > 0) {
             while (server.size() < 6) {
-                server.add("");
+                server.put("empty", "");
             }
         }
 
