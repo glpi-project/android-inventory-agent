@@ -2,35 +2,36 @@
  * ---------------------------------------------------------------------
  * GLPI Android Inventory Agent
  * Copyright (C) 2019 Teclib.
- *
+ * <p>
  * https://glpi-project.org
- *
+ * <p>
  * Based on Flyve MDM Inventory Agent For Android
  * Copyright © 2018 Teclib. All rights reserved.
- *
+ * <p>
+ * ---------------------------------------------------------------------
+ * <p>
+ * LICENSE
+ * <p>
+ * This file is part of GLPI Android Inventory Agent.
+ * <p>
+ * GLPI Android Inventory Agent is a subproject of GLPI.
+ * <p>
+ * GLPI Android Inventory Agent is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ * <p>
+ * GLPI Android Inventory Agent is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  * ---------------------------------------------------------------------
  *
- *  LICENSE
- *
- *  This file is part of GLPI Android Inventory Agent.
- *
- *  GLPI Android Inventory Agent is a subproject of GLPI.
- *
- *  GLPI Android Inventory Agent is free software: you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 3
- *  of the License, or (at your option) any later version.
- *
- *  GLPI Android Inventory Agent is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  ---------------------------------------------------------------------
- *  @copyright Copyright © 2019 Teclib. All rights reserved.
- *  @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- *  @link      https://github.com/glpi-project/android-inventory-agent
- *  @link      https://glpi-project.org/glpi-network/
- *  ---------------------------------------------------------------------
+ * @copyright Copyright © 2019 Teclib. All rights reserved.
+ * @license GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link https://github.com/glpi-project/android-inventory-agent
+ * @link https://glpi-project.org/glpi-network/
+ * ---------------------------------------------------------------------
  */
 
 package org.glpi.inventory.agent.ui;
@@ -110,7 +111,7 @@ public class ActivityMain extends AppCompatActivity
     private FloatingActionButton btn_config;
     private Boolean isOpen;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
-    private TextView textview_settings, textview_scheduler,textview_config;
+    private TextView textview_settings, textview_scheduler, textview_config;
 
     final static int REQUESTCODE_OPEN_DOC = 2;
 
@@ -139,9 +140,9 @@ public class ActivityMain extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER), Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(broadcastReceiver, new IntentFilter(InventoryService.TIMER_RECEIVER), Context.RECEIVER_NOT_EXPORTED);
         } else {
-            registerReceiver(broadcastReceiver,new IntentFilter(InventoryService.TIMER_RECEIVER));
+            registerReceiver(broadcastReceiver, new IntentFilter(InventoryService.TIMER_RECEIVER));
         }
     }
 
@@ -203,8 +204,8 @@ public class ActivityMain extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
                 presenter.loadFragment(fragmentManager, toolbar, presenter.getMenuItem().get(position));
-                if(!presenter.getMenuItem().get(position).get("id").equals("1")){
-                    if(isOpen){
+                if (!presenter.getMenuItem().get(position).get("id").equals("1")) {
+                    if (isOpen) {
                         openFab();
                     }
                     disableFab();
@@ -219,7 +220,7 @@ public class ActivityMain extends AppCompatActivity
         toolbar.setTitle(R.string.app_name);
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar,R.string.app_name, R.string.app_name);
+                this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
 
         drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
@@ -236,7 +237,7 @@ public class ActivityMain extends AppCompatActivity
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_fab_clock);
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_fab_anticlock);
 
-        textview_settings =  findViewById(R.id.text_settings);
+        textview_settings = findViewById(R.id.text_settings);
         textview_scheduler = findViewById(R.id.text_scheduler);
         textview_config = findViewById(R.id.text_config);
         isOpen = false;
@@ -251,7 +252,7 @@ public class ActivityMain extends AppCompatActivity
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isOpen){
+                if (isOpen) {
                     openFab();
                 }
                 Intent miIntent = new Intent(ActivityMain.this, GlobalParametersPreference.class);
@@ -262,7 +263,7 @@ public class ActivityMain extends AppCompatActivity
         btn_scheduler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isOpen){
+                if (isOpen) {
                     openFab();
                 }
                 Intent miIntent = new Intent(ActivityMain.this, InventoryParametersPreference.class);
@@ -271,11 +272,10 @@ public class ActivityMain extends AppCompatActivity
         });
 
 
-
         btn_config.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isOpen){
+                if (isOpen) {
                     openFab();
                 }
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -297,20 +297,20 @@ public class ActivityMain extends AppCompatActivity
         AgentLog.i("Application Start");
     }
 
-    private void disableFab(){
+    private void disableFab() {
         mainFab.hide();
         btn_settings.hide();
         btn_scheduler.hide();
         btn_config.hide();
     }
 
-    public void enableFab(){
-        if(mainFab.getVisibility() != View.VISIBLE){
+    public void enableFab() {
+        if (mainFab.getVisibility() != View.VISIBLE) {
             mainFab.show();
         }
     }
 
-    private void openFab(){
+    private void openFab() {
         if (isOpen) {
             textview_settings.setVisibility(View.INVISIBLE);
             textview_scheduler.setVisibility(View.INVISIBLE);
@@ -373,9 +373,9 @@ public class ActivityMain extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if(!isOpen){
+        if (!isOpen) {
             super.onBackPressed();
-        }else{
+        } else {
             openFab();
         }
     }
@@ -387,16 +387,16 @@ public class ActivityMain extends AppCompatActivity
             case 1: {
 
                 boolean allGranted = true;
-                for (int i=0;i<permissions.length;i++) {
-                    System.out.println("permission "+permissions[i]+" "+grantResults[i]);
-                    if (grantResults[i]!= PackageManager.PERMISSION_GRANTED)
+                for (int i = 0; i < permissions.length; i++) {
+                    System.out.println("permission " + permissions[i] + " " + grantResults[i]);
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED)
                         allGranted = false;
 
-                    if ( ( (Manifest.permission.READ_EXTERNAL_STORAGE.equals(permissions[i]))
+                    if (((Manifest.permission.READ_EXTERNAL_STORAGE.equals(permissions[i]))
                             || (Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permissions[i]))
                     )
-                        && (grantResults[i]== PackageManager.PERMISSION_GRANTED) )
-                            XMLConfig.autoImportServer(this);
+                            && (grantResults[i] == PackageManager.PERMISSION_GRANTED))
+                        XMLConfig.autoImportServer(this);
                 }
 
                 // If request is cancelled, the result arrays are empty.
@@ -417,12 +417,11 @@ public class ActivityMain extends AppCompatActivity
                 Uri uri = null;
                 if (resultData != null && resultData.getData() != null) {
                     uri = resultData.getData();
-                    importServer(this,getContentResolver().openInputStream(uri));
+                    importServer(this, getContentResolver().openInputStream(uri));
                 }
             }
-        }catch (Exception e)
-        {
-            showInfoDialog("Erreur lors de l'import du fichier xml",this);
+        } catch (Exception e) {
+            showInfoDialog("Erreur lors de l'import du fichier xml", this);
             AgentLog.e(e.getMessage());
         }
         super.onActivityResult(requestCode, resultCode, resultData);

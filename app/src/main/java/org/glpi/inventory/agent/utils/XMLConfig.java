@@ -31,7 +31,7 @@ import java.util.Objects;
 
 public class XMLConfig {
 
-    public static void importServer( Context context,InputStream in) throws XmlPullParserException, IOException, JSONException {
+    public static void importServer(Context context, InputStream in) throws XmlPullParserException, IOException, JSONException {
         List<String> values;
         LocalPreferences preferences = new LocalPreferences(context);
         try {
@@ -40,11 +40,10 @@ public class XMLConfig {
             parser.setInput(in, null);
             parser.nextTag();
             values = readFeed(parser, preferences);
-        }
-        finally {
+        } finally {
             in.close();
         }
-        if(values != null && !values.isEmpty()) {
+        if (values != null && !values.isEmpty()) {
             Intent intent = new Intent();
             intent.setClassName("com.telelogos.mediacontact", "com.telelogos.mediacontact.com.nom.service");
             JSONObject jo = new JSONObject();
@@ -57,8 +56,8 @@ public class XMLConfig {
                 jo.put("serial", values.get(5));
                 ArrayList<String> serverArray = preferences.loadServer();
                 ArrayList<String> newServerArray = new ArrayList<>();
-                for(int i = 0; i < serverArray.size();i++){
-                    if(!serverArray.get(i).equals(values.get(0))){
+                for (int i = 0; i < serverArray.size(); i++) {
+                    if (!serverArray.get(i).equals(values.get(0))) {
                         newServerArray.add(serverArray.get(i));
                     }
                 }
@@ -68,7 +67,7 @@ public class XMLConfig {
                 AgentLog.e(e.getMessage());
                 throw e;
             }
-            if(preferences.loadJSONObject(values.get(0)) != null){
+            if (preferences.loadJSONObject(values.get(0)) != null) {
                 preferences.deletePreferences(values.get(0));
             }
             preferences.saveJSONObject(values.get(0), jo);
@@ -80,61 +79,19 @@ public class XMLConfig {
         if (parser.getName().equals("map")) {
             return readMap(parser, preferences);
         }
-        parser.require(XmlPullParser.START_TAG, null, "GLPIAgentConfiguration");
-        while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                continue;
-            }
-            String name = parser.getName();
-            if (name.equals("server")) {
-                entries = readServer(parser);
-            }
-        }
         return entries;
     }
 
-    private static  List<String> readServer(XmlPullParser parser) throws XmlPullParserException, IOException {
-        parser.require(XmlPullParser.START_TAG, null, "server");
-        List<String> server = new ArrayList<>();
-        while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                continue;
-            }
-            String name = parser.getName();
-            switch (name) {
-                case "address":
-                    server.add(readText(parser, "address"));
-                    break;
-                case "tag":
-                    server.add(readText(parser, "tag"));
-                    break;
-                case "login":
-                    server.add(readText(parser, "login"));
-                    break;
-                case "pass":
-                    server.add(readText(parser, "pass"));
-                    break;
-                case "itemtype":
-                    server.add(readText(parser, "itemtype"));
-                    break;
-                case "serial":
-                    server.add(readText(parser, "serial"));
-                    break;
-            }
-        }
-        return server;
-    }
-
-
     /**
      * read and parse a glpi preferences.xml
-     * @param parser xml parser
+     *
+     * @param parser      xml parser
      * @param preferences used to deleted/set SharedPreferences
      * @return empty list
      * @throws XmlPullParserException
      * @throws IOException
      */
-    private static  List<String> readMap(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
+    private static List<String> readMap(XmlPullParser parser, LocalPreferences preferences) throws XmlPullParserException, IOException {
         List<String> server = new ArrayList<>();
         SharedPreferences prefs = preferences.getDefaultPreferences();
         SharedPreferences.Editor prefsEditor = prefs.edit();
@@ -144,7 +101,7 @@ public class XMLConfig {
             for (int i = 1; i <= categsCount; i++) {
                 prefsEditor.remove("Status_categories_" + i);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -153,7 +110,7 @@ public class XMLConfig {
             for (int i = 1; i <= srvCount; i++) {
                 prefsEditor.remove("Status_" + i);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -164,7 +121,7 @@ public class XMLConfig {
                 int attrCount = parser.getAttributeCount();
                 String name = ""; // attribute "name"
                 String value = ""; // attribute "value" for tagname boolean
-                for (int i = 0;i<attrCount;i++) {
+                for (int i = 0; i < attrCount; i++) {
                     String aName = parser.getAttributeName(i);
                     String aValue = parser.getAttributeValue(i);
                     if (aName.equals("name")) name = aValue;
@@ -184,15 +141,25 @@ public class XMLConfig {
                             //
                         } else if (name.equalsIgnoreCase("Status_0")) {
                             server.add(text);
+                        } else if (name.equalsIgnoreCase("tag")) {
+                            server.add(text);
+                        } else if (name.equalsIgnoreCase("login")) {
+                            server.add(text);
+                        } else if (name.equalsIgnoreCase("pass")) {
+                            server.add(text);
+                        } else if (name.equalsIgnoreCase("itemtype")) {
+                            server.add(text);
+                        } else if (name.equalsIgnoreCase("serial")) {
+                            server.add(text);
                         } else {
                             if (tagname.equalsIgnoreCase("string")) {
                                 prefsEditor.putString(name, text);
-                            } else if ( (tagname.equalsIgnoreCase("boolean")) && (!value.isEmpty())) {
+                            } else if ((tagname.equalsIgnoreCase("boolean")) && (!value.isEmpty())) {
                                 prefsEditor.putBoolean(name, value.equalsIgnoreCase("true"));
                             }
                         }
                     }
-                        break;
+                    break;
                     default:
                         break;
                 }
@@ -201,8 +168,10 @@ public class XMLConfig {
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
-        if (server.size()>0) {
-            while (server.size()<6) { server.add(""); }
+        if (server.size() > 0) {
+            while (server.size() < 6) {
+                server.add("");
+            }
         }
 
         prefsEditor.apply();
@@ -218,12 +187,12 @@ public class XMLConfig {
 
     public static void autoImportServer(Context context) {
         try {
-            String path = getFilePath("geodis_glpi.xml",context);
-            System.out.println("XMLConfig autoImportServer "+(path!=null));
-            if (path==null) return;
+            String path = getFilePath("geodis_glpi.xml", context);
+            System.out.println("XMLConfig autoImportServer " + (path != null));
+            if (path == null) return;
             importServer(context, new FileInputStream(path));
         } catch (Exception e) {
-            System.out.println("XMLConfig autoImportServer exception "+e.getMessage());
+            System.out.println("XMLConfig autoImportServer exception " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -231,7 +200,7 @@ public class XMLConfig {
     public static boolean checkFilesAccess(Context context) {
         if (Build.VERSION.SDK_INT >= 30) {
             if (!Environment.isExternalStorageManager()) {
-                Uri uri = Uri.parse("package:"+ BuildConfig.APPLICATION_ID);
+                Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
                 context.startActivity(
                         new Intent(
                                 Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
@@ -247,7 +216,7 @@ public class XMLConfig {
     public static String getFilePath(String fileName, Context context) {
         if (!checkFilesAccess(context))
             return null;
-        File f = new File(Environment.getExternalStorageDirectory(), "Documents/"+fileName);
+        File f = new File(Environment.getExternalStorageDirectory(), "Documents/" + fileName);
         return f.getPath();
     }
 
