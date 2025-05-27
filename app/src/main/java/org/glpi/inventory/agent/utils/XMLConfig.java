@@ -139,7 +139,7 @@ public class XMLConfig {
                                 text = parser.getText();
                             }
                         }
-
+                        if (text == null) text = "";
                         if (name.equalsIgnoreCase("Status_size")) {
                             //
                         } else if (name.equalsIgnoreCase("Status_0")) {
