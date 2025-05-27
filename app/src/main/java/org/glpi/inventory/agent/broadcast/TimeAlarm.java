@@ -140,18 +140,22 @@ public class TimeAlarm extends BroadcastReceiver {
 
         int time = 60 * 1000;
 
-        if (timeInventory.equals("Day")) {
-            time = 24 * 60 * 60 * 1000;
-            AgentLog.d("Alarm Daily");
-        } else if (timeInventory.equals("Week")) {
-            time = 7 * 24 * 60 * 60 * 1000;
-            AgentLog.d("Alarm Weekly");
-        } else if (timeInventory.equals("Month")) {
-            time = 30 * 24 * 60 * 60 * 1000;
-            AgentLog.d("Alarm Monthly");
-        }
-        if (timeInventory.equals("Work Day")) {
-            time = 8 * 60 * 60 * 1000;
+        switch (timeInventory) {
+            case "Day":
+                time = 24 * 60 * 60 * 1000;
+                AgentLog.d("Alarm Daily");
+                break;
+            case "Week":
+                time = 7 * 24 * 60 * 60 * 1000;
+                AgentLog.d("Alarm Weekly");
+                break;
+            case "Month":
+                time = 30 * 24 * 60 * 60 * 1000;
+                AgentLog.d("Alarm Monthly");
+                break;
+            case "Work Day":
+                time = 8 * 60 * 60 * 1000;
+                break;
         }
 
         try {

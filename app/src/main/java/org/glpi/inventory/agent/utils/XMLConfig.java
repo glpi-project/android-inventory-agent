@@ -60,20 +60,20 @@ public class XMLConfig {
                 ArrayList<String> serverArray = preferences.loadServer();
                 ArrayList<String> newServerArray = new ArrayList<>();
                 for (int i = 0; i < serverArray.size(); i++) {
-                    if (!serverArray.get(i).equals(values.get(0))) {
+                    if (!serverArray.get(i).equals(values.get("address"))) {
                         newServerArray.add(serverArray.get(i));
                     }
                 }
-                newServerArray.add(values.get(0));
+                newServerArray.add(values.get("address"));
                 preferences.saveServer(newServerArray);
             } catch (JSONException e) {
                 AgentLog.e(e.getMessage());
                 throw e;
             }
-            if (preferences.loadJSONObject(values.get(0)) != null) {
-                preferences.deletePreferences(values.get(0));
+            if (preferences.loadJSONObject(values.get("address")) != null) {
+                preferences.deletePreferences(values.get("address"));
             }
-            preferences.saveJSONObject(values.get(0), jo);
+            preferences.saveJSONObject(values.get("address"), jo);
         }
     }
 
