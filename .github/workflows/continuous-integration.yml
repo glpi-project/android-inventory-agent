@@ -34,6 +34,13 @@ jobs:
     - name: Build Debug Test APK (for Firebase Test Lab)
       run: ./gradlew assembleDebugAndroidTest
 
+    - name: Setup build tool version variable
+      shell: bash
+      run: |
+        BUILD_TOOL_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | tail -n 1)
+        echo "BUILD_TOOL_VERSION=$BUILD_TOOL_VERSION" >> $GITHUB_ENV
+        echo Last build tool version is: $BUILD_TOOL_VERSION
+
     ################################################################################################
     # Run Firebase Test Lab                                                                        #
     # See : https://medium.com/firebase-developers/github-actions-firebase-test-lab-4bc830685a99   #
@@ -72,6 +79,20 @@ jobs:
         gcloud firebase test android run --type instrumentation --app ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk --test ${{ env.module_app }}/build/outputs/apk/androidTest/debug/${{ env.module_app }}-debug-androidTest.apk --device model=cactus,version=27,locale=en,orientation=portrait
 
 
+    - name: Sign app APK
+      uses: r0adkll/sign-android-release@v1
+      # ID used to access action output
+      id: sign_app
+      with:
+        releaseDirectory: app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.SIGN_APK_SIGNING_KEY }}
+        alias: ${{ secrets.SIGN_APK_ALIAS }}
+        keyStorePassword: ${{ secrets.SIGN_APP_STOREPASS }}
+        keyPassword: ${{ secrets.SIGN_APP_KEYPASS }}
+      env:
+        # override default build-tools version (29.0.3) -- optional
+        BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
+
     ##########################################
     # Upload Artifacts (APK / AAR / JAR)     #
     ##########################################
@@ -82,5 +103,19 @@ jobs:
       with:
         name: Java-Debug-APK
         path: ${{ env.module_app }}/build/outputs/apk/debug/${{ env.module_app }}-debug.apk
+
+    #####################
+    # Prepare release   #
+    #####################
+    - name: "Rename Release APK"
+      run: mv ${{ env.module_app }}/build/outputs/apk/release/app-release-unsigned-signed.apk ${{ env.module_app }}/build/outputs/apk/release/${{ env.module_app }}-release.apk
+
+    # Upload APK for Java version
+    - name: Upload APK Release for Java
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Java-Release-APK
+        path: ${{ env.module_app }}/build/outputs/apk/release/${{ env.module_app }}-release.apk
 
 

@@ -463,6 +463,11 @@ public class ActivityMain extends AppCompatActivity
                 JSONObject jsonServerConfig = new JSONObject();
                 LocalPreferences preferences = new LocalPreferences(context);
 
+                for (String key : serverConfig.keySet()) {
+                    Object value = serverConfig.get(key);
+                    AgentLog.d("Bundle EMM key: " + key + ", value: " + value);
+                }
+
                 if (serverConfig.getString("server_url").isEmpty()) {
                     enterpriseFeedback(getApplicationContext(), "server_url", "Error server URL is mandatory -> ", serverConfig.getString("server_url"), KeyedAppState.SEVERITY_ERROR);
                     AgentLog.e("EMM - server url is mandatory");
