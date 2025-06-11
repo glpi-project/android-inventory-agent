@@ -29,7 +29,7 @@ android {
         targetSdkVersion 34
         compileSdk 34
         versionCode 18
-        versionName "2.1.7"
+        versionName "2.1.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
