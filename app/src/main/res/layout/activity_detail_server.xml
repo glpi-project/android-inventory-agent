@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:fitsSystemWindows="true"
     xmlns:fbutton="http://schemas.android.com/tools"
+=======
+>>>>>>> Bump to 2.1.8
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -22,8 +24,8 @@
                 android:id="@+id/textDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/detail_server"
                 android:textColor="@color/white"
@@ -35,69 +37,75 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginRight="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/textColorYellow"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/radius_btn_yellow"
                 android:text="@string/delete"
-                android:background="@drawable/radius_btn_yellow"/>
+                android:textColor="@color/textColorYellow" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
 
-    <LinearLayout
-        android:id="@+id/linear"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginTop="51dp"
-        android:divider="@drawable/empty_tall_divider"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:showDividers="middle">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/actionServer"
+        android:layout_below="@+id/toolbar">
 
-        <EditText
-            android:id="@+id/editUrlAddress"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/GlobalServerSummary"
-            android:inputType="textUri" />
+            android:layout_gravity="top"
+            android:divider="@drawable/empty_tall_divider"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:paddingBottom="50dp"
+            android:showDividers="middle">
 
-        <EditText
-            android:id="@+id/editTag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tagSummary"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/editUrlAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/GlobalServerSummary"
+                android:inputType="textUri" />
 
-        <EditText
-            android:id="@+id/editLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login"
-            android:inputType="textUri" />
+            <EditText
+                android:id="@+id/editTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tagSummary"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/editPassWord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/editLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login"
+                android:inputType="textUri" />
 
-        <Spinner
-            android:id="@+id/spinnerAssetItemtype"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/editPassWord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/editSerialNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/serial"
-            android:inputType="text" />
-    </LinearLayout>
+            <Spinner
+                android:id="@+id/spinnerAssetItemtype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <EditText
+                android:id="@+id/editSerialNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/serial"
+                android:inputType="text" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/actionServer"
@@ -105,7 +113,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorYellow"
+<<<<<<< HEAD
         android:textColor="@color/black"
         android:text="" />
+=======
+        android:text=""
+        android:textColor="@color/textColorYellow" />
+>>>>>>> Bump to 2.1.8
 
 </RelativeLayout>
