@@ -190,7 +190,7 @@ public class XMLConfig {
 
     public static void autoImportServer(Context context) {
         try {
-            String path = getFilePath("geodis_glpi.xml", context);
+            String path = getFilePath("geodis_glpi.xml");
             System.out.println("XMLConfig autoImportServer " + (path != null));
             if (path == null) return;
             importServer(context, new FileInputStream(path));
@@ -200,28 +200,8 @@ public class XMLConfig {
         }
     }
 
-    public static boolean checkFilesAccess(Context context) {
-        if (Build.VERSION.SDK_INT >= 30) {
-            if (!Environment.isExternalStorageManager()) {
-                Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-                context.startActivity(
-                        new Intent(
-                                Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                                uri
-                        )
-                );
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static String getFilePath(String fileName, Context context) {
-        if (!checkFilesAccess(context))
-            return null;
+    public static String getFilePath(String fileName) {
         File f = new File(Environment.getExternalStorageDirectory(), "Documents/" + fileName);
         return f.getPath();
     }
-
-
 }

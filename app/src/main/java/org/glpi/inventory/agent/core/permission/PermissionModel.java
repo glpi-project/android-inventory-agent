@@ -59,16 +59,9 @@ public class PermissionModel implements Permission.Model {
             isGranted = false;
         }
 
-        result = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if(result != PackageManager.PERMISSION_GRANTED) {
-            isGranted = false;
-        }
-
         if(!isGranted) {
             ActivityCompat.requestPermissions(activity,
                     new String[]{
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.CAMERA,
                     },

@@ -285,10 +285,6 @@ public class ActivityMain extends AppCompatActivity
             }
         });
 
-        if (!XMLConfig.checkFilesAccess(this)) {
-            this.finish();
-            return;
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (Environment.isExternalStorageManager())
                 XMLConfig.autoImportServer(this);
