@@ -37,6 +37,7 @@ package org.glpi.inventory.agent.core.report;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 
 import java.util.ArrayList;
 
@@ -54,11 +55,16 @@ public interface Report {
 
         // Models
         void generateReport(final Activity activity);
-        void showDialogShare(final Context context);
+        void showDialogShare(final Context context, final String[] items, final Model.ModelValidated onClickListener);
     }
 
     interface Model {
         void generateReport(final Activity activity);
-        void showDialogShare(final Context context);
+        void showDialogShare(final Context context, final String[] items, final ModelValidated onClickListener);
+
+
+        interface ModelValidated {
+            void onValidated(int optionIndex);
+        }
     }
 }

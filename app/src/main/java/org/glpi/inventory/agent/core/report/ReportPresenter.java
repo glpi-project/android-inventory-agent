@@ -37,6 +37,7 @@ package org.glpi.inventory.agent.core.report;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 
 import java.util.ArrayList;
 
@@ -70,8 +71,7 @@ public class ReportPresenter implements Report.Presenter {
     }
 
     @Override
-    public void showDialogShare(Context context) {
-        model.showDialogShare(context);
+    public void showDialogShare(Context context, String[] items, Report.Model.ModelValidated onClickListener) {
+        model.showDialogShare(context, items, onClickListener);
     }
-
 }

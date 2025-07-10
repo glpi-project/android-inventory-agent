@@ -36,12 +36,16 @@
 package org.glpi.inventory.agent.ui;
 
 import android.Manifest;
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,11 +56,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import org.flyve.inventory.InventoryLog;
+import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.ViewPagerAdapter;
 import org.glpi.inventory.agent.core.report.Report;
@@ -65,6 +70,10 @@ import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.Utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -75,6 +84,9 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
     private FloatingActionButton btnShare;
     private SharedPreferences sharedPreferences;
 
+    private ActivityResultLauncher<Intent> saveFileLauncher;
+    private String fileContentToSave;
+
 
     /**
      * Called when the activity is starting, inflates the activity's UI
@@ -84,6 +96,25 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        saveFileLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri uri = result.getData().getData();
+                        if (uri != null) {
+                            try (OutputStream out = getContentResolver().openOutputStream(uri)) {
+                                if (out != null) {
+                                    out.write(fileContentToSave.getBytes(StandardCharsets.UTF_8));
+                                }
+                                Toast.makeText(this, R.string.file_saved_successfully, Toast.LENGTH_LONG).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Toast.makeText(this, R.string.file_save_failed, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                }
+        );
 
         ActivityCompat.requestPermissions(ActivityInventoryReport.this,
                 new String[]{
@@ -101,12 +132,7 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener(v -> onBackPressed());
         } catch (Exception ex) {
             AgentLog.e(ex.getMessage());
         }
@@ -117,52 +143,67 @@ public class ActivityInventoryReport extends AppCompatActivity implements Report
         progressBar.setVisibility(View.VISIBLE);
         presenter.generateReport(ActivityInventoryReport.this);
 
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnShare.setOnClickListener(v -> {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            if(sharedPreferences.getBoolean("noRemindShareWarning",false)) {
+                showDialogShare();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityInventoryReport.this);
+                builder.setTitle(getApplication().getResources().getString(R.string.share_warning));
+                builder.setIcon(R.drawable.ic_launcher_round);
+                builder.setMessage(R.string.share_message);
+                builder.setPositiveButton(R.string.share_understand, (parentDialog, id) -> showDialogShare());
 
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                if(sharedPreferences.getBoolean("noRemindShareWarning",false)){
-                    presenter.showDialogShare(ActivityInventoryReport.this);
-                }else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityInventoryReport.this);
-                    builder.setTitle(getApplication().getResources().getString(R.string.share_warning));
-                    builder.setIcon(R.drawable.ic_launcher_round);
-                    builder.setMessage(R.string.share_message);
-                    builder.setPositiveButton(R.string.share_understand,
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    presenter.showDialogShare(ActivityInventoryReport.this);
-                                }
-                            });
+                builder.setNeutralButton(R.string.share_no_reminde_me, (parentDialog, id) -> {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("noRemindShareWarning", true);
+                    editor.apply();
+                    showDialogShare();
+                });
 
-                    builder.setNeutralButton(R.string.share_no_reminde_me,
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean("noRemindShareWarning", true);
-                                    editor.apply();
-                                    presenter.showDialogShare(ActivityInventoryReport.this);
-                                }
-                            });
-
-                    builder.setNegativeButton(R.string.share_cancel,
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    dialog.cancel();
-                                }
-                            });
-                    builder.create().show();
-                }
-
+                builder.setNegativeButton(R.string.share_cancel, (dialog, id) -> dialog.cancel());
+                builder.create().show();
             }
         });
+    }
+
+    private void showDialogShare(){
+        final String[] shareItems = getResources().getStringArray(R.array.export_list);
+        presenter.showDialogShare(ActivityInventoryReport.this, shareItems, (index) -> {
+            File file;
+
+            if (index == 1) {
+                file = new File(getFilesDir(), "Inventory.json");
+                if (!file.exists()) {
+                    AgentLog.e("JSON File not exist");
+                }
+            }
+            else {
+                file = new File(getFilesDir(), "Inventory.xml");
+                if (!file.exists()) {
+                    AgentLog.e("XML File not exist");
+                }
+            }
+
+
+            String content = Helpers.readFileContent(file);
+            String mimeType = index == 1 ? "application/json" : "application/xml";
+            String filename = index == 1 ? "Inventory.json" : "Inventory.xml";
+
+            launchSaveFileIntent(filename, mimeType, content);
+        });
+    }
+
+    private void launchSaveFileIntent(String fileName, String mimeType, String content) {
+        this.fileContentToSave = content;
+
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType(mimeType);
+        intent.putExtra(Intent.EXTRA_TITLE, fileName);
+
+        saveFileLauncher.launch(intent);
     }
 
 

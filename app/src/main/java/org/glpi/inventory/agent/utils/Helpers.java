@@ -64,7 +64,13 @@ import org.flyve.inventory.InventoryTask;
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.ui.ActivityMain;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
@@ -167,6 +173,27 @@ public class Helpers {
             } else {
                 AgentLog.e("XML File not exist");
             }
+        }
+    }
+
+    public static String readFileContent(File file) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+            }
+            else {
+                StringBuilder content = new StringBuilder();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line).append('\n');
+                }
+                reader.close();
+                return content.toString();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 

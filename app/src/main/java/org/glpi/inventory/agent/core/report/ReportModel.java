@@ -86,46 +86,25 @@ public class ReportModel implements Report.Model {
         });
     }
 
-    public void showDialogShare(final Context context) {
+    @Override
+    public void showDialogShare(Context context, String[] items, ModelValidated onClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.dialog_share_title);
 
         final int[] type = new int[1];
 
         //list of items
-        String[] items = context.getResources().getStringArray(R.array.export_list);
         //remove json format (not well formatted for now)
-        items = Arrays.copyOf(items, 1);
-        builder.setSingleChoiceItems(items, 0,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        type[0] = which;
-                    }
-                });
+        builder.setSingleChoiceItems(Arrays.copyOf(items, 1), 0, (dialog, which) -> type[0] = which);
 
         String positiveText = context.getString(android.R.string.ok);
-        builder.setPositiveButton(positiveText,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // positive button logic
-                        Helpers.share( context, "Inventory Agent File", type[0] );
-                    }
-                });
+        builder.setPositiveButton(positiveText, (dialog, which) -> onClickListener.onValidated(type[0]));
 
         String negativeText = context.getString(android.R.string.cancel);
-        builder.setNegativeButton(negativeText,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // negative button logic
-                    }
-                });
+        builder.setNegativeButton(negativeText, (dialog, which) -> { });
 
         AlertDialog dialog = builder.create();
         // display dialog
         dialog.show();
     }
-
 }
