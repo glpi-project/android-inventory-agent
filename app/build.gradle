@@ -10,6 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 35
 
+        android.buildFeatures.buildConfig = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
