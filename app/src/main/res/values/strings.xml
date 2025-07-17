@@ -306,10 +306,15 @@
     <string name="disable_notification">Disable notification</string>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <string name="file_saved_successfully">File saved successfully</string>
     <string name="file_save_failed">Failed to save the file</string>
 =======
     <string name="file_saved_successfully">Fichier sauvegardé</string>
     <string name="file_save_failed">Impossible de sauvegarder le fichier</string>
 >>>>>>> chore(share): share inventory to files
+=======
+    <string name="file_saved_successfully">File saved successfully</string>
+    <string name="file_save_failed">Failed to save the file</string>
+>>>>>>> chore(share): update translations
 </resources>
