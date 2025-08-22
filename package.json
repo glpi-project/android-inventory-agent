@@ -1,6 +1,6 @@
 {
   "name": "@teclib/android-inventory-agent",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "GLPI Android Inventory Agent",
   "main": "index.js",
   "scripts": {
