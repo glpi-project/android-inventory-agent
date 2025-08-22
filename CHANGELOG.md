@@ -4,12 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+## [1.7.0] - 2025-08-22
+
 ### 💼 Other
 
 - *(Build)* Move to SDK 35
-
-### 💼 Other
-
 - *(Build)* Fix trigger for CI
 
 ## [1.6.1] - 2024-12-20
