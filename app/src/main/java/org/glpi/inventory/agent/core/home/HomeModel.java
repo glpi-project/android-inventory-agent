@@ -95,24 +95,6 @@ public class HomeModel implements Home.Model {
     /**
      * Check if the service is running
      *
-     * @param serviceClass Class
-     * @return boolean
-     */
-    private boolean isMyServiceRunning(Activity activity, Class<?> serviceClass) {
-        try {
-            ActivityManager manager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (serviceClass.getName().equals(service.service.getClassName())) {
-                    return true;
-                }
-            }
-        } catch (Exception ex) {
-            AgentLog.e(ex.getMessage());
-        }
-
-        return false;
-    }
-
 
     @Override
     public void setupList(Activity activity, ListView lst) {

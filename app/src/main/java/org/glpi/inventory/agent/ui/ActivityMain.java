@@ -43,27 +43,33 @@ import static kotlinx.coroutines.flow.FlowKt.skip;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.RestrictionsManager;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.enterprise.feedback.KeyedAppStatesReporter;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.util.Xml;
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -74,11 +80,12 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.glpi.inventory.agent.R;
+import org.glpi.inventory.agent.broadcast.InventoryJobScheduler;
 import org.glpi.inventory.agent.core.main.Main;
 import org.glpi.inventory.agent.core.main.MainPresenter;
 import org.glpi.inventory.agent.preference.GlobalParametersPreference;
 import org.glpi.inventory.agent.preference.InventoryParametersPreference;
-import org.glpi.inventory.agent.service.InventoryService;
+import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.AgentLog;
 import org.glpi.inventory.agent.utils.Helpers;
 import org.glpi.inventory.agent.utils.LocalPreferences;
@@ -93,9 +100,11 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ActivityMain extends AppCompatActivity
         implements Main.View, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -112,20 +121,8 @@ public class ActivityMain extends AppCompatActivity
     private Boolean isOpen;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     private TextView textview_settings, textview_scheduler, textview_config;
-
+    InventoryJobScheduler alarm = new InventoryJobScheduler();
     final static int REQUESTCODE_OPEN_DOC = 2;
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String strTime = intent.getStringExtra("time");
-            if (sharedPreferences.getBoolean("autoStartInventory", false)) {
-                toolbar.setSubtitle(strTime);
-            } else {
-                toolbar.setSubtitle("");
-            }
-        }
-    };
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -135,6 +132,54 @@ public class ActivityMain extends AppCompatActivity
         }
     };
 
+    private BroadcastReceiver appRestrictionChange = null;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
+        BroadcastReceiver appRestrictionChange = new BroadcastReceiver() {
+            @Override public void onReceive(Context context, Intent intent) {
+                resolveRestrictions();
+            }
+        };
+
+        if (Build.VERSION.SDK_INT >= 34) {
+            registerReceiver(appRestrictionChange, restrictionsFilter, RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(appRestrictionChange, restrictionsFilter);
+        }
+
+        if (sharedPreferences.getBoolean("autoStartInventory", false)) {
+            String label =  getString(R.string.schedule_inventory_each);
+            String frequency =  "weekly";
+            switch(sharedPreferences.getString("timeInventory", "Week")){
+                case "Day":
+                    frequency = "daily";
+                    break;
+                case "Month":
+                    frequency = "monthly";
+                    break;
+                default:
+                    frequency = "weekly";
+                    break;
+            }
+
+                toolbar.setSubtitle(strTime);
+        } else {
+            toolbar.setSubtitle("Scheduled inventory not configured");
+        }
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (appRestrictionChange != null) {
+            unregisterReceiver(appRestrictionChange);
+            appRestrictionChange = null;
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -142,21 +187,50 @@ public class ActivityMain extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             registerReceiver(broadcastReceiver, new IntentFilter(InventoryService.TIMER_RECEIVER), Context.RECEIVER_NOT_EXPORTED);
         } else {
-            registerReceiver(broadcastReceiver, new IntentFilter(InventoryService.TIMER_RECEIVER));
+            resolveRestrictions();
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(broadcastReceiver);
+        //unregisterReceiver(broadcastReceiver);
+    }
+
+    private void checkPermissions() {
+        List<String> permissionsList = new ArrayList<>(Arrays.asList(
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CAMERA
+        ));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissionsList.add(Manifest.permission.POST_NOTIFICATIONS);
+        }
+
+        String[] permissions = permissionsList.toArray(new String[0]);
+
+        List<String> permissionsToRequest = new ArrayList<>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(permission);
+            }
+        }
+
+        if (!permissionsToRequest.isEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), 0);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
+
+        checkPermissions();
+
         setContentView(R.layout.activity_main);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+        }
 
         if (Build.VERSION.SDK_INT >= 34) {
             ActivityCompat.requestPermissions(ActivityMain.this,
@@ -178,6 +252,8 @@ public class ActivityMain extends AppCompatActivity
         if (!new LocalStorage(this).getDataBoolean("isFirstTime")) {
             loadCategories();
         }
+
+        scheduleJob();
 
         // Menu list
         ListView lst = findViewById(R.id.lst);
@@ -270,7 +346,6 @@ public class ActivityMain extends AppCompatActivity
                 ActivityMain.this.startActivity(miIntent);
             }
         });
-
 
         btn_config.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -377,51 +452,205 @@ public class ActivityMain extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1: {
+        boolean allGranted = true;
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                allGranted = false;
+                break;
+            }
+        }
 
-                boolean allGranted = true;
-                for (int i = 0; i < permissions.length; i++) {
-                    System.out.println("permission " + permissions[i] + " " + grantResults[i]);
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED)
-                        allGranted = false;
+        if (!allGranted) {
+            String message = getResources().getString(R.string.permission_error_result);
+            Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);
+        }
+    }
 
-                    if (((Manifest.permission.READ_EXTERNAL_STORAGE.equals(permissions[i]))
-                            || (Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permissions[i]))
-                    )
-                            && (grantResults[i] == PackageManager.PERMISSION_GRANTED))
-                        XMLConfig.autoImportServer(this);
+    public static void enterpriseFeedback(Context context,
+                                          String key,
+                                          String message,
+                                          String data,
+                                          int severity) {
+        KeyedAppStatesReporter keyedAppStatesReporter = KeyedAppStatesReporter.create(context);
+        KeyedAppState keyedAppStateMessage = KeyedAppState.builder()
+                .setSeverity(severity)
+                .setKey(key)
+                .setMessage(message)
+                .setData(data)
+                .build();
+        List<KeyedAppState> list = new ArrayList<>();
+        list.add(keyedAppStateMessage);
+        keyedAppStatesReporter.setStates(list);
+    }
+
+    private void resolveRestrictions() {
+        AgentLog.e("EMM - START resolve restrictions");
+        RestrictionsManager myRestrictionsMgr = null;
+        myRestrictionsMgr = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
+        Bundle appRestrictions = myRestrictionsMgr.getApplicationRestrictions();
+
+        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = customSharedPreference.edit();
+
+        if (appRestrictions.containsKey("automatic_inventory")) {
+            editor.putBoolean("autoStartInventory", appRestrictions.getBoolean("automatic_inventory"));
+            enterpriseFeedback(getApplicationContext(), "automatic_inventory", "automatic_inventory option set successfully", appRestrictions.getBoolean("automatic_inventory") ? "true" : "false", KeyedAppState.SEVERITY_INFO);
+            AgentLog.e("EMM - set automatic inventory to " + appRestrictions.getBoolean("automatic_inventory"));
+            editor.apply();
+        }
+
+        if (appRestrictions.containsKey("frequency")) {
+            editor.putString("timeInventory", appRestrictions.getString("frequency", "Week"));
+            enterpriseFeedback(getApplicationContext(), "frequency", "frequency option set successfully", appRestrictions.getString("frequency"), KeyedAppState.SEVERITY_INFO);
+            AgentLog.e("EMM - set frequency to " + appRestrictions.getString("frequency", "Week"));
+            editor.apply();
+        }
+
+        if (appRestrictions.containsKey("auto_start_on_boot")) {
+            editor.putBoolean("boot", appRestrictions.getBoolean("auto_start_on_boot"));
+            enterpriseFeedback(getApplicationContext(), "auto_start_on_boot", "auto_start_on_boot option set successfully", appRestrictions.getBoolean("auto_start_on_boot") ? "true" : "false", KeyedAppState.SEVERITY_INFO);
+            AgentLog.e("EMM - set auto start on boot to " + appRestrictions.getBoolean("auto_start_on_boot"));
+            editor.apply();
+        }
+
+        Parcelable[] parcelables = appRestrictions.getParcelableArray("server_configuration_list");
+        if (parcelables != null && parcelables.length > 0) {
+            final Context context = getApplicationContext();
+            for (int i = 0; i < parcelables.length; i++) {
+                Bundle serverConfig = (Bundle) parcelables[i];
+                JSONObject jsonServerConfig = new JSONObject();
+                LocalPreferences preferences = new LocalPreferences(context);
+
+                if (serverConfig.getString("server_url").isEmpty()) {
+                    enterpriseFeedback(getApplicationContext(), "server_url", "Error server URL is mandatory -> ", serverConfig.getString("server_url"), KeyedAppState.SEVERITY_ERROR);
+                    AgentLog.e("EMM - server url is mandatory");
+                    continue;
                 }
 
-                // If request is cancelled, the result arrays are empty.
-                if (!allGranted) {
-                    String message = getResources().getString(R.string.permission_error_result);
-                    Helpers.snackClose(ActivityMain.this, message, getString(R.string.permission_snack_ok), true);
+                try {
+                    jsonServerConfig.put("address", serverConfig.getString("server_url"));
+
+                    String tag = serverConfig.containsKey("server_tag") ? serverConfig.getString("server_tag") : "";
+                    jsonServerConfig.put("tag", tag);
+
+                    String login = serverConfig.containsKey("server_login") ? serverConfig.getString("server_login") : "";
+                    jsonServerConfig.put("login", login);
+
+                    String pass = serverConfig.containsKey("server_password") ? serverConfig.getString("server_password") : "";
+                    jsonServerConfig.put("pass", pass);
+
+                    String itemType = serverConfig.containsKey("server_itemtype") ? serverConfig.getString("server_itemtype") : "Computer";
+                    jsonServerConfig.put("itemtype", itemType);
+
+                    String serial = serverConfig.containsKey("server_custom_asset_serial") ? serverConfig.getString("server_custom_asset_serial") : "";
+                    jsonServerConfig.put("serial", serial);
+
+                    AgentLog.e("EMM - Receive the following configuration '" + jsonServerConfig.toString());
+
+                    JSONObject local_server = preferences.loadJSONObject(serverConfig.getString("server_url"));
+                    AgentLog.e("EMM - Try to load '" + serverConfig.getString("server_url") + "' server if exist");
+                    AgentLog.e("EMM - Found '" + local_server.toString() + "'");
+                    AgentLog.e("EMM - Exist ? -> '" + !local_server.toString().equals("{}") + "'");
+
+                    if (local_server.toString().equals("{}")) {
+                        ArrayList<String> serverArray = preferences.loadServer();
+                        serverArray.add(serverConfig.getString("server_url"));
+                        preferences.saveServer(serverArray);
+                        preferences.saveJSONObject(serverConfig.getString("server_url"), jsonServerConfig);
+                        enterpriseFeedback(getApplicationContext(), "server_url", "server_url added successfully", serverConfig.getString("server_url"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_tag", "server_tag added successfully", serverConfig.getString("server_tag"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_login", "server_login added successfully", serverConfig.getString("server_login"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_password", "server_password added successfully", "***", KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_itemtype", "server_itemtype added successfully", serverConfig.getString("server_itemtype"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_custom_asset_serial", "server_custom_asset_serial added successfully", serverConfig.getString("server_custom_asset_serial"), KeyedAppState.SEVERITY_INFO);
+                        AgentLog.e("EMM - Server added successfully");
+                    } else {
+                        preferences.deletePreferences(serverConfig.getString("server_url"));
+                        preferences.saveJSONObject(serverConfig.getString("server_url"), jsonServerConfig);
+                        enterpriseFeedback(getApplicationContext(), "server_url", "server_url updated successfully", serverConfig.getString("server_url"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_tag", "server_tag updated successfully", serverConfig.getString("server_tag"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_login", "server_login updated successfully", serverConfig.getString("server_login"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_password", "server_password updated successfully", "***", KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_itemtype", "server_itemtype updated successfully", serverConfig.getString("server_itemtype"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_custom_asset_serial", "server_custom_asset_serial updated successfully", serverConfig.getString("server_custom_asset_serial"), KeyedAppState.SEVERITY_INFO);
+                        AgentLog.e("EMM - Server updated successfully");
+                    }
+
+                } catch (JSONException e) {
+                    enterpriseFeedback(getApplicationContext(), "server_url", "error while adding/updating server -> " + e.getMessage(), serverConfig.getString("server_url"), KeyedAppState.SEVERITY_ERROR);
+                    AgentLog.e("EMM - error while adding/updating server");
+                    AgentLog.e("EMM - " + e.getMessage());
                 }
+            }
+        } else {
+            AgentLog.e("EMM - 'server_configuration_list' key is empty");
+        }
+        AgentLog.e("EMM - END resolve restrictions");
+    }
+
+    public void scheduleJob() {
+        SharedPreferences customSharedPreference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String timeInventory = customSharedPreference.getString("timeInventory", "Week");
+
+        final JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        final ComponentName name = new ComponentName(this, InventoryJobScheduler.class);
+        final JobInfo jobInfo = getJobInfo(InventoryJobScheduler.INVENTORY_JOB_ID, timeInventory, name);
+
+        if(customSharedPreference.getBoolean("autoStartInventory", false)) {
+            if (!isAlreadyScheduled(jobScheduler, jobInfo)) {
+                if (jobScheduler.schedule(jobInfo) == JobScheduler.RESULT_SUCCESS) {
+                    AgentLog.d("GLPI-AGENT-JOBSCHEDULER : Scheduled job successfully!");
+                }
+            } else {
+                AgentLog.d("GLPI-AGENT-JOBSCHEDULER : Scheduled job already initialized");
+            }
+        } else {
+            AgentLog.d("GLPI-AGENT-JOBSCHEDULER : autoStartInventory disabled, cancel JobScheduler");
+            if (isAlreadyScheduled(jobScheduler, jobInfo)) {
+                jobScheduler.cancel(InventoryJobScheduler.INVENTORY_JOB_ID);
             }
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent resultData) {
-        try {
-            if (requestCode == REQUESTCODE_OPEN_DOC
-                    && resultCode == Activity.RESULT_OK) {
-                Uri uri = null;
-                if (resultData != null && resultData.getData() != null) {
-                    uri = resultData.getData();
-                    importServer(this, getContentResolver().openInputStream(uri));
-                }
+    private boolean isAlreadyScheduled(JobScheduler jobScheduler, JobInfo jobInfo) {
+        boolean jobAlreadyScheduled = false;
+        for (JobInfo existingJob: jobScheduler.getAllPendingJobs()) {
+            // check if scheduler exist with same ID and same minimum latency
+            if (existingJob.getId() == jobInfo.getId()
+                    && existingJob.getMinLatencyMillis() == jobInfo.getMinLatencyMillis()) {
+                jobAlreadyScheduled = true;
+                break;
             }
-        } catch (Exception e) {
-            showInfoDialog("Erreur lors de l'import du fichier xml", this);
-            AgentLog.e(e.getMessage());
         }
-        super.onActivityResult(requestCode, resultCode, resultData);
+        return jobAlreadyScheduled;
     }
 
+    private JobInfo getJobInfo(final int id, final String timeInventory, final ComponentName name) {
 
+        //default week
+        long interval = TimeUnit.DAYS.toMillis(7);
+        if (timeInventory.equals("Day")) {
+            interval = TimeUnit.DAYS.toMillis(1);
+        } else if (timeInventory.equals("Week")) {
+            interval = TimeUnit.DAYS.toMillis(7);
+        } else if (timeInventory.equals("Month")) {
+            interval = TimeUnit.DAYS.toMillis(30);
+        }
+
+        AgentLog.d("GLPI-AGENT-JOBSCHEDULER : Alarm scheduled each " + timeInventory);
+
+        JobInfo.Builder builder = new JobInfo.Builder(id, name)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPersisted(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setMinimumLatency(interval);
+        } else {
+            builder.setPeriodic(interval);
+        }
+
+        return builder.build();
+    }
 }
