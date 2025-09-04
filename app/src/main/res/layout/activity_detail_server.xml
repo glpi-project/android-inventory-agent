@@ -2,11 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    android:fitsSystemWindows="true"
-    xmlns:fbutton="http://schemas.android.com/tools"
-=======
->>>>>>> Bump to 2.1.8
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -113,12 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorYellow"
-<<<<<<< HEAD
-        android:textColor="@color/black"
-        android:text="" />
-=======
         android:text=""
         android:textColor="@color/textColorYellow" />
->>>>>>> Bump to 2.1.8
 
 </RelativeLayout>

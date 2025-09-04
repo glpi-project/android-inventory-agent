@@ -47,7 +47,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import org.glpi.inventory.agent.R;
 import org.glpi.inventory.agent.adapter.DrawerAdapter;
-import org.glpi.inventory.agent.ui.ActivityMain;
 import org.glpi.inventory.agent.ui.FragmentAbout;
 import org.glpi.inventory.agent.ui.FragmentHelp;
 import org.glpi.inventory.agent.ui.FragmentHome;
@@ -73,11 +72,6 @@ public class MainModel implements Main.Model {
 
     @Override
     public void setupInventoryAlarm(Context context) {
-<<<<<<< HEAD
-        if (context instanceof ActivityMain) {
-            ActivityMain activity = (ActivityMain) context;
-            activity.scheduleJob();
-=======
         LocalStorage cache = new LocalStorage(context);
         if (cache.getDataBoolean("changeSchedule")) {
             Calendar calendar = Calendar.getInstance();
@@ -107,7 +101,6 @@ public class MainModel implements Main.Model {
 
             cache.setDataLong("data", dateTime);
             cache.setDataBoolean("changeSchedule", false);
->>>>>>> Bump to 2.1.6
         }
     }
 

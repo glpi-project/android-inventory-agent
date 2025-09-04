@@ -67,6 +67,8 @@ public class FragmentHome extends Fragment implements Home.View {
 
         presenter = new HomePresenter(this);
 
+        presenter.doBindService(FragmentHome.this.getActivity());
+
         Button btn_run = v.findViewById(R.id.btn_run_inventory);
         btn_run.setOnClickListener(new View.OnClickListener() {
             @Override
