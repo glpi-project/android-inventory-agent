@@ -487,6 +487,9 @@ public class ActivityMain extends AppCompatActivity
                     String serial = serverConfig.containsKey("server_custom_asset_serial") ? serverConfig.getString("server_custom_asset_serial") : "";
                     jsonServerConfig.put("serial", serial);
 
+                    String name = serverConfig.containsKey("server_custom_asset_name") ? serverConfig.getString("server_custom_asset_name") : "";
+                    jsonServerConfig.put("name", serial);
+
                     AgentLog.e("EMM - Receive the following configuration '" + jsonServerConfig.toString());
 
                     JSONObject local_server = preferences.loadJSONObject(serverConfig.getString("server_url"));
@@ -505,6 +508,7 @@ public class ActivityMain extends AppCompatActivity
                         enterpriseFeedback(getApplicationContext(), "server_password", "server_password added successfully", "***", KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_itemtype", "server_itemtype added successfully", serverConfig.getString("server_itemtype"), KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_custom_asset_serial", "server_custom_asset_serial added successfully", serverConfig.getString("server_custom_asset_serial"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_custom_asset_name", "server_custom_asset_name added successfully", serverConfig.getString("server_custom_asset_name"), KeyedAppState.SEVERITY_INFO);
                         AgentLog.e("EMM - Server added successfully");
                     } else {
                         preferences.deletePreferences(serverConfig.getString("server_url"));
@@ -515,6 +519,7 @@ public class ActivityMain extends AppCompatActivity
                         enterpriseFeedback(getApplicationContext(), "server_password", "server_password updated successfully", "***", KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_itemtype", "server_itemtype updated successfully", serverConfig.getString("server_itemtype"), KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_custom_asset_serial", "server_custom_asset_serial updated successfully", serverConfig.getString("server_custom_asset_serial"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_custom_asset_name", "server_custom_asset_name added successfully", serverConfig.getString("server_custom_asset_name"), KeyedAppState.SEVERITY_INFO);
                         AgentLog.e("EMM - Server updated successfully");
                     }
 

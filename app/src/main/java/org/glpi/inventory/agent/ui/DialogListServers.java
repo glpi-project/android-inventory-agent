@@ -150,6 +150,11 @@ public class DialogListServers {
                 if(!model.getSerial().trim().isEmpty()) {
                     data = data.replaceAll("<SSN>(.*)</SSN>","<SSN>" + model.getSerial() + "</SSN>");
                 }
+
+                if(!model.getName().trim().isEmpty()) {
+                    data = data.replaceAll("<NAME>(.*)</NAME>","<NAME>" + model.getName() + "</NAME>");
+                }
+
                 httpInventory.sendInventory(data, model, new HttpInventory.OnTaskCompleted() {
                     @Override
                     public void onTaskSuccess(String data) {
