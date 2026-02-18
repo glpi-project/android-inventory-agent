@@ -56,6 +56,10 @@
           android:key="server_custom_asset_serial"
           android:restrictionType="string"
           android:title="@string/server_custom_asset_serial"/>
+      <restriction
+          android:key="server_custom_asset_name"
+          android:restrictionType="string"
+          android:title="@string/server_custom_asset_name"/>
     </restriction>
 
 
