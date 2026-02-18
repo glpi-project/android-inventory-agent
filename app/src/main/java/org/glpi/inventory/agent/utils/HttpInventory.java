@@ -91,6 +91,7 @@ public class HttpInventory {
             serverSchema.setPass(jo.getString("pass"));
             serverSchema.setItemtype(jo.getString("itemtype"));
             serverSchema.setSerial(jo.getString("serial"));
+            serverSchema.setName(jo.optString("name", ""));
         } catch (JSONException e) {
             AgentLog.e(e.getMessage());
         }
