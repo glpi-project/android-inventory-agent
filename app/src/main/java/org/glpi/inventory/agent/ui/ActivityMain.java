@@ -487,6 +487,12 @@ public class ActivityMain extends AppCompatActivity
                     String serial = serverConfig.containsKey("server_custom_asset_serial") ? serverConfig.getString("server_custom_asset_serial") : "";
                     jsonServerConfig.put("serial", serial);
 
+                    String client_id = serverConfig.containsKey("server_client_id") ? serverConfig.getString("server_client_id") : "";
+                    jsonServerConfig.put("client_id", client_id);
+
+                    String client_secret = serverConfig.containsKey("server_client_secret") ? serverConfig.getString("server_client_secret") : "";
+                    jsonServerConfig.put("client_secret", client_secret);
+
                     AgentLog.e("EMM - Receive the following configuration '" + jsonServerConfig.toString());
 
                     JSONObject local_server = preferences.loadJSONObject(serverConfig.getString("server_url"));
@@ -505,6 +511,9 @@ public class ActivityMain extends AppCompatActivity
                         enterpriseFeedback(getApplicationContext(), "server_password", "server_password added successfully", "***", KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_itemtype", "server_itemtype added successfully", serverConfig.getString("server_itemtype"), KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_custom_asset_serial", "server_custom_asset_serial added successfully", serverConfig.getString("server_custom_asset_serial"), KeyedAppState.SEVERITY_INFO);
+
+                        enterpriseFeedback(getApplicationContext(), "server_client_id", "server_client_id added successfully", serverConfig.getString("server_client_id"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_client_secret", "server_client_secret added successfully", serverConfig.getString("server_client_secret"), KeyedAppState.SEVERITY_INFO);
                         AgentLog.e("EMM - Server added successfully");
                     } else {
                         preferences.deletePreferences(serverConfig.getString("server_url"));
@@ -515,6 +524,9 @@ public class ActivityMain extends AppCompatActivity
                         enterpriseFeedback(getApplicationContext(), "server_password", "server_password updated successfully", "***", KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_itemtype", "server_itemtype updated successfully", serverConfig.getString("server_itemtype"), KeyedAppState.SEVERITY_INFO);
                         enterpriseFeedback(getApplicationContext(), "server_custom_asset_serial", "server_custom_asset_serial updated successfully", serverConfig.getString("server_custom_asset_serial"), KeyedAppState.SEVERITY_INFO);
+
+                        enterpriseFeedback(getApplicationContext(), "server_client_id", "server_client_id added successfully", serverConfig.getString("server_client_id"), KeyedAppState.SEVERITY_INFO);
+                        enterpriseFeedback(getApplicationContext(), "server_client_secret", "server_client_secret added successfully", serverConfig.getString("server_client_secret"), KeyedAppState.SEVERITY_INFO);
                         AgentLog.e("EMM - Server updated successfully");
                     }
 

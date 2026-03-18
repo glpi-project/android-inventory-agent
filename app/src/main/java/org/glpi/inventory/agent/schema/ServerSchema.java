@@ -44,6 +44,12 @@ public class ServerSchema {
     private String itemtype;
     private String serial;
 
+    private String client_id;
+
+    private String client_secret;
+
+    private String oauth_token;
+
     public String getSerial() { return this.serial; }
 
     public void setSerial(String serial) {
@@ -89,4 +95,30 @@ public class ServerSchema {
     public void setItemtype(String itemtype) {
         this.itemtype = itemtype;
     }
+
+    public String getClientID() {
+        return client_id;
+    }
+
+    public void setClientID(String client_id) {
+        this.client_id = client_id;
+    }
+
+    public String getClientSecret() {
+        return client_secret;
+    }
+
+    public void setClientSecret(String client_id) {
+        this.client_secret = client_id;
+    }
+
+    public String getOauthToken() {
+        return oauth_token;
+    }
+
+    public void setOauthToken(String oauth_token) {
+        this.oauth_token = oauth_token;
+    }
+
+
 }
