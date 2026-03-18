@@ -78,7 +78,7 @@ import javax.net.ssl.TrustManager;
 
 public class DataLoader {
 
-    public HttpResponse secureLoadData(Context appContext, ServerSchema mFusionApp, String lastXML) throws
+    public HttpResponse secureLoadData(Context appContext, ServerSchema mFusionApp, String lastXML, String accessToken) throws
             IOException, NoSuchAlgorithmException, KeyManagementException,
             KeyStoreException, UnrecoverableKeyException {
 
@@ -108,6 +108,14 @@ public class DataLoader {
         post = new HttpPost(mFusionApp.getAddress());
         post.setHeader("Content-Type","application/xml;charset=utf-8");
         // post.setHeader("Charset","UTF-8");
+
+        // --- AJOUT OAUTH ---
+        if (accessToken != null && !accessToken.isEmpty()) {
+            post.setHeader("Authorization", "Bearer " + accessToken);
+            AgentLog.d("OAuth Token injected into headers");
+        }
+
+        // -------------------
         sslClient.addRequestInterceptor(new HttpRequestInterceptor() {
             @Override
             public void process(HttpRequest request, HttpContext context) {
