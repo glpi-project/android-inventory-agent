@@ -49,6 +49,7 @@ public class ServerSchema {
     private String client_secret;
 
     private String oauth_token;
+    private String refresh_token;
 
     public String getSerial() { return this.serial; }
 
@@ -121,4 +122,11 @@ public class ServerSchema {
     }
 
 
+    public void setRefreshToken(String refresh_token) {
+        this.refresh_token = refresh_token;
+    }
+
+    public String getRefreshToken() {
+        return refresh_token;
+    }
 }

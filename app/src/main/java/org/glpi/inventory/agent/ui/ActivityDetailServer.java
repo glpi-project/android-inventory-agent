@@ -82,6 +82,8 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
     private EditText editSerial;
     private Toolbar toolbar;
     private String serverName;
+    private EditText editClientID;
+    private EditText editClientSecret;
     private JSONObject extra_Data = null;
     private FloatingActionButton btnScan;
 
@@ -150,6 +152,14 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                             editPassWord.setText(extra_Data.getString("PASSWORD"));
                             assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(extra_Data.getString("ASSET_ITEMTYPE")));
 
+                            if (extra_Data.has("CLIENT_ID")){
+                                editClientID.setText(extra_Data.getString("CLIENT_ID"));
+                            }
+
+                            if (extra_Data.has("CLIENT_SECRET")){
+                                editClientSecret.setText(extra_Data.getString("CLIENT_SECRET"));
+                            }
+
                             if (extra_Data.has("ASSET_SERIAL")){
                                 editSerial.setText(extra_Data.getString("ASSET_SERIAL"));
                             }
@@ -193,6 +203,14 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                     editPassWord.setText(extra_Data.getString("PASSWORD"));
                     assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(extra_Data.getString("ASSET_ITEMTYPE")));
 
+                    if (extra_Data.has("CLIENT_ID")){
+                        editClientID.setText(extra_Data.getString("CLIENT_ID"));
+                    }
+
+                    if (extra_Data.has("CLIENT_SECRET")){
+                        editClientSecret.setText(extra_Data.getString("CLIENT_SECRET"));
+                    }
+
                     if (extra_Data.has("ASSET_SERIAL")){
                         editSerial.setText(extra_Data.getString("ASSET_SERIAL"));
                     }
@@ -231,6 +249,8 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editLogin = findViewById(R.id.editLogin);
         editPassWord = findViewById(R.id.editPassWord);
         editSerial = findViewById(R.id.editSerialNumber);
+        editClientSecret = findViewById(R.id.editClientSecret);
+        editClientID = findViewById(R.id.editClientID);
         actionServer.setOnClickListener(this);
         deleteServer.setOnClickListener(this);
         btnScan = findViewById(R.id.btnQRScan);
@@ -254,6 +274,8 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
                 serverInfo.add(editPassWord.getText().toString());
                 serverInfo.add(assetItemtype.getSelectedItem().toString());
                 serverInfo.add(editSerial.getText().toString());
+                serverInfo.add(editClientID.getText().toString());
+                serverInfo.add(editClientSecret.getText().toString());
                 if (serverName == null) {
                     presenter.saveServer(serverInfo, getApplicationContext());
                     //manage automatic inventory
@@ -313,6 +335,8 @@ public class ActivityDetailServer extends AppCompatActivity implements DetailSer
         editPassWord.setText(model.getPass());
         editSerial.setText(model.getSerial());
         assetItemtype.setSelection(((ArrayAdapter)assetItemtype.getAdapter()).getPosition(model.getItemtype()));
+        editClientID.setText(model.getClientID());
+        editClientSecret.setText(model.getClientSecret());
         btnScan.hide();
     }
 
