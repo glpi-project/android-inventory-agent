@@ -317,6 +317,8 @@
     <string name="server_tag">Server TAG</string>
     <string name="server_login">Server login</string>
     <string name="server_password">Server password</string>
+    <string name="server_client_id">Oauth Client ID</string>
+    <string name="server_client_secret">Oauth Client Secret</string>
     <string name="server_custom_asset_serial">Custom asset serial</string>
     <string name="server_itemtype">Asset itemtype</string>
 
