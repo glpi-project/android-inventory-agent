@@ -1,0 +1,4 @@
+theme: jekyll-theme-cayman
+title: GLPI Android Inventory Agent
+description: Collect and send hardware & software inventory from Android devices to your GLPI server.
+show_downloads: false
