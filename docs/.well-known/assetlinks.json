@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "org.glpi.inventory.agent",
+    "sha256_cert_fingerprints": [
+      "AB:9D:E4:3C:B9:E1:F7:FB:E4:99:8E:71:CF:E9:75:F0:45:1C:87:D4:0B:5A:9B:A7:39:17:D7:7D:DC:82:04:BA"
+    ]
+  }
+}]
