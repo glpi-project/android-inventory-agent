@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+## [1.7.1] - 2026-04-22
+
+### 🐛 Bug Fixes
+
+- *(DeepLink)* Fix deeplink
+
 ## [1.7.0] - 2025-08-22
 
 ### 💼 Other
