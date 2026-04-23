@@ -66,6 +66,8 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("pass", modelServer.get(3));
                     jo.put("itemtype", modelServer.get(4));
                     jo.put("serial", modelServer.get(5));
+                    jo.put("client_id", modelServer.get(6));
+                    jo.put("client_secret", modelServer.get(7));
                     ArrayList<String> serverArray = preferences.loadServer();
                     serverArray.add(modelServer.get(0));
                     preferences.saveServer(serverArray);
@@ -96,6 +98,8 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("pass", modelServer.get(3));
                     jo.put("itemtype", modelServer.get(4));
                     jo.put("serial", modelServer.get(5));
+                    jo.put("client_id", modelServer.get(6));
+                    jo.put("client_secret", modelServer.get(7));
                     ArrayList<String> serverArray = preferences.loadServer();
                     for (int i = 0; i < serverArray.size(); i++) {
                         if (serverArray.get(i).equals(serverName)) {

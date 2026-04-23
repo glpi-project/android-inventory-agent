@@ -32,7 +32,6 @@
 
             <Button
                 android:id="@+id/deleteServer"
-
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"
@@ -45,13 +44,11 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="51dp"
         android:divider="@drawable/empty_tall_divider"
         android:orientation="vertical"
         android:padding="15dp"
@@ -65,11 +62,28 @@
             android:inputType="textUri" />
 
         <EditText
+            android:id="@+id/editSerialNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/serial"
+            android:inputType="text" />
+
+        <EditText
             android:id="@+id/editTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tagSummary"
             android:inputType="text" />
+
+        <Spinner
+            android:id="@+id/spinnerAssetItemtype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider"/>
 
         <EditText
             android:id="@+id/editLogin"
@@ -85,17 +99,24 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
-        <Spinner
-            android:id="@+id/spinnerAssetItemtype"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider"/>
 
         <EditText
-            android:id="@+id/editSerialNumber"
+            android:id="@+id/editClientID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/serial"
-            android:inputType="text" />
+            android:hint="@string/client_id"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/editClientSecret"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/client_secret"
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

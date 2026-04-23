@@ -38,10 +38,12 @@
     <string name="inventory_server">Inventory server</string>
     <string name="log_text">Server response</string>
     <string name="authentication_credentials">HTTP authentication credentials</string>
-    <string name="login">Login</string>
-    <string name="password">Password</string>
+    <string name="login">Login (Proxy)</string>
+    <string name="password">Password (Proxy)</string>
     <string name="tag">Tag</string>
     <string name="serial">Custom asset serial</string>
+    <string name="client_id">Oauth Client ID</string>
+    <string name="client_secret">Oauth Client Secret</string>
     <string name="tagSummary">Custom asset tag</string>
     <string name="week">Week</string>
     <string name="snackButton">Done</string>
@@ -105,6 +107,8 @@
     <string name="error_user_not_found">The requested user is not found, please check it</string>
     <string name="error_password_not_found">The requested password is not found, please check it</string>
     <string name="error_protocol">Protocol exception, please check your url</string>
+    <string name="error_refresh_token">Oauth exception, can\'t refresh AccessToken (invalid_grant or revoked)</string>
+    <string name="no_refresh_token">Oauth exception, empty / null refresh token</string>
     <string name="error_server_not_response">Server doesn\'t reply, please check your url</string>
     <string name="error_send_fail">Can\'t send the inventory, please check your connection</string>
 
@@ -313,6 +317,8 @@
     <string name="server_tag">Server TAG</string>
     <string name="server_login">Server login</string>
     <string name="server_password">Server password</string>
+    <string name="server_client_id">Oauth Client ID</string>
+    <string name="server_client_secret">Oauth Client Secret</string>
     <string name="server_custom_asset_serial">Custom asset serial</string>
     <string name="server_itemtype">Asset itemtype</string>
 
