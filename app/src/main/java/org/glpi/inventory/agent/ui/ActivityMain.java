@@ -207,16 +207,6 @@ public class ActivityMain extends AppCompatActivity
         checkPermissions();
 
         setContentView(R.layout.activity_main);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-        }
-
-        ActivityCompat.requestPermissions(ActivityMain.this,
-                new String[]{
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.CAMERA,
-                },
-                1);
 
         if (!new LocalStorage(this).getDataBoolean("isFirstTime")) {
             loadCategories();
