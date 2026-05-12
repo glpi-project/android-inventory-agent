@@ -488,7 +488,7 @@ public class ActivityMain extends AppCompatActivity
                     jsonServerConfig.put("serial", serial);
 
                     String name = serverConfig.containsKey("server_custom_asset_name") ? serverConfig.getString("server_custom_asset_name") : "";
-                    jsonServerConfig.put("name", serial);
+                    jsonServerConfig.put("name", name);
 
                     AgentLog.e("EMM - Receive the following configuration '" + jsonServerConfig.toString());
 
