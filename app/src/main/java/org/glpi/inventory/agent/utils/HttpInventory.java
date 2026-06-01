@@ -354,7 +354,7 @@ public class HttpInventory {
                 BufferedReader br = new BufferedReader(new InputStreamReader(es));
                 AgentLog.e("OAuth - token request error body: " + br.readLine());
             }
-            throw new IOException("HTTP " + responseCode + " : " + conn.getResponseMessage());
+            throw new IOException("OAuth - HTTP " + responseCode + " : " + conn.getResponseMessage());
         }
     }
 
@@ -429,7 +429,7 @@ public class HttpInventory {
                 BufferedReader br = new BufferedReader(new InputStreamReader(es));
                 AgentLog.e("OAuth - refresh error body: " + br.readLine());
             }
-            throw new IOException("HTTP " + responseCode + " : Unable to refresh OAuth token");
+            throw new IOException("OAuth - HTTP " + responseCode + " : Unable to refresh OAuth token");
         }
     }
     /**
