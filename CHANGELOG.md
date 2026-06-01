@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+### 🚀 Features
+
+- *(Inventory)* Added option to override asset name
+
 ## [1.7.1] - 2026-04-22
 
 ### 🐛 Bug Fixes

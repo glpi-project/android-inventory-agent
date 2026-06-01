@@ -43,17 +43,20 @@ public class ServerSchema {
     private String pass;
     private String itemtype;
     private String serial;
+    private String name;
 
+    public String getName() { return this.name; }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getSerial() { return this.serial; }
-
     public void setSerial(String serial) {
         this.serial = serial;
     }
-
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
