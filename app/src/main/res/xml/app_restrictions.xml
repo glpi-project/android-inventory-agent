@@ -36,14 +36,23 @@
           android:key="server_tag"
           android:restrictionType="string"
           android:title="@string/server_tag"/>
-      <restriction
-          android:key="server_login"
-          android:restrictionType="string"
-          android:title="@string/server_login"/>
-      <restriction
-          android:key="server_password"
-          android:restrictionType="string"
-          android:title="@string/server_password"/>
+          <restriction
+              android:key="server_login"
+              android:restrictionType="string"
+              android:title="@string/server_login"/>
+          <restriction
+              android:key="server_password"
+              android:restrictionType="string"
+              android:title="@string/server_password"/>
+
+          <restriction
+              android:key="server_client_id"
+              android:restrictionType="string"
+              android:title="@string/server_client_id"/>
+          <restriction
+              android:key="server_client_secret"
+              android:restrictionType="string"
+              android:title="@string/server_client_secret"/>
       <restriction
           android:defaultValue="@string/default_server_itemtype"
           android:description="@string/server_itemtype"

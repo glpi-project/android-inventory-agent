@@ -67,6 +67,8 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("itemtype", modelServer.get(4));
                     jo.put("serial", modelServer.get(5));
                     jo.put("name", modelServer.get(6));
+                    jo.put("client_id", modelServer.get(7));
+                    jo.put("client_secret", modelServer.get(8));
                     ArrayList<String> serverArray = preferences.loadServer();
                     serverArray.add(modelServer.get(0));
                     preferences.saveServer(serverArray);
@@ -98,6 +100,8 @@ public class DetailServerModel implements DetailServer.Model {
                     jo.put("itemtype", modelServer.get(4));
                     jo.put("serial", modelServer.get(5));
                     jo.put("name", modelServer.get(6));
+                    jo.put("client_id", modelServer.get(7));
+                    jo.put("client_secret", modelServer.get(8));
                     ArrayList<String> serverArray = preferences.loadServer();
                     for (int i = 0; i < serverArray.size(); i++) {
                         if (serverArray.get(i).equals(serverName)) {
@@ -133,6 +137,8 @@ public class DetailServerModel implements DetailServer.Model {
             serverSchema.setItemtype(jo.getString("itemtype"));
             serverSchema.setSerial(jo.getString("serial"));
             serverSchema.setName(jo.optString("name", ""));
+            serverSchema.setClientID(jo.optString("client_id", ""));
+            serverSchema.setClientSecret(jo.optString("client_secret", ""));
             presenter.modelServer(serverSchema);
         } catch (JSONException e) {
             AgentLog.e(e.getMessage());
