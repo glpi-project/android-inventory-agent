@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/actionServer"
         android:src="@drawable/ic_qr"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
