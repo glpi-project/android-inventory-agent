@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+## [1.8.1] - 2026-07-15
+
+### 🐛 Bug Fixes
+
+- *(QRCode)* Made the QR Code button floating.
+
 ## [1.8.0] - 2026-06-02
 
 ### 🚀 Features
