@@ -52,8 +52,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+
+import javax.net.ssl.SSLContext;
 
 public class HttpInventory {
 
@@ -92,6 +96,10 @@ public class HttpInventory {
             serverSchema.setItemtype(jo.getString("itemtype"));
             serverSchema.setSerial(jo.getString("serial"));
             serverSchema.setName(jo.optString("name", ""));
+            serverSchema.setClientID(jo.optString("client_id", ""));
+            serverSchema.setClientSecret(jo.optString("client_secret", ""));
+            serverSchema.setOauthToken(jo.optString("oauth_token", ""));
+            serverSchema.setRefreshToken(jo.optString("refresh_token", ""));
         } catch (JSONException e) {
             AgentLog.e(e.getMessage());
         }
@@ -144,8 +152,71 @@ public class HttpInventory {
 
     private void connect(String lastXMLResult, OnTaskCompleted callback){
         try {
+            String clientId = serverSchema.getClientID();
+            String clientSecret = serverSchema.getClientSecret();
+            String tokenUrl = "https://stanislaskita.fr35.glpi-network.cloud/api.php/token"; // TODO: replace with dynamic URL
+            String accessToken = null;
+
+            if (clientId != null && !clientId.isEmpty()) {
+                AgentLog.d("OAuth - client_id present, starting OAuth flow. tokenUrl=" + tokenUrl);
+                String cachedToken = serverSchema.getOauthToken();
+                if (cachedToken != null && !cachedToken.isEmpty()) {
+                    AgentLog.d("OAuth - using cached access token");
+                    accessToken = cachedToken;
+                } else {
+                    AgentLog.d("OAuth - no cached token, requesting new access token");
+                    accessToken = getOAuthToken(clientId, clientSecret, tokenUrl);
+                    serverSchema.setOauthToken(accessToken);
+                    persistTokens(accessToken, serverSchema.getRefreshToken());
+                }
+            } else {
+                AgentLog.d("OAuth - no client_id configured, skipping OAuth");
+            }
+
             DataLoader dl = new DataLoader();
-            HttpResponse response = dl.secureLoadData(appContext, serverSchema, lastXMLResult);
+
+            AgentLog.d("OAuth - sending inventory to " + serverSchema.getAddress() + " (token=" + (accessToken != null ? "present" : "absent") + ")");
+            HttpResponse response = dl.secureLoadData(appContext, serverSchema, lastXMLResult, accessToken);
+            int statusCode = response.getStatusLine().getStatusCode();
+            AgentLog.d("OAuth - server response status: " + statusCode);
+
+            if (statusCode == 401 && clientId != null && !clientId.isEmpty()) {
+                AgentLog.d("OAuth - access token rejected (401), token may be expired or client revoked");
+                String refreshToken = serverSchema.getRefreshToken();
+
+                if (refreshToken != null && !refreshToken.isEmpty()) {
+                    try {
+                        accessToken = refreshAccessToken(refreshToken, tokenUrl);
+                        persistTokens(accessToken, serverSchema.getRefreshToken());
+                        AgentLog.d("OAuth - token refreshed, retrying inventory");
+                        response = dl.secureLoadData(appContext, serverSchema, lastXMLResult, accessToken);
+                        AgentLog.d("OAuth - retry response status: " + response.getStatusLine().getStatusCode());
+                    } catch (Exception e) {
+                        AgentLog.e("OAuth - token refresh failed: " + e.getMessage());
+                        serverSchema.setOauthToken("");
+                        serverSchema.setRefreshToken("");
+                        persistTokens("", "");
+                        callback.onTaskError(appContext.getResources().getString(R.string.error_refresh_token));
+                        return;
+                    }
+                } else {
+                    AgentLog.d("OAuth - no refresh token, attempting full re-authentication");
+                    serverSchema.setOauthToken("");
+                    persistTokens("", "");
+                    try {
+                        accessToken = getOAuthToken(clientId, clientSecret, tokenUrl);
+                        serverSchema.setOauthToken(accessToken);
+                        persistTokens(accessToken, serverSchema.getRefreshToken());
+                        AgentLog.d("OAuth - re-authentication successful, retrying inventory");
+                        response = dl.secureLoadData(appContext, serverSchema, lastXMLResult, accessToken);
+                        AgentLog.d("OAuth - retry response status: " + response.getStatusLine().getStatusCode());
+                    } catch (Exception e) {
+                        AgentLog.e("OAuth - re-authentication failed: " + e.getMessage());
+                        callback.onTaskError(appContext.getResources().getString(R.string.error_oauth_unauthorized));
+                        return;
+                    }
+                }
+            }
 
             StringBuilder sb = new StringBuilder();
             sb.append("HEADERS:\n\n");
@@ -187,12 +258,180 @@ public class HttpInventory {
             AgentLog.log(this, "IO error : " + url.toExternalForm(), Log.ERROR);
             callback.onTaskError(appContext.getResources().getString(R.string.error_server_not_response));
             AgentLog.e(e.getMessage());
+        } catch (JSONException e) {
+            callback.onTaskError("OAuth JSON Parsing Error: " + e.getLocalizedMessage());
+            AgentLog.e(e.getLocalizedMessage());
         } catch (Exception e) {
             callback.onTaskError(appContext.getResources().getString(R.string.error_send_fail));
             AgentLog.e(e.getLocalizedMessage());
         }
     }
 
+
+    private void persistTokens(String accessToken, String refreshToken) {
+        AgentLog.d("OAuth - persisting tokens to preferences (refreshToken=" + (refreshToken != null && !refreshToken.isEmpty() ? "present" : "absent") + ")");
+        LocalPreferences preferences = new LocalPreferences(appContext);
+        try {
+            JSONObject jo = preferences.loadJSONObject(serverSchema.getAddress());
+            jo.put("oauth_token", accessToken != null ? accessToken : "");
+            if (refreshToken != null && !refreshToken.isEmpty()) {
+                jo.put("refresh_token", refreshToken);
+            }
+            preferences.saveJSONObject(serverSchema.getAddress(), jo);
+            AgentLog.d("OAuth - tokens persisted successfully");
+        } catch (JSONException e) {
+            AgentLog.e("OAuth - failed to persist tokens: " + e.getMessage());
+        }
+    }
+
+    private String getOAuthToken(String clientId, String clientSecret, String tokenUrl) throws Exception {
+        AgentLog.d("OAuth - requesting access token from " + tokenUrl);
+        URL url = new URL(tokenUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        if (conn instanceof javax.net.ssl.HttpsURLConnection) {
+            AgentLog.d("OAuth - configuring SSL for token request");
+            SSLContext ctx = SSLContext.getInstance("TLS");
+            ctx.init(null, new javax.net.ssl.TrustManager[]{new CustomX509TrustManager()}, new java.security.SecureRandom());
+
+            javax.net.ssl.HttpsURLConnection sslConn = (javax.net.ssl.HttpsURLConnection) conn;
+            sslConn.setSSLSocketFactory(ctx.getSocketFactory());
+            sslConn.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, javax.net.ssl.SSLSession session) {
+                    return true;
+                }
+            });
+        }
+
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setConnectTimeout(10000);
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Accept", "application/json");
+
+        String basicAuth = "Basic " + android.util.Base64.encodeToString(
+                (clientId + ":" + clientSecret).getBytes("UTF-8"), android.util.Base64.NO_WRAP);
+        conn.setRequestProperty("Authorization", basicAuth);
+
+        String data = "grant_type=client_credentials" +
+                "&client_id=" + java.net.URLEncoder.encode(clientId, "UTF-8") +
+                "&client_secret=" + java.net.URLEncoder.encode(clientSecret, "UTF-8") +
+                "&scope=inventory";
+        AgentLog.d("OAuth - request body: " + data.replaceAll("client_secret=[^&]*", "client_secret=***"));
+
+        java.io.OutputStream os = conn.getOutputStream();
+        os.write(data.getBytes("UTF-8"));
+        os.flush();
+        os.close();
+
+        int responseCode = conn.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            String accessToken = jsonResponse.getString("access_token");
+
+            if (jsonResponse.has("refresh_token")) {
+                AgentLog.d("OAuth - refresh token received and stored");
+                serverSchema.setRefreshToken(jsonResponse.getString("refresh_token"));
+            } else {
+                AgentLog.d("OAuth - no refresh token in response");
+            }
+            AgentLog.d("OAuth - access token obtained successfully");
+            return accessToken;
+
+        } else {
+            InputStream es = conn.getErrorStream();
+            if (es != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(es));
+                AgentLog.e("OAuth - token request error body: " + br.readLine());
+            }
+            throw new IOException("OAuth - HTTP " + responseCode + " : " + conn.getResponseMessage());
+        }
+    }
+
+    private String refreshAccessToken(String refreshToken, String tokenUrl) throws Exception {
+        AgentLog.d("OAuth - requesting token refresh from " + tokenUrl);
+        URL url = new URL(tokenUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        if (conn instanceof javax.net.ssl.HttpsURLConnection) {
+            AgentLog.d("OAuth - configuring SSL for refresh request");
+            SSLContext ctx = SSLContext.getInstance("TLS");
+            ctx.init(null, new javax.net.ssl.TrustManager[]{new CustomX509TrustManager()}, new java.security.SecureRandom());
+
+            javax.net.ssl.HttpsURLConnection sslConn = (javax.net.ssl.HttpsURLConnection) conn;
+            sslConn.setSSLSocketFactory(ctx.getSocketFactory());
+            sslConn.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, javax.net.ssl.SSLSession session) {
+                    return true;
+                }
+            });
+        }
+
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setConnectTimeout(10000);
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Accept", "application/json");
+
+        String basicAuth = "Basic " + android.util.Base64.encodeToString(
+                (serverSchema.getClientID() + ":" + serverSchema.getClientSecret()).getBytes("UTF-8"), android.util.Base64.NO_WRAP);
+        conn.setRequestProperty("Authorization", basicAuth);
+        AgentLog.d("OAuth - Authorization: Basic header set for refresh request");
+
+        String data = "grant_type=refresh_token" +
+                "&refresh_token=" + java.net.URLEncoder.encode(refreshToken, "UTF-8") +
+                "&client_id=" + java.net.URLEncoder.encode(serverSchema.getClientID(), "UTF-8") +
+                "&client_secret=" + java.net.URLEncoder.encode(serverSchema.getClientSecret(), "UTF-8");
+
+        java.io.OutputStream os = conn.getOutputStream();
+        os.write(data.getBytes("UTF-8"));
+        os.flush();
+        os.close();
+
+        int responseCode = conn.getResponseCode();
+        AgentLog.d("OAuth - refresh endpoint response code: " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            String newAccessToken = jsonResponse.getString("access_token");
+
+            serverSchema.setOauthToken(newAccessToken);
+            if (jsonResponse.has("refresh_token")) {
+                AgentLog.d("OAuth - new refresh token received");
+                serverSchema.setRefreshToken(jsonResponse.getString("refresh_token"));
+            }
+
+            AgentLog.d("OAuth - token refresh successful");
+            return newAccessToken;
+
+        } else {
+            InputStream es = conn.getErrorStream();
+            if (es != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(es));
+                AgentLog.e("OAuth - refresh error body: " + br.readLine());
+            }
+            throw new IOException("OAuth - HTTP " + responseCode + " : Unable to refresh OAuth token");
+        }
+    }
     /**
      * This is the interface of return data
      */
