@@ -154,7 +154,7 @@ public class HttpInventory {
         try {
             String clientId = serverSchema.getClientID();
             String clientSecret = serverSchema.getClientSecret();
-            String tokenUrl = "https://stanislaskita.fr35.glpi-network.cloud/api.php/token"; // TODO: replace with dynamic URL
+            String tokenUrl = buildTokenUrl(serverSchema.getAddress());
             String accessToken = null;
 
             if (clientId != null && !clientId.isEmpty()) {
@@ -267,6 +267,25 @@ public class HttpInventory {
         }
     }
 
+    /**
+     * Builds the OAuth token URL from the configured inventory server address.
+     * GLPI 11 exposes its OAuth token endpoint at &lt;base&gt;/api.php/token, where
+     * &lt;base&gt; is the GLPI root (the address may point to /front/inventory.php).
+     */
+    private String buildTokenUrl(String serverAddress) throws MalformedURLException {
+        URL serverUrl = new URL(serverAddress);
+        String path = serverUrl.getPath();
+        // If the address points to the native inventory endpoint, go back to the GLPI root
+        if (path.endsWith("/front/inventory.php")) {
+            path = path.substring(0, path.length() - "/front/inventory.php".length());
+        }
+        if (!path.endsWith("/")) {
+            path += "/";
+        }
+        return serverUrl.getProtocol() + "://" + serverUrl.getHost()
+            + (serverUrl.getPort() != -1 ? ":" + serverUrl.getPort() : "")
+            + path + "api.php/token";
+    }
 
     private void persistTokens(String accessToken, String refreshToken) {
         AgentLog.d("OAuth - persisting tokens to preferences (refreshToken=" + (refreshToken != null && !refreshToken.isEmpty() ? "present" : "absent") + ")");
