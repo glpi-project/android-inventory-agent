@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [UNRELEASED]
 
+### 💼 Other
+
+- *(Build)* Move to SDK 36
+
 ## [1.8.1] - 2026-07-15
 
 ### 🐛 Bug Fixes
