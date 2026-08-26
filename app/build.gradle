@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdk 35
+    compileSdk 36
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "org.glpi.inventory.agent"
         minSdkVersion 21
-        targetSdkVersion 35
+        targetSdkVersion 36
 
         android.buildFeatures.buildConfig = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,7 +22,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
             manifestPlaceholders = [crashlyticsEnabled: true]
         }
         debug {
