@@ -32,7 +32,6 @@
 
             <Button
                 android:id="@+id/deleteServer"
-
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"
@@ -45,66 +44,95 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
-    <LinearLayout
-        android:id="@+id/linear"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="51dp"
-        android:divider="@drawable/empty_tall_divider"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:showDividers="middle">
+        android:layout_above="@+id/actionServer">
 
-        <EditText
-            android:id="@+id/editUrlAddress"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/GlobalServerSummary"
-            android:inputType="textUri" />
+            android:divider="@drawable/empty_tall_divider"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:showDividers="middle">
 
-        <EditText
-            android:id="@+id/editTag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tagSummary"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/editUrlAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/GlobalServerSummary"
+                android:inputType="textUri" />
 
-        <EditText
-            android:id="@+id/editLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login"
-            android:inputType="textUri" />
+            <EditText
+                android:id="@+id/editSerialNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/serial"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/editPassWord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/editTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tagSummary"
+                android:inputType="text" />
 
-        <Spinner
-            android:id="@+id/spinnerAssetItemtype"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/spinnerAssetItemtype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/editSerialNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/serial"
-            android:inputType="text" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"/>
 
-        <EditText
-            android:id="@+id/editName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/editLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login"
+                android:inputType="textUri" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/editPassWord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"/>
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editClientID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/client_id"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/editClientSecret"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/client_secret"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnQRScan"
