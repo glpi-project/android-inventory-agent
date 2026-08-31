@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [UNRELEASED]
+## [1.9.0] - 2026-08-31
+
+### 🚀 Features
+
+- Implement GLPI Oauth Client authentication
 
 ### 💼 Other
 
