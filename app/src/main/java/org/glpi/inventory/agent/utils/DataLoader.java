@@ -88,7 +88,6 @@ public class DataLoader {
         HttpClient client = new DefaultHttpClient();
 
         SSLSocketFactory ssf = new CustomSSLSocketFactory(ctx);
-        ssf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
         ClientConnectionManager ccm = client.getConnectionManager();
         SchemeRegistry sr = ccm.getSchemeRegistry();
         sr.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
