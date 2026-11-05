@@ -1,6 +1,31 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    // AGP and Firebase still pull outdated transitive versions, including in the test platform configurations
+    ext.pinnedGroupVersions = [
+        'io.netty'        : '4.1.137.Final',
+        'org.bouncycastle': '1.85',
+    ]
+    ext.pinnedModuleVersions = [
+        'com.google.protobuf:protobuf-java'  : '3.25.5',
+        'com.google.protobuf:protobuf-kotlin': '3.25.5',
+        'org.bitbucket.b_c:jose4j'           : '0.9.6',
+        'org.jdom:jdom2'                     : '2.0.6.1',
+    ]
+    ext.pinnedVersion = { ModuleVersionSelector requested ->
+        if (requested.group == 'com.google.guava' && requested.name == 'guava') {
+            return requested.version?.endsWith('-android') ? '33.7.2-android' : '33.7.2-jre'
+        }
+        return pinnedModuleVersions["${requested.group}:${requested.name}".toString()] ?: pinnedGroupVersions[requested.group]
+    }
+    ext.pinVersion = { DependencyResolveDetails details ->
+        String version = pinnedVersion(details.requested)
+        if (version != null) {
+            details.useVersion(version)
+        }
+    }
+    configurations.classpath.resolutionStrategy.eachDependency(pinVersion)
+
     repositories {
         google()
         mavenCentral()
@@ -10,12 +35,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.11.1'
         classpath 'com.google.gms:google-services:4.3.14'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.2'
-
-        // Override versions pulled transitively by AGP, which still ships outdated ones
-        classpath platform('io.netty:netty-bom:4.1.137.Final')
-        classpath 'org.bouncycastle:bcprov-jdk18on:1.85'
-        classpath 'org.bouncycastle:bcpkix-jdk18on:1.85'
-        classpath 'org.bouncycastle:bcutil-jdk18on:1.85'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -27,6 +46,9 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
+    }
+    configurations.configureEach { Configuration configuration ->
+        configuration.resolutionStrategy.eachDependency(rootProject.pinVersion)
     }
 }
 
