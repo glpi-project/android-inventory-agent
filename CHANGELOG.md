@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### 🐛 Bug Fixes
+
+- *(Core)* Remove usage of X509TrustManager
+
 ## [1.9.0] - 2026-08-31
 
 ### 🚀 Features

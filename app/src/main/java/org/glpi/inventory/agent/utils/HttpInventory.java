@@ -336,12 +336,6 @@ public class HttpInventory {
 
             javax.net.ssl.HttpsURLConnection sslConn = (javax.net.ssl.HttpsURLConnection) conn;
             sslConn.setSSLSocketFactory(ctx.getSocketFactory());
-            sslConn.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, javax.net.ssl.SSLSession session) {
-                    return true;
-                }
-            });
         }
 
         conn.setRequestMethod("POST");
@@ -410,12 +404,6 @@ public class HttpInventory {
 
             javax.net.ssl.HttpsURLConnection sslConn = (javax.net.ssl.HttpsURLConnection) conn;
             sslConn.setSSLSocketFactory(ctx.getSocketFactory());
-            sslConn.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, javax.net.ssl.SSLSession session) {
-                    return true;
-                }
-            });
         }
 
         conn.setRequestMethod("POST");
