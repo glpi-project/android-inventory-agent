@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.9.1] - 2026-11-05
 
 ### 🐛 Bug Fixes
 
 - *(Core)* Remove usage of X509TrustManager
+
+### 💼 Other
+
+- *(CI)* Update deprecated GitHub Actions
+- *(Build)* Pin commons-compress to 1.28.0
+- *(Build)* Upgrade outdated transitive build dependencies
+- *(Transifex)* Map pt_PT translations to a valid Android folder
+- *(Build)* Pin JDK 17 in deploy workflows
 
 ## [1.9.0] - 2026-08-31
 
