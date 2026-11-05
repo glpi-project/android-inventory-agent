@@ -10,11 +10,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: set up JDK 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v6
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -45,7 +45,7 @@ jobs:
     # Sign Android APK    #
     #######################
     - name: Sign app APK
-      uses: r0adkll/sign-android-release@v1
+      uses: r0adkll/sign-android-release@d5f8436b702872ad5cdb1e6e4d5c8b983d25a997 # master, no release tag ships the Node 24 runtime
       # ID used to access action output
       id: sign_app
       with:
@@ -67,13 +67,13 @@ jobs:
     # Login to Google using Firebase Admin SDK Service Agent Key
     - id: 'auth'
       name: Login to Google Cloud
-      uses: 'google-github-actions/auth@v2'
+      uses: 'google-github-actions/auth@v3'
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
     # Set up Cloud SDK
     - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
+      uses: 'google-github-actions/setup-gcloud@v3'
 
     # Set Firebase Project ID
     - name: Set current project
@@ -109,7 +109,7 @@ jobs:
     # Upload APK
     - name: Upload APK
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Bundle-APK
         path: |

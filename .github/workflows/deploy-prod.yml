@@ -10,15 +10,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with:
         ref: main
         fetch-depth: 0 #To Fetch All Tags and Branches
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v6
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -53,10 +53,10 @@ jobs:
 
 
     - name: Update main branch
-      uses: EndBug/add-and-commit@v9
+      uses: EndBug/add-and-commit@v11
       with:
         default_author: github_actions
-        add: "['CHANGELOG.md', 'package.json']" #only this files will be added
+        add: '["CHANGELOG.md", "package.json"]' #only this files will be added
         push: origin HEAD:main
         message: "ci(release): release new version ${{ env.tag_name }}"
 
@@ -105,7 +105,7 @@ jobs:
         echo Last build tool version is: $BUILD_TOOL_VERSION
 
     - name: Sign app APK
-      uses: r0adkll/sign-android-release@v1
+      uses: r0adkll/sign-android-release@d5f8436b702872ad5cdb1e6e4d5c8b983d25a997 # master, no release tag ships the Node 24 runtime
       # ID used to access action output
       id: sign_app
       with:
@@ -124,7 +124,7 @@ jobs:
         serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_CONSOLE }}
         packageName: org.glpi.inventory.agent
         releaseFiles: app/build/outputs/apk/release/app-release-unsigned-signed.apk
-        track: production
+        tracks: production
 
     #####################
     # Prepare release   #
@@ -133,7 +133,7 @@ jobs:
       run: mv app/build/outputs/apk/release/app-release-unsigned-signed.apk app/build/outputs/apk/release/android-inventory-agent-v${{ env.tag_name }}.apk
 
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v3
       if: startsWith(github.ref, 'refs/tags/')
       with:
         name : Android Inventory Agent v${{ env.tag_name }}
