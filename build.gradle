@@ -9,6 +9,7 @@ buildscript {
     ext.pinnedModuleVersions = [
         'com.google.protobuf:protobuf-java'  : '3.25.5',
         'com.google.protobuf:protobuf-kotlin': '3.25.5',
+        'org.apache.commons:commons-compress': '1.28.0',
         'org.bitbucket.b_c:jose4j'           : '0.9.6',
         'org.jdom:jdom2'                     : '2.0.6.1',
     ]
