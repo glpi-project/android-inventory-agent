@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 - *(Core)* Remove usage of X509TrustManager
 - *(Notification)* Fix crash and missing notification after a scheduled inventory on Android 8+
+- *(Inventory)* Run scheduled inventory at the configured frequency instead of retrying every few seconds
 
 ### 💼 Other
 

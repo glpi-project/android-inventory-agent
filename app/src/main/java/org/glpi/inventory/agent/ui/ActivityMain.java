@@ -572,9 +572,8 @@ public class ActivityMain extends AppCompatActivity
     private boolean isAlreadyScheduled(JobScheduler jobScheduler, JobInfo jobInfo) {
         boolean jobAlreadyScheduled = false;
         for (JobInfo existingJob: jobScheduler.getAllPendingJobs()) {
-            // check if scheduler exist with same ID and same minimum latency
             if (existingJob.getId() == jobInfo.getId()
-                    && existingJob.getMinLatencyMillis() == jobInfo.getMinLatencyMillis()) {
+                    && existingJob.getIntervalMillis() == jobInfo.getIntervalMillis()) {
                 jobAlreadyScheduled = true;
                 break;
             }
@@ -598,13 +597,8 @@ public class ActivityMain extends AppCompatActivity
 
         JobInfo.Builder builder = new JobInfo.Builder(id, name)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setPersisted(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            builder.setMinimumLatency(interval);
-        } else {
-            builder.setPeriodic(interval);
-        }
+                .setPersisted(true)
+                .setPeriodic(interval);
 
         return builder.build();
     }
