@@ -2,11 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+
 ## [1.9.1] - 2026-11-05
 
 ### 🐛 Bug Fixes
 
 - *(Core)* Remove usage of X509TrustManager
+- *(Notification)* Fix crash and missing notification after a scheduled inventory on Android 8+
 
 ### 💼 Other
 
