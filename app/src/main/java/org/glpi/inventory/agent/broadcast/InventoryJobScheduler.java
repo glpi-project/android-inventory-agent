@@ -84,7 +84,7 @@ public class InventoryJobScheduler extends JobService {
             public void run() {
                 AgentLog.d("GLPI-AGENT-JOBSCHEDULER : Run task" + Calendar.getInstance().getTime());
                 doInventory();
-                jobFinished(params, true);
+                jobFinished(params, false);
             }
         });
 
