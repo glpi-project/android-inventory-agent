@@ -150,11 +150,11 @@ public class Helpers {
     public static void sendToNotificationBar(Context context, String message) {
         Intent resultIntent = new Intent(context, ActivityMain.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent piResult = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(context.getResources().getString(R.string.app_name))
                 .setContentText(message)
@@ -177,6 +177,7 @@ public class Helpers {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("default", "Inventory Agent", importance);
             channel.setDescription("Inventory Agent");
+            notificationManager.createNotificationChannel(channel);
         }
         notificationManager.notify(121, builder.build());
     }
