@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [Unreleased]
+
+### 🐛 Bug Fixes
+
+- *(Core)* Trust certificate authorities installed on the device (MDM or user) for HTTPS connections
+
 ## [1.9.1] - 2026-11-05
 
 ### 🐛 Bug Fixes
